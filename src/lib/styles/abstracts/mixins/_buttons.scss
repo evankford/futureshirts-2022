@@ -1,0 +1,25 @@
+
+@mixin resetButton() {
+  appearance:  none;
+  border:0px solid transparent;
+  box-shadow: none;
+  background: transparent;
+  text-decoration: none;
+  padding: 0;
+
+}
+
+@mixin buttonStyles($includeBackground: true) {
+  font-family: var(--font-button-family);
+  font-size: var(--font-button-size);
+  font-weight: var(--font-button-weight);
+  // text-transform: uppercase;
+  letter-spacing: var(--font-button-letter-spacing);
+  padding: 0.3em 0.7em;
+
+
+  @if $includeBackground {
+    background: rgb(var(--color-accent));
+    color: rgb(var(--color-accent-inverse));
+  }
+}

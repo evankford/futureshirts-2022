@@ -8,6 +8,12 @@
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
-		"strict": true
-	}
+		"strict": true,
+	},
+	"include" : [
+		"./src"
+	],
+	"exclude": [
+		"./studio"
+	]
 }

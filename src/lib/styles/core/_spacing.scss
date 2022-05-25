@@ -1,0 +1,23 @@
+@use "../abstracts/" as *;
+
+.site-width {
+  max-width: var(--document-width);
+  padding-left: var(--site-spacing);
+  padding-right: var(--site-spacing);
+  margin-left: auto;
+  margin-right: auto;
+  @include media-query($small) {
+    padding-left: var(--site-spacing);
+    padding-right: var(--site-spacing);
+  }
+}
+@include media-query($large-up) {
+
+  .site-width--desktop {
+    max-width: var(--document-width);
+    padding-left: var(--site-spacing);
+    padding-right: var(--site-spacing);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

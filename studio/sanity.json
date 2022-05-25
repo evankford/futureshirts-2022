@@ -11,7 +11,9 @@
     "@sanity/base",
     "@sanity/default-layout",
     "@sanity/default-login",
-    "@sanity/desk-tool"
+    "@sanity/desk-tool",
+    "@sanity/code-input",
+    "@sanity/orderable-document-list"
   ],
   "env": {
     "development": {
@@ -28,6 +30,10 @@
     {
       "implements": "part:@sanity/base/root",
       "path": "plugins/sanity-plugin-tutorial/CustomDefaultLayout"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./schemas/deskStructure.js"
     }
   ]
 }

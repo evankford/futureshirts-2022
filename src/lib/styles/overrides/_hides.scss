@@ -1,0 +1,39 @@
+@use "../abstracts/" as *;
+
+.hide--mobile, .hide-small {
+  @include media-query($small) {
+    display: none !important;
+  }
+}
+.hide--medium-down {
+  @include media-query($medium-down) {
+    display: none !important;
+  }
+}
+.hide--medium-up, .hide--desktop {
+  @include media-query($medium-up) {
+    display: none !important;
+  }
+}
+.hide--tiny {
+  @include media-query($tiny) {
+    display: none !important;
+  }
+}
+
+.hide--large {
+  @include media-query($large) {
+    display: none !important;
+  }
+}
+.hide--large-up {
+  @include media-query($large-up) {
+    display: none !important;
+  }
+}
+
+.hide--widescreen {
+  @include media-query($widescreen) {
+    display: none !important;
+  }
+}

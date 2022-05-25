@@ -1,0 +1,132 @@
+@use "../abstracts/" as *;
+
+
+:root {
+  --header-ht: 80px;
+  --border-radius-small: calc(var(--border-radius) * 0.5);
+  --border-radius: 13px;
+  --color-accent-inverse: 255,255,255;
+  --color-accent: 93,90,237;
+  --color-accent-darker:46,45,112;
+  --color-background: 255,255,255;
+  --color-exclusion: 255,255,255;
+  --color-foreground: 0,0,0;
+  --color-label-alpha: 0.5;
+  --space-around: 20px;
+  --document-width: 1300px;
+  --text-width: 800px;
+  --content-width: 1100px;
+  --font-body-family-base: "helvetica";
+  --font-body-family: "helvetica";
+  --font-body-letter-spacing: 0.04em;
+  --font-body-line-height: 1.7;
+  --font-body-size: 17px;
+  --font-body-weight: 400;
+  --font-mono-family: "courier";
+  --font-mono-letter-spacing: 0.04em;
+  --font-mono-line-height: 1.7;
+  --font-mono-size: 16px;
+  --font-mono-weight: 400;
+  --font-button-family: "helvetica";
+  --font-button-letter-spacing: -0.05em;
+  --font-button-size: 14px;
+  --font-button-weight: 700;
+  --font-extra-base: "helvetica";
+  --font-extra-family: "helvetica";
+  --font-extra-line-height: 0.7;
+  --font-extra-spacing: -0.01em;
+  --font-extra-weight: 700;
+  --font-fallback: arial, sans-serif;
+  --font-heading-base: "helvetica";
+  --font-heading-family: "helvetica";
+  --font-heading-line-height: 1.38;
+  --font-heading-ratio: 1.17;
+  --font-heading-spacing: 0.035em;
+  --font-heading-weight: 700;
+  --font-label-letter-spacing: 0.21em;
+  --font-label-weight: 500;
+  --font-nav-size-base: 25px;
+  --font-nav-size: 30px;
+  --site-spacing: 30px;
+  --site-spacing-small: 15px;
+  --site-text-width: 750px;
+  --vertical-rhythm: 0.3em;
+
+  --font-size-mega: clamp(62px, calc(36px + 4vw), 100px);
+  --font-size-mega-small: clamp(50px, calc(36px + 4vw), 90px);
+
+  // --font-body-family-base: "Owners Wide";
+  // --font-body-family: "Owners Wide";
+  // --font-button-family: "Owners XWide";
+  // --font-extra-base: "Owners XXWide";
+  // --font-extra-family: "Owners XXWide";
+  // --font-heading-base: "Owners Wide";
+  // --font-heading-family: "Owners Wide";
+
+  @include media-query($tiny) {
+    --font-size-mega: clamp(50px, calc(30px + 2.5vw),80px);
+    --font-body-line-height: 1.5;
+    --font-button-size: 12px;
+    --font-button-letter-spacing: 0px;
+      --site-spacing-small: 10px;
+
+
+  }
+
+  @include media-query($small) {
+    --site-spacing: 18px;
+    --space-around: 12px;
+    --font-heading-ratio: 1;
+    // --font-heading-line-height: 1.4;
+    --font-body-size: 17px;
+    --border-radius: 8px;
+    --font-nav-size: 28px;
+    --site-spacing-small: 10px;
+  }
+  @include media-query($large-up) {
+    --font-heading-ratio: 1.28;
+    --text-width:880px;
+  }
+  @include media-query($widescreen) {
+    --site-spacing:40px;
+    --font-nav-size: 35px;
+    --document-width: clamp(70vw, calc((100vw - 1300px) * 0.1 + 1300px), 90vw)
+  }
+   @include media-query($tiny) {
+    --site-spacing: 15px;
+    --site-spacing-small: 9px;
+  }
+}
+html {
+  //  margin-left: calc(100vw - 100%); //fixes scrollbar jump
+}
+body {
+  // padding-top: var(--site-spacing);
+  font-family: var(--font-body-family);
+  font-size: var(--font-body-size);
+  font-weight: var(--font-body-weight);
+  letter-spacing: var(--font-body-letter-spacing);
+
+  -webkit-font-smoothing: antialiased;
+  background: rgb(var(--color-background));
+}
+
+main#MainContent {
+  // padding-top: var(--header-height);
+  // position: relative;
+  background: rgb(var(--color-background));
+  // z-index: 1;
+}
+
+video-background {
+  position: absolute; top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; background: black;
+
+  --vbg-overlay-opacity: 0;
+  picture, image {
+    @include psuedo;
+  }
+}
+
