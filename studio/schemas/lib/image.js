@@ -1,8 +1,8 @@
 //Only used in arrays
 
 export default {
-  type: 'object',
-  name: 'picture',
+  type: 'image',
+  name: 'image',
   title: 'Image',
   fields: [
     {
@@ -25,7 +25,7 @@ export default {
       type: 'string',
       description: 'Photo Attribution'
     }
-  ],
+  ],xF
   options: {
     hotspot: true
   },

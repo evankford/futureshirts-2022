@@ -2,7 +2,6 @@ export default {
   name: 'socialMedia',
   title: 'Social Media',
   type: 'document',
-  // __experimental_actions: [/*'create',*/ 'update', /*'delete',*/ 'publish'],
 
   fields: [
     {
@@ -14,7 +13,7 @@ export default {
     {
       name: 'image',
       title: 'Site Image',
-      type: 'picture',
+      type: 'image',
       description: 'Default SEO-embed image for sitewide. Also the default for each page.'
     }
   ]

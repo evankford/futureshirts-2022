@@ -10,7 +10,6 @@ export default {
     errorTitle: 'Something went wrong...',
     errorMessage: "We couldn't send your message. Please reload this page and try again."
   },
-  __experimental_actions: [/*'create',*/ 'update', /*'delete',*/ 'publish'],
   fields: [
     {
       name: 'email',

@@ -23,7 +23,7 @@ export default [
   {
     name: 'seoImage',
     title: 'SEO Image',
-    type: 'picture',
+    type: 'image',
     group: 'seo',
     defaultValue: ({parent, value}) => parent?.image
   },

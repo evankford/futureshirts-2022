@@ -1,3 +1,4 @@
+import Image from "../lib/image";
 import seoSettings, {seoGroup} from '../lib/seoSettings'
 
 export default {
@@ -33,12 +34,7 @@ export default {
       type: 'string',
       group: ['main']
     },
-    {
-      name: 'image',
-      title: 'image',
-      type: 'picture',
-      group: ['main']
-    },
+    Image,
     {
       name: 'publishDate',
       title: 'Publish date',
@@ -58,7 +54,7 @@ export default {
       type: 'array',
       group: ['main'],
       of: [
-        {type: 'picture'},
+        Image,
         {type: 'block'},
         {type: 'video'},
         {type: 'button'},

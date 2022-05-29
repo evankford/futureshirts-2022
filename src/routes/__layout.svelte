@@ -1,3 +1,31 @@
+<script context="module">
+  /** @type {import('./__types/__layout').Load} */
+  export async function load({ fetch }) {
+    const url = '/site.json';
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      return {
+        status: res.status,
+        props: {
+          codes: data.codes,
+        },
+        stuff: {
+          seo: data.seo,
+          contact: data.contact,
+          footer: data.news,
+          header: data.header
+        }}
+    } catch(e) {
+      return {
+        status: 500
+      }
+    }``
+
+  }
+</script>
+
 <script lang="ts">
   // import "$lib/styles/ress";
   // import "$lib/styles/app";

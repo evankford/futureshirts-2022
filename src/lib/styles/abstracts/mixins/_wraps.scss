@@ -1,0 +1,12 @@
+@use "../variables/breakpoints";
+@use "./media-queries" as m;
+
+@mixin content-wrap() {
+  max-width: var(--document-width);
+  margin-left: auto;
+  margin-right: auto;
+  @include m.media-query(m.$medium-up) {
+    padding: 0 5rem;
+  }
+  padding: 0 3rem;
+}

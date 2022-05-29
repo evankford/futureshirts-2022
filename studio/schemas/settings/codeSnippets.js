@@ -2,7 +2,6 @@ export default {
 	name: 'codes',
 	title: 'Header/Footer Code',
 	type: 'document',
-	__experimental_actions: [/*'create',*/ 'update', /*'delete',*/ 'publish'],
 
 	fields: [
 		{

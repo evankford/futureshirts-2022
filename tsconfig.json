@@ -10,9 +10,6 @@
 		"sourceMap": true,
 		"strict": true,
 	},
-	"include" : [
-		"./src"
-	],
 	"exclude": [
 		"./studio"
 	]

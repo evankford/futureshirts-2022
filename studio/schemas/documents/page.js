@@ -1,4 +1,5 @@
 
+import Image from '../lib/image';
 import seoSettings, {seoGroup} from "../lib/seoSettings";
 
 export default {
@@ -29,15 +30,7 @@ seoGroup,],
       type: 'string',
       group: ['header']
     },
-    {
-      name: 'image',
-      title: 'Image',
-      type: 'picture',
-      group: ['header'],
-      options: {
-        hotspot: true,
-      }
-    },
+    Image,
     {
       name: 'content',
       title: 'Content',

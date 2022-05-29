@@ -6,5 +6,10 @@ declare namespace App {
 	// interface Locals {}
 	// interface Platform {}
 	// interface Session {}
-	// interface Stuff {}
+	interface Stuff {
+		seo: SiteSEO,
+		contact: ContactSettings
+		header: HeaderSettings,
+		footer: FooterSettings,
+	}
 }

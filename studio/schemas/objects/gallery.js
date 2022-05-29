@@ -1,4 +1,6 @@
 //Only used in arrays
+import Image from '../lib/image';
+
 
 export default {
 	type: 'object',
@@ -9,7 +11,7 @@ export default {
 			name: 'images',
 			title: 'Images',
 			type: 'array',
-			of: [{ type: 'picture' }, { type: 'video'}],
+			of: [Image, { type: 'video'}],
 			options: {
 				isHighlighted: true
 			}

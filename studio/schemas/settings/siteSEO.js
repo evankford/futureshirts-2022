@@ -2,7 +2,6 @@
   name: 'siteSEO',
   title: 'Site settings',
   type: 'document',
-  __experimental_actions: [/*'create',*/ 'update', /*'delete',*/ 'publish'],
   fields: [
     {
       name: 'title',
@@ -24,7 +23,7 @@
     {
       name: 'favicon',
       title: 'Favicon',
-      type: 'picture',
+      type: 'image',
     },
   ]
 }

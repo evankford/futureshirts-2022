@@ -4,8 +4,8 @@ import category from "./objects/category"
 import menuItem from "./objects/menuItem";
 import button from "./objects/button";
 import video from "./objects/video";
-import image from "./objects/image";
+
 import gallery from "./objects/gallery";
 
-export { codeSnippet, socialLink, menuItem, category, button, video, gallery, image }
-export default [codeSnippet, socialLink, menuItem, category, button, video, gallery, image ]
+export { codeSnippet, socialLink, menuItem, category, button, video, gallery }
+export default [codeSnippet, socialLink, menuItem, category, button, video, gallery ]

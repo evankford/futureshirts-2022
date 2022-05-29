@@ -1,25 +1,19 @@
 <script lang="ts">
 </script>
 
-<header >
+<footer class="site-footer">
+
+  <div class="footer-content">
+
+  </div>
   This is the footer
-</header>
+</footer>
 
 <style lang="scss">
-  header {
-    //Top index
-    z-index: 101;
+  @use "../styles/abstracts/mixins/wraps" as wrap;
 
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    padding: 0.5rem;
-
-  }
-  .header-content {
-    padding-left: clamp(100px, 30%, 170px);
-    max-width: var(--document-width);
+  .footer-content {
+    @include wrap.content-wrap;
     display: flex;
     align-items: center;
     justify-content: space-between;

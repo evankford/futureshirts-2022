@@ -44,7 +44,7 @@ export default {
     {
       name: 'fallbackImage',
       title: 'Fallback Image',
-      type: 'picture',
+      type: 'image',
       options: {
         hotspot: true,
         accept: 'image/jpeg'
