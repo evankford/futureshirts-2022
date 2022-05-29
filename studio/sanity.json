@@ -1,11 +1,11 @@
 {
   "root": true,
+  "api": {
+    "projectId": "13ahf4jn",
+    "dataset": "production"
+  },
   "project": {
     "name": "olive-lion"
-  },
-  "api": {
-    "projectId": "xi2no98s",
-    "dataset": "production"
   },
   "plugins": [
     "@sanity/base",

@@ -25,7 +25,7 @@ export default {
       type: 'string',
       description: 'Photo Attribution'
     }
-  ],xF
+  ],
   options: {
     hotspot: true
   },
