@@ -1,0 +1,16 @@
+@use "../abstracts/" as *;
+.rotate {
+  transition: transform 25ms linear;
+}
+
+.onScreen .rotate , .onScreen.rotate{
+  @include rotateStandard();
+}
+.onScreen .rotateAfter::after {
+  @include rotateStandard();
+
+}
+.onScreen .rotateBefore::after {
+  @include rotateStandard();
+
+}

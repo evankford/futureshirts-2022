@@ -1,0 +1,6 @@
+@mixin rotateStandard() {
+  transform: translate3d(0,0, var(--depth, 50px)) rotateY(calc(var(--rotateX) * var(--rotateXMod, 1.5deg))) rotateX(calc(var(--rotateY) * var(--rotateYMod, 1.5deg)));
+  transform-origin:50% 50% -500px;
+  // transition: transform 125ms ease;
+  transform-style: preserve-3d;
+}

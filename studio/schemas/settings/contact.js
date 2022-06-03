@@ -3,7 +3,7 @@ export default {
   title: 'Contact Settings',
   type: 'document',
   initialValue: {
-    email: 'info@grosslabs.com',
+    email: 'info@futureshirts.co',
     title: 'Get In Touch',
     successTitle: "We've got your message",
     successMessage: "We've got your message! We'll get to it as soon as we can!",
@@ -30,18 +30,6 @@ export default {
         })
     },
     {
-      name: 'title',
-      title: 'Form Title',
-      type: 'string',
-      validation: (R) => R.required()
-    },
-    {
-      name: 'blurb',
-      title: 'Form Blurb',
-      type: 'text',
-      validation: (R) => R.required()
-    },
-    {
       name: 'successTitle',
       title: 'Success Title',
       type: 'string',
@@ -55,13 +43,13 @@ export default {
     },
     {
       name: 'errorTitle',
-      title: 'error Title',
+      title: 'Error Title',
       type: 'string',
       validation: (R) => R.required()
     },
     {
       name: 'errorMessage',
-      title: 'error Message',
+      title: 'Error Message',
       type: 'text',
       validation: (R) => R.required()
     }

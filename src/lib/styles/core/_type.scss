@@ -1,9 +1,5 @@
 @use "../abstracts/" as *;
-p,ol,ul,h3,h4,h5,h6 {
-  max-width: var(--site-text-width, 750px);
-  margin-left: auto;
-  margin-right: auto;
-}
+
 h1,h2,h3,h4,h5,h6 ,.h1,.h2,.h3,.h4,.h5,.h6 {
   font-size:calc(var(--font-body-size)* var(--modifier) * var(--font-heading-ratio));
   margin-top: calc(2.5 * var(--vertical-rhythm));
@@ -25,9 +21,9 @@ h1,h2,h3,h4,h5,h6 ,.h1,.h2,.h3,.h4,.h5,.h6 {
   font-family: var(--font-heading-family);
 }
 h1, .h1 {
-  --modifier: 1.8;
+  --modifier: 2;
   @include media-query($medium-up) {
-    --modifier: 2;
+    --modifier: 2.4;
 
   }
   font-weight: 500;
@@ -68,7 +64,7 @@ h2, .h2 {
   @include extra();
   &.mega {
     --modifier: 2.3;
-       word-break: break-word;
+    word-break: break-word;
     text-align: inherit;
     font-size: var(--font-size-mega-small);
     text-transform: lowercase;
@@ -84,10 +80,10 @@ h2, .h2 {
 
 
 .h3, h3 {
---modifier: 1.2;
+--modifier: 1.3;
 @include media-query($small) {
   //bring it up on small screens;
-  --modifier: 1.3;
+  --modifier: 1.4;
 }
 @include media-query($tiny) {
   //bring it up on small screens;
@@ -112,17 +108,22 @@ p, ul {
   // max-width: 45em;
   margin-left: auto;
   margin-right: auto;
+
+  &.large {
+    font-size: var(--font-body-large-size)
+  }
 }
 
 
-a svg, button svg {
-  width: 1.1em;
-  height: auto;
-  display: inline-block;
-  margin: 0 -0.3em 0 0.5em;
-}
+
+// a svg, button svg {
+//   width: 1.1em;
+//   height: auto;
+//   display: inline-block;
+//   margin: 0 -0.3em 0 0.5em;
+// }
 
 
 b, strong {
-  font-weight: 500;
+  font-weight: 600;
 }

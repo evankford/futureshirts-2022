@@ -28,6 +28,8 @@
 		"sass": "^1.52.1",
 		"svelte": "^3.48.0",
 		"svelte-check": "^2.7.1",
+		"svelte-fa": "^2.4.0",
+		"svelte-meta-tags": "^2.6.1",
 		"svelte-preprocess": "^4.10.6",
 		"tslib": "^2.4.0",
 		"typescript": "~4.6.4"
@@ -36,6 +38,11 @@
 	"dependencies": {
 		"@evankford/video-background": "^0.9.0",
 		"@fortawesome/fontawesome-pro": "^6.1.1",
-		"@fortawesome/pro-regular-svg-icons": "^6.1.1"
+		"@fortawesome/free-brands-svg-icons": "^6.1.1",
+		"@fortawesome/pro-regular-svg-icons": "^6.1.1",
+		"@fortawesome/pro-solid-svg-icons": "^6.1.1",
+		"@portabletext/svelte": "^1.0.1",
+		"countup.js": "^2.2.0",
+		"detect-it": "^4.0.1"
 	}
 }

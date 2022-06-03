@@ -1,5 +1,7 @@
-/// <reference path="../node_modules/@sanity/image-url/lib/types/index.d.ts" />
 /// <reference path="../node_modules/@sanity/image-url/lib/types/types.d.ts" />
+/// <reference types="@sanity/image-url" />
+
+
 
 interface LinkURL {
   type: 'internal' | 'external' | 'anchor' | 'submenu',
@@ -20,9 +22,13 @@ interface CodeSnippetSettings {
   footerCode?: CodeSnippet[]
 }
 
+interface ContactLink {
+  title: string,
+  slug: string
+}
+
 interface HeaderSettings {
-  staticLogo?:SanityImageObject,
-  staticLogoOverlay?:SanityImageObject,
+  contactLink: ContactLink
   menuItems: MenuItemShape[]
 }
 
@@ -34,9 +40,16 @@ interface SiteSEO {
   title: string,
   description: string,
   nofollow: boolean,
-  favicon: SanityImageObject
+  favicon: SanityImageObject,
+  image: SanityImageObject
 }
 
+interface PageSEO {
+  title?:string,
+  description?:string,
+  nofollow?: boolean
+  image?: SanityImageObject
+}
 type SocialLinkType ='facebook'| 'instagram' |'twitter' | 'youtube' |'tiktok'| 'spotify' | 'apple' | 'twitch'
 
 interface SocialLink {
@@ -61,11 +74,13 @@ interface ContactSettings {
 }
 
 interface SiteSettings {
-  seo: SiteSEO,
-  header: HeaderSettings,
-  footer: FooterSettings,
-  contact: ContactSettings,
-  codes: CodeSnippetSettings
+  seo: SiteSEO | null,
+  header: HeaderSettings | null,
+  footer: FooterSettings | null,
+  contact: ContactSettings | null,
+  codes: CodeSnippetSettings | null,
+  socials: SocialMediaSettings | null,
+  jobs: JobSettings | null
 }
 
 
@@ -79,4 +94,66 @@ interface CodeSnippet {
   code: CodeShape,
   title: string,
   active: boolean
+}
+
+interface LocalVideo extends SanityAsset {
+
+  image: SanityImageObject,
+  smallVersion: SanityAsset //?
+ }
+
+interface VideoObject {
+  type: 'youtube' | 'vimeo' | 'local',
+  title: string | null,
+  background: boolean,
+  url: string | null,
+  local: string | null,
+  localSmall: string | null,
+  localImage: SanityImageObject | null,
+  fallbackImage: SanityImageObject | null,
+  _type: 'video'
+}
+
+
+
+ interface Opening {
+    title: string,
+    description: string,
+    name: string
+  }
+  interface JobSettings {
+    email: string
+    title: string
+    blurb: string
+    successTitle: string
+    successMessage: string
+    errorTitle: string
+    errorMessage: string
+    haveOpeningsTitle: string
+    haveOpenings: string
+    noCurrentOpeningsTitle: string
+    noCurrentOpenings: string
+    openings: Opening[]
+  }
+
+interface SlugShape {
+  _type: 'slug',
+  current: string
+}
+
+  interface SEOSettingsBase {
+  seoTitle?: string,
+  slug: string,
+  seoImage?:SanityImageObject,
+  seoDescription: string,
+}
+
+
+  interface DocBase extends SEOSettingsBase {
+  _type: 'company'|'news'|'page',
+  _createdAt: string,
+  _id: string,
+  title: string,
+  subtitle?: string
+  image?:SanityImageObject
 }

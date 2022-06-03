@@ -2,11 +2,14 @@
 @use "./media-queries" as m;
 
 @mixin content-wrap() {
-  max-width: var(--document-width);
+  max-width: max(var(--document-width), 80vw);
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
   @include m.media-query(m.$medium-up) {
-    padding: 0 5rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
-  padding: 0 3rem;
+  padding-left:  3rem;
+  padding-right:  3rem;
 }

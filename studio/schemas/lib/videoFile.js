@@ -1,16 +1,9 @@
-import Image from '../lib/image';
 
 export default {
 	type: 'file',
-	name: 'localVideo',
+	name: 'video',
 	title: 'Local Video',
 	fields: [
-    Object.assign(Image,
-    {
-      description: 'Fallback image for mobile/while loading video file',
-      required: true,
-    }),
-
 		{
 			type: 'file',
 			name: 'smallVersion',
@@ -18,6 +11,15 @@ export default {
 			description: 'Shows on screens less than 750px wide.',
 			options: {
 				accept: 'video/mp4'
+			}
+		},
+		{
+			type: 'image',
+			name: 'image',
+			title: 'Image',
+			description: 'Fallback/Loading image',
+			options: {
+				hotspot: true
 			}
 		}
 	],

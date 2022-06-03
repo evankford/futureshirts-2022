@@ -10,7 +10,7 @@ export default {
       initialValue: true
     },
     {
-      type: "text",
+      type: "string",
       name: "title",
       title: "Code Snippet Title",
       initialValue: "Code Snippet"

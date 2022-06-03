@@ -8,7 +8,12 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		vite: {
+			ssr: {
+				noExternal: ['@fortawesome/free-brands-svg-icons', '@fortawesome/pro-regular-svg-icons', '@fortawesome/pro-solid-svg-icons']
+			}
+		}
 	}
 };
 

@@ -55,6 +55,5 @@ export default {
       type: 'boolean',
       hidden: ({parent, value}) => !value && parent.type !== 'external',
     },
-
   ]
 }

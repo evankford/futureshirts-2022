@@ -7,34 +7,34 @@ export default {
   title: 'Pages',
   type: 'document',
   groups: [
-    {
-    name: 'header',
-    title: 'Header'
+  {
+    name: 'main',
+    title: 'Main',
+    default: true
   },
-    {
-    name: 'content',
-    title: 'Content'
-  },
-seoGroup,],
+
+seoGroup,
+],
   fields: [
     {
       name: 'title',
       title: 'Title',
       type: 'string',
-      group: ['header'],
+      group: ['main'],
       validate: R=>R.required()
     },
     {
       name: 'subtitle',
       title: 'Subtitle',
       type: 'string',
-      group: ['header']
+      group: ['main']
     },
     Image,
     {
       name: 'content',
       title: 'Content',
       type: 'array',
+      group: ['main'],
       of: [
         {
           type: 'block'

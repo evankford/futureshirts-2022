@@ -6,7 +6,6 @@ export default [
     title: 'Seo Title',
     type: 'string',
     defaultValue: ({parent, value}) => parent?.title,
-    required: true,
     group: 'seo'
   },
   {
@@ -15,7 +14,7 @@ export default [
     type: 'slug',
     defaultValue: ({parent, value}) => parent?.seoTitle && slugify(parent.seoTitle),
     validate: R=>R.required(),
-    group: 'seo',
+    group: ['seo', 'main'],
     options: {
       derivedFrom: 'seoTitle'
     }
@@ -32,6 +31,12 @@ export default [
     title: 'Seo Description',
     type: 'text',
     description: '(Recommended) Defaults to a summary text from the page content.',
+    group: 'seo'
+  },
+  {
+    name: 'nofollow',
+    title: 'Hide from Search Engines?',
+    type: 'boolean',
     group: 'seo'
   }
 ]

@@ -25,5 +25,10 @@
       title: 'Favicon',
       type: 'image',
     },
+    {
+      name: 'image',
+      title: 'Sharing Image',
+      type: 'image',
+    },
   ]
 }

@@ -1,5 +1,5 @@
 import page from "./documents/page";
-import news from "./documents/news";
+import section from "./documents/section";
 
-export { page, news }
-export default [ page, news  ];
+export { page, section }
+export default [ page, section  ];

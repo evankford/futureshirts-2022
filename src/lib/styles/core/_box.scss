@@ -1,0 +1,94 @@
+@use "../abstracts/" as *;
+
+@mixin box($withBefore: true) {
+  background-color: var(--box-bg-color, transparent);
+  @if $withBefore {
+    --beforeHt: 1.5em;
+    padding:0 0.9em 0.9em;
+    position: relative;
+    border-bottom-left-radius: var(--box-border-radius);
+    border-bottom-right-radius: var(--box-border-radius);
+
+    &::before {
+      display: block;
+      width: calc(100% + 0.9em * 2);
+      height: var(--beforeHt);;
+      content: '';
+      background: currentColor;
+      margin: 0 -0.9em 1em -0.9em;
+      pointer-events: none;
+    }
+    &::after {
+      @include psuedo;
+      top:calc(var(--beforeHt) + 0.1em);
+      height: calc(100% - var(--beforeHt) - 0.1em);
+      border: var(--box-border-width) solid currentColor;
+      border-bottom-left-radius: var(--box-border-radius);
+      border-bottom-right-radius: var(--box-border-radius);
+      pointer-events: none;
+    }
+  } @else {
+    border: var(--box-border-width) solid currentColor;
+    border-radius: var(--box-border-radius);
+    padding: 0.9em;
+  }
+}
+
+.box {
+  transform: translate3d(0, 0px, 0);
+  transition: transform 600ms ease, opacity 600ms ease;
+  &>* {
+    position: relative;
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+    transition: transform 600ms ease, opacity 600ms ease;
+  }
+   @for $i from 0 through 6 {
+    & > *:nth-child(#{$i}) {
+      transition-delay: 100ms + ($i * 50ms);
+    }
+  }
+
+  &.offScreen,
+  &.offScreen > *{
+    transform: translate3d(0, max(10px, 100%), 0);
+    opacity: 0;
+  }
+
+  i, em {
+    @include mono;
+    font-size: var(--font-mono-mod, 1em);
+    text-transform: lowercase;
+  }
+  li {
+    text-align: left;
+    margin:0.3em 0.5em;
+    line-height: 1.3;
+    // list-style-position: inside;
+    flex: 1 1 200px;
+  }
+  ul {
+    margin-top: 0.2em;
+    padding-left: 1.2em
+  }
+  &.list ul {
+    display: flex;
+    flex-wrap:wrap;
+    width: auto;
+    li {
+      flex: 1 1 45%;
+      min-width: 200px;
+    }
+  }
+  &.boxed {
+    @include box;
+    width: auto;
+  }
+  &.eachBoxed {
+    --font-mono-mod: 0.84em;
+    & > p {
+      @include box;
+      margin: 0 auto 1em
+    }
+  }
+}

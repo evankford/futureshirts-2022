@@ -12,7 +12,7 @@ export default {
       name: 'name',
       title: 'name',
       type: 'reference',
-      to: [{ type: 'news' }],
+      to: [{ type: 'page' }],
     },
   ],
 }

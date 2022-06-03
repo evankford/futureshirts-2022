@@ -1,0 +1,25 @@
+@use "./psuedo" as *;
+
+@mixin hoverBox($display: inline-block) {
+  display: $display;
+  opacity: 1;
+  transition: transform 300ms ease, opacity 300ms ease, color 300ms ease;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+
+  &:hover, &:focus-visible {
+    color: white;
+    &:after {
+      transform: translateY(0)
+    }
+
+  }
+  &::after {
+    @include psuedo();
+    z-index: -1;
+    background-color: rgb(var(--color-accent, var(--color-base-accent)));
+    transition: transform 300ms ease;
+    transform: translateY(calc(100% + 1px));
+  }
+}
