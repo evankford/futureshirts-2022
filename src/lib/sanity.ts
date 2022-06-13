@@ -53,7 +53,7 @@ export const sanityGet = async <T>(query:string):Promise<{status:number, body: s
 const combineButtons = `"buttons" : buttons[]{title, "linkUrl" : linkUrl{..., ref->{slug, _type}}}`
 const standardStuff = `layout, title, intro , subtitle, anchor`
 function videoFields(str = 'video') {
-  return `{'type' : ${str}.type, 'title': ${str}.title, 'background' : ${str}.background, 'url' : ${str}.url, 'fallbackImage' :  ${str}.fallbackImage, 'local': ${str}.video.asset->url, 'smallVideo' : ${str}.video.smallVersion.asset->url, 'localImage': ${str}.video.image }`
+  return `{'is': ${str}.is, 'image': ${str}.image , 'type' : ${str}.type, 'title': ${str}.title, 'background' : ${str}.background, 'url' : ${str}.url, 'fallbackImage' :  ${str}.fallbackImage, 'local': ${str}.video.asset->url, 'smallVideo' : ${str}.video.smallVersion.asset->url, 'localImage': ${str}.video.image }`
 }
 
 export const sectionGroqs = {

@@ -35,7 +35,6 @@
 
   import { navigating } from "$app/stores";
   navigating.subscribe(val=> {
-    console.log('Navigating: ' + val);
     if (val) {
       navOpen.set(false);
     }

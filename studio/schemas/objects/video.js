@@ -40,7 +40,7 @@ export default {
       hidden: ({parent, value}) => !value && parent.type == 'local',
       // validation: (R) => R.required()
     },
-    Object.assign(videoFile, { hidden: ({parent, value}) => !value && parent.type !== 'local'}),
+    Object.assign(videoFile, { hidden: ({parent}) =>  parent.type !== 'local'}),
     {
       name: 'fallbackImage',
       title: 'Fallback Image',

@@ -4,11 +4,12 @@ import category from "./objects/category"
 import menuItem from "./objects/menuItem";
 import button from "./objects/button";
 import video from "./objects/video";
+import videoOrImage from "./objects/videoOrImage";
 import quote from "./objects/quote";
 import counter from "./objects/counter";
 import heroImage from "./objects/heroImage";
 import gallery from "./objects/gallery";
 import job from "./objects/job";
 
-export { codeSnippet, socialLink, menuItem, category, button, video, gallery, job, quote, counter, heroImage }
-export default [codeSnippet, socialLink, menuItem, category, button, video, gallery, job, quote, counter, heroImage ]
+export { codeSnippet, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage }
+export default [codeSnippet, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage ]

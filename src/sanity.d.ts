@@ -114,6 +114,18 @@ interface VideoObject {
   _type: 'video'
 }
 
+type VideoOrImage = VideoOrImageImage | VideoOrImageVideo
+
+interface VideoOrImageImage {
+  is: 'image',
+  title: string | null,
+  image: SanityImageObject
+}
+
+interface VideoOrImageVideo extends VideoObject {
+  is: 'video'
+  image: SanityImageObject
+}
 
 
  interface Opening {

@@ -5,10 +5,11 @@ import isOnScreen from "$lib/isOnScreen";
 import Phone from "$lib/components/Phone.svelte";
   import Counter from "$lib/components/Counter.svelte";
   import Video from "$lib/components/Video.svelte";
+  import Image from "$lib/components/Image.svelte";
 import Galaxy from "$lib/components/Galaxy.svelte";
 import Tablet from "$lib/components/Tablet.svelte";
 import Laptop from "$lib/components/Laptop.svelte";
-  export let title:string | null, layout: string, subtitle: string| null, box: Blocks[], intro: string|null, counters: Counter[], computer: VideoObject, computer2: VideoObject, phone:VideoObject, phone2:VideoObject, tablet:VideoObject, anchor: string;
+  export let title:string | null, layout: string, subtitle: string| null, box: Blocks[], intro: string|null, counters: Counter[], computer: VideoOrImage, computer2: VideoOrImage, phone:VideoOrImage, phone2:VideoOrImage, tablet:VideoOrImage, anchor: string;
 
 </script>
 <section use:isOnScreen id="{anchor}" class=" {layout}">
@@ -18,7 +19,6 @@ import Laptop from "$lib/components/Laptop.svelte";
     </div>
     <div class="right">
       <SectionBox {box} />
-
     </div>
     <div class="bottom">
       {#each counters as counter }
@@ -30,11 +30,12 @@ import Laptop from "$lib/components/Laptop.svelte";
 
     <div class="rotate">
       <div class="devices">
-        <div class="comp comp1"><Laptop><Video video={computer2}/></Laptop></div>
-        <div class="phone phone1"><Phone><Video video={phone}/></Phone></div>
-        <div class="tablet"><Tablet><Video video={tablet}/></Tablet></div>
-        <div class="comp comp2"><Laptop><Video video={computer}/></Laptop></div>
-        <div class="phone phone2"><Galaxy ><Video video={phone2}/></Galaxy></div>
+        {computer2.is}
+        <div class="comp comp1"><Laptop>{#if computer2.is == 'video'}<Video video={computer2}/>{:else if computer2.is =='image'}<Image image={computer2.image} alt={computer2.title} />{/if}</Laptop></div>
+        <div class="tablet"><Tablet>{#if tablet.is == 'video'}<Video video={tablet}/>{:else if tablet.is =='image'}<Image image={tablet.image} alt={tablet.title} />{/if}</Tablet></div>
+        <div class="phone phone1"><Phone>{#if phone.is == 'video'}<Video video={phone}/>{:else if phone.is =='image'}<Image image={phone.image} alt={phone.title} />{/if}</Phone></div>
+        <div class="phone phone2"><Galaxy >{#if phone2.is == 'video'}<Video video={phone2}/>{:else if phone2.is =='image'}<Image image={phone2.image} alt={phone2.title} />{/if}</Galaxy></div>
+        <div class="comp comp2"><Laptop>{#if computer.is == 'video'}<Video video={computer}/>{:else if computer.is =='image'}<Image image={computer.image} alt={computer.title} />{/if}</Laptop></div>
       </div>
     </div>
   </div>
@@ -111,7 +112,10 @@ import Laptop from "$lib/components/Laptop.svelte";
     flex: 0 0 1048px;
 
     &.comp1 {
-      margin: 0 100px;
+      margin: 40px 100px;
+    }
+    &.comp2 {
+      margin: 0 -60px 0 0;
     }
 
   }
@@ -120,15 +124,16 @@ import Laptop from "$lib/components/Laptop.svelte";
     overflow: hidden;
   }
   .phone {
-    margin: auto 24px;
     flex: 0 0 320px;
+    margin: auto 90px;
     height: 690px;
       :global(.marvel-device) {
         transform: scale(0.8);
         transform-origin: top left;
       }
     &.phone2 {
-      margin-top: 0;
+      // margin-top: 0;
+      margin-left: 30px;
       flex: 0 0 260px;
       :global(.marvel-device) {
         transform: scale(0.65);
@@ -138,6 +143,7 @@ import Laptop from "$lib/components/Laptop.svelte";
   }
   .tablet {
     flex: 0 0 576px;
+    margin-left: 200px;
   }
   .right {
     --box-bg-color: rgba(var(--color-background), 0.7);

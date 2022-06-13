@@ -87,6 +87,7 @@
 <style lang="scss">
   @use "../styles/abstracts" as *;
   header {
+    --pad:  clamp(12px, 4vw, 25px);
     position: fixed;
     width: 100%;
     height: auto;
@@ -100,37 +101,35 @@
     }
 
 
+    &::before {
+      @include psuedo;
+      transition: transform 200ms 100ms linear;
+      background: rgba(0,0,0,0.9);
+      height: calc( 100% - var(--pad));
+      transform: translateY(-100%);
+    }
+
 
     &.stuck {
       transform: none
     }
     &.scrolled.stuck:not(.navOpen) {
-      .right,.left,.middle {
-        &::before {
-          transform: scale(1)
+      .header-content {
+        transform: translateY(calc(-0.5 * var(--pad)));
+      }
+      &::before {
+          transform: translateY(0)
 
         }
-      }
+
     }
   }
 .left, .right {
   position: relative;
   z-index: 3;
-  &::before {
-    @include psuedo;
-    background: rgb(var(--color-base-accent));
-    border-radius: 50%;
 
-    transform: scale(0);
-    transform-origin: 50% 50%;
-    transition: transform 300ms 50ms ease;
-    opacity: 0.75;
-  }
 }
-.left::before {
-  top: -10%;
-  height: 120%;
-}
+
 .right {
   z-index: 1;
   justify-self: start;
@@ -157,11 +156,13 @@ a {
 
 }
 
+
 .middle {
+
   flex: 1 1 200px;
   width: 100%;
   max-width: 440px;
-  padding: clamp(12px, 4vw, 25px);
+  padding: var(--pad);
   display: block;
   z-index: 1;
   margin: auto;
@@ -169,20 +170,7 @@ a {
   .navOpen & {
     z-index:4;
   }
-  &::before {
-    @include psuedo;
-    border-radius: 50%;
-    background: rgb(var(--color-base-accent-darker));
-    z-index: -1;
-    width: 110%;
-    height: 110%;
-    left: -5%;
-    top: -5%;
-    transition: transform 600ms ease;
-    pointer-events: none;
-    transform: scale(0);
 
-  }
 }
 
 .header-content {
@@ -190,6 +178,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 200ms linear;
   @include media-query($medium-up) {
       display: grid;
       grid-template-columns: 1fr 400px 1fr;

@@ -63,22 +63,18 @@ import isOnScreen from "$lib/isOnScreen";
   max-width: 500px;
 }
 .bottom {
+  background: rgb(var(--color-base-background-accent));
   transform: translate3d(-50%, 0, -150px);
-  --vbg-bg: rgb(var(--color-base-background-accent));
+  --vbg-bg:rgb(var(--color-base-background-accent));
 
   position: absolute;
   left: 50%;
-  bottom: clamp(-90vw, -450px, -50vw);
+  bottom: clamp(-80vw, -400px, -40vw);
   width: clamp(60vw, 900px, 80vw);
   height: clamp(60vw, 900px, 80vw);
   border-radius: 50%;
   overflow: hidden;
   z-index: 0;
-
-  &::after {
-    @include psuedo;
-    background: rgba(var(--color-base-accent), 0.6);
-  }
 }
 .right {
 

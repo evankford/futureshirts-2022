@@ -32,7 +32,7 @@ import { onMount } from "svelte";
 {#if bg}
 
 {#if videoSrc()}
-<video-background src={videoSrc()} >
+<video-background src={videoSrc()} loop>
     {#if video.type != 'local' && video.fallbackImage}
     <Image image={video.fallbackImage} bg />
     {:else if video.type == 'local' && video.localImage}
