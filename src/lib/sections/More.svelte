@@ -63,9 +63,9 @@ import isOnScreen from "$lib/isOnScreen";
   max-width: 500px;
 }
 .bottom {
-  background: rgb(var(--color-base-background-accent));
+  background: rgb(var(--color-base-accent));
   transform: translate3d(-50%, 0, -150px);
-  --vbg-bg:rgb(var(--color-base-background-accent));
+  --vbg-bg:rgb(var(--color-base-accent));
 
   position: absolute;
   left: 50%;
