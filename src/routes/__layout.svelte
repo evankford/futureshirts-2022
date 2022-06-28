@@ -102,13 +102,13 @@
     if (browser) {
       // window.addEventListener('resize', throttle(windowResizeHandler, 300));
       if (primaryInput == 'mouse') {
-        window.addEventListener('mousemove', throttle(mouseMoveHandler, 75));
+        window.addEventListener('mousemove', throttle(mouseMoveHandler, 25));
       } else {
         if (window.DeviceOrientationEvent) {
           window.addEventListener('deviceorientation', deviceOrientationHandler, false);
         } else {
           //@ts-ignore
-          window.addEventListener('pointerMove', throttle(pointerMoveHandler, 75), false);
+          window.addEventListener('pointerMove', throttle(pointerMoveHandler, 25), false);
         }
       }
       windowResizeHandler();
@@ -203,7 +203,9 @@
   @use "../lib/styles/devices";
 
   main {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    position: relative;
+    z-index: 1;
+    // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 
   .helper {

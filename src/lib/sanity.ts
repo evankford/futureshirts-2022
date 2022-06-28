@@ -80,3 +80,6 @@ const defaultContent = `_type != 'block' && _type != 'section' => {...}`;
 export const pageContent =  `"content" : content[]{
   ${sectionCheck}, ${blockCheck}, ${defaultContent}
 }`
+
+
+export { videoFields }

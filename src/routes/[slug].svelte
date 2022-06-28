@@ -28,8 +28,7 @@
 
   .page-content {
     @include content-wrap;
-    margin: clamp(150px, calc(100px + 7vw), 240px) auto clamp(50px, calc(40px + 3vw), 100px);
-    text-align: left;
+    @include page-wrap;
 
 
   }

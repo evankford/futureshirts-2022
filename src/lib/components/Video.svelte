@@ -1,9 +1,7 @@
 <script lang="ts">
   import { browser } from "$app/env";
-import { onMount } from "svelte";
-
+  import { onMount } from "svelte";
   import Image from "./Image.svelte";
-
 
   function videoSrc():string |false{
     if (video.type != 'local') {
@@ -30,7 +28,6 @@ import { onMount } from "svelte";
 
 
 {#if bg}
-
 {#if videoSrc()}
 <video-background src={videoSrc()} loop>
     {#if video.type != 'local' && video.fallbackImage}

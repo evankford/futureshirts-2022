@@ -17,6 +17,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.28.0
   countup.js: ^2.2.0
   detect-it: ^4.0.1
+  email-validator: ^2.0.4
   eslint: ^8.17.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-svelte3: ^4.0.0
@@ -50,6 +51,7 @@ devDependencies:
   '@sveltejs/kit': 1.0.0-next.350_sass@1.52.3+svelte@3.48.0
   '@typescript-eslint/eslint-plugin': 5.28.0_3lula77ado3h6qr64ltufq5ck4
   '@typescript-eslint/parser': 5.28.0_pm7osnb22e4oktq33hptgspr5i
+  email-validator: 2.0.4
   eslint: 8.17.0
   eslint-config-prettier: 8.5.0_eslint@8.17.0
   eslint-plugin-svelte3: 4.0.0_3aft6623ti3qaietkx5ojwfh2e
@@ -864,6 +866,11 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       esutils: 2.0.3
+    dev: true
+
+  /email-validator/2.0.4:
+    resolution: {integrity: sha512-gYCwo7kh5S3IDyZPLZf6hSS0MnZT8QmJFqYvbqlDZSbwdZlY6QZWxJ4i/6UhITOJ4XzyI647Bm2MXKCLqnJ4nQ==}
+    engines: {node: '>4.0'}
     dev: true
 
   /emoji-regex/8.0.0:
@@ -2651,7 +2658,7 @@ packages:
   /wide-align/1.1.5:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
     dependencies:
-      string-width: 1.0.2
+      string-width: 4.2.3
     dev: true
 
   /word-wrap/1.2.3:

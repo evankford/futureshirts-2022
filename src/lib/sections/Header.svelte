@@ -4,8 +4,6 @@
   import { onDestroy, onMount } from "svelte";
   import {navOpen} from "$lib/stores"
 
-
-
   import HeaderLogo from "$lib/components/HeaderLogo.svelte";
   import { browser } from "$app/env";
    const unsubStuff = page.subscribe(({stuff}) => {
@@ -65,7 +63,7 @@
 
 
 
-<header class:stuck class:scrolled class:navOpen={$navOpen} class="site-header" class:home={$page.url.pathname == '/' && !$page.error}>
+<header class:stuck class:scrolled class:navOpen={$navOpen} class="site-header" class:home={$page.url.pathname == '/' || $page.url.pathname == '/contact' && !$page.error}>
   <div class="header-content">
 
     <div class="hide-small left">

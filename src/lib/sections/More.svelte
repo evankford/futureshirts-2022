@@ -21,7 +21,6 @@ import isOnScreen from "$lib/isOnScreen";
       <Video video={moreVideo} />
     </div>
   </div>
-
 </section>
 <style lang="scss">
   @use "../styles/abstracts" as *;

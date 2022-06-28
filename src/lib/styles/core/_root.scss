@@ -8,6 +8,7 @@
    //Base Color
   --color-base-background: 251,251,253;
   --color-base-accent: 77,98,255;
+  --color-base-accent-dull: 73,85,177;
   --color-base-accent-darker:26,41,150;
   --color-base-background: 255,255,255;
   --color-base-background-off: 235,236,243;
@@ -20,9 +21,12 @@
   --color-border: --color-base-border;
   --color-accent-inverse: var(--color-base-background);
   --color-accent: var(--color-base-accent);
+  --color-accent: var(--color-base-accent);
   --color-background: var(--color-base-background);
   --color-foreground: var(--color-base-text);
   --color-accent-darker:var(--color-base-accent-darker);
+
+  --color-error: 255,35,55;
 
   --color-label-alpha: 0.5;
   --space-around: 20px;
@@ -78,6 +82,20 @@
 
   --box-border-radius: 14px;
   --box-border-width: 2px;
+
+  //Fields
+  --field-gap:30px;
+  --field-padding:8px;
+  --field-padding-x:15px;
+  --field-padding-y:9px;
+  --field-line-height:26px;
+  --field-font-size:19px;
+  --label-font-size:18px;
+  --field-border-width: 1px;
+  --field-border-radius: 3px;
+  --field-color: rgba(var(--color-base-background), 1);
+  --field-border-color: rgba(var(--color-base-background-off), 1);
+  --field-focused-background-color: rgba(var(--color-base-background),0.15);
   // --font-body-family-base: "Owners Wide";
   // --font-body-family: "Owners Wide";
   // --font-button-family: "Owners XWide";
@@ -153,6 +171,9 @@ video-background {
   picture, image {
     @include psuedo;
   }
+}
+body {
+  padding: 1px 0 0;
 }
 
 * {

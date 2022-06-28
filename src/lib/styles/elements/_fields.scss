@@ -1,0 +1,62 @@
+@mixin base {
+  --field-padding: 8px;
+  appearance: none;
+  line-height: var(--field-line-height, 1.2);
+  border:var(--field-border-width) solid var(--field-border-color);
+  background: var(--field-background, transparent);
+  width: 100%;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  min-width: 0;
+  color: var(--field-color);
+  box-sizing: border-box;
+    font-size:  var(--field-font-size, 16px);
+  border-radius: var(--field-border-radius, 0);
+  padding: var(--field-padding-y, var(--field-padding)) var(--field-padding-x, var(--field-padding));
+  &:focus {
+    background-color: var(--field-focused-background-color);
+  }
+}
+
+@mixin label {
+  text-transform: lowercase;
+  font-weight: 700;
+  font-size: var(--label-font-size, var(--field-font-size));
+}
+
+@mixin moving-label {
+  position: absolute;
+  transform-origin: 0% 50%;
+  top:var(--field-gap, 1.1rem);
+  display: block;
+  left: 0%;
+  line-height: var(--field-line-height, 1.2);
+  z-index: 2;
+  transition: transform 300ms ease, opacity 200ms ease;
+padding: var(--field-padding-y, var(--field-padding)) var(--field-padding-x, var(--field-padding));
+  transform: translate3d(0, 0, 0);
+}
+
+@mixin moving-label-active {
+    transform: translate3d(0, calc(-100% + 0.5 * var(--field-padding-y, var(--field-padding))) , 0) scale(0.9);
+    opacity: 1;
+
+  }
+
+  @mixin moving-label-filled {
+    transform: translate3d(0, calc(-100% + 0.5 * var(--field-padding-y, var(--field-padding))) , 0) scale(0.9);
+    opacity: 0.5;
+    // transform: translate3d(0, 0, 0);
+    // opacity: 0;
+    pointer-events: none;;
+}
+
+
+@mixin label-wrap {
+  --label-height: 1.1rem;
+  display: block;
+  position: relative;
+  padding-top: var(--field-gap, 1.1rem);
+  margin-top: calc(var(--field-gap, 1.1rem) * 0.15);
+
+}

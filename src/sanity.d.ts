@@ -66,7 +66,9 @@ interface SocialMediaSettings {
 interface ContactSettings {
   email: string,
   title: string,
+  subtitle: string | null,
   blurb: string,
+  video: VideoObject | null,
   successMessage: string,
   successTitle: string,
   errorMessage: string,

@@ -59,6 +59,8 @@ import Socials from "$lib/components/Socials.svelte";
     padding: clamp(30px, calc(20px + 4vh), 55px) 0;
     background: rgb(var(--color-base-background-off));
     color: rgb(var(--color-base-text));
+    position: relative;
+    z-index: 99;
   }
 
   .socials {
