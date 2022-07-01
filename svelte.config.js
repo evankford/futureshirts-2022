@@ -11,10 +11,10 @@ const config = {
 		adapter: adapter(),
 		vite: {
 			optimizeDeps: {
-				include: ['phone', 'mailgun.js']
+				include: ['phone']
 			},
 			ssr: {
-				noExternal: ['@fortawesome/free-brands-svg-icons', '@fortawesome/pro-regular-svg-icons', '@fortawesome/pro-solid-svg-icons']
+				noExternal: ['@fortawesome/free-brands-svg-icons', 'mailgun.js', '@fortawesome/pro-regular-svg-icons', '@fortawesome/pro-solid-svg-icons']
 			}
 		}
 	}

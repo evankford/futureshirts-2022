@@ -46,7 +46,6 @@
       context.update((val:Fields)=> {
         if (val[id]) {
           val[id].value = file
-          console.log(val[id].value);
           val[id].errorMsg = validate(file);
           return val;
         } else {
