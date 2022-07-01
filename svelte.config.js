@@ -11,7 +11,7 @@ const config = {
 		adapter: adapter(),
 		vite: {
 			optimizeDeps: {
-				include: ['phone']
+				include: ['phone', 'mailgun.js']
 			},
 			ssr: {
 				noExternal: ['@fortawesome/free-brands-svg-icons', '@fortawesome/pro-regular-svg-icons', '@fortawesome/pro-solid-svg-icons']

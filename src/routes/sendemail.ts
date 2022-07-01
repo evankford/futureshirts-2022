@@ -56,7 +56,6 @@ function convertFormData(form_data: FormData):ContactData | JobData | SupportDat
   let prim: {[key:string]: FormDataEntryValue } ={};
 
   form_data.forEach((value, key) => {prim[key] = value});
-  console.log(prim);
 
    if (!('emailTo' in prim)) {
     errors.push({code: 500, message: 'No Destination Email sent (emailTo field)'})
@@ -136,7 +135,7 @@ function convertFormData(form_data: FormData):ContactData | JobData | SupportDat
 }
 
 /** @type {import('./__types/sendemail').RequestHandler} */
-export async function post({ request }) {
+export async function post() {
   let success = false;
   let errors: ResponseError[] = [];
 
