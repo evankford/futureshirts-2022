@@ -3,11 +3,15 @@
   import Video from "$lib/components/Video.svelte";
   import ContactForm from "$lib/sections/ContactForm.svelte";
   import { slide } from "svelte/transition";
+  import LiNormal from "$lib/components/portableText/LiNormal.svelte";
+  import {PortableText} from "@portabletext/svelte";
+
   let onScreen = false;
 
   export let
   email: string,
   title: string,
+  content: Block[] | undefined = undefined,
   subtitle: string | null,
   contactOptions: ContactOption[],
   contactVideo: VideoObject | null,
@@ -28,6 +32,9 @@
     {#if title}<h1>{title}</h1>{:else}<h1> Get in touch </h1>{/if}
      {#if subtitle}<p>{subtitle}</p>{/if}
     </header>
+    {#if content}
+      <PortableText value={content} components={{listItem: {normal: LiNormal}}}/>
+    {/if}
     <div class="form">
         <ContactForm {email} {successMessage} {successTitle} {errorMessage} {errorTitle} {contactOptions} />
     </div>

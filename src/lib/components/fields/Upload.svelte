@@ -44,7 +44,6 @@
       const file = processFileList(uploadValue);
       if (!file) return;
       context.update((val:Fields)=> {
-
         if (val[id]) {
           val[id].value = file
           console.log(val[id].value);

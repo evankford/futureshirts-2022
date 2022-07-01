@@ -66,7 +66,7 @@ export default {
 			title: 'Anchor Link',
 			type: 'string',
 			group: ['settings'],
-			required: true
+			validation: (R) => R.required()
 		},
 		orderRankField({ type: 'section' }),
 		{
@@ -74,7 +74,7 @@ export default {
 			title: 'Intro',
 			type: 'string',
 			group: ['content'],
-			hidden: ({parent}) =>  parent.layout !== 'team' && parent.layout !== 'more'
+			hidden: ({ parent }) => parent.layout !== 'team' && parent.layout !== 'more'
 		},
 		{
 			name: 'title',
@@ -88,15 +88,15 @@ export default {
 			title: 'Subtitle',
 			type: 'string',
 			group: ['content'],
-			hidden: ({parent}) =>  parent.layout !== 'licensing',
+			hidden: ({ parent }) => parent.layout !== 'licensing'
 		},
 		{
 			name: 'image',
 			title: 'Image',
 			type: 'image',
 			group: ['content'],
-			fields: [ {name:'alt', type: 'string', title: 'Alternative Text'}],
-			options: {hotspot: true},
+			fields: [{ name: 'alt', type: 'string', title: 'Alternative Text' }],
+			options: { hotspot: true },
 			hidden: ({ parent }) =>
 				!parent.layout || ['connect', 'ecommerce', 'tour', 'more', 'hero'].includes(parent.layout)
 		},
@@ -105,8 +105,8 @@ export default {
 			title: 'Image 2',
 			type: 'image',
 			group: ['content'],
-			fields: [ {name:'alt', type: 'string', title: 'Alternative Text'}],
-			options: {hotspot: true},
+			fields: [{ name: 'alt', type: 'string', title: 'Alternative Text' }],
+			options: { hotspot: true },
 			hidden: ({ parent }) => !parent.layout || parent.layout !== 'licensing'
 		},
 		{
@@ -114,8 +114,8 @@ export default {
 			title: 'Image (Small)',
 			type: 'image',
 			group: ['content'],
-			fields: [ {name:'alt', type: 'string', title: 'Alternative Text'}],
-			options: {hotspot: true},
+			fields: [{ name: 'alt', type: 'string', title: 'Alternative Text' }],
+			options: { hotspot: true },
 			hidden: ({ parent }) => !parent.layout || parent.layout != 'product'
 		},
 		{
@@ -138,9 +138,16 @@ export default {
 			name: 'logoGallery',
 			title: 'Gallery',
 			type: 'array',
-			of: [{ type: 'image' , name: 'image', fields: [ {name:'alt', type: 'string', title: 'Alternative Text'}]}],
+			of: [
+				{
+					type: 'image',
+					name: 'image',
+					fields: [{ name: 'alt', type: 'string', title: 'Alternative Text' }]
+				}
+			],
 			group: ['content'],
-			hidden: ({ parent }) => !parent.layout || ['team', 'licensing'].includes(parent.layout) == false
+			hidden: ({ parent }) =>
+				!parent.layout || ['team', 'licensing'].includes(parent.layout) == false
 		},
 		{
 			name: 'heroGallery',

@@ -47,7 +47,7 @@
     color: rgb(var(--color-foreground));
   }
   .bg {
-    opacity: 0.5;
+    opacity: 0.35;
     @include psuedo;
   }
 </style>

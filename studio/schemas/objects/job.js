@@ -7,7 +7,7 @@ export default {
 			name: 'title',
 			title: 'Title',
 			type: 'string',
-			required: true
+      validation: (R) => R.required()
 		},
 		{
 			name: 'subtitle',
@@ -18,7 +18,7 @@ export default {
 			name: 'description',
 			title: 'description',
 			type: 'markdown',
-			required: true
+      validation: (R) => R.required()
 		}
 	]
 };
