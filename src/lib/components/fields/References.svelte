@@ -104,7 +104,6 @@
 
 <FieldWrap {id}>
   <div class="wrap" for={id}>
-    <!-- <span class="label">{label}<RequiredIndicator {required} /></span> -->
     <ul class="references">
       {#each references as reference, i}
       <li class="reference" transition:slide>
@@ -149,17 +148,6 @@
    @use "../../styles/abstracts" as *;
    @use "../../styles/elements/_fields.scss" as fields;
 
-   input {
-    // @include visually-hidden;
-    // @include fields.base;
-   }
-
-   .label {
-    margin-top: var(--field-padding-top-bump, 6px);
-    display: block;
-    @include fields.label;
-    // @include fields.moving-label;
-   }
    ul {
 
     --number-size: 32px;

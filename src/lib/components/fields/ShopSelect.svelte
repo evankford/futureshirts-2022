@@ -101,9 +101,6 @@
     margin: 0.8em 0;
     line-height: 1.2;
    }
-   input {
-    font-weight: 400;
-   }
 
    .label {
     @include fields.label;

@@ -1,50 +1,32 @@
-import mjml2html from 'mjml';
 
 const labelAttrs = ' align="left" style="background:#fafafa; font-weight:700;"'
 const valueAttrs = ' align="left" colspan="3"';
 
-const commonHead = `
-  <mj-attributes>
-    <mj-table padding="8px 0" />
-    <mj-class name="heading" font-size="32px" font-weight="600" />
-    <mj-all />
-  </mj-attributes>
-  <mj-style inline="inline">
-  td, th {
-    padding: 6px;
-  }
-  th {
-    background: #efefef;
-    border-bottom: 1px solid #afafaf;
-  }
-  </mj-style>
-`;
 function commonBefore(formTitle:string = 'Contact Form') {
   return `
-   <mjml>
-   <mj-head>
-    ${commonHead}
-   </mj-head>
-    <mj-body>
-      <mj-section>
-        <mj-text>
-          <h1 mj-class="heading">New ${formTitle} Message</h1>
-          <p>You have a new message from the Futureshirts ${formTitle}. The details are below. You may reply to this message to respond to the submission directly.</p>
-        </mj-text>
-      </mj-section>
-      <mj-section>
-        <mj-table>
-        <tr>
-          <th align="left" color="#8f8f8f" font-weight="700" colspan="1">Field</th>
-          <th align="left" color="#8f8f8f" font-weight="700" colspan="3">Value</th>
-        </tr>`;
+   <html>
+    <body>
+        <table style="padding: 20px 0">
+          <tbody>
+            <h1 style="font-size: 24px;">New ${formTitle} Message</h1>
+            <p>You have a new message from the Futureshirts ${formTitle}. The details are below. You may reply to this message to respond to the submission directly.</p>
+          </tbody>
+        </table>
+
+        <table padding="8">
+        <thead>
+          <tr>
+            <th align="left"  style="color:#8f8f8f"; font-weight:700" colspan="1">Field</th>
+            <th align="left"  style="color:#8f8f8f"; font-weight:700" colspan="3">Value</th>
+          </tr>
+        </thead>
+        `;
 }
 
 const commonAfter =`
-    </mj-table>
-      </mj-section>
-    </mj-body>
-  </mjml>`;
+    </table padding="8">
+    </body>
+  </html>`;
 
 
 
@@ -62,8 +44,7 @@ function genOrderDetails(orderDate:string | undefined = undefined, orderNumber: 
 
 
 export function contact(data:ContactData) {
-  return mjml2html(
-  `
+  return `
    ${commonBefore()}
       <tr>
         <td ${labelAttrs}>Name:</td>
@@ -86,12 +67,12 @@ export function contact(data:ContactData) {
         <td ${valueAttrs}>${new Date().toUTCString()}.</td>
       </tr>
     ${commonAfter}
-  `);
+  `;
 }
 
 
 export function job(data:JobData) {
-  const str =  `
+  return  `
     ${commonBefore('Job Application Form')}
     <tr>
       <td ${labelAttrs}>Name:</td>
@@ -127,12 +108,9 @@ export function job(data:JobData) {
     </tr>
     ${commonAfter}
   `;
-  return mjml2html(str);
 }
 export function support(data:SupportData) {
-  console.log(data);
-  return mjml2html(
-    `
+   return `
     ${commonBefore('Job Application Form')}
     <tr>
       <td ${labelAttrs}>Name:</td>
@@ -158,5 +136,4 @@ export function support(data:SupportData) {
     </tr>
     ${commonAfter}
   `
-  )
 }

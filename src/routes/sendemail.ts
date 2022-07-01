@@ -13,13 +13,13 @@ function generateHTML(data: ContactData | JobData | SupportData):string | false 
     throw new Error("How did this happen? No form name in data");
   }
   if (data.formName == 'Contact Form') {
-    return contact(data).html
+    return contact(data)
   }
   if (data.formName == 'Job Application') {
-    return job(data).html
+    return job(data)
   }
   if (data.formName == 'Support Form') {
-    return support(data).html ;
+    return support(data) ;
   }
   return false;
 }

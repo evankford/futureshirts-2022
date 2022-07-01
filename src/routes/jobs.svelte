@@ -104,7 +104,7 @@ header {
       --page-margin-top: 0;
     }
   }
-   .hero-content, .form-inner, .jobs {
+    .form-inner, .jobs {
     @include content-wrap;
    }
 
