@@ -157,6 +157,7 @@ header {
     flex-wrap: wrap;
     justify-content: center;
     width: calc(100% + 2 * var(--gap));
+    max-width:  calc(100% + 2 * var(--gap));
     margin: 0 calc(-1 * var(--gap));
    }
 
