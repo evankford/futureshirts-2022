@@ -4,7 +4,7 @@ import isOnScreen from "$lib/isOnScreen";
   import Button from "$lib/components/Button.svelte";
   import Image from "$lib/components/Image.svelte";
 import {hasJobs} from "$lib/stores";
-  export let title:string | null, subtitle: string| null, intro: string|null, image: SanityImageObject | false, anchor: string, layout: string;
+  export let title:string | null, subtitle: string| null, intro: string|null, image: SanityImageObject | false, logoGallery: false | SanityImageObject[] = false, anchor: string, layout: string;
 
 </script>
 <section use:isOnScreen class="{layout}" id="{anchor}">
@@ -12,11 +12,17 @@ import {hasJobs} from "$lib/stores";
     <div class="right ">
       <SectionHeading {title} {subtitle} {intro}/>
       {#if hasJobs }
-      <Button link="/team">join the team</Button>
+      <Button link="/jobs">join the team</Button>
       {/if}
     </div>
     <div class="left  ">
-      {#if image}
+      {#if logoGallery && logoGallery.length > 0}
+      <div class="gallery">
+        {#each logoGallery as image}
+        <Image {image} width={150} alt={image.alt} />
+        {/each}
+      </div>s
+      {:else if image}
       <div class="img">
         <Image {image} width={900} alt={image.alt ? image.alt : 'The Futureshirts Team'} />
       </div>
@@ -41,7 +47,11 @@ import {hasJobs} from "$lib/stores";
     color: rgb(var(--color-base-text));
     --color-background: rgb(var(--color-base-background-off));
     --color-foreground: rgb(var(--color-base-text));
-
+    @include media-query($tiny) {
+      --rotateXMod: 0.5deg;
+      --rotateYMod: 0.5deg;
+      --font-size-mega: 54px;
+    }
   }
   .content {
     @include content-wrap;

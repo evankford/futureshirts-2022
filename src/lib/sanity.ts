@@ -34,7 +34,7 @@ export const sanityGet = async <T>(query:string):Promise<{status:number, body: s
       if (!data?.result)  {
         return {
           status: 400,
-          body: "No data"
+          body: { message: "No data"}
         }
       }
       return {
@@ -42,7 +42,7 @@ export const sanityGet = async <T>(query:string):Promise<{status:number, body: s
         body: data.result
       };
     } catch(e:any) {
-      // console.error(e);
+      console.error(e);
       return {
         status: 500,
         body : e
@@ -63,7 +63,7 @@ export const sectionGroqs = {
   tour: `layout == 'tour' => { ${standardStuff},box, quoteGallery}`,
   ecommerce: `layout == 'ecommerce' => { ${standardStuff}, box, counters, 'computer' : ${videoFields('computer')}, 'computer2' : ${videoFields('computer2')}, 'phone' : ${videoFields('phone')}, 'phone2' : ${videoFields('phone2')}, 'tablet' : ${videoFields('tablet')}}`,
   licensing: `layout == 'licensing' => { ${standardStuff},image, box, image2, logoGallery}`,
-  team: `layout == 'team' => {${standardStuff}, image}`,
+  team: `layout == 'team' => {${standardStuff}, image, logoGallery}`,
   connect: `layout == 'connect' => {${standardStuff}, instagramWidget,showSocials}`
 }
 

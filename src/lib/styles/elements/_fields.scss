@@ -1,6 +1,13 @@
+@use "../abstracts/mixins/type-elements" as type;
+@mixin font {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size:  var(--field-font-size, 16px);
+}
+
 @mixin base {
   --field-padding: 8px;
-  appearance: none;
+  // appearance: none;
   line-height: var(--field-line-height, 1.2);
   border:var(--field-border-width) solid var(--field-border-color);
   background: var(--field-background, transparent);
@@ -10,42 +17,50 @@
   min-width: 0;
   color: var(--field-color);
   box-sizing: border-box;
-    font-size:  var(--field-font-size, 16px);
+  font-size:  var(--field-font-size, 16px);
   border-radius: var(--field-border-radius, 0);
-  padding: var(--field-padding-y, var(--field-padding)) var(--field-padding-x, var(--field-padding));
+  padding:calc(var(--field-padding-top-bump, 6px) +  var(--field-padding-y, var(--field-padding))) var(--field-padding-x, var(--field-padding)) var(--field-padding-y, var(--field-padding)) ;
   &:focus {
     background-color: var(--field-focused-background-color);
+    outline-color: var(--field-focused-border-color);
   }
+}
+
+@mixin inputOutside {
+  @include base;
+  padding: calc( var(--field-padding-y, var(--field-padding)) * 2.5)  var(--field-padding-x, var(--field-padding));
 }
 
 @mixin label {
   text-transform: lowercase;
-  font-weight: 700;
-  font-size: var(--label-font-size, var(--field-font-size));
+  @include type.mono;
+  // font-weight: 600;
+  font-size: var(--field-label-font-size, var(--field-font-size));
 }
 
 @mixin moving-label {
   position: absolute;
   transform-origin: 0% 50%;
-  top:var(--field-gap, 1.1rem);
+  top:calc(var(--field-padding-top-bump) / 2);
   display: block;
+  font-weight: 600;
   left: 0%;
   line-height: var(--field-line-height, 1.2);
   z-index: 2;
   transition: transform 300ms ease, opacity 200ms ease;
-padding: var(--field-padding-y, var(--field-padding)) var(--field-padding-x, var(--field-padding));
+  padding: var(--field-padding-y, var(--field-padding)) var(--field-padding-x, var(--field-padding));
   transform: translate3d(0, 0, 0);
 }
 
 @mixin moving-label-active {
-    transform: translate3d(0, calc(-100% + 0.5 * var(--field-padding-y, var(--field-padding))) , 0) scale(0.9);
-    opacity: 1;
+    transform: translate3d(3px,calc( 5px - var(--field-padding-top-bump)) , 0) scale(0.8);
+    opacity: 0.9;
 
   }
 
   @mixin moving-label-filled {
-    transform: translate3d(0, calc(-100% + 0.5 * var(--field-padding-y, var(--field-padding))) , 0) scale(0.9);
-    opacity: 0.5;
+    transform: translate3d(3px, calc( 5px - var(--field-padding-top-bump)) , 0) scale(0.8);
+    opacity: 0.65;
     // transform: translate3d(0, 0, 0);
     // opacity: 0;
     pointer-events: none;;
@@ -56,7 +71,7 @@ padding: var(--field-padding-y, var(--field-padding)) var(--field-padding-x, var
   --label-height: 1.1rem;
   display: block;
   position: relative;
-  padding-top: var(--field-gap, 1.1rem);
-  margin-top: calc(var(--field-gap, 1.1rem) * 0.15);
+  // padding-top: var(--field-gap, 1.1rem);
+  margin-top: var(--field-gap);
 
 }

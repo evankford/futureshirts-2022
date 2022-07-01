@@ -1,6 +1,8 @@
 <script lang="ts">
   import setupField from "$lib/setupField";
   import { getContext, onMount } from "svelte";
+    import RequiredIndicator from "$lib/components/fields/RequiredIndicator.svelte";
+
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
   const context:FieldStore = getContext('fields');
 
@@ -37,14 +39,15 @@
 </script>
 
 <FieldWrap {id}>
+
   <div class="flex">
     <div class="sub-field" class:filled={firstName != ''} class:active={firstActive}>
-      <input on:change={handleChange} bind:value={firstName} type="text" on:focus={()=>firstActive = true} on:blur={()=>firstActive = false}  id="{id}_first" {required}/>
-      <label for="{id}_first" class="sub-label">First Name</label>
+      <input autocomplete="given-name" on:change={handleChange} bind:value={firstName} type="text" on:focus={()=>firstActive = true} on:blur={()=>firstActive = false}  id="{id}_first" {required}/>
+      <label for="{id}_first" class="sub-label">First Name<RequiredIndicator {required} /></label>
     </div>
     <div class="sub-field" class:filled={lastName != ''} class:active={lastActive}>
-      <input on:change={handleChange} bind:value={lastName} type="text" on:focus={()=>lastActive = true} on:blur={()=>lastActive = false} id="{id}_last" {required}/>
-      <label for="{id}_last" class="sub-label">Last Name</label>
+      <input autocomplete="family-name" on:change={handleChange} bind:value={lastName} type="text" on:focus={()=>lastActive = true} on:blur={()=>lastActive = false} id="{id}_last" {required}/>
+      <label for="{id}_last" class="sub-label">Last Name<RequiredIndicator {required} /></label>
     </div>
   </div>
 </FieldWrap>

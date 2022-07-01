@@ -36,17 +36,29 @@ import isOnScreen from "$lib/isOnScreen";
   section {
     overflow: hidden;
     --color-background: 255,255,255;
- --depth: 100px;
-         --rotateYMod:3.5deg;
+    --depth: 100px;
+    --rotateYMod:3.5deg;
     --rotateXMod:3.5deg;
 
-
+    @include media-query($small) {
+      --rotateXMod: 1deg;
+      --rotateYMod: 1deg;
+      --font-size-mega: 55px;
+    }
+    @include media-query($tiny) {
+      --rotateXMod: 0.5deg;
+      --rotateYMod: 0.5deg;
+      --font-size-mega: 44px;
+    }
   }
 
   .rotate {
      padding: 120px 0;
     position: relative;
     min-height: clamp(500px, 60vw, 950px);
+    @include media-query($small) {
+      padding :200px 0 50px;
+    }
 
   }
 

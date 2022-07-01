@@ -1,0 +1,5 @@
+@mixin blackGradient() {
+   --color-background:0,0,0;
+    background: radial-gradient( rgb(var(--color-background)), #3f3f3f);
+    --color-foreground: var(--color-base-background-off);
+}

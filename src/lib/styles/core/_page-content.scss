@@ -17,14 +17,14 @@
     line-height: var(--font-body-line-height);
   }
   li {
-    line-height: 1.2;
-    margin: 0.4em auto;
+    line-height: 1.4;
+    margin: 0.5em auto;
   }
   ul {
     padding: 0 0 0 1em;
   }
 
-  a {
+  a:not(.button) {
     line-height: inherit;
     font-weight: 600;
     display: inline-block;
@@ -33,25 +33,25 @@
     z-index: 2;
     padding: 0 2px;
     margin: 0 -1px;
-    text-decoration: none;
+    // text-decoration: none;
     color: rgb(var(--color-accent));
     overflow: hidden;
     &:visited {
       color: rgb(var(--color-accent-darker));
     }
-    &::after {
-      @include psuedo;
-      background: rgb(var(--color-accent));
-      transition: transform 300ms ease;
-      z-index: -1;
-      transform: translateY(calc(100% - 2px));
-    }
+    // &::after {
+    //   @include psuedo;
+    //   background: rgb(var(--color-accent));
+    //   transition: transform 300ms ease;
+    //   z-index: -1;
+    //   transform: translateY(calc(100% - 2px));
+    // }
 
     &:hover {
       color: rgb(var(--color-accent-inverse));
-      &::after {
-       transform: translateY(0)
-      }
+      // &::after {
+      //  transform: translateY(0)
+      // }
     }
   }
 

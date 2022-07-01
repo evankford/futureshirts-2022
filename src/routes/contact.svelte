@@ -1,34 +1,43 @@
 <script lang="ts">
   import isOnScreen, {stopWatching} from "$lib/isOnScreen";
-  import { contact} from "$lib/stores";
   import Video from "$lib/components/Video.svelte";
   import ContactForm from "$lib/sections/ContactForm.svelte";
-import { slide } from "svelte/transition";
+  import { slide } from "svelte/transition";
   let onScreen = false;
 
+  export let
+  email: string,
+  title: string,
+  subtitle: string | null,
+  contactOptions: ContactOption[],
+  contactVideo: VideoObject | null,
+  successMessage: string,
+  successTitle: string,
+  errorMessage: string,
+  errorTitle: string;
+
 </script>
-<section use:isOnScreen on:onscreen={(e)=> {onScreen = true; stopWatching(e.target);}} class="page-content">
-  {#if onScreen && $contact && $contact.video}
+<section use:isOnScreen on:onscreen={(e)=> {onScreen = true; stopWatching(e.target);}} class="page-content hero-image image-hero">
+  {#if onScreen && contactVideo}
   <div transition:slide class="bg">
-    <Video video={$contact.video} />
+    <Video video={contactVideo} />
   </div>
   {/if}
   <div class="wrap">
     <header>
-      {#if $contact && $contact.title}<h1>{$contact.title}</h1>{:else}<h1> Get in touch </h1>{/if}
-     {#if $contact && $contact.subtitle}<p>{$contact.subtitle}</p>{/if}
+    {#if title}<h1>{title}</h1>{:else}<h1> Get in touch </h1>{/if}
+     {#if subtitle}<p>{subtitle}</p>{/if}
     </header>
-    <form class="form">
-      {#if $contact}
-        <ContactForm />
-      {/if}
-    </form>
+    <div class="form">
+        <ContactForm {email} {successMessage} {successTitle} {errorMessage} {errorTitle} {contactOptions} />
+    </div>
   </div>
 
 </section>
 
 <style lang="scss">
   @use "../lib/styles/abstracts" as *;
+  @use "../lib/styles/core/_backgrounds" as bg;
   .bg {
     z-index: 0;
     pointer-events: none;
@@ -43,14 +52,16 @@ import { slide } from "svelte/transition";
     overflow: hidden;
     opacity: 0.4;
   }
-  :global(body ) {
-    --color-background:0,0,0;
-    background: radial-gradient( rgb(var(--color-background)), #3f3f3f);
-    --color-foreground: var(--color-base-background-off);
+  .page-content.hero-image {
+    @include bg.blackGradient;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 200px 0 100px;
   }
-  :global(body main#MainContent) {
-    background: transparent;
-  }
+
   .wrap {
     position: relative;
     z-index: 2;
@@ -89,5 +100,8 @@ import { slide } from "svelte/transition";
   }
   .page-content {
     @include page-wrap;
+  }
+  .form {
+    padding: 20px;
   }
 </style>

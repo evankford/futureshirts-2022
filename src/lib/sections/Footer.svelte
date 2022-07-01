@@ -1,6 +1,7 @@
 <script lang="ts">
   import MenuItem from "$lib/components/MenuItem.svelte";
-import Socials from "$lib/components/Socials.svelte";
+  import Socials from "$lib/components/Socials.svelte";
+  import {hasJobs } from "$lib/stores";
   export let menuItems:MenuItemShape[] | null, copyrightText:string ;
 </script>
 
@@ -43,6 +44,9 @@ import Socials from "$lib/components/Socials.svelte";
     {#each menuItems as item}
     <MenuItem {item}/>
     {/each}
+    {#if $hasJobs}
+    <MenuItem item={{title: 'Careers', linkUrl: {openInNewTab: false,type:'internal' , url: '/jobs', } }} />
+    {/if}
   </ul>
   {/if}
   <div class="right">
@@ -68,7 +72,7 @@ import Socials from "$lib/components/Socials.svelte";
   }
   .right, .left, ul {
     flex: 1 1 200px;
-    margin: clamp(15px, calc(10px + 1.5vw), 25px) 0;
+    margin: clamp(15px, calc(10px + 1.5vw), 25px) 20px;
   }
 
   .right {

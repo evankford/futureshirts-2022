@@ -59,6 +59,11 @@ import isOnScreen from "$lib/isOnScreen";
     color: rgb(var(--color-base-text));
     --color-background: var(--color-base-background);
     --color-foreground: var(--color-base-text);
+    @include media-query($tiny) {
+       --rotateXMod: 0.5deg;
+    --rotateYMod: 0.5deg;
+      --font-size-mega: 54px;
+    }
   }
 
   .rotate, .content,.images {

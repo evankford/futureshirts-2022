@@ -4,14 +4,12 @@
   import type { Writable } from "svelte/store";
   let fields:Writable<Fields> = getContext('fields');
   let processing:Writable<boolean> = getContext('processing');
+  let submitted:Writable<boolean> = getContext('submitted');
   let error = false;
   let unsub = ()=> {}
 
   onMount(()=> {
     unsub = fields.subscribe((val:Fields) =>{
-      console.log(val);
-      console.log(id);
-      console.log(val[id]);
       if (val && val[id]) {
         error = val[id].errorMsg != false;
       }
@@ -24,9 +22,9 @@
 
   export let id:string = '' ;
 </script>
-<div class="field" class:error class:processing={$processing}>
+<div class="field" class:error={error && $submitted} class:processing={$processing}>
   <slot class="input"></slot>
-  {#if error}
+  {#if error && $submitted}
   <div transition:slide class="message">
     {@html $fields[id].errorMsg}
   </div>
@@ -51,11 +49,11 @@
     opacity: 1;
   }
   .message {
-    padding: 5px;
+    padding: 6px 12px;
     color: white;
     font-weight: 500;
     border-radius: 3px;
-    font-size: 13px;
+    font-size: 14px;
     margin: 9px 0 0;
     background-color: rgb(var(--color-error));
   }

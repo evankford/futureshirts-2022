@@ -4,13 +4,13 @@ const menuHelper = `[]{title, linkUrl{type, url, openInNewTab, anchor, ref->{'sl
 import { videoFields } from "$lib/sanity";
 const query = `
 {
-  "header"   : *[_id == 'header'  ][0] {menuItems${menuHelper}, 'contactLink': { 'title':  coalesce(^.contactLink.title, 'Get in Touch'), 'slug': *[_type == 'page' && ^.contactLink.ref._ref == _id][0].slug.current }},
+  "header"   : *[_id == 'header'  ][0] {menuItems${menuHelper}, 'contactLink': { 'title':  coalesce(^.contactLink.title, 'Get in Touch'), 'slug': coalesce(^.slug, '/contact')}},
   "footer"   : *[_id == 'footer'  ][0] {menuItems${menuHelper}, copyrightText},
   "codes"    : *[_id == 'codes'   ][0] {headerCode, footerCode},
-  "contact"  : *[_id == 'contactSettings' ][0] {title, subtitle, sites, 'video' : ${videoFields('video')}, email, successTitle, successMessage, errorTitle, errorMessage},
+  "contact"  : *[_id == 'contactSettings' ][0] {title, subtitle, sites, contactOptions, 'video' : ${videoFields('video')}, email, successTitle, successMessage, errorTitle, errorMessage},
   "seo"      : *[_id == 'siteSEO' ][0] {title, description, nofollow, favicon, image},
   "socials"  : *[_id == 'socialMedia' ][0] { socials},
-  "jobs"     : *[_id == 'jobs'    ][0] {email,title,blurb,successTitle,successMessage,errorTitle,errorMessage,haveOpeningsTitle,haveOpenings,noCurrentOpenings,noCurrentOpeningsTitle, openings}
+  "jobs"     : *[_id == 'jobs' ][0] {openings}
 }`;
 
 /** @type {import('./__types/site.json').RequestHandler} */

@@ -1,6 +1,6 @@
 @use "../abstracts/" as *;
 
-.hide--mobile, .hide-small {
+.hide--mobile, .hide--small {
   @include media-query($small) {
     display: none !important;
   }

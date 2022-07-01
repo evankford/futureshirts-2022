@@ -6,7 +6,7 @@ export default function setupField( id:string,validator: (v: any)=>(string | fal
     newVal[id] = {
       value: null,
       validator,
-      errorMsg:false
+      errorMsg:validator(null)
     }
     return newVal;
   })

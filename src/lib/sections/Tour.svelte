@@ -5,8 +5,10 @@ import isOnScreen from "$lib/isOnScreen";
   import Image from "$lib/components/Image.svelte";
   import Quote from "$lib/components/Quote.svelte";
   import Fa from "svelte-fa";
+  import {fly} from "svelte/transition";
   import {faChevronLeft, faChevronRight} from "@fortawesome/pro-regular-svg-icons"
   import {onMount} from "svelte";
+  import {browser} from "$app/env"
   let currentSlide = 0;
   let slideInterval: ReturnType<typeof setInterval>;
   function startSlideInterval() {
@@ -66,9 +68,11 @@ import isOnScreen from "$lib/isOnScreen";
        <button aria-label="Previous Quote" on:click={prevSlide}><Fa icon={faChevronLeft}/></button>
        <ul class="quotes">
          {#each quoteGallery as q, i}
-           <li class="slide-quote" aria-current={currentSlide == i} aria-hidden={currentSlide != i}>
-              <Quote hidden={currentSlide != i} logo={q.logo} quoteTitle={q.quoteTitle} subtitle={q.subtitle} quote={q.quote} />
+         {#if currentSlide == i}
+           <li out:fly={{x: browser ? window.innerWidth : 500}} in:fly={{delay: 400, x: browser ? window.innerWidth : 500 }} class="slide-quote" aria-current={currentSlide == i} aria-hidden={currentSlide != i}>
+              <Quote logo={q.logo} quoteTitle={q.quoteTitle} subtitle={q.subtitle} quote={q.quote} />
             </li>
+            {/if}
          {/each}
        </ul>
        <button aria-label="Previous Quote" on:click={nextSlide}><Fa icon={faChevronRight}/></button>
@@ -111,10 +115,14 @@ import isOnScreen from "$lib/isOnScreen";
     background-size: 24px;
     background-repeat: repeat;
     overflow: hidden;
+    @include media-query ($tiny) {
+       --rotateXMod: 0.5deg;
+    --rotateYMod: 0.5deg;
+    }
   }
 
-  .rotate {
-
+  .top {
+text-align: center;
   }
 
   button {
@@ -127,7 +135,7 @@ import isOnScreen from "$lib/isOnScreen";
   }
 
   .gallery {
-    flex: 1 1 600px;
+    flex: 1 1 450px;
     margin: 20px auto;
     max-width: 1000px;
     position: relative;
@@ -141,7 +149,7 @@ import isOnScreen from "$lib/isOnScreen";
   }
   .content {
     transform: translateZ(250px);
-    flex: 1 1 400px;
+    flex: 1 1 270px;
     margin: 0;
     position: relative;
     z-index: 2;
@@ -153,8 +161,7 @@ import isOnScreen from "$lib/isOnScreen";
     margin: 0;
   }
   .bottom {
-        transform: translateZ(200px);
-
+    transform: translateZ(200px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -174,6 +181,12 @@ import isOnScreen from "$lib/isOnScreen";
         opacity: 1;
         transform: translateY(-6px)
       }
+      @include media-query($small) {
+        flex: 0 0 20px;
+        height: 25px;
+        margin: 10px;
+        font-size: 12px;
+      }
     }
   }
 
@@ -192,15 +205,18 @@ import isOnScreen from "$lib/isOnScreen";
   .quotes {
     position: relative;
     width: 100%;
-    height: 120px;
+    min-height: 120px;
+    display: flex;
+
     margin: 30px auto;
     --depth: 180px;
   }
   .slide-quote {
-    height: 120px;
-    position: absolute;
-
+    // height: 120px;
+    // position: absolute;
+    flex: 0 0 100%;
     width: 100%;
+
   }
   .slides {
     @include psuedo;
@@ -248,8 +264,11 @@ import isOnScreen from "$lib/isOnScreen";
 
   .wrap {
     //  @include content-wrap;
-    padding: 0 3rem;
-    max-width: clamp(70vw, 1400px, 90vw);
+    padding: 0;
+    @include media-query($widescreen) {
+      padding: 0 3rem;
+    }
+    max-width: clamp(70vw, 1400px, 95vw);
     margin: auto;
      display: flex;
      flex-wrap: wrap;

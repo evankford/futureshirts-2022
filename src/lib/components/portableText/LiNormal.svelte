@@ -6,5 +6,5 @@ import type { ListItemComponentProps } from "@portabletext/svelte";
 </script>
 
 {#each portableText.value.children as liItem}
-<li>{liItem.text}</li>
+<li><slot/></li>
 {/each}

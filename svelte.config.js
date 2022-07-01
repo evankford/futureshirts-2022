@@ -10,6 +10,9 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		vite: {
+			optimizeDeps: {
+				include: ['phone']
+			},
 			ssr: {
 				noExternal: ['@fortawesome/free-brands-svg-icons', '@fortawesome/pro-regular-svg-icons', '@fortawesome/pro-solid-svg-icons']
 			}

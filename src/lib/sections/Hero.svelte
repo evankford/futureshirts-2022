@@ -47,7 +47,7 @@ import isOnScreen from "$lib/isOnScreen";
 
   export let title:string | null, subtitle: string| null, intro: string|null, box: Array<Block>, heroGallery: Array<HeroImage>, anchor:string;
 </script>
-<section use:isOnScreen class="hero" id={anchor}>
+<section use:isOnScreen class="hero image-hero" id={anchor}>
   <div class="rotate">
     {#if heroGallery}
       <div class="bg">
@@ -60,33 +60,31 @@ import isOnScreen from "$lib/isOnScreen";
     {/if}
     <div class="hero-content">
       <div class="left">
-        <div class="title">
-          <SectionHeading {title} {subtitle} {intro} />
+        <SectionHeading {title} {subtitle} {intro} />
+      </div>
+      <div class="bottom">
+      {#if heroGallery && heroGallery.length}
+        <div class="who">
+          {#each Array(heroGallery.length) as _, i}
+            {#if i === currentSlide}
+              <span in:fly={{duration:400, delay: 300, y: 20}} out:fly={{duration: 300, y:20}}>{heroGallery[i].title}</span>
+            {/if}
+          {/each}
         </div>
-        <div class="bottom">
-        {#if heroGallery && heroGallery.length}
-          <div class="who">
-            {#each Array(heroGallery.length) as _, i}
-              {#if i === currentSlide}
-                <span in:fly={{duration:400, delay: 300, y: 20}} out:fly={{duration: 300, y:20}}>{heroGallery[i].title}</span>
-              {/if}
-            {/each}
-          </div>
-          {/if}
-          <nav aria-label="Slide {currentSlide + 1} of {heroGallery.length} active.">
-            <button on:click={prevSlide} aria-label="Previous Slide" aria-disabled={currentSlide == 0}>
-              <Fa icon={faArrowLeftLong}/>
+        {/if}
+        <nav aria-label="Slide {currentSlide + 1} of {heroGallery.length} active.">
+          <button on:click={prevSlide} aria-label="Previous Slide" aria-disabled={currentSlide == 0}>
+            <Fa icon={faArrowLeftLong}/>
+          </button>
+          {#each Array(heroGallery.length) as _, i}
+            <button class="dot" class:active={i == currentSlide } on:click={()=> {slideTo(i)}}  aria-label="Go To Slide {i}">
+              <Fa icon={faCircle }/>
             </button>
-            {#each Array(heroGallery.length) as _, i}
-              <button class="dot" class:active={i == currentSlide } on:click={()=> {slideTo(i)}}  aria-label="Go To Slide {i}">
-                <Fa icon={faCircle }/>
-              </button>
-            {/each}
-            <button on:click={nextSlide} aria-label="Next Slide" aria-disabled={currentSlide + 1 >= heroGallery.length}>
-              <Fa icon={faArrowRightLong}/>
-            </button>
-          </nav>
-        </div>
+          {/each}
+          <button on:click={nextSlide} aria-label="Next Slide" aria-disabled={currentSlide + 1 >= heroGallery.length}>
+            <Fa icon={faArrowRightLong}/>
+          </button>
+        </nav>
       </div>
       <div class="right">
         {#if box}
@@ -119,7 +117,11 @@ import isOnScreen from "$lib/isOnScreen";
     align-items: flex-end;
     justify-content: center;
     color: rgb(var(--color-foreground));
-    padding: clamp(200px, 30vh, 450px) 0 clamp(40px, 10vh, 180px);
+    padding: clamp(140px, 30vh, 450px) 0 clamp(20px, 10vh, 180px);
+
+    @include media-query($small) {
+      padding-bottom: 20px;
+    }
   }
   .bg,.hero-content,.left,.right {
     transform-style: preserve-3d;
@@ -137,8 +139,15 @@ import isOnScreen from "$lib/isOnScreen";
   }
 
   .bottom {
+    grid-area: nav;
     padding-left: 5px;
-    margin: clamp(25px,  calc(20px + 3vh), 50px) 0 0;
+    width: 100%;
+    // padding: 12px;
+    // background: rgba(black, 0.2);
+    margin: clamp(12px,  calc(20px + 2vh), 40px) 0 0;
+    @include media-query($small) {
+      margin-top: 50px;
+    }
   }
   button {
     font-size: 14px;
@@ -152,9 +161,6 @@ import isOnScreen from "$lib/isOnScreen";
     }
   }
 
-  .title {
-    transform: translateZ(100px);
-  }
   .who {
 
     @include mono;
@@ -195,11 +201,26 @@ import isOnScreen from "$lib/isOnScreen";
     @include content-wrap;
     position: relative;
     z-index: 2;
+
     display: flex;
     flex-wrap:wrap;
     text-align: left;
     align-items: flex-end;
     justify-content: space-between;
+
+    /// Grid
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    align-items: end;
+    justify-items: start;
+    grid-template-areas: "title" "content" "nav";
+
+    @include media-query($medium-up) {
+      grid-template-columns: 1fr auto;
+      grid-template: auto auto;
+      grid-template-areas: "title content" "nav content";
+    }
   }
   nav {
     margin: 5px auto 0;
@@ -208,11 +229,15 @@ import isOnScreen from "$lib/isOnScreen";
     justify-content: flex-start;
   }
   .left {
-
+    grid-area: title;
+    flex: 1 1 300px;
     --depth: 50px;
-    max-width: 550px;
+    max-width: 570px;
+    padding-right: 50px;
   }
   .right {
+    grid-area: content;
+    flex: 0 1 auto;
    transform: translateZ(150px);
    @include mono;
     --rotateXMod: -9deg;

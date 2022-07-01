@@ -10,6 +10,8 @@
     <a on:click={()=>{$navOpen = false}} tabindex={$navOpen ? 0 : -1} href="{item.linkUrl.anchor}">{item.title}</a>
   {:else if item.linkUrl?.ref?.slug && item.linkUrl.type == 'internal'}
     <a on:click={()=>{$navOpen = false}} tabindex={$navOpen ? 0 : -1} href="{item.linkUrl.ref.slug}">{item.title}</a>
+  {:else if  item.linkUrl.type == 'internal' && item.linkUrl.url}
+    <a on:click={()=>{$navOpen = false}} href="{item.linkUrl.url}"  tabindex={$navOpen ? 0 : -1}>{item.title}</a>
   {/if}
 </li>
 {:else }
@@ -20,6 +22,8 @@
     <a href="{item.linkUrl.anchor}">{item.title}</a>
    {:else if item.linkUrl?.ref?.slug && item.linkUrl.type == 'internal'}
     <a href="{item.linkUrl.ref.slug}">{item.title}</a>
+    {:else if  item.linkUrl.type == 'internal' && item.linkUrl.url}
+    <a href="{item.linkUrl.url}">{item.title}</a>
   {/if}
 </li>
 {/if}
@@ -54,7 +58,7 @@
     color: inherit;
     display: inline-block;
     z-index: 1;
-    padding: 0.2em 0.7em;
+    padding: 0.3em 0.7em;
     margin: 0.1em;
 
    @include hoverBox;

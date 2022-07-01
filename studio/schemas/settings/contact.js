@@ -22,11 +22,17 @@ export default {
 			title: 'Subtitle',
 			type: 'string'
 		},
-    {
-      name: 'video',
-      title: 'Video',
-      type: 'video'
-    },
+		{
+			name: 'content',
+			title: 'Content',
+			type: 'array',
+			of: [{ type: 'block' }]
+		},
+		{
+			name: 'video',
+			title: 'Video',
+			type: 'video'
+		},
 		{
 			name: 'email',
 			title: 'Email Address',
@@ -46,6 +52,12 @@ export default {
 				})
 		},
 		{
+			name: 'contactOptions',
+			title: 'Contact Options',
+			type: 'array',
+			of: [{ type: 'contactOption' }]
+		},
+		{
 			name: 'successTitle',
 			title: 'Success Title',
 			type: 'string',
@@ -54,7 +66,7 @@ export default {
 		{
 			name: 'successMessage',
 			title: 'Success Message',
-			type: 'text',
+			type: 'markdown',
 			validation: (R) => R.required()
 		},
 		{
@@ -66,7 +78,7 @@ export default {
 		{
 			name: 'errorMessage',
 			title: 'Error Message',
-			type: 'text',
+			type: 'markdown',
 			validation: (R) => R.required()
 		}
 	]

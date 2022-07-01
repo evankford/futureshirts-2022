@@ -10,20 +10,20 @@ export default {
 			name: 'contactLink',
 			title: 'Contact Link',
 			type: 'object',
+			validation: (R) => R.required(),
 			fields: [
 				{
 					name: 'title',
 					type: 'string',
-					title: 'Title'
+					title: 'Title',
+					validation: (R) => R.required()
 				},
 				{
-					name: 'ref',
-					title: 'Reference',
-					type: 'reference',
-					to: [
-						{ type: 'page' }
-						// {type: 'news'}
-					]
+					name: 'slug',
+					title: 'Contact Page URL',
+					type: 'string',
+					initialValue: '/contact',
+					validation: (R) => R.required()
 				}
 			],
 			initialValue: {

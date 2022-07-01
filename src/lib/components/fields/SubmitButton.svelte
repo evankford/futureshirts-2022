@@ -1,48 +1,78 @@
 <script lang="ts">
   import type {Writable, Readable}  from "svelte/store";
-  import { getContext } from "svelte";
+  import { getContext, onDestroy } from "svelte";
 
   const ready:Readable<boolean> = getContext('ready');
+  const valid:Readable<boolean> = getContext('valid');
   const processing:Writable<boolean> = getContext('processing')
   const submitted:Writable<boolean> = getContext('submitted');
-  const changed:Readable<boolean> = getContext('changed');
 
-  let wrap: HTMLElement;
-  let handleSubmit:()=>void = getContext('handleSubmit');
+  let handleSubmit:MetaSubmitFunction;
+  const submitStore = getContext<Writable<MetaSubmitFunction>>('submitForm');
+  const unsubSubmitStore = submitStore.subscribe(val=> {
+    handleSubmit = val;
+  });
+
   let shaking = false;
   function shake() {
     shaking = true;
+
 
     setTimeout(() => {
     shaking = false;
     }, 300);
   }
+
+  function submit(doIt:boolean = true) {
+    submitted.update(()=>{ return true});
+    if (doIt) {
+      handleSubmit();
+      return;
+    }
+    shake();
+    return;
+  }
+  onDestroy(()=> {
+    unsubSubmitStore();
+  })
+  export let centered: boolean = false;
 </script>
-<div class="button-wrap"  bind:this={wrap}></div>
-{#if $submitted && !$changed}
-<button type="button" disabled on:click={shake} class="error">
+<div class="button-wrap" class:centered >
+
+
+  {#if $processing}
+    <button type="button" on:click={()=>submit(false)} class="processing">
+      {#if $$slots.processing && $processing}
+      <slot name="processing"/>
+      {:else}
+      <span>Working...</span>
+      {/if}
+    </button>
+{:else if $submitted && !$valid}
+  <button type="button" disabled on:click={()=>submit(false)}  class:shaking class="error">
+    <slot />
+  </button>
+{:else if !$ready}
+<button type="button" on:click={()=>submit(false)}  class:shaking class="not-ready">
   <slot />
 </button>
-{:else if $processing}
-<button type="button" on:click={shake} class="processing">
-  {#if $$slots.processing && $processing}
-  <slot name="processing"/>
-  {:else}
-  <span>Working...</span>
-  {/if}
-</button>
-{:else if !$ready}
-<button type="button" on:click={shake}  class:shaking class="not-ready">
-  <slot/>
-</button>
 {:else }
-<button type="button" on:click={handleSubmit} class="ready" class:ready>
+<button type="button" on:click={()=>submit()} class="ready" class:ready>
   <slot/>
   </button>
 {/if}
-
+</div>
 <style lang="scss">
   @use "../../styles/abstracts/mixins" as *;
+  .button-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .button-wrap.centered {
+    justify-content: center;
+  }
   button {
     @include resetButton;
     @include buttonStyles;
@@ -51,9 +81,9 @@
     text-transform: lowercase;
     padding: 0.5em 1em;
     border-radius: 2em;
-    transition: transform 300ms ease;
     position: relative;
     z-index: 2;
+    transition: all 300ms ease;
     background: rgb(var(--color-accent));
 
     &::before {
@@ -71,6 +101,9 @@
     }
     &.error {
       background: rgb(var(--color-error));
+    }
+    &.not-ready {
+      background: rgb(var(--color-base-accent-dull));
     }
   }
   .shaking {
@@ -90,7 +123,5 @@
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
-.not-ready {
-  background-color: rgb(var(--color-base-accent-dull));
-}
+
 </style>

@@ -35,6 +35,7 @@
     margin: 0;
   }
   a {
+    line-height: 0;
     padding: 4px;
     color: inherit;
     display: block;

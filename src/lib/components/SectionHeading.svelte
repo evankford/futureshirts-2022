@@ -16,7 +16,7 @@
 </script>
 
 {#if title || intro || subtitle }
-  <header bind:this={el} class="section-header" class:hide-children={!visible} use:isOnScreen on:onscreen={()=>{visible = true; stopWatching(el); }} >
+  <header bind:this={el} class="section-header" class:offscreen={!visible} use:isOnScreen on:onscreen={()=>{visible = true; stopWatching(el); }} >
     {#if intro}
       <div class="intro">{intro}</div>
     {/if}
@@ -57,20 +57,7 @@
   }
 
   .intro, .subtitle, .title span {
-    position: relative;
     display: inline-block;
-    opacity: 1;
-    transform: translate3d(0, 0px, 0);
-    transition: transform 600ms ease, opacity 600ms ease;
-
-    @for $i from 0 through 6 {
-      &:nth-child(#{$i}) {
-        transition-delay: $i * 50ms;
-      }
-    }
-    .hide-children & {
-      transform: translate3d(0, max(10px, 100%), 0);
-      opacity: 0;
-    }
+    @include animateInChild();
   }
 </style>

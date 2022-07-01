@@ -30,7 +30,6 @@ import Laptop from "$lib/components/Laptop.svelte";
 
     <div class="rotate">
       <div class="devices">
-        {computer2.is}
         <div class="comp comp1"><Laptop>{#if computer2.is == 'video'}<Video video={computer2}/>{:else if computer2.is =='image'}<Image image={computer2.image} alt={computer2.title} />{/if}</Laptop></div>
         <div class="tablet"><Tablet>{#if tablet.is == 'video'}<Video video={tablet}/>{:else if tablet.is =='image'}<Image image={tablet.image} alt={tablet.title} />{/if}</Tablet></div>
         <div class="phone phone1"><Phone>{#if phone.is == 'video'}<Video video={phone}/>{:else if phone.is =='image'}<Image image={phone.image} alt={phone.title} />{/if}</Phone></div>
@@ -57,6 +56,20 @@ import Laptop from "$lib/components/Laptop.svelte";
     padding: clamp(40px, 8vh, 100px) 0;
     --color-background: 31, 34, 41;
     --color-foreground: var(--color-background);
+
+    @include media-query($large) {
+      min-height: 2200px;
+    }
+    @include media-query($medium) {
+      min-height: 1800px;
+    }
+
+    @include media-query($small) {
+      min-height: 1500px;
+      --font-size-mega: 50px;
+      --rotateXMod: 1deg;
+      --rotateYMod: 1deg;
+    }
 
   }
 
@@ -85,6 +98,9 @@ import Laptop from "$lib/components/Laptop.svelte";
     text-shadow: 0 0 40px rgba(0,0,0,0.5);
     margin: 0 auto clamp(20px, 10vh, 100px);
     z-index: 100;
+    @include media-query($small) {
+      margin-bottom: 0;
+    }
   }
   .devices {
     width: 1480px;
@@ -98,8 +114,19 @@ import Laptop from "$lib/components/Laptop.svelte";
     flex-wrap: wrap;
     z-index: 0;
     transform: rotate3d(0,0,-1, 15deg) translate3d(-75%, -10%, -150px);
+    @include media-query($large) {
+      transform: rotate3d(0,0,-1, 18deg) translate3d(-65%, -15%, -10px) scale(0.72);
+    }
     @include media-query($medium) {
-      transform: rotate3d(0,0,-1, 25deg) scale(0.9) translate3d(-15%, 0%, -10px) scale(0.4);
+      transform: rotate3d(0,0,-1, 12deg) translate3d(-15%, 0%, -10px) scale(0.65);
+    }
+    @include media-query($small) {
+      opacity: 0.5;
+      transform: rotate3d(0,0,-1, 10deg) translate3d(-45%, -10%, -10px) scale(0.5);
+    }
+    @include media-query($tiny) {
+
+      transform: rotate3d(0,0,-1, 8deg) translate3d(-45%, -20%, -10px) scale(0.42);
     }
   }
   .phone, .comp, .tablet {
@@ -150,6 +177,10 @@ import Laptop from "$lib/components/Laptop.svelte";
     flex: 1 1 200px;
     margin: 50px 0 20px auto;
     max-width: 340px;
+
+    @include media-query($small) {
+      margin: 20px auto 0 auto;
+    }
 
   }
 

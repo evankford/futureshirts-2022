@@ -1,6 +1,7 @@
 <script lang="ts">
     import setupField from "$lib/setupField";
   import { getContext, onMount } from "svelte";
+  import RequiredIndicator from "$lib/components/fields/RequiredIndicator.svelte";
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
   import * as EmailValidator from 'email-validator';
 
@@ -32,13 +33,12 @@
     })
   }
   let emailActive = false, emailValue = '';
-
   export let required = true, id="email", label="Email Address";
 </script>
 
 <FieldWrap {id}>
   <label class:filled={emailValue != ''} class:active={emailActive} for={id}>
-    <span class="label">{label}</span>
+    <span class="label">{label}<RequiredIndicator {required}/></span>
     <input type="email" on:focus={()=>emailActive = true} {required} {id} on:blur={()=>{emailActive = false}}  on:change={handleChange} bind:value={emailValue}/>
   </label>
 </FieldWrap>

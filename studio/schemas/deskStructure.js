@@ -11,7 +11,7 @@ export default () =>
 				(listItem) =>
 					listItem.getSchemaType().name != 'section'
 					&&
-					!['siteSEO', 'contactSettings', 'header', 'footer', 'socialMedia', 'codes', 'jobs'].includes(
+					!['siteSEO', 'contactSettings', 'header', 'footer', 'socialMedia', 'codes', 'jobs', 'support'].includes(
 						listItem.getId()
 					)
 			),
@@ -53,6 +53,15 @@ export default () =>
 										.id('jobs')
 										.title('Jobs')
 										.documentId('jobs')
+								),
+								S.listItem()
+								.title('Support Settings')
+								.child(
+									S.document()
+										.schemaType('support')
+										.id('support')
+										.title('Support')
+										.documentId('support')
 								),
 							S.listItem()
 								.title('Contact Settings')

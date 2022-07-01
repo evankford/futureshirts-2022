@@ -4,6 +4,15 @@ h1,h2,h3,h4,h5,h6 ,.h1,.h2,.h3,.h4,.h5,.h6 {
   font-size:calc(var(--font-body-size)* var(--modifier) * var(--font-heading-ratio));
   margin-top: calc(2.5 * var(--vertical-rhythm));
   margin-bottom:  var(--vertical-rhythm);
+  &:first-child {
+    margin-top: 0;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+  & + &  {
+    margin-top: 0.3em;
+  }
   @include heading();
   &.label {
     @include label()
@@ -102,12 +111,21 @@ h5, .h5 {
 
 }
 p, ul {
-  margin-top: calc(var(--vertical-rhythm) * 4);
-  margin-bottom: calc(var(--vertical-rhythm) * 2);
+  margin-top: calc(var(--vertical-rhythm) * 2);
+  margin-bottom: calc(var(--vertical-rhythm) );
   line-height: var(--font-body-line-height);
   // max-width: 45em;
   margin-left: auto;
   margin-right: auto;
+
+  &:first-child {
+    margin-top: 0;
+
+  }
+  &:last-child {
+    margin-bottom: 0;
+
+  }
 
   &.large {
     font-size: var(--font-body-large-size)

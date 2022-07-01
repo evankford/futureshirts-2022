@@ -54,11 +54,13 @@ import isOnScreen from "$lib/isOnScreen";
     justify-content: space-evenly;
     align-items: center;
     transform-style: preserve-3d;
-
+    @include media-query($small) {
+      flex-wrap:wrap;
+    }
   }
 .left, .right {
   transform-style: preserve-3d;
-  flex: 1 1 240px;
+  flex: 1 1 280px;
   max-width: 500px;
 }
 .bottom {

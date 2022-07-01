@@ -6,6 +6,7 @@
   import Fa from "svelte-fa";
   import {faBarsSort, faXmark} from "@fortawesome/pro-regular-svg-icons";
   import { fly } from "svelte/transition";
+  import {hasJobs} from "$lib/stores";
 import { onDestroy } from "svelte";
 
 const unsubNav = navOpen.subscribe(val=> {
@@ -44,6 +45,9 @@ const unsubNav = navOpen.subscribe(val=> {
     {#each smallMenuItems as item }
       <MenuItem inNav {item}/>
     {/each}
+     {#if $hasJobs}
+    <MenuItem inNav item={{title: 'Careers', linkUrl: {openInNewTab: false,type:'internal' , url: '/jobs', } }} />
+    {/if}
   </ul>
   {/if}
   <div class="nav-socials" >
@@ -56,20 +60,27 @@ const unsubNav = navOpen.subscribe(val=> {
 
   .nav-toggle {
     @include resetButton;
+    --buttonSize: 40px;
     color: currentColor;
-    font-size: 22px;
+    font-size: calc(0.5 * var(--buttonSize) + 2px);
     position: relative;
     right: 0;
     top: 0;
-    width: 40px;
+    width: var(--buttonSize);
     transition: color 600ms ease;
-    height: 40px;
+    height: var(--buttonSize);
     text-align: center;
+    @include media-query($small) {
+      --buttonSize: 36px;
+    }
+    @include media-query($tiny) {
+      --buttonSize: 32px;
+    }
     span {
       position: absolute;
       top: 50%;
       left: 50%;
-      margin: -10px -8px;
+      margin: calc(-0.25 * var(--buttonSize)) calc(-0.25 * var(--buttonSize) + 2px);
     }
     overflow: hidden;
     z-index: 2;
@@ -142,7 +153,8 @@ const unsubNav = navOpen.subscribe(val=> {
     }
 
     &.small {
-        font-size: 16px;
+        font-size: 0.8em;
+        margin: 1em 0;
         opacity: 0.8;
     @include media-query($large-up) {
       font-size: 18px;

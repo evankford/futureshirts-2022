@@ -3,25 +3,25 @@ import getRefUrl from "$lib/ref";
 import isOnScreen, { stopWatching} from "$lib/isOnScreen";
 
 let invisible: boolean = true;
-export  let noMargin = false, simple = false, link:LinkURL | string| undefined;
+export let noMargin = false, simple = false, link:LinkURL | string| undefined;
 </script>
 
 {#if link != undefined }
 <div class="button-wrap" use:isOnScreen on:onscreen={(e)=>{invisible = false; stopWatching(e.target)} } class:invisible>
 
   {#if typeof link == 'string'}
-    <a class:noMargin class:simple href="{link}"><slot>Button Title</slot></a>
+    <a class="button" class:noMargin class:simple href="{link}"><slot>Button Title</slot></a>
   {:else}
     {#if link.type == 'internal' && link.ref}
-      <a class:noMargin class:simple href="{getRefUrl(link.ref)}"><slot>Button Title</slot></a>
+      <a class="button" class:noMargin class:simple href="{getRefUrl(link.ref)}"><slot>Button Title</slot></a>
     {:else if link.type == 'external'}
       {#if link.openInNewTab}
-        <a class:noMargin class:simple target="_blank" href={link.url} rel="nofollow noopener noreferrer"><slot>Button Title</slot></a>
+        <a class="button" class:noMargin class:simple target="_blank" href={link.url} rel="nofollow noopener noreferrer"><slot>Button Title</slot></a>
         {:else}
-        <a class:noMargin class:simple href={link.url}><slot>Button Title</slot></a>
+        <a class="button" class:noMargin class:simple href={link.url}><slot>Button Title</slot></a>
       {/if}
     {:else if link.type == 'anchor' }
-      <a class:noMargin class:simple data-anchor href="{link.anchor}"><slot>Button Title</slot></a>
+      <a class="button" class:noMargin class:simple data-anchor href="{link.anchor}"><slot>Button Title</slot></a>
     {/if}
   {/if}
 </div>
@@ -36,7 +36,7 @@ export  let noMargin = false, simple = false, link:LinkURL | string| undefined;
   .button-wrap  {
     transition: transform 800ms ease, opacity 800ms ease;
   }
-  a {
+  a.button {
     @include resetButton();
     @include buttonStyles();
     background: rgb(var(--color-accent));

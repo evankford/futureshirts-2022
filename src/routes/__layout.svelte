@@ -68,7 +68,12 @@
   let center:[number,number] = browser ? [window.innerWidth / 2, window.innerHeight / 2] : [500, 500];
   let rotate:[number,number] = [0, 0]
   function windowResizeHandler() {
-    center =  browser ? [window.innerWidth / 2, window.innerHeight / 2] : [500, 500];
+    if (browser) {
+      center =  [window.innerWidth / 2, window.innerHeight / 2]
+    } else {
+      center =  [500, 500];
+    }
+    center = center;
   }
 
   function deviceOrientationHandler(e:DeviceOrientationEvent) {
@@ -100,7 +105,7 @@
   onMount(()=> {
     setGlobalStores();
     if (browser) {
-      // window.addEventListener('resize', throttle(windowResizeHandler, 300));
+      window.addEventListener('resize', throttle(windowResizeHandler, 300));
       if (primaryInput == 'mouse') {
         window.addEventListener('mousemove', throttle(mouseMoveHandler, 25));
       } else {
@@ -203,8 +208,6 @@
   @use "../lib/styles/devices";
 
   main {
-    position: relative;
-    z-index: 1;
     // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 

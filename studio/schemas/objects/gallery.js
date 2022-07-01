@@ -21,7 +21,7 @@ export default {
 			title: 'Layout',
 			type: 'string',
 			initialValue: 'gallery',
-			required: true,
+      validation: (R) => R.required(),
 			options: {
 				list: [
 					{
@@ -41,7 +41,7 @@ export default {
 			name: 'imageSize',
 			title: 'Image Size',
 			type: 'string',
-			required: true,
+      validation: (R) => R.required(),
 			initialValue: 'medium',
 			options: {
 				list: [

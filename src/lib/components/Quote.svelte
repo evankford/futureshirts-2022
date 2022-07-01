@@ -1,8 +1,8 @@
 <script lang="ts">
   import Image from "./Image.svelte";
-  export let absolute: boolean = true,  hidden:boolean = false, logo:SanityImageObject, quote:string, quoteTitle:string | undefined, subtitle: string | undefined
+  export let  hidden:boolean = false, logo:SanityImageObject, quote:string, quoteTitle:string | undefined, subtitle: string | undefined
 </script>
-<div class:absolute class="wrap" aria-hidden={hidden}>
+<div class="wrap" aria-hidden={hidden}>
   <div class="img">
     <Image width={150} image={logo} />
   </div>
@@ -19,16 +19,12 @@
 <style lang="scss">
   @use "../styles/abstracts" as *;
   .wrap {
-    &.absolute {
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 120px;
+
+    @include media-query($medium-up) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    display: flex;
-    align-items: center;
-    justify-content: center;
     &[aria-hidden="true"] {
       pointer-events: none;
       .img, h4, cite {
@@ -42,9 +38,13 @@
     flex: 1 1 50px;
     max-width: 90px;
     margin:0 20px 0 0 ;
+    @include media-query($small) {
+      display: none;
+    }
   }
   blockquote {
     flex: 1 1 200px;
+
 
   }
 
@@ -52,6 +52,9 @@
     font-weight: normal;
     line-height: 1.1;
     font-size: 24px;
+      @include media-query($small) {
+      font-size: 20px;
+    }
     // font-weight: 300;
     --webkit-font-smoothing: antialiased;
     margin-left: 12px;
@@ -94,8 +97,10 @@
   }
   .quoteTitle {
     display: inline-block;
+    line-height: 1.2;
   }
   .subtitle {
+    line-height: 1.2;
     font-size: 0.8em;
     display: inline-block;
   }

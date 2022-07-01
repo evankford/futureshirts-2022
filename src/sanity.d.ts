@@ -9,7 +9,7 @@ interface LinkURL {
   ref?:DocBase,
   url?:string,
   openInNewTab?:boolean
-  submenu: MenuItem[]
+  submenu?: MenuItem[]
 }
 
 interface MenuItemShape {
@@ -62,18 +62,12 @@ interface SocialMediaSettings {
   image: SanityImageObject,
 
 }
-
-interface ContactSettings {
-  email: string,
+interface ContactOption {
   title: string,
-  subtitle: string | null,
-  blurb: string,
-  video: VideoObject | null,
-  successMessage: string,
-  successTitle: string,
-  errorMessage: string,
-  errorTitle: string,
+  email?: string,
+  message?: string
 }
+
 
 interface SiteSettings {
   seo: SiteSEO | null,
@@ -132,17 +126,33 @@ interface VideoOrImageVideo extends VideoObject {
 
  interface Opening {
     title: string,
+    subtitle?: string
     description: string,
-    name: string
   }
-  interface JobSettings {
+
+  interface FormSettings {
     email: string
     title: string
-    blurb: string
+    subtitle ?:string
     successTitle: string
     successMessage: string
     errorTitle: string
     errorMessage: string
+  }
+interface ContactSettings extends FormSettings {
+  image:SanityImageObject
+  content: Block[]
+  stores: ContactOption[]
+}
+interface SupportSettings extends FormSettings {
+  contactVideo: VideoObject | null,
+  contactOptions: ContactOption[],
+
+}
+
+  interface JobSettings extends FormSettings{
+    image:SanityImageObject
+    content: Block[]
     haveOpeningsTitle: string
     haveOpenings: string
     noCurrentOpeningsTitle: string

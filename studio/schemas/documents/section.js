@@ -136,11 +136,11 @@ export default {
 		},
 		{
 			name: 'logoGallery',
-			title: 'Logos',
+			title: 'Gallery',
 			type: 'array',
 			of: [{ type: 'image' , name: 'image', fields: [ {name:'alt', type: 'string', title: 'Alternative Text'}]}],
 			group: ['content'],
-			hidden: ({ parent }) => !parent.layout || parent.layout !== 'licensing'
+			hidden: ({ parent }) => !parent.layout || ['team', 'licensing'].includes(parent.layout) == false
 		},
 		{
 			name: 'heroGallery',

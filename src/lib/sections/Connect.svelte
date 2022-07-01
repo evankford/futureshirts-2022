@@ -53,16 +53,16 @@ import Socials from "$lib/components/Socials.svelte";
 
   }
   .left, .right {
-    transform-style: preserve-3d;
+    // transform-style: preserve-3d;
 
   flex: 1 1 240px;
   max-width: 500px;
   text-align: center;
   margin: 24px;
+  transform: translateZ(10px);
 }
 .code {
-      transform: translateZ(100px);
-
+  transform: translateZ(100px);
   border-radius: var(--box-border-radius);
   overflow: hidden;
   position: relative;
@@ -78,16 +78,16 @@ import Socials from "$lib/components/Socials.svelte";
   @include media-query($large-up) {
     margin-left: 50px;
   }
-  &::after {
-    @include psuedo;
-    transform: translateZ(-100px);
-    --shiftX: 15px;
-    --shiftY: 15px;
-    left: -5%;
-    top: -5%;
-    background: rgb(var(--color-base-accent));
-    border-radius: var(--box-border-radius)
-  }
+  // &::after {
+  //   @include psuedo;
+  //   transform: translateZ(-100px);
+  //   --shiftX: 15px;
+  //   --shiftY: 15px;
+  //   left: -5%;
+  //   top: -5%;
+  //   background: rgb(var(--color-base-accent));
+  //   border-radius: var(--box-border-radius)
+  // }
 }
 .socials {
   color: rgb(var(--color-base-accent));

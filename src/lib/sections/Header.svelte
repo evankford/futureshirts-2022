@@ -1,16 +1,19 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import Nav from "./Nav.svelte";
-  import { onDestroy, onMount } from "svelte";
+  import { onDestroy, onMount, tick, } from "svelte";
   import {navOpen} from "$lib/stores"
 
   import HeaderLogo from "$lib/components/HeaderLogo.svelte";
   import { browser } from "$app/env";
-   const unsubStuff = page.subscribe(({stuff}) => {
-    if (stuff.header){
-      menuItems = stuff.header.menuItems;
-    }
-  });
+  import { afterNavigate } from "$app/navigation";
+  let hasHeroImage = false;
+  afterNavigate(()=> {
+    setTimeout(() => {
+      hasHeroImage = browser && document.body.querySelector('.image-hero') != null;
+    }, 600);
+  })
+
 
   let stuck:boolean = true;
   let scrolled:boolean = false
@@ -50,25 +53,28 @@
   }
 
   onMount(()=> {
+    hasHeroImage = browser && document.body.querySelector('.image-hero') != null;
     watchWindowScroll();
   })
 
   onDestroy(()=> {
-    unsubStuff();
     removeWindowScroll();
   })
+
+
 
   export let menuItems: MenuItemShape[] | null, contactLink: ContactLink, smallMenuItems:MenuItemShape[] = [];
 </script>
 
 
 
-<header class:stuck class:scrolled class:navOpen={$navOpen} class="site-header" class:home={$page.url.pathname == '/' || $page.url.pathname == '/contact' && !$page.error}>
+<header class:stuck class:scrolled class:navOpen={$navOpen} class="site-header" class:home={hasHeroImage && !$page.error}>
   <div class="header-content">
 
-    <div class="hide-small left">
+    <div class="hide--small left">
+
       {#if contactLink && contactLink.title}
-        <a href="/{contactLink.slug}">{contactLink.title}</a>
+        <a href="{contactLink.slug}">{contactLink.title}</a>
       {/if}
     </div>
       <div class="middle">
@@ -109,9 +115,10 @@
 
 
     &.stuck {
-      transform: none
+      transform: none;
     }
     &.scrolled.stuck:not(.navOpen) {
+      color: white;
       .header-content {
         transform: translateY(calc(-0.5 * var(--pad)));
       }
@@ -177,11 +184,19 @@ a {
   align-items: center;
   justify-content: center;
   transition: transform 200ms linear;
+  @include media-query($medium) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  @include media-query($small) {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+  }
+
   @include media-query($medium-up) {
       display: grid;
       grid-template-columns: 1fr 400px 1fr;
       width: 100%;
-
     }
 }
 

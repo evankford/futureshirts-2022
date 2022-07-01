@@ -10,11 +10,16 @@
     padding-left: 5rem;
     padding-right: 5rem;
   }
+
   padding-left:  3rem;
   padding-right:  3rem;
+  @include m.media-query(m.$small) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 @mixin page-wrap() {
-  margin: clamp(150px, calc(100px + 7vw), 240px) auto clamp(50px, calc(40px + 3vw), 100px);
+  margin: var(--page-margin-top) auto var(--page-margin-bottom);
   text-align: left;
 }

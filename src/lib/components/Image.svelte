@@ -62,12 +62,13 @@
     let srcSet:string[] = [];
     let maxWidthIndex:false| number = false;
     widths.forEach((width, i)=> {
+      let oneWidthUp = widths[i + 1] ? widths[i + 1] : 3000;
       if (!maxWidth || width <= maxWidth ) {
-        const urlWithoutHeight = urlFor(image).width(width).format('webp');
+        const urlWithoutHeight = urlFor(image).width(oneWidthUp).format('webp');
         if (aspect) {
-          srcSet.push(urlWithoutHeight.height(Math.round(width * aspect)).url() + ' ' + width + 'w');
+          srcSet.push(urlWithoutHeight.height(Math.round(oneWidthUp * aspect)).url() + ' ' + width + 'w ' + Math.round(oneWidthUp*aspect) + 'h');
         }
-        srcSet.push(urlFor(image).width(width).format('webp').url() + ' ' + width + 'w');
+        srcSet.push(urlFor(image).width(oneWidthUp).format('webp').url() + ' ' + width + 'w');
       } else if (!maxWidthIndex) {
           maxWidthIndex = i;
       }
@@ -111,8 +112,8 @@
   fullWidth: boolean =  false;
 </script>
 <picture use:isOnScreen on:onscreen={()=>visible = true} class:visible  class:bg data-src="{urlFor(image).format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
-  {#if !loaded}
-  <img loading="lazy" src={urlFor(image).format('webp').blur(30).width(200).url()} aria-hidden="true" class="blur" alt="">
+  {#if !loaded && (!width || width > 350) }
+  <img loading="lazy" src={urlFor(image).format('webp').blur(30).width(100).url()} aria-hidden="true" class="blur" alt="">
   {/if}
   {#if visible}
   <img loading="lazy" class="respimg-img" on:load={()=>loaded = true} srcset={buildSrcSet(image, width ? width : trySize(image).width, aspect ? aspect : trySize(image).aspect, !transparency)} alt={alt} src={urlFor(image).format('webp').blur(30).width(200).url()} />

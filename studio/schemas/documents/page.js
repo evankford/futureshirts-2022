@@ -29,7 +29,7 @@ seoGroup,
       type: 'string',
       group: ['main']
     },
-    Image,
+    {...Image, group: 'main' },
     {
       name: 'content',
       title: 'Content',
