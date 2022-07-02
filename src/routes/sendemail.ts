@@ -1,5 +1,5 @@
 
-const Mailgun = require('mailgun.js');
+import  Mailgun from 'mailgun.js';
 import formData from "form-data";
 import {contact, job, support} from '$lib/emailTemplate';
 

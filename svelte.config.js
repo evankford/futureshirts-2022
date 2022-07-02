@@ -12,7 +12,9 @@ const config = {
 		vite: {
 			optimizeDeps: {
 				include: ['phone'],
-				exclude: ['mailgun.js']
+			},
+			resolve: {
+				mainFields:[ 'main', 'module', 'browser']
 			},
 			ssr: {
 				noExternal: [
