@@ -55,26 +55,22 @@ function convertToFormData(data:EmailData):FormDataNode {
 
 interface Attachment {
   filename: string,
-  data: Buffer | string
+  data: Buffer | string | File
 }
 async function generateAttachments(data: ContactData | JobData | SupportData) {
   let attachments: Attachment[] = [];
   if ('resume' in data) {
-    throw new Error(JSON.stringify(data.resume));
-    const array = await data.resume.arrayBuffer();
     attachments.push(
       {
         filename: data.name + '-resume.pdf',
-        data: Buffer.from(array)
+        data:data.resume
       }
     );
   }
   if ('coverLetter' in data) {
-    const arrayC = await data.coverLetter.arrayBuffer();
-
     attachments.push({
       filename: data.name + '-coverLetter.pdf',
-      data: Buffer.from(arrayC)
+      data: data.coverLetter
     });
   }
   return attachments.length > 0 ? attachments : false
