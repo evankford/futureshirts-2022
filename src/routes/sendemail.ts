@@ -164,7 +164,6 @@ function convertFormData(form_data: FormData):ContactData | JobData | SupportDat
     return errors;
   }
   return false;
-
 }
 
 /** @type {import('./__types/sendemail').RequestHandler} */
