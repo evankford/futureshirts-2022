@@ -226,7 +226,6 @@ export async function post({ request }) {
         },
       })
 
-      console.log(resp);
       if (resp.status == 200) {
         success = true;
       } else {
@@ -237,6 +236,7 @@ export async function post({ request }) {
     } catch(e) {
       console.error(e);
       errors.push({code: 520, message: JSON.stringify(e) + "Error sending email. Please try again."})
+      errors.push({code: 520, message:e})
     }
 
     // await mg.messages.create(import.meta.env.VITE_MAILGUN_DOMAIN, data).then(d=> {
