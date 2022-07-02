@@ -121,7 +121,7 @@ const unsubNav = navOpen.subscribe(val=> {
     color: inherit;
     margin: auto 0 auto auto;
     pointer-events:  none;
-    overflow: auto;
+    overflow: hidden;
     &::before {
       @include psuedo;
       background: rgba(var(--color-base-accent-darker), 0.95);
@@ -133,6 +133,7 @@ const unsubNav = navOpen.subscribe(val=> {
       transform: translateY(0)
     }
     &.navOpen {
+      overflow: auto;
       color: rgb(var(--color-base-background));
       pointer-events: all;
     }

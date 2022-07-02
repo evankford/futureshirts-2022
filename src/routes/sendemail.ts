@@ -37,7 +37,6 @@ function convertToFormData(data:EmailData):FormDataNode {
       return
     }
     if (Array.isArray(val)) {
-      console.log(val);
       val.forEach(l=> {
         if (typeof l == 'string' ) {
           fData.append(key, l);
@@ -63,14 +62,14 @@ async function generateAttachments(data: ContactData | JobData | SupportData) {
     attachments.push(
       {
         filename: data.name + '-resume.pdf',
-        data:data.resume
+        data:new File([data.resume], data.name + '-resume.pdf')
       }
     );
   }
   if ('coverLetter' in data) {
     attachments.push({
       filename: data.name + '-coverLetter.pdf',
-      data: data.coverLetter
+      data:new File([ data.coverLetter ], data.name + '-coverLetter.pdf')
     });
   }
   return attachments.length > 0 ? attachments : false
