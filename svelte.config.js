@@ -11,7 +11,8 @@ const config = {
 		adapter: adapter(),
 		vite: {
 			optimizeDeps: {
-				include: ['phone', 'mailgun.js']
+				include: ['phone'],
+				exclude: ['mailgun.js']
 			},
 			ssr: {
 				noExternal: [
