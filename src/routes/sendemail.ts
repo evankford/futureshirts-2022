@@ -1,6 +1,4 @@
 import {Buffer} from "buffer";
-
-
 import { FormData  } from 'formdata-node';
 import {contact, job, support} from '$lib/emailTemplate';
 import type { InputFormData, IFormDataOptions } from "mailgun.js/interfaces/IFormData";
@@ -24,10 +22,6 @@ function generateHTML(data: ContactData | JobData | SupportData):string | false 
 interface EmailData {
   [key:string] : string | string[] | Attachment[] |  false,
 }
-
-function isStream(data: any) {
-    return typeof data === 'object' && typeof data.pipe === 'function';
-  }
 
 function convertToFormData(data:EmailData):FormDataNode {
   let fData = new FormData();
@@ -58,8 +52,6 @@ function convertToFormData(data:EmailData):FormDataNode {
   console.log(fData);
   return fData
 }
-
-
 
 interface Attachment {
   filename: string,
