@@ -1,15 +1,12 @@
+import {Buffer} from "buffer";
+import axios from "axios";
 
-import  Mailgun from 'mailgun.js';
-import formData from "form-data";
+import { default as FormDataNode } from 'form-data';
+
 import {contact, job, support} from '$lib/emailTemplate';
-
-//@ts-ignore
-const mailgun:Mailgun = new Mailgun(formData);
-const mg = mailgun.client({username: 'api', key: import.meta.env.VITE_MAILGUN_KEY});
+import type { InputFormData, IFormDataOptions } from "mailgun.js/interfaces/IFormData";
 
 function generateHTML(data: ContactData | JobData | SupportData):string | false {
-
-
   if (!('formName' in data)) {
     throw new Error("How did this happen? No form name in data");
   }
@@ -25,6 +22,46 @@ function generateHTML(data: ContactData | JobData | SupportData):string | false 
   return false;
 }
 
+interface EmailData {
+  [key:string] : string | string[] | Attachment[] |  false,
+}
+
+function isStream(data: any) {
+    return typeof data === 'object' && typeof data.pipe === 'function';
+  }
+
+function convertToFormData(data:EmailData):FormDataNode {
+  let fData = new FormDataNode();
+  Object.keys(data).forEach(key => {
+    const val = data[key] ;
+    if (!val) {return;}
+    if (key == 'attachment') {
+      const attachments = val as Attachment[];
+      attachments.forEach(a=>{
+        const dataToAdd = a.data;
+        const options = { filename: a.filename };
+        fData.append(key, dataToAdd, options);
+      })
+      return
+    }
+    if (Array.isArray(val)) {
+      console.log(val);
+      val.forEach(l=> {
+        if (typeof l == 'string' ) {
+          fData.append(key, l);
+          return;
+        }
+        fData.append(key, JSON.stringify(l));
+      })
+      return;
+    }
+    fData.append(key, data[key] as string)
+  });
+  console.log(fData);
+  return fData
+}
+
+
 
 interface Attachment {
   filename: string,
@@ -37,7 +74,7 @@ async function generateAttachments(data: ContactData | JobData | SupportData) {
     attachments.push(
       {
         filename: data.name + '-resume.pdf',
-        data:  Buffer.from(array)
+        data: Buffer.from(array)
       }
     );
   }
@@ -46,7 +83,7 @@ async function generateAttachments(data: ContactData | JobData | SupportData) {
 
     attachments.push({
       filename: data.name + '-coverLetter.pdf',
-      data:Buffer.from(arrayC)
+      data: Buffer.from(arrayC)
     });
   }
   return attachments.length > 0 ? attachments : false
@@ -56,7 +93,9 @@ function convertFormData(form_data: FormData):ContactData | JobData | SupportDat
   let errors:ResponseError[] = [];
   let prim: {[key:string]: FormDataEntryValue } ={};
 
-  form_data.forEach((value, key) => {prim[key] = value});
+  form_data.forEach((value, key) => {
+    prim[key ] = value
+  })
 
    if (!('emailTo' in prim)) {
     errors.push({code: 500, message: 'No Destination Email sent (emailTo field)'})
@@ -140,7 +179,7 @@ export async function post({ request }) {
   let success = false;
   let errors: ResponseError[] = [];
 
-  const formData = await request.formData();
+  const formData = await request.formData() as FormData;
   const converted = convertFormData(formData);
   if (Array.isArray(converted)) {
     errors = converted;
@@ -167,7 +206,7 @@ export async function post({ request }) {
     const html = generateHTML(converted);
 
     let attachment = await generateAttachments(converted);
-    let data:MailgunMessageData = {
+    let data:IFormDataOptions = {
       from: `Futureshirts Website <mailgun@${import.meta.env.VITE_MAILGUN_DOMAIN}>`,
       'h:Reply-To': converted.email,
       'h:Content-type': 'multipart/form-data',
@@ -176,14 +215,38 @@ export async function post({ request }) {
       html,
       attachment
     }
-    await mg.messages.create(import.meta.env.VITE_MAILGUN_DOMAIN, data).then(d=> {
-      if (d.status == 200) {
+    const v = convertToFormData(data);
+
+    //// switch to fetch;
+    try {
+      const resp = await axios.post(import.meta.env.VITE_MAILGUN_BASE_URL + '/messages', v, {
+        auth: {
+          username:'api',
+          password: import.meta.env.VITE_MAILGUN_KEY
+        },
+      })
+
+      console.log(resp);
+      if (resp.status == 200) {
         success = true;
+      } else {
+        if (resp.data && 'message' in resp.data) {
+          errors.push({code: resp.status, message: resp.data.message})
+        }
       }
-    }).catch(e => {
+    } catch(e) {
       console.error(e);
       errors.push({code: 520, message: "Error sending email. Please try again."})
-    });
+    }
+
+    // await mg.messages.create(import.meta.env.VITE_MAILGUN_DOMAIN, data).then(d=> {
+    //   if (d.status == 200) {
+    //     success = true;
+    //   }
+    // }).catch(e => {
+    //   console.error(e);
+    //   errors.push({code: 520, message: "Error sending email. Please try again."})
+    // });
     if (success) {
       return {
         status: 200,

@@ -30,7 +30,7 @@
 <script lang="ts">
   ///Okay, doing some hover type things here
   import { browser } from "$app/env";
-  import {primaryInput} from "detect-it";
+  import { primaryInput } from "detect-it";
 
 
   import { navigating } from "$app/stores";

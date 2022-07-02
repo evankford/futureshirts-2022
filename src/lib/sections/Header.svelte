@@ -166,7 +166,7 @@ a {
 
   flex: 1 1 200px;
   width: 100%;
-  max-width: 440px;
+  max-width: 350px;
   padding: var(--pad);
   display: block;
   z-index: 1;
@@ -185,8 +185,8 @@ a {
   justify-content: center;
   transition: transform 200ms linear;
   @include media-query($medium) {
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
   @include media-query($small) {
     padding-left: 0.3rem;

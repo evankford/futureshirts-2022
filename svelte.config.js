@@ -11,10 +11,10 @@ const config = {
 		adapter: adapter(),
 		vite: {
 			optimizeDeps: {
-				include: ['phone'],
+				include: ['phone']
 			},
 			resolve: {
-				mainFields:[ 'main', 'module', 'browser']
+				// mainFields: ['main', 'module', 'browser']
 			},
 			ssr: {
 				noExternal: [

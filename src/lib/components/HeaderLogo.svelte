@@ -36,7 +36,7 @@
   }
   a {
     line-height: 0;
-    padding: 4px;
+    padding: 1% 1% 2%;
     color: inherit;
     display: block;
   }

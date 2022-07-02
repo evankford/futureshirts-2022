@@ -1,6 +1,6 @@
 
-const labelAttrs = ' align="left" style="background:#fafafa; font-weight:700;"'
-const valueAttrs = ' align="left" colspan="3"';
+const labelAttrs = ' align="left" style="background:#fafafa; font-weight:700; padding: 8px;"'
+const valueAttrs = ' align="left" colspan="3" style="padding: 8px;"';
 
 function commonBefore(formTitle:string = 'Contact Form') {
   return `
@@ -13,11 +13,11 @@ function commonBefore(formTitle:string = 'Contact Form') {
           </tbody>
         </table>
 
-        <table padding="8">
+        <table style="padding: 8px; ">
         <thead>
           <tr>
-            <th align="left"  style="color:#8f8f8f"; font-weight:700" colspan="1">Field</th>
-            <th align="left"  style="color:#8f8f8f"; font-weight:700" colspan="3">Value</th>
+            <th align="left"  style="padding: 8px;color:#8f8f8f"; font-weight:700" colspan="1">Field</th>
+            <th align="left"  style="padding: 8px; color:#8f8f8f"; font-weight:700" colspan="3">Value</th>
           </tr>
         </thead>
         `;
