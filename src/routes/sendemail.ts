@@ -58,9 +58,10 @@ interface Attachment {
   data: Buffer | string
 }
 async function generateAttachments(data: ContactData | JobData | SupportData) {
-  let attachments: Attachment[] = []
+  let attachments: Attachment[] = [];
   if ('resume' in data) {
-    const array =await data.resume.arrayBuffer();
+    throw new Error(JSON.stringify(data.resume));
+    const array = await data.resume.arrayBuffer();
     attachments.push(
       {
         filename: data.name + '-resume.pdf',
@@ -69,7 +70,7 @@ async function generateAttachments(data: ContactData | JobData | SupportData) {
     );
   }
   if ('coverLetter' in data) {
-    const arrayC =await data.coverLetter.arrayBuffer();
+    const arrayC = await data.coverLetter.arrayBuffer();
 
     attachments.push({
       filename: data.name + '-coverLetter.pdf',
