@@ -226,7 +226,7 @@ export async function post({ request }) {
           'Authorization' : 'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64')
         }
       });
-      const contentType = resp.headers.get("content-type")
+      // const contentType = resp.headers.get("content-type")
 
       // if (contentType && contentType.indexOf("application/json") !== -1) {
       //   const j = await resp.json();
@@ -236,6 +236,7 @@ export async function post({ request }) {
       if (resp.status == 200) {
         success = true;
       } else {
+        return JSON.stringify(resp);
         if (resp.statusText) {
           errors.push({code: resp.status, message:resp.statusText})
         }
