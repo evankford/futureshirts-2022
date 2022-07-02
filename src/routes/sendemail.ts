@@ -1,7 +1,7 @@
 import {Buffer} from "buffer";
 import { FormData  } from 'formdata-node';
 import {contact, job, support} from '$lib/emailTemplate';
-import type { InputFormData, IFormDataOptions } from "mailgun.js/interfaces/IFormData";
+import type { IFormDataOptions } from "mailgun.js/interfaces/IFormData";
 
 function generateHTML(data: ContactData | JobData | SupportData):string | false {
   if (!('formName' in data)) {
