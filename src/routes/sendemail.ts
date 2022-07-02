@@ -1,8 +1,7 @@
 import {Buffer} from "buffer";
-import axios from "axios";
 
-import { default as FormDataNode } from 'form-data';
 
+import { FormData  } from 'formdata-node';
 import {contact, job, support} from '$lib/emailTemplate';
 import type { InputFormData, IFormDataOptions } from "mailgun.js/interfaces/IFormData";
 
@@ -31,7 +30,7 @@ function isStream(data: any) {
   }
 
 function convertToFormData(data:EmailData):FormDataNode {
-  let fData = new FormDataNode();
+  let fData = new FormData();
   Object.keys(data).forEach(key => {
     const val = data[key] ;
     if (!val) {return;}
@@ -39,8 +38,7 @@ function convertToFormData(data:EmailData):FormDataNode {
       const attachments = val as Attachment[];
       attachments.forEach(a=>{
         const dataToAdd = a.data;
-        const options = { filename: a.filename };
-        fData.append(key, dataToAdd, options);
+        fData.append(key, dataToAdd, a.filename);
       })
       return
     }
@@ -92,9 +90,11 @@ async function generateAttachments(data: ContactData | JobData | SupportData) {
 function convertFormData(form_data: FormData):ContactData | JobData | SupportData | false | ResponseError[] {
   let errors:ResponseError[] = [];
   let prim: {[key:string]: FormDataEntryValue } ={};
-
+  for (const pair of form_data.entries()) {
+    //@ts-ignore
+    prim[pair[0] ] = pair[1];
+  }
   form_data.forEach((value, key) => {
-    prim[key ] = value
   })
 
    if (!('emailTo' in prim)) {
@@ -215,26 +215,33 @@ export async function post({ request }) {
       html,
       attachment
     }
-    const v = convertToFormData(data);
+    const v = convertToFormData(data) ;
 
     //// switch to fetch;
     try {
-      const resp = await axios.post(import.meta.env.VITE_MAILGUN_BASE_URL + '/messages', v, {
-        auth: {
-          username:'api',
-          password: import.meta.env.VITE_MAILGUN_KEY
-        },
-      })
+      const resp = await fetch (import.meta.env.VITE_MAILGUN_BASE_URL + '/messages', {
+        method: 'post',
+        body: v,
+        headers: {
+          'Authorization' : 'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64')
+        }
+      });
+      const contentType = resp.headers.get("content-type")
+
+      // if (contentType && contentType.indexOf("application/json") !== -1) {
+      //   const j = await resp.json();
+      //   console.log(j);
+      // }
 
       if (resp.status == 200) {
         success = true;
       } else {
-        if (resp.data && 'message' in resp.data) {
-          errors.push({code: resp.status, message: resp.data.message})
+        if (resp.statusText) {
+          errors.push({code: resp.status, message:resp.statusText})
         }
+
       }
     } catch(e) {
-      console.error(e);
       errors.push({code: 520, message: JSON.stringify(e) + "Error sending email. Please try again."})
       errors.push({code: 520, message:e})
     }
