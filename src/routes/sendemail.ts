@@ -1,9 +1,10 @@
-import Mailgun  from "mailgun.js";
+
+const Mailgun = require('mailgun.js');
 import formData from "form-data";
 import {contact, job, support} from '$lib/emailTemplate';
-import { faSledding } from "@fortawesome/pro-regular-svg-icons";
 
-const mailgun = new Mailgun(formData);
+//@ts-ignore
+const mailgun:Mailgun = new Mailgun(formData);
 const mg = mailgun.client({username: 'api', key: import.meta.env.VITE_MAILGUN_KEY});
 
 function generateHTML(data: ContactData | JobData | SupportData):string | false {
