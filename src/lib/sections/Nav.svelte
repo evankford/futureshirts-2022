@@ -7,7 +7,7 @@
   import {faBarsSort, faXmark} from "@fortawesome/pro-regular-svg-icons";
   import { fly } from "svelte/transition";
   import {hasJobs} from "$lib/stores";
-import { onDestroy } from "svelte";
+  import { onDestroy } from "svelte";
 
 const unsubNav = navOpen.subscribe(val=> {
   if (browser) {
