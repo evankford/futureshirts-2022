@@ -104,20 +104,20 @@
 
   onMount(()=> {
     setGlobalStores();
-    if (browser) {
-      window.addEventListener('resize', throttle(windowResizeHandler, 300));
-      if (primaryInput == 'mouse') {
-        window.addEventListener('mousemove', throttle(mouseMoveHandler, 25));
-      } else {
-        if (window.DeviceOrientationEvent) {
-          window.addEventListener('deviceorientation', deviceOrientationHandler, false);
-        } else {
-          //@ts-ignore
-          window.addEventListener('pointerMove', throttle(pointerMoveHandler, 25), false);
-        }
-      }
-      windowResizeHandler();
-    }
+    // if (browser) {
+    //   window.addEventListener('resize', throttle(windowResizeHandler, 300));
+    //   if (primaryInput == 'mouse') {
+    //     window.addEventListener('mousemove', throttle(mouseMoveHandler, 25));
+    //   } else {
+    //     if (window.DeviceOrientationEvent) {
+    //       window.addEventListener('deviceorientation', deviceOrientationHandler, false);
+    //     } else {
+    //       //@ts-ignore
+    //       window.addEventListener('pointerMove', throttle(pointerMoveHandler, 25), false);
+    //     }
+    //   }
+    //   windowResizeHandler();
+    // }
   });
 
   onDestroy(()=>{
