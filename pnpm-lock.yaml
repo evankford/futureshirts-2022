@@ -13,9 +13,9 @@ specifiers:
   '@sanity/client': ^3.3.2
   '@sanity/image-url': ^1.0.1
   '@sanity/types': ^2.29.5
-  '@sveltejs/adapter-auto': next
-  '@sveltejs/adapter-cloudflare': next
-  '@sveltejs/kit': next
+  '@sveltejs/adapter-auto': 1.0.0-next.53
+  '@sveltejs/adapter-cloudflare': ' 1.0.0-next.24'
+  '@sveltejs/kit': 1.0.0-next.357
   '@types/byte-size': ^8.1.0
   '@types/mjml': ^4.7.0
   '@types/node': ^18.0.0
@@ -4023,7 +4023,6 @@ packages:
   /svelte/3.48.0:
     resolution: {integrity: sha512-fN2YRm/bGumvjUpu6yI3BpvZnpIm9I6A7HR4oUNYd7ggYyIwSA/BX7DJ+UXXffLp6XNcUijyLvttbPVCYa/3xQ==}
     engines: {node: '>= 8'}
-    dev: true
 
   /tar/4.4.19:
     resolution: {integrity: sha512-a20gEsvHnWe0ygBY8JbxoM4w3SJdhc7ZAuxkLqh+nvNQN2IOt0B5lLgM490X5Hl8FF0dl0tOf2ewFYAlIFgzVA==}
