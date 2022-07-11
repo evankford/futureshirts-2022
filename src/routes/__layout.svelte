@@ -40,51 +40,6 @@
     }
   })
 
-  const throttle = (func:Function, limit:number) => {
-  let lastFunc:ReturnType<typeof setTimeout>;
-  let lastRan:number;
-  return function() {
-    const context = this;
-    const args = arguments;
-    if (!lastRan) {
-      func.apply(context, args)
-      lastRan = Date.now();
-    } else {
-      clearTimeout(lastFunc);
-      lastFunc = setTimeout(function() {
-          if ((Date.now() - lastRan) >= limit) {
-            func.apply(context, args);
-            lastRan = Date.now();
-          }
-       }, limit - (Date.now() - lastRan));
-    }
-  }
-}
-
-
-
-
-
-  let center:[number,number] = browser ? [window.innerWidth / 2, window.innerHeight / 2] : [500, 500];
-  let rotate:[number,number] = [0, 0]
-  function windowResizeHandler() {
-    if (browser) {
-      center =  [window.innerWidth / 2, window.innerHeight / 2]
-    } else {
-      center =  [500, 500];
-    }
-    center = center;
-  }
-
-  function deviceOrientationHandler(e:DeviceOrientationEvent) {
-    console.log(e);
-  }
-  function mouseMoveHandler(e:MouseEvent) {
-    rotate = [(e.clientX - center[0]) / center[0] , (e.clientY - center[1]) / center[1] , ]
-  }
-  function pointerMoveHandler(e:PointerEvent) {
-    rotate = [(e.clientX - center[0]) / center[0] , (e.clientY - center[1]) / center[1] , ]
-  }
 
   import { MetaTags } from 'svelte-meta-tags';
   import { urlFor } from "$lib/sanity";
@@ -93,7 +48,7 @@
   import Header from "$lib/sections/Header.svelte";
   import SkipButton from "$lib/components/SkipButton.svelte";
   import Footer from "$lib/sections/Footer.svelte";
-  import { onDestroy, onMount } from "svelte";
+  import {  onMount } from "svelte";
 
   function setGlobalStores() {
     hasJobs.set(jobs.openings && jobs.openings.length > 0);
@@ -104,34 +59,8 @@
 
   onMount(()=> {
     setGlobalStores();
-    // if (browser) {
-    //   window.addEventListener('resize', throttle(windowResizeHandler, 300));
-    //   if (primaryInput == 'mouse') {
-    //     window.addEventListener('mousemove', throttle(mouseMoveHandler, 25));
-    //   } else {
-    //     if (window.DeviceOrientationEvent) {
-    //       window.addEventListener('deviceorientation', deviceOrientationHandler, false);
-    //     } else {
-    //       //@ts-ignore
-    //       window.addEventListener('pointerMove', throttle(pointerMoveHandler, 25), false);
-    //     }
-    //   }
-    //   windowResizeHandler();
-    // }
   });
 
-  onDestroy(()=>{
-    if (browser) {
-      window.removeEventListener('pointerMove', throttle(pointerMoveHandler, 75), false);
-
-      window.removeEventListener('deviceorientation', deviceOrientationHandler, false);
-
-      window.removeEventListener('resize', throttle(windowResizeHandler, 300));
-
-      window.removeEventListener('mousemove', throttle(mouseMoveHandler, 75));
-
-    }
-  })
 
   export let header: HeaderSettings, socials: SocialMediaSettings,  footer:FooterSettings, codes:CodeSnippetSettings, contact: ContactSettings, seo: SiteSEO, jobs: JobSettings;
 
