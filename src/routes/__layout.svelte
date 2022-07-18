@@ -116,7 +116,7 @@
   <span>Center: [{center[0]}, {center[1]}]</span><span>Rotate: [{rotate[0]}, {rotate[1]}]</span>
 </div> -->
 <Header {...header} smallMenuItems={footer?.menuItems}/>
-<main id="MainContent" style="--rotateX:{rotate[0]}; --rotateY:{rotate[1]}">
+<main id="MainContent">
 <slot></slot>
 </main>
 <Footer {...footer} />
