@@ -1,8 +1,9 @@
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
-	const response = await resolve(event, {
-		ssr: !event.url.pathname.startsWith('/admin'),
-	});
+	if (event.url.pathname.startsWith('/admin') || event.url.pathname.startsWith('/studio')) {
+		return Response.redirect('https://futureshirts.sanity.studio')
+	}
+	const response = await resolve(event);
 
 	return response;
 }

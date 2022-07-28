@@ -146,6 +146,9 @@ export default {
 				}
 			],
 			group: ['content'],
+			options: {
+				layout: 'grid'
+			},
 			hidden: ({ parent }) =>
 				!parent.layout || ['team', 'licensing'].includes(parent.layout) == false
 		},
