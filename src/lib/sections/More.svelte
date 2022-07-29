@@ -79,7 +79,6 @@ import isOnScreen from "$lib/isOnScreen";
   --box-bg-color: var(--color-background);
 }
 .left {
-    transform: translateZ(250px);
 
   --titleMargin: -0.12em 0 0.2em;
 }

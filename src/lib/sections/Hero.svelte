@@ -131,7 +131,6 @@ import isOnScreen from "$lib/isOnScreen";
     width: 105%;
     left: -1%;
     top: -1%;
-    transform: translateZ(-099px);
 
   }
 
@@ -231,7 +230,6 @@ import isOnScreen from "$lib/isOnScreen";
   .right {
     grid-area: content;
     flex: 0 1 auto;
-   transform: translateZ(150px);
    @include mono;
 
 

@@ -48,7 +48,6 @@ function convertToFormData(data:EmailData):FormDataNode {
     }
     fData.append(key, data[key] as string)
   });
-  console.log(fData);
   return fData
 }
 

@@ -85,7 +85,6 @@ import isOnScreen from "$lib/isOnScreen";
   }
 
   .content {
-    transform: translateZ(150px);
     @include media-query($large-up) {
       margin-top: 80px;
     }

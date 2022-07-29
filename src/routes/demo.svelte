@@ -1,6 +1,6 @@
 <script lang="ts">
 
-  console.log("Hello! This is the demo page")
+
 </script>
 
 <h1>Welcome to SvelteKit</h1>

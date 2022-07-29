@@ -119,9 +119,7 @@
 
 <style lang="scss">
   @use "../styles/abstracts" as *;
-.blur {
- z-index: 0;
-}
+
   picture {
     position: relative;
     overflow: hidden;

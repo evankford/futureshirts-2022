@@ -59,10 +59,8 @@ import Socials from "$lib/components/Socials.svelte";
   max-width: 500px;
   text-align: center;
   margin: 24px;
-  transform: translateZ(10px);
 }
 .code {
-  transform: translateZ(100px);
   border-radius: var(--box-border-radius);
   overflow: hidden;
   position: relative;
@@ -80,7 +78,6 @@ import Socials from "$lib/components/Socials.svelte";
   }
   // &::after {
   //   @include psuedo;
-  //   transform: translateZ(-100px);
   //   --shiftX: 15px;
   //   --shiftY: 15px;
   //   left: -5%;

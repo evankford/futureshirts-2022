@@ -39,5 +39,11 @@
     padding: 1% 1% 2%;
     color: inherit;
     display: block;
+    cursor:pointer;
+    position: relative;
+    transition: transform 200ms ease;
+  }
+  a:hover {
+    transform: scale(1.1);
   }
 </style>

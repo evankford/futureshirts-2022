@@ -81,7 +81,6 @@ import {hasJobs} from "$lib/stores";
   position: relative;z-index: 2;
   border-top: 4px solid white;
   border-bottom: 4px solid white;
-  transform: translateZ(100px);
 }
 .left {
   max-width: 800px;
@@ -89,7 +88,6 @@ import {hasJobs} from "$lib/stores";
   position: relative;
   z-index: 2;
   &::after {
-    transform: translateZ(-100px);
     @include psuedo;
 
     z-index: -1;

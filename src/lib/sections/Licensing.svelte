@@ -78,16 +78,12 @@ import isOnScreen from "$lib/isOnScreen";
     flex-wrap: wrap;
   }
   .title {
-
-    transform: translateZ(-50px);
-
     margin: 24px auto;
   }
   .img1, .img2 {
 
     border-radius: var(--box-border-radius);
     overflow: hidden;
-    transform: translateZ(50px);
 
     box-shadow: 0 4px 54px rgba(0, 0 , 0, 0.25);
     border: 2px solid rgb(var(--color-border));
@@ -97,7 +93,6 @@ import isOnScreen from "$lib/isOnScreen";
   }
 
   .img1 ~ .img2 {
-    transform: translateZ(90px);
 
     margin: -20% 0 0 30%;
 
@@ -109,7 +104,6 @@ import isOnScreen from "$lib/isOnScreen";
 
   }
   .box-wrap {
-        transform: translateZ(150px);
 
     --box-bg-color: rgba(var(--color-background), 0.97);
     margin: -25% 10% 0 auto;
