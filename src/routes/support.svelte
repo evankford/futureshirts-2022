@@ -82,9 +82,7 @@
     text-align: center;
   }
 
-    .page-heading a {
-      color: inherit
-    }
+
 
   h1 {
     @include extra;

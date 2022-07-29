@@ -85,20 +85,7 @@
   noindex={seo ? seo.nofollow : false}
   nofollow={seo ? seo.nofollow : false}
   description={seo ? seo.description : undefined}
-  canonical={import.meta.env.VITE_CANONICAL_URL}
-  openGraph={{
-    url: import.meta.env.VITE_CANONICAL_URL,
-    title:seo ? seo.title : 'Futureshirts',
-    description: seo ? seo.description : undefined,
-    images: seo && seo.image ? [
-       {
-        url: urlFor(seo.image).width(1200).height(900).url(),
-        height: 900,
-        width: 1200
-      } ] : undefined
-    ,
-    site_name: 'Futureshirts'
-  }}
+
   twitter={{
     handle: '@futureshirts',
     site: '@futureshirts',
