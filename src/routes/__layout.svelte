@@ -15,24 +15,21 @@
           seo: data.seo,
           contact: data.contact,
           jobs: data.jobs,
-          socials: data.socials
+          socials: data.socials,
+          support: data.support
         },
       }
     } catch(e) {
       return {
         status: 500
       }
-    }``
+    }
 
   }
 </script>
 
 <script lang="ts">
   ///Okay, doing some hover type things here
-  import { browser } from "$app/env";
-  import { primaryInput } from "detect-it";
-
-
   import { navigating } from "$app/stores";
   navigating.subscribe(val=> {
     if (val) {
@@ -40,10 +37,9 @@
     }
   })
 
-
   import { MetaTags } from 'svelte-meta-tags';
   import { urlFor } from "$lib/sanity";
-  import { hasJobs, navOpen, socials as socialStore, seo as seoStore, contact as contactStore} from "$lib/stores";
+  import { hasJobs, navOpen, socials as socialStore, seo as seoStore, contact as contactStore, support as supportStore} from "$lib/stores";
 
   import Header from "$lib/sections/Header.svelte";
   import SkipButton from "$lib/components/SkipButton.svelte";
@@ -51,10 +47,12 @@
   import {  onMount } from "svelte";
 
   function setGlobalStores() {
+    console.log(support);
     hasJobs.set(jobs.openings && jobs.openings.length > 0);
     socialStore.set(socials.socials);
     seoStore.set(seo);
     contactStore.set(contact);
+    supportStore.set(support);
   }
 
   onMount(()=> {
@@ -62,7 +60,7 @@
   });
 
 
-  export let header: HeaderSettings, socials: SocialMediaSettings,  footer:FooterSettings, codes:CodeSnippetSettings, contact: ContactSettings, seo: SiteSEO, jobs: JobSettings;
+  export let header: HeaderSettings, socials: SocialMediaSettings,  footer:FooterSettings, codes:CodeSnippetSettings, contact: ContactSettings, seo: SiteSEO, jobs: JobSettings, support: SimpleSupportSettings;
 
 </script>
 

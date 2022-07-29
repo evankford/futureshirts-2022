@@ -6,6 +6,11 @@
   import Button from "$lib/components/Button.svelte";
   import { PortableText} from "@portabletext/svelte";
   import LiNormal from "$lib/components/portableText/LiNormal.svelte";
+  import JobDetails from "$lib/components/JobDetails.svelte";
+
+  import { fade, fly } from 'svelte/transition'
+
+  let openJob:number|false = false;
 
   export let
     email: string,
@@ -22,6 +27,8 @@
     noCurrentOpeningsTitle: string | undefined = undefined,
     noCurrentOpenings: string | undefined = undefined,
     openings: Opening[];
+
+
 </script>
 <PageHero {image} >
   <header>
@@ -34,8 +41,8 @@
       <Button link="#apply"> Apply</Button>
   </header>
 </PageHero>
-<div use:isOnScreen class="page-content" class:has-image={image}>
-  <section class="jobs">
+<div use:isOnScreen class="wrap" class:has-image={image}>
+  <section class="jobs page-content">
    {#if content}
       <PortableText value={content} components={{listItem: {normal: LiNormal}}} />
     {/if}
@@ -57,7 +64,7 @@
       </div>
       {#if openings.length > 0}
       <ul class="openings">
-        {#each openings as opening}
+        {#each openings as opening, i}
         <li class="opening">
           <h3>{opening.title}</h3>
           {#if opening.subtitle}
@@ -66,12 +73,19 @@
           <div class="md">
             <SvelteMarkdown source={opening.description}/>
           </div>
+          <Button on:click={()=>openJob = i}>More Info</Button>
         </li>
         {/each}
       </ul>
       {/if}
+
   </section>
-  <section class="form" id="apply">
+
+    {#if typeof openJob == 'number' && openings[openJob] }
+      <JobDetails bind:openJob job={openings[openJob]}/>
+    {/if}
+
+  <section class="form page-content" id="apply">
     <div class="form-inner">
       <h2>Submit your Application</h2>
       <JobForm {email} {openings} {errorTitle} { errorMessage} { successMessage} { successTitle} />
@@ -88,13 +102,15 @@ header {
   text-align: center;
   max-width: var(--text-width);
   margin: auto;
+
   h2 {
     @include mono;
     font-size: var(--font-subtitle-size);
     margin: 22px auto;
   }
 }
-  .page-content {
+
+  .wrap {
     padding: 1px;
     background: rgb(var(--color-base-background-off));
 
@@ -143,6 +159,7 @@ header {
    .md {
     font-size: 17px;
     padding: 0;
+    margin-bottom: 12px;
     :global(p) {
       line-height: 1.4;
     }

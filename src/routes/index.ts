@@ -1,10 +1,9 @@
 import { sectionGroqs, sanityGet } from "$lib/sanity";
-
+import { getSections } from "$lib/draftCheck";
 /** @type {import('./__types/index').RequestHandler} */
 
-const query = `{"sections": *[_type == 'section' && !(_id in path("drafts.**"))] | order(orderRank) {${Object.values(sectionGroqs)} }  }`;
-export async function get() {
-  // `params.id` comes from [id].js
+export async function GET() {
+  const query = `{"sections": ${getSections()} { ${Object.values(sectionGroqs)} }}`;
   const res = await sanityGet<SiteSettings>(query)
   return res;
 }

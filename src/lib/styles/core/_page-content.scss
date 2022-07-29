@@ -17,7 +17,7 @@
     line-height: var(--font-body-line-height);
   }
   li {
-    line-height: 1.4;
+    line-height: 1.5;
     margin: 0.5em auto;
   }
   ul {
@@ -35,6 +35,7 @@
     margin: 0 -1px;
     // text-decoration: none;
     color: rgb(var(--color-accent));
+    text-underline-offset: 2px;
     overflow: hidden;
     &:visited {
       color: rgb(var(--color-accent-darker));

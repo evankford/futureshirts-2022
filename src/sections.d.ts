@@ -26,7 +26,7 @@ interface SectionBase {
   layout: SectionLayout,
   subtitle: string | null,
 }
-interface Counter {
+interface CounterModel {
   introduction: string,
   subtitle: string,
   number: number
@@ -66,12 +66,12 @@ interface TourSection extends CommonSection {
 
 interface ECommerceSection extends CommonSection {
   layout: 'ecommerce'
-  counters: Array<Counter>,
-  computer: VideoObject,
-  computer2: VideoObject,
-  phone: VideoObject,
-  phone2: VideoObject,
-  tablet: VideoObject
+  counters: Array<CounterModel>,
+  computer: VideoOrImage,
+  computer2: VideoOrImage,
+  phone: VideoOrImage,
+  phone2: VideoOrImage,
+  tablet: VideoOrImage
 }
 interface LicensingSection extends ImageSection {
   layout: 'licensing'
@@ -80,7 +80,8 @@ interface LicensingSection extends ImageSection {
 }
 
 interface TeamSection extends ImageSection {
-  layout: 'team'
+  layout: 'team',
+  logoGallery: Array<SanityImageObject>
 }
 
 interface ConnectSection extends SectionBase {

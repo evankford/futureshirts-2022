@@ -4,7 +4,7 @@ const query = `*[_id == 'jobs'][0] {email,title, subtitle,image,blurb,successTit
 
 /** @type {import('./__types/jobs.json').RequestHandler} */
 
-export async function get() {
+export async function GET() {
   return await sanityGet(query);
 }
 

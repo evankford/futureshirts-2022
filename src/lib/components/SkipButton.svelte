@@ -1,4 +1,4 @@
-<a  href="#MainContent">Skip to main content</a>
+<a href="#MainContent">Skip to main content</a>
 
 <style lang="scss">
     @use "../styles/abstracts" as *;

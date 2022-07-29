@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-cloudflare';
+import adapter from '@sveltejs/adapter-auto';
 import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -8,25 +8,11 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
+
 		prerender: {
-			default: true
+			default: process.env.NODE_ENV ? process.env.NODE_ENV != 'staging' : true
 		},
 		adapter: adapter(),
-		vite: {
-			optimizeDeps: {
-				include: ['phone']
-			},
-			resolve: {
-				// mainFields: ['main', 'module', 'browser']
-			},
-			ssr: {
-				noExternal: [
-					'@fortawesome/free-brands-svg-icons',
-					'@fortawesome/pro-regular-svg-icons',
-					'@fortawesome/pro-solid-svg-icons'
-				]
-			}
-		}
 	}
 };
 

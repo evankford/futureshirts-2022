@@ -26,9 +26,6 @@ import isOnScreen from "$lib/isOnScreen";
   @use "../styles/abstracts" as *;
 
   section {
-    --rotateXMod: 1.5deg;
-    --rotateYMod: 1.5deg;
-    --depth: 50px;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -43,10 +40,10 @@ import isOnScreen from "$lib/isOnScreen";
     --color-background: rgb(var(--color-base-background-accent));
     --color-foreground: rgb(var(--color-base-text));
 
-    padding: clamp(120px, 20vh, 260px) 0;
+    padding: clamp(90px, 12vh, 160px) 0;
   }
   .content {
-    --depth: 50px;
+
     @include content-wrap;
     display: flex;
     position: relative;

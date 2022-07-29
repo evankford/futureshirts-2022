@@ -1,20 +1,23 @@
 <script lang="ts">
-  import Image from "./Image.svelte";
+  import Image from "$lib/components/Image.svelte";
   export let  hidden:boolean = false, logo:SanityImageObject, quote:string, quoteTitle:string | undefined, subtitle: string | undefined
 </script>
+{#if quote}
 <div class="wrap" aria-hidden={hidden}>
   <div class="img">
-    <Image width={150} image={logo} />
+    <Image blurUp={false} width={150} image={logo} />
   </div>
+
   <blockquote >
-  <h4 class="quote">
-    {quote}
-  </h4>
-  {#if quoteTitle || subtitle }
-  <cite>{#if quoteTitle}<span class="quoteTitle">{quoteTitle}</span>{/if} {#if subtitle}<span class="subtitle">{subtitle}</span>{/if}</cite>
-  {/if}
+    <h4 class="quote">
+      {quote}
+    </h4>
+    {#if quoteTitle || subtitle }
+      <cite>{#if quoteTitle}<span class="quoteTitle">{quoteTitle}</span>{/if} {#if subtitle}<span class="subtitle">{subtitle}</span>{/if}</cite>
+    {/if}
   </blockquote>
 </div>
+{/if}
 
 <style lang="scss">
   @use "../styles/abstracts" as *;

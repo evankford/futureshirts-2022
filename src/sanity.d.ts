@@ -77,6 +77,7 @@ interface SiteSettings {
   codes: CodeSnippetSettings | null,
   socials: SocialMediaSettings | null,
   jobs: JobSettings | null
+  support: SimpleSupportSettings | null
 }
 
 
@@ -128,6 +129,7 @@ interface VideoOrImageVideo extends VideoObject {
     title: string,
     subtitle?: string
     description: string,
+    fullDescription: Block[],
   }
 
   interface FormSettings {
@@ -144,9 +146,9 @@ interface ContactSettings extends FormSettings {
   content: Block[]
   stores: ContactOption[]
 }
-interface SupportSettings extends FormSettings {
-  contactVideo: VideoObject | null,
-  contactOptions: ContactOption[],
+interface SupportSettings extends DocBase {
+  email: string,
+  counters?: CounterModel[],
 
 }
 
@@ -180,4 +182,10 @@ interface SlugShape {
   title: string,
   subtitle?: string
   image?:SanityImageObject
+}
+
+interface SimpleSupportSettings {
+  title: string
+  subtitle: string
+  email: string
 }

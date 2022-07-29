@@ -9,7 +9,7 @@ import Phone from "$lib/components/Phone.svelte";
 import Galaxy from "$lib/components/Galaxy.svelte";
 import Tablet from "$lib/components/Tablet.svelte";
 import Laptop from "$lib/components/Laptop.svelte";
-  export let title:string | null, layout: string, subtitle: string| null, box: Blocks[], intro: string|null, counters: Counter[], computer: VideoOrImage, computer2: VideoOrImage, phone:VideoOrImage, phone2:VideoOrImage, tablet:VideoOrImage, anchor: string;
+  export let title:string | null, layout: string, subtitle: string| null, box: Blocks[], intro: string|null, counters: CounterModel[], computer: VideoOrImage, computer2: VideoOrImage, phone:VideoOrImage, phone2:VideoOrImage, tablet:VideoOrImage, anchor: string;
 
 </script>
 <section use:isOnScreen id="{anchor}" class=" {layout}">
@@ -26,17 +26,15 @@ import Laptop from "$lib/components/Laptop.svelte";
       {/each}
     </div>
   </div>
-  <div class="rotatewrap">
+  <div class="wrap">
 
-    <div class="rotate">
       <div class="devices">
-        <div class="comp comp1"><Laptop>{#if computer2.is == 'video'}<Video video={computer2}/>{:else if computer2.is =='image'}<Image image={computer2.image} alt={computer2.title} />{/if}</Laptop></div>
-        <div class="tablet"><Tablet>{#if tablet.is == 'video'}<Video video={tablet}/>{:else if tablet.is =='image'}<Image image={tablet.image} alt={tablet.title} />{/if}</Tablet></div>
-        <div class="phone phone1"><Phone>{#if phone.is == 'video'}<Video video={phone}/>{:else if phone.is =='image'}<Image image={phone.image} alt={phone.title} />{/if}</Phone></div>
-        <div class="phone phone2"><Galaxy >{#if phone2.is == 'video'}<Video video={phone2}/>{:else if phone2.is =='image'}<Image image={phone2.image} alt={phone2.title} />{/if}</Galaxy></div>
-        <div class="comp comp2"><Laptop>{#if computer.is == 'video'}<Video video={computer}/>{:else if computer.is =='image'}<Image image={computer.image} alt={computer.title} />{/if}</Laptop></div>
+        <div class="comp comp1"><Laptop>{#if computer2.is == 'video'}<Video video={computer2}/>{:else if computer2.is =='image'}<Image width={1600} image={computer2.image} alt={computer2.title} />{/if}</Laptop></div>
+        <div class="tablet"><Tablet>{#if tablet.is == 'video'}<Video video={tablet}/>{:else if tablet.is =='image'}<Image width={1200} image={tablet.image} alt={tablet.title} />{/if}</Tablet></div>
+        <div class="phone phone1"><Phone>{#if phone.is == 'video'}<Video video={phone}/>{:else if phone.is =='image'}<Image width={800}  image={phone.image} alt={phone.title} />{/if}</Phone></div>
+        <div class="phone phone2"><Galaxy >{#if phone2.is == 'video'}<Video video={phone2}/>{:else if phone2.is =='image'}<Image width={800} image={phone2.image} alt={phone2.title} />{/if}</Galaxy></div>
+        <div class="comp comp2"><Laptop>{#if computer.is == 'video'}<Video video={computer}/>{:else if computer.is =='image'}<Image width={1600} image={computer.image} alt={computer.title} />{/if}</Laptop></div>
       </div>
-    </div>
   </div>
 
 </section>
@@ -44,8 +42,6 @@ import Laptop from "$lib/components/Laptop.svelte";
   @use "../styles/abstracts" as *;
 
   section {
-    --rotateXMod: 3deg;
-    --rotateYMod: 3deg;
     position: relative;
     min-height: 2500px;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0 100%);
@@ -67,8 +63,6 @@ import Laptop from "$lib/components/Laptop.svelte";
     @include media-query($small) {
       min-height: 1500px;
       --font-size-mega: 50px;
-      --rotateXMod: 1deg;
-      --rotateYMod: 1deg;
     }
 
   }
@@ -146,7 +140,7 @@ import Laptop from "$lib/components/Laptop.svelte";
     }
 
   }
-  .rotatewrap {
+  .wrap {
     @include psuedoish;
     overflow: hidden;
   }

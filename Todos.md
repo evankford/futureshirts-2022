@@ -1,16 +1,15 @@
 Todos
 # Section 1
-thin out the header
-scroll indicator
+[x] thin out the header
+[x] scroll indicator
 # Section 2
-upload video
+[ ] upload video
 # Section 3
-maybe a powerpoint fade? (v2) - Jordan
+[ ] maybe a powerpoint fade? (v2) - Jordan
 # Section 4 ( )
-quote toggleable
+[x] quote toggleable
 # Ecommerce (5)
-double checkout
-put the dimensions in the configurator
+[x] put the dimensions in the configurator
 # Retail Licensing
 Sliding images (v2)
 

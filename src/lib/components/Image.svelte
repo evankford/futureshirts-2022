@@ -1,9 +1,6 @@
 <script lang="ts">
   import { urlFor } from "$lib/sanity";
-  import isOnScreen from "$lib/isOnScreen";
   import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-
-  let visible = false;
 
   const widths = [150, 300, 600, 900, 1200, 1500, 1800, 2100, 2500, 3000];
 
@@ -66,18 +63,15 @@
       if (!maxWidth || width <= maxWidth ) {
         const urlWithoutHeight = urlFor(image).width(oneWidthUp).format('webp');
         if (aspect) {
-          srcSet.push(urlWithoutHeight.height(Math.round(oneWidthUp * aspect)).url() + ' ' + width + 'w ' + Math.round(oneWidthUp*aspect) + 'h');
+          srcSet.push(urlWithoutHeight.height(Math.round(oneWidthUp * aspect)).url() + ' ' + width + 'w ' + Math.round(width*aspect) + 'h');
         }
         srcSet.push(urlFor(image).width(oneWidthUp).format('webp').url() + ' ' + width + 'w');
       } else if (!maxWidthIndex) {
           maxWidthIndex = i;
       }
-
-
-
     })
     if (maxWidthIndex) {
-      let maxW = widths[maxWidthIndex + 1];
+      let maxW = widths[maxWidthIndex];
       if (!maxW) {
         maxW = widths[widths.length - 1]
       }
@@ -104,6 +98,7 @@
   image:SanityImageObject,
   fixedHeight:number|false = false,
   fixedWidth: number|false = false,
+  blurUp: boolean =true,
   alt: string|null = null,
   bg:boolean = false,
   width: number | null | false = false,
@@ -111,16 +106,15 @@
   transparency: boolean =  false,
   fullWidth: boolean =  false;
 </script>
-<picture use:isOnScreen on:onscreen={()=>visible = true} class:visible  class:bg data-src="{urlFor(image).format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
-  {#if !loaded && (!width || width > 350) }
-  <img loading="lazy" src={urlFor(image).format('webp').blur(30).width(100).url()} aria-hidden="true" class="blur" alt="">
-  {/if}
-  {#if visible}
-  <img loading="lazy" class="respimg-img" on:load={()=>loaded = true} srcset={buildSrcSet(image, width ? width : trySize(image).width, aspect ? aspect : trySize(image).aspect, !transparency)} alt={alt} src={urlFor(image).format('webp').blur(30).width(200).url()} />
-  {:else }
-  <img loading="lazy" class="respimg-img" on:load={()=>loaded = true} alt={alt} src={urlFor(image).format('webp').blur(30).width(200).url()} />
-  {/if}
+{#if width && width <= 150}
+<picture class:bg data-src="{urlFor(image).format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
+  <img loading="lazy" class="respimg-img" alt={alt} src={urlFor(image).format('webp').width(width).url()} />
 </picture>
+{:else }
+<picture class:bg data-src="{urlFor(image).format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
+  <img style="{!loaded && blurUp ? `background-image: url('${urlFor(image).format('webp').blur(30).width(100).url()}');` : 'background-image: none;'}" loading="lazy" class="respimg-img" on:load={()=>{ setTimeout(()=>{loaded = true}, 1000 )}}  alt={alt} src={urlFor(image).format('webp').width(200).url()} srcset={buildSrcSet(image, width ? width : trySize(image).width, aspect ? aspect : trySize(image).aspect, !transparency)}/>
+</picture>
+{/if}
 
 
 <style lang="scss">
@@ -164,6 +158,9 @@
   }
 
   img {
+    transition: all 200ms ease;
+    background-size:var(--image-fill, cover);
+    background-repeat: no-repeat;
     object-fit: var(--image-fill, cover);
     object-position: var(--obj-pos, 50%, 50%);
     z-index: 1;

@@ -1,7 +1,6 @@
 <script lang="ts">
   import isOnScreen ,{stopWatching} from "$lib/isOnScreen"
   import {CountUp} from "countup.js";
-
   let counter:HTMLSpanElement;
   let wrap:HTMLElement;
   let invisible: boolean = true;
@@ -16,34 +15,51 @@
     }
     stopWatching(wrap);
   }
-  export let introduction: string, subtitle: string, number:number;
+  export let introduction: string, subtitle: string, number:number, small=false;
 </script>
 
-<div class:invisible class="counter" use:isOnScreen on:onscreen={start} bind:this={wrap}>
+<div class:invisible class:small class="counter" use:isOnScreen on:onscreen={start} bind:this={wrap}>
   <div class="subtitle">{introduction}</div>
   <div class="number"><span bind:this={counter}></span></div>
   <div class="subtitle">{subtitle}</div>
 </div>
-
 <style lang="scss">
   @use "../styles/abstracts" as *;
 
   .counter {
-    flex: 0 1 auto;
+    flex: 0 1 300px;
     margin: 20px ;
     text-align: inherit;
+
+     &.small {
+      margin: 10px auto;
+      flex: 0 0 auto;
+      max-width: 100%;
+      @include media-query($medium-up){
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      font-size: 16px;
+    }
   }
   .subtitle {
     @include mono;
     font-size: 16px;
+
+
   }
   .number {
     font-size: clamp(25px, calc(22px + 1.8vw), 45px);
+    .small & {
+      font-size: 32px;
+      margin: 0 0.35em 0.1em;
+    }
     @include extra;
-  }
-  .number {
     min-height: 0.9em;
   }
+
 
   .subtitle, .number {
     transition: transform 300ms ease, opacity 300ms ease;

@@ -1,7 +1,8 @@
 <script lang="ts">
   import MenuItem from "$lib/components/MenuItem.svelte";
   import Socials from "$lib/components/Socials.svelte";
-  import {hasJobs } from "$lib/stores";
+  import Button from "$lib/components/Button.svelte";
+  import {hasJobs, support } from "$lib/stores";
   export let menuItems:MenuItemShape[] | null, copyrightText:string ;
 </script>
 
@@ -41,15 +42,32 @@
   </div>
   {#if menuItems && menuItems.length > 0}
   <ul>
-    {#each menuItems as item}
+    {#each menuItems as item, i}
     <MenuItem {item}/>
-    {/each}
-    {#if $hasJobs}
-    <MenuItem item={{title: 'Careers', linkUrl: {openInNewTab: false,type:'internal' , url: '/jobs', } }} />
+    {#if i == 0 && $hasJobs}
+      <MenuItem item={{title: 'Careers', linkUrl: {openInNewTab: false,type:'internal' , url: '/jobs', } }} />
     {/if}
+    {/each}
+
   </ul>
   {/if}
-  <div class="right">
+  {#if $support}
+  <div class="support">
+    {#if $support.title}
+    <h4>{$support.title}</h4>
+    {/if}
+    {#if $support.subtitle}
+    <p>{$support.subtitle }</p>
+    {/if}
+    <div class="buttons">
+      {#if $support.email}
+        <Button link={`mailto:${$support.email}`} underline >Email Us.</Button>
+      {/if}
+      <Button link={`/support`} underline >More Info.</Button>
+    </div>
+  </div>
+  {/if}
+  <div class="copyright">
     <p>© {new Date().getFullYear()} {copyrightText}</p>
     <p>an <a href="https://evankerrickford.com" target="_blank" rel="nofollow noopener noreferrer">ekf</a> site</p>
   </div>
@@ -58,6 +76,7 @@
 
 <style lang="scss">
   @use "../styles/abstracts" as *;
+  @use "../styles/abstracts/mixins/_type-elements" as type;
 
   footer {
     padding: clamp(30px, calc(20px + 4vh), 55px) 0;
@@ -65,17 +84,41 @@
     color: rgb(var(--color-base-text));
     position: relative;
     z-index: 99;
+    }
+  .support{
+    max-width: 500px;
+    color: rgba(var(--color-base-text), 0.8);
+
+    --color-simple-button: var(--color-base-accent);
+
+    h4 {
+      color: rgba(var(--color-base-text), 0.8);
+      font-weight: 700;
+      @include type.heading;
+    }
+
+    p{
+      line-height: 1.3;
+      margin-bottom: 0;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: auto;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 
   .socials {
     margin: 12px auto;
   }
-  .right, .left, ul {
+  .copyright, .left, ul {
     flex: 1 1 200px;
     margin: clamp(15px, calc(10px + 1.5vw), 25px) 20px;
   }
 
-  .right {
+  .copyright {
     @include mono;
     p {
       margin: 0.4em auto;
@@ -106,6 +149,8 @@
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
+
+
   }
 
 

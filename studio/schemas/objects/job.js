@@ -19,6 +19,16 @@ export default {
 			title: 'description',
 			type: 'markdown',
       validation: (R) => R.required()
+		},
+		{
+			name: 'fullDescription',
+			title: 'fullDescription',
+			type: 'array',
+			of: [
+				{
+					type: 'block'
+				}
+			]
 		}
 	]
 };

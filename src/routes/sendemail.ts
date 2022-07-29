@@ -162,7 +162,7 @@ function convertFormData(form_data: FormData):ContactData | JobData | SupportDat
 }
 
 /** @type {import('./__types/sendemail').RequestHandler} */
-export async function post({ request }) {
+export async function POST({ request }) {
   let success = false;
   let errors: ResponseError[] = [];
 

@@ -7,10 +7,36 @@
   import Connect from "$lib/sections/Connect.svelte";
   import Ecommerce from "$lib/sections/Ecommerce.svelte";
   import Licensing from "$lib/sections/Licensing.svelte";
+  import { fade } from "svelte/transition";
+  import { onMount } from "svelte";
+  import { browser } from "$app/env";
+  import Fa from "svelte-fa";
+  import {  faChevronDown } from "@fortawesome/pro-regular-svg-icons";
+
 
   export let sections: SectionShape[];
-</script>
+  let scrolled: boolean = false;
 
+  function changeScroll() {
+    if (window.scrollY < 50) {
+      return;
+    }
+    scrolled = true;
+    if (browser) {
+      window.removeEventListener('scroll', changeScroll);
+    }
+  }
+
+  onMount(()=> {
+    if (browser) {
+      window.addEventListener('scroll', changeScroll);
+    }
+  });
+
+</script>
+{#if !scrolled}
+  <div transition:fade class="scroll-helper" aria-hidden="true"><Fa icon={faChevronDown} /> Scroll For More </div>
+{/if}
 {#each sections as section}
   {#if section.layout == 'hero'}
   <Hero {...section} />
@@ -31,3 +57,41 @@
   {/if}
 {/each}
 
+
+<style lang="scss">
+  @use "../lib/styles/abstracts/mixins/type-elements" as t;
+  .scroll-helper {
+    position: fixed;
+    z-index: 100;
+    bottom: 5%;
+    left: 0;
+    width: 100%;
+    color: white;
+    --color-foreground: 255,255,255;
+    text-shadow: 0 0 20px rgba(black, 0.85);
+    text-align: center;
+    @include t.label;
+    animation: scrollIndicate 4s linear infinite;
+  }
+  @keyframes scrollIndicate {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    } 30% {
+      opacity: 0.5;
+      transform: translateY(-2px);
+    }
+    50% {
+      opacity: 0.9;
+      transform: translateY(0px);
+    }
+    70% {
+      opacity: 0.5;
+      transform: translateY(2px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  }
+</style>

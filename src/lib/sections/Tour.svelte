@@ -12,7 +12,7 @@ import isOnScreen from "$lib/isOnScreen";
   let currentSlide = 0;
   let slideInterval: ReturnType<typeof setInterval>;
   function startSlideInterval() {
-    slideInterval = setTimeout(nextSlide, 8000)
+    slideInterval = setTimeout(nextSlide, 100000)
   }
 
   function nextSlide() {
@@ -23,6 +23,7 @@ import isOnScreen from "$lib/isOnScreen";
       currentSlide = 0;
     }
     startSlideInterval();
+    setTimeout(changeQuoteHeight, 10);
 
   }
   function prevSlide() {
@@ -33,17 +34,67 @@ import isOnScreen from "$lib/isOnScreen";
       currentSlide = quoteGallery.length - 1;
     }
     startSlideInterval();
+    setTimeout(changeQuoteHeight, 10);
   }
 
   function slideTo(num:number) {
     clearInterval(slideInterval);
     currentSlide = num;
-    startSlideInterval();
+    // startSlideInterval();
+    setTimeout(changeQuoteHeight, 10);
+  }
+
+
+
+
+  function changeQuoteHeight(){
+    const oldHeight = quoteWrapperHeight;
+    if (!domSlides) { return }
+    const current= domSlides[currentSlide];
+    if (!current) { return }
+    let newHeight = current.clientHeight,
+    diff = newHeight - oldHeight;
+    const duration = 1000 * .2;
+    const start = +new Date();
+
+    if (diff == 0) {
+      return;
+    }
+
+    function timing(time:number){
+       if (time < .5)
+          return (2 * time) / 2;
+        else
+          return (2 - (2 * (1 - time))) / 2;
+    }
+
+
+    function step() {
+      const current = +new Date(),
+        timeFraction = Math.min(1, (current - start) / duration),
+        progress = timing(timeFraction);
+        let m = diff * progress;
+        quoteWrapperHeight = oldHeight+ m;
+      if (progress < 1 )  {
+        requestAnimationFrame(step);
+      }
+    }
+
+    step();
   }
 
   onMount(()=> {
     startSlideInterval()
+
+    if (browser){
+      setTimeout(() => {
+        changeQuoteHeight()
+      }, 1);
+      window.addEventListener('resize', changeQuoteHeight);
+    }
   });
+
+  let domSlides: HTMLLIElement[] =  [], quoteWrapperHeight=0;
 
   export let title:string | null, subtitle: string| null,layout: string, intro: string|null, box: Array<Block>,  anchor: string, quoteGallery: QuoteShape[];
 
@@ -66,10 +117,10 @@ import isOnScreen from "$lib/isOnScreen";
      </ul>
      <div class="bottom">
        <button aria-label="Previous Quote" on:click={prevSlide}><Fa icon={faChevronLeft}/></button>
-       <ul class="quotes">
+       <ul class="quotes" style="height: {quoteWrapperHeight}px;">
          {#each quoteGallery as q, i}
          {#if currentSlide == i}
-           <li out:fly={{x: browser ? window.innerWidth : 500}} in:fly={{delay: 400, x: browser ? window.innerWidth : 500 }} class="slide-quote" aria-current={currentSlide == i} aria-hidden={currentSlide != i}>
+           <li bind:this={domSlides[i]} out:fly={{duration: 200, x: browser ? window.innerWidth : 500}} in:fly={{delay: 100, x: browser ? window.innerWidth : 500 }} class="slide-quote" aria-current={currentSlide == i} aria-hidden={currentSlide != i}>
               <Quote logo={q.logo} quoteTitle={q.quoteTitle} subtitle={q.subtitle} quote={q.quote} />
             </li>
             {/if}
@@ -148,7 +199,6 @@ text-align: center;
     }
   }
   .content {
-    transform: translateZ(250px);
     flex: 1 1 270px;
     margin: 0;
     position: relative;
@@ -161,18 +211,22 @@ text-align: center;
     margin: 0;
   }
   .bottom {
-    transform: translateZ(200px);
     display: flex;
     align-items: center;
     justify-content: center;
-    --depth: 20px;
+    width: calc(100% + 70px);
+    margin: 0 -35px;
     button {
       @include resetButton;
       // @include hoverBox;
-      flex: 0 0 25px;
+      flex: 0 0 35px;
       height: 35px;
-      padding: 4px;
-      margin: 18px;
+      border-radius: 35px;
+
+      margin: -18px 0;
+      background: rgb(var(--color-base-background));
+      color: rgb(var(--color-base-accent-darker));
+
       opacity: 0.5;
       transition: opacity 300ms ease, transform 300ms ease;
       display: inline-block;
@@ -182,9 +236,6 @@ text-align: center;
         transform: translateY(-6px)
       }
       @include media-query($small) {
-        flex: 0 0 20px;
-        height: 25px;
-        margin: 10px;
         font-size: 12px;
       }
     }
@@ -205,16 +256,15 @@ text-align: center;
   .quotes {
     position: relative;
     width: 100%;
-    min-height: 120px;
     display: flex;
-
-    margin: 30px auto;
-    --depth: 180px;
+    margin: 20px auto;
+    align-items: center;
   }
   .slide-quote {
     // height: 120px;
-    // position: absolute;
     flex: 0 0 100%;
+    padding: 0 20px;
+    position: absolute;
     width: 100%;
 
   }
@@ -225,10 +275,6 @@ text-align: center;
     position: relative;
     &::after {
       @include psuedo;
-      transform: translateZ(-250px);
-      --shiftX: -30px;
-      --shiftY: -30px;
-      --depth: 0px;
       top: -2.5%;
       left: -1.5%;
       background: rgb(var(--color-base-accent));
@@ -244,7 +290,6 @@ text-align: center;
   }
 
   .slide-image {
-    transform: translateZ(100px);
 
     position: absolute;
     top: 0;
@@ -254,12 +299,6 @@ text-align: center;
     overflow: hidden;
     border-radius: var(--box-border-radius);
     transition: transform 800ms ease;
-    &.before {
-      transform: translateX(-100vw)
-    }
-    &.after {
-      transform: translateX(100vw)
-    }
   }
 
   .wrap {

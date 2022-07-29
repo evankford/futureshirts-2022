@@ -3,20 +3,17 @@
   import LiNormal from "$lib/components/portableText/LiNormal.svelte";
   import isOnScreen, {stopWatching} from "$lib/isOnScreen";
   import PageHero from "$lib/sections/PageHero.svelte";
-import SupportForm from "$lib/sections/SupportForm.svelte";
+  import Button from "$lib/components/Button.svelte";
   import { PortableText} from "@portabletext/svelte";
+  import Counter from "$lib/components/Counter.svelte";
   let visible: boolean = false;
   export let
     content: Block[] | undefined = undefined,
     title:string | undefined = undefined,
     subtitle: string | undefined = undefined,
     image: SanityImageObject | undefined = undefined,
-    successMessage: string,
-    shops: ContactOption[],
-    successTitle: string,
-    errorMessage: string,
     email: string,
-    errorTitle: string;
+    counters: null | CounterModel[];
 </script>
 
 <HeadHelper slug="support"  />
@@ -29,6 +26,16 @@ import SupportForm from "$lib/sections/SupportForm.svelte";
     {#if subtitle}
     <h2 class="h3">{subtitle}</h2>
     {/if}
+    {#if email}
+    <h3 class="h3"><Button underline link="mailto:{email}">{email}</Button></h3>
+    {/if}
+    {#if counters}
+    <div class="bottom">
+      {#each counters as counter }
+        <Counter small {...counter} />
+      {/each}
+    </div>
+    {/if}
     </heading>
 </PageHero>
 <div class:hasImage={image} class="page-content" class:invisible={!visible} use:isOnScreen on:onscreen={(e)=>{visible = true; stopWatching(e.target); }}>
@@ -36,8 +43,6 @@ import SupportForm from "$lib/sections/SupportForm.svelte";
     {#if content && content.length > 0}
     <PortableText value={content} components={{listItem: {normal: LiNormal}}} />
     {/if}
-
-  <SupportForm {email} {errorTitle} {errorMessage} {successTitle} {successMessage} {shops} />
   </div>
 </div>
 
@@ -54,14 +59,32 @@ import SupportForm from "$lib/sections/SupportForm.svelte";
 
     }
   }
+
+  .bottom {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    max-width: 900px;
+    width:80%;
+    margin: 30px auto -40px;
+    text-shadow: 0 0 40px rgba(0,0,0,0.5);
+  }
+
   .inner {
     max-width: var(--text-width);
     margin: 45px auto;
   }
 
   .page-heading {
+    --font-button-size: clamp(22px, calc(18px + 1vw), 30px);
     text-align: center;
   }
+
+    .page-heading a {
+      color: inherit
+    }
 
   h1 {
     @include extra;

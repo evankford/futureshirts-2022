@@ -29,7 +29,7 @@ export default {
 			name: 'quote',
 			title: 'Quote',
 			type: 'markdown',
-			validation: (R) => R.required(),
+			// validation: (R) => R.required(),
 			initialValue:
 				'Futureshirts delivered on their promise to make more money from merch while doing less work'
 		},

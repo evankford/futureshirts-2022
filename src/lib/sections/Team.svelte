@@ -5,7 +5,6 @@ import isOnScreen from "$lib/isOnScreen";
   import Image from "$lib/components/Image.svelte";
 import {hasJobs} from "$lib/stores";
   export let title:string | null, subtitle: string| null, intro: string|null, image: SanityImageObject | false, logoGallery: false | SanityImageObject[] = false, anchor: string, layout: string;
-
 </script>
 <section use:isOnScreen class="{layout}" id="{anchor}">
   <div class="content rotate">
@@ -17,11 +16,13 @@ import {hasJobs} from "$lib/stores";
     </div>
     <div class="left  ">
       {#if logoGallery && logoGallery.length > 0}
-      <div class="gallery">
-        {#each logoGallery as image}
-        <Image {image} width={150} alt={image.alt} />
+      <div class="gallery" aria-label="Gallery of team members!">
+        {#each logoGallery as image, i}
+        <div class="gallery-item">
+          <Image {image} bg width={150} alt={""} />
+        </div>
         {/each}
-      </div>s
+      </div>
       {:else if image}
       <div class="img">
         <Image {image} width={900} alt={image.alt ? image.alt : 'The Futureshirts Team'} />
@@ -75,9 +76,8 @@ import {hasJobs} from "$lib/stores";
     margin: 24px;
 }
 .img {
-      border-radius: var(--box-border-radius);
+  border-radius: var(--box-border-radius);
   overflow: hidden;
-
   position: relative;z-index: 2;
   border-top: 4px solid white;
   border-bottom: 4px solid white;
@@ -97,6 +97,30 @@ import {hasJobs} from "$lib/stores";
     top: -5%;
     background: rgb(var(--color-base-accent));
     border-radius: var(--box-border-radius)
+  }
+}
+
+.gallery {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+background: white;
+overflow: hidden;
+padding: 5px;
+border-radius: var(--box-border-radius);
+display: grid;
+grid-template-columns: repeat(7, 1fr);
+  @include media-query($large-up) {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+.gallery-item {
+  position: relative;
+  aspect-ratio: 1;
+  flex: 0 0 calc(16.666667% - 10px);
+  margin: 5px;
+  @include media-query($medium-up) {
+    flex: 0 0 calc(0.1428571429% - 10px);
   }
 }
 .socials {

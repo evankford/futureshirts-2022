@@ -13,7 +13,6 @@ import isOnScreen from "$lib/isOnScreen";
   function startSlideInterval() {
     slideInterval = setTimeout(nextSlide, 8000)
   }
-
   function nextSlide() {
     clearInterval(slideInterval);
     if (currentSlide + 1 < heroGallery.length) {
@@ -44,10 +43,10 @@ import isOnScreen from "$lib/isOnScreen";
     startSlideInterval()
   });
 
-
   export let title:string | null, subtitle: string| null, intro: string|null, box: Array<Block>, heroGallery: Array<HeroImage>, anchor:string;
 </script>
 <section use:isOnScreen class="hero image-hero" id={anchor}>
+
   <div class="rotate">
     {#if heroGallery}
       <div class="bg">
@@ -97,6 +96,7 @@ import isOnScreen from "$lib/isOnScreen";
 
 <style lang="scss">
   @use "../styles/abstracts" as *;
+
   section {
 
     overflow: hidden;
@@ -105,19 +105,16 @@ import isOnScreen from "$lib/isOnScreen";
 
     background: rgb(var(--color-background));
 
-      --rotateXMod: 1.4deg;
-    --rotateYMod: 1.4deg;
   }
 
   .rotate {
-    --depth: 50px;
     position: relative;
-    min-height: 85vh;
+    min-height: clamp(400px, 75vh, 1000px);
     display: flex;
     align-items: flex-end;
     justify-content: center;
     color: rgb(var(--color-foreground));
-    padding: clamp(140px, 30vh, 450px) 0 clamp(20px, 10vh, 180px);
+    padding: clamp(140px, 19vh, 320px) 0 clamp(20px, 6vh, 100px);
 
     @include media-query($small) {
       padding-bottom: 20px;
@@ -162,9 +159,7 @@ import isOnScreen from "$lib/isOnScreen";
   }
 
   .who {
-
     @include mono;
-
     min-width: 200px;
     position: relative;
     height: 1.4em;
@@ -197,7 +192,6 @@ import isOnScreen from "$lib/isOnScreen";
 
   }
   .hero-content {
-    --depth: 150px;
     @include content-wrap;
     position: relative;
     z-index: 2;
@@ -231,7 +225,6 @@ import isOnScreen from "$lib/isOnScreen";
   .left {
     grid-area: title;
     flex: 1 1 300px;
-    --depth: 50px;
     max-width: 570px;
     padding-right: 50px;
   }
@@ -240,9 +233,7 @@ import isOnScreen from "$lib/isOnScreen";
     flex: 0 1 auto;
    transform: translateZ(150px);
    @include mono;
-    --rotateXMod: -9deg;
-    --rotateYMod: -9deg;
-    --depth: 100px;
+
 
   }
 </style>

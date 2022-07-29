@@ -54,15 +54,6 @@ export default () =>
 										.title('Jobs')
 										.documentId('jobs')
 								),
-								S.listItem()
-								.title('Support Settings')
-								.child(
-									S.document()
-										.schemaType('support')
-										.id('support')
-										.title('Support')
-										.documentId('support')
-								),
 							S.listItem()
 								.title('Contact Settings')
 								.child(

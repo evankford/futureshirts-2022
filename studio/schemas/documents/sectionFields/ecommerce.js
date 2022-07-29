@@ -3,13 +3,14 @@ export default [
 		name: 'counters',
 		title: 'Counter',
 		type: 'array',
-    of: [ {type : 'counter'}],
+		of: [{ type: 'counter' }],
 		group: 'content',
 		hidden: ({ document }) => !document.layout || document.layout !== 'ecommerce'
 	},
 	{
 		name: 'computer',
 		title: 'Computer Preview 1',
+		info: '1920 x 1056',
 		type: 'videoOrImage',
 		group: 'content',
 		hidden: ({ document }) => !document.layout || document.layout !== 'ecommerce'
@@ -25,6 +26,7 @@ export default [
 		name: 'phone',
 		title: 'Phone Preview 1',
 		type: 'videoOrImage',
+		info: '900 x 1950',
 		group: 'content',
 		hidden: ({ document }) => !document.layout || document.layout !== 'ecommerce'
 	},
@@ -32,12 +34,14 @@ export default [
 		name: 'phone2',
 		title: 'Phone Preview 2',
 		type: 'videoOrImage',
+		info: '900 x 1950',
 		group: 'content',
 		hidden: ({ document }) => !document.layout || document.layout !== 'ecommerce'
 	},
 	{
 		name: 'tablet',
 		title: 'Tablet Preview',
+		info: '970 x 1056',
 		type: 'videoOrImage',
 		group: 'content',
 		hidden: ({ document }) => !document.layout || document.layout !== 'ecommerce'

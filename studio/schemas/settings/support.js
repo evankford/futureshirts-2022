@@ -32,36 +32,7 @@ export default {
 			type: 'array',
 			of: [{ type: 'block' }]
 		},
-		{
-			name: 'image',
-			title: 'Image',
-			type: 'image'
-		},
-		{
-			name: 'email',
-			title: 'Email Address',
-			type: 'string',
 
-			validation: (Rule) =>
-				Rule.required().custom((email) => {
-					if (typeof email == undefined) {
-						return true;
-					}
-					const regex =
-						/[a-z0-9!#$%&'*+=?^_‘{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_‘{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gm;
-					if (regex.test(email)) {
-						return true;
-					} else {
-						return 'Please enter a valid email address';
-					}
-				})
-		},
-		{
-			name: 'shops',
-			title: 'Client Shops',
-			type: 'array',
-			of: [{ type: 'contactOption' }]
-		},
 		{
 			name: 'successTitle',
 			title: 'Success Title',

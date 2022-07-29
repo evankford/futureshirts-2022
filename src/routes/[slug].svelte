@@ -12,8 +12,6 @@
   subtitle: string | undefined = undefined,
   image: SanityImageObject | undefined = undefined,
   seo: PageSeo | undefined = undefined;
-
-
 </script>
 
 <HeadHelper {seo} {slug} />
