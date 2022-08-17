@@ -114,7 +114,12 @@ grid-template-columns: repeat(7, 1fr);
 }
 .gallery-item {
   position: relative;
-  aspect-ratio: 1;
+  &:before {
+    content: '';
+    width: 100%;
+    display: block;
+    padding-bottom: 100%;
+  }
   flex: 0 0 calc(16.666667% - 10px);
   margin: 5px;
   @include media-query($medium-up) {

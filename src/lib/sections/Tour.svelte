@@ -153,23 +153,21 @@ import isOnScreen from "$lib/isOnScreen";
   @use "../styles/abstracts" as *;
 
   section {
-    --rotateXMod: 1.5deg;
-    --rotateYMod: 1.5deg;
-    --depth: 10px;
+    @include content-wrap;
     --color-foreground: var(--color-base-text);
     --color-background: var(--color-base-background-off);
     background: rgb(var(--color-background));
     color: rgb(var(--color-foreground));
-    padding: clamp(50px, calc(40px + 5vw), 120px) 0;
     position: relative;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDcuMS1jMDAwIDc5LjljY2M0ZGU5MywgMjAyMi8wMy8xNC0xNDowNzoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIzLjMgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTlEMDdFMzBENUZFMTFFQ0IyMjdDQjY1NTc2QjhEMDAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTlEMDdFMzFENUZFMTFFQ0IyMjdDQjY1NTc2QjhEMDAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5OUQwN0UyRUQ1RkUxMUVDQjIyN0NCNjU1NzZCOEQwMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5OUQwN0UyRkQ1RkUxMUVDQjIyN0NCNjU1NzZCOEQwMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PkcnqcsAAAAJUExURREREQAAAAAAAElgGT0AAAADdFJOU///ANfKDUEAAAAYSURBVHjaYmDCBRhGZUZlqC/DiEsGIMAANbUE4s8EppcAAAAASUVORK5CYII=);
     background-size: 24px;
+    max-width: 100%;
+    @include media-query($medium-up) {
+      padding: clamp(50px, calc(40px + 5vw), 120px) 0;
+    }
     background-repeat: repeat;
     overflow: hidden;
-    @include media-query ($tiny) {
-       --rotateXMod: 0.5deg;
-    --rotateYMod: 0.5deg;
-    }
+    --titleLineHeight: 0.7;
   }
 
   .top {
@@ -246,10 +244,6 @@ text-align: center;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    --rotateXMod: 5deg;
-    --rotateYMod: 5deg;
-
-    --depth: 80px;
     justify-content: center;
 
   }
@@ -275,8 +269,13 @@ text-align: center;
     position: relative;
     &::after {
       @include psuedo;
-      top: -24px;
-      left: -24px;
+      left: -9px;
+      top: -9px;
+      @include media-query($medium-up) {
+
+        left: -24px;
+        top: -24px;
+      }
       background: rgb(var(--color-base-accent));
       border-radius: var(--box-border-radius);
       z-index: -1;
@@ -330,9 +329,14 @@ text-align: center;
 
   .slide-logo {
     button {
-      width: 90px;
-      height: 50px;
-      padding: 5px;
+      height: 40px;
+      width: 75px;
+      padding: 2px;
+      @include media-query($medium-up) {
+        width: 90px;
+        height: 50px;
+        padding: 5px;
+      }
       transition: opacity 300ms ease, transform 300ms ease;
       transform: scale(0.8);
       opacity: 0.25;

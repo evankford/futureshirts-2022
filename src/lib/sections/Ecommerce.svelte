@@ -109,10 +109,10 @@ import Laptop from "$lib/components/Laptop.svelte";
     z-index: 0;
     transform: rotate3d(0,0,-1, 15deg) translate3d(-75%, -10%, -150px);
     @include media-query($large) {
-      transform: rotate3d(0,0,-1, 18deg) translate3d(-65%, -15%, -10px) scale(0.72);
+      transform: rotate3d(0,0,-1, 18deg) translate3d(-65%, -22%, -10px) scale(0.72);
     }
     @include media-query($medium) {
-      transform: rotate3d(0,0,-1, 12deg) translate3d(-15%, 0%, -10px) scale(0.65);
+      transform: rotate3d(0,0,-1, 12deg) translate3d(-45%, 0%, -10px) scale(0.65);
     }
     @include media-query($small) {
       opacity: 0.5;
@@ -120,7 +120,7 @@ import Laptop from "$lib/components/Laptop.svelte";
     }
     @include media-query($tiny) {
 
-      transform: rotate3d(0,0,-1, 8deg) translate3d(-45%, -20%, -10px) scale(0.42);
+      transform: rotate3d(0,0,-1, 8deg) translate3d(-45%, -22%, -10px) scale(0.42);
     }
   }
   .phone, .comp, .tablet {

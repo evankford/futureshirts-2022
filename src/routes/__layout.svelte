@@ -47,7 +47,6 @@
   import {  onMount } from "svelte";
 
   function setGlobalStores() {
-    console.log(support);
     hasJobs.set(jobs.openings && jobs.openings.length > 0);
     socialStore.set(socials.socials);
     seoStore.set(seo);

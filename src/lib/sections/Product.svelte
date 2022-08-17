@@ -31,10 +31,8 @@ import { onDestroy } from "svelte";
 
   function handleResize() {
     sectionDims = section.getBoundingClientRect();
-    console.log(sectionDims);
     top =  sectionDims.top + window.scrollY;
     bottom =  sectionDims.bottom + window.scrollY + window.innerHeight;
-    console.log(top, bottom)
 
   }
 
@@ -95,7 +93,7 @@ import { onDestroy } from "svelte";
     display: flex;
     align-items: center;
     @include media-query($small) {
-      padding :200px 0 50px;
+      /* padding :200px 0 50px; */
     }
 
     --color-background: 255,255,255;
@@ -118,12 +116,12 @@ import { onDestroy } from "svelte";
     position: fixed;
 
 
-    height: 110%;
-    width: 110%;
+    height: 100%;
+    width: 100%;
     max-width: 1600px;;
-    top: -5%;
+    top: 0%;
     left: 50%;
-    transform: translate3d(-50%, calc(-5% + (10% * var(--scr, 0.5))), 0);
+    transform: translate3d(-50%, calc(0% - (10% * var(--scr, 0.5))), 0);
     display: block;
 
   }

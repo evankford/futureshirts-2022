@@ -27,8 +27,8 @@
   @use "../styles/abstracts" as *;
 
   .counter {
-    flex: 0 1 300px;
-    margin: 20px ;
+    flex: 0 1 250px;
+    margin: 12px ;
     text-align: inherit;
 
      &.small {

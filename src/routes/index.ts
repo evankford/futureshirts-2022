@@ -4,7 +4,6 @@ import { getSections } from "$lib/draftCheck";
 
 export async function GET() {
   const query = `{"sections": ${getSections()} { ${Object.values(sectionGroqs)} }}`;
-  console.log(query);
   const res = await sanityGet<SiteSettings>(query)
   return res;
 }

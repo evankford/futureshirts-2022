@@ -8,6 +8,9 @@ import isOnScreen from "$lib/isOnScreen";
   import SectionBox from "$lib/components/SectionBox.svelte";
   import Image from "$lib/components/Image.svelte";
   import { onMount } from "svelte";
+import { onDestroy } from "svelte";
+import { browser } from "$app/env";
+
   let currentSlide = 0;
   let slideInterval: ReturnType<typeof setInterval>;
   function startSlideInterval() {
@@ -39,13 +42,58 @@ import isOnScreen from "$lib/isOnScreen";
     startSlideInterval();
   }
 
+  function handleOnScreen() {
+    if (!browser) {
+      return;
+    }
+    sectionDims = section.getBoundingClientRect();
+
+      window.addEventListener('scroll',handleScroll)
+      window.addEventListener('resize',handleResize)
+  }
+  function handleOffScreen() {
+    if (!browser) {
+      return;
+    }
+    window.removeEventListener('scroll', handleScroll)
+    window.removeEventListener('resize', handleResize)
+  }
+  let section:HTMLElement, scr: number = 0;
+
+  let sectionDims: ReturnType<HTMLElement["getBoundingClientRect"]> ;
+  let top: number = 0, bottom: number = 2000;
+
+  function handleResize() {
+    sectionDims = section.getBoundingClientRect();
+    top =  sectionDims.top + window.scrollY;
+    bottom =  sectionDims.bottom + window.scrollY + window.innerHeight;
+
+  }
+
+  function handleScroll() {
+    scr = Math.max(Math.min(1, (window.scrollY + window.innerHeight - top )/ (bottom - top) ), 0);
+  }
+
+  onDestroy(()=> {
+    clearInterval(slideInterval);
+     if (browser) {
+      window.removeEventListener('load', handleResize)
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('DOMContentLoaded', handleResize)
+    }
+  })
   onMount(()=> {
     startSlideInterval()
+     if (browser) {
+      handleResize();
+      window.addEventListener('load', handleResize)
+      window.addEventListener('DOMContentLoaded', handleResize)
+    }
   });
 
   export let title:string | null, subtitle: string| null, intro: string|null, box: Array<Block>, heroGallery: Array<HeroImage>, anchor:string;
 </script>
-<section use:isOnScreen class="hero image-hero" id={anchor}>
+<section  style="--scr: {scr}" bind:this={section} use:isOnScreen on:onscreen={handleOnScreen} on:offscreen={handleOffScreen} class="hero image-hero" id={anchor}>
 
     {#if heroGallery}
       <div class="bg">
@@ -124,11 +172,14 @@ import isOnScreen from "$lib/isOnScreen";
 
   .bg {
     @include psuedoish;
+    position: fixed;
+    transform: translate3d(0, calc(0% - (10% * var(--scr, 0.5))), 0);
+
     z-index: 0;
-    height: 105%;
-    width: 105%;
-    left: -1%;
-    top: -1%;
+    height: 100%;
+    width: 100%;
+    left: 0%;
+    top: 0%;
 
   }
 
