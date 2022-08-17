@@ -86,4 +86,7 @@ max-width: 900px;
     border-radius: 50px;
     padding: 0.3em 0.9em;
   }
+  .buttons {
+    margin: 40px auto 0;
+  }
 </style>

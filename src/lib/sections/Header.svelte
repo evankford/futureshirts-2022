@@ -157,6 +157,10 @@ a {
   display: inline-block;
   position: relative;
   padding: 0.2em 0.8em;
+  @include media-query($medium) {
+    font-size: 16px;
+    padding: 0
+  }
  @include hoverBox;
 
 }

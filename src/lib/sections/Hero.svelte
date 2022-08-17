@@ -58,7 +58,7 @@ import { browser } from "$app/env";
     window.removeEventListener('scroll', handleScroll)
     window.removeEventListener('resize', handleResize)
   }
-  let section:HTMLElement, scr: number = 0;
+  let section:HTMLElement, scr: number = 0.5;
 
   let sectionDims: ReturnType<HTMLElement["getBoundingClientRect"]> ;
   let top: number = 0, bottom: number = 2000;
