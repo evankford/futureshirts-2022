@@ -39,6 +39,7 @@
     padding: 1% 1% 2%;
     color: inherit;
     display: block;
+    max-width: 70vw;
     cursor:pointer;
     position: relative;
     transition: transform 200ms ease;

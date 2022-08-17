@@ -8,8 +8,8 @@ import isOnScreen from "$lib/isOnScreen";
   import SectionBox from "$lib/components/SectionBox.svelte";
   import Image from "$lib/components/Image.svelte";
   import { onMount } from "svelte";
-import { onDestroy } from "svelte";
-import { browser } from "$app/env";
+  import { onDestroy } from "svelte";
+  import { browser } from "$app/env";
 
   let currentSlide = 0;
   let slideInterval: ReturnType<typeof setInterval>;
@@ -144,6 +144,7 @@ import { browser } from "$app/env";
   @use "../styles/abstracts" as *;
 
   section {
+    --box-li-line-height : 1;
 
      position: relative;
     min-height: clamp(400px, 75vh, 1000px);
@@ -155,6 +156,7 @@ import { browser } from "$app/env";
 
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     @include media-query($small) {
+      --vertical-rhythm: 2px;
       padding-bottom: 20px;
     }
     overflow: hidden;
@@ -177,6 +179,7 @@ import { browser } from "$app/env";
 
     z-index: 0;
     height: 100%;
+    max-height: 90vh;
     width: 100%;
     left: 0%;
     top: 0%;
@@ -211,6 +214,10 @@ import { browser } from "$app/env";
     min-width: 200px;
     position: relative;
     height: 1.4em;
+    font-size: 14px;
+    @include media-query($medium-up) {
+      font-size: 16px;
+    }
     span {
       position: absolute;
       top: 0;
@@ -280,6 +287,7 @@ import { browser } from "$app/env";
   .right {
     grid-area: content;
     flex: 0 1 auto;
+    margin: 20px 0 0;
    @include mono;
 
 

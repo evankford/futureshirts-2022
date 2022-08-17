@@ -165,6 +165,10 @@ import isOnScreen from "$lib/isOnScreen";
     @include media-query($medium-up) {
       padding: clamp(50px, calc(40px + 5vw), 120px) 0;
     }
+    @include media-query($small) {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
     background-repeat: repeat;
     overflow: hidden;
     --titleLineHeight: 0.7;

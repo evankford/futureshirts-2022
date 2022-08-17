@@ -58,7 +58,11 @@ import Socials from "$lib/components/Socials.svelte";
   flex: 1 1 240px;
   max-width: 500px;
   text-align: center;
-  margin: 24px;
+  margin: 20px 4px;
+  @include media-query($medium-up) {
+    margin: 24px;
+
+  }
 }
 .code {
   border-radius: var(--box-border-radius);

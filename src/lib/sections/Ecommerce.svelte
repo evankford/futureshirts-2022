@@ -168,6 +168,7 @@ import Laptop from "$lib/components/Laptop.svelte";
   }
   .right {
     --box-bg-color: rgba(var(--color-background), 0.7);
+    --color-foreground: 255,255,255;
     flex: 1 1 200px;
     margin: 50px 0 20px auto;
     max-width: 340px;

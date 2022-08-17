@@ -2,6 +2,7 @@
 
 @mixin box($withBefore: true) {
   background-color: var(--box-bg-color, transparent);
+  color: rgb(var(--color-foreground ));
   @if $withBefore {
     --beforeHt: 1.5em;
     padding:0 0.9em 0.9em;
@@ -37,6 +38,7 @@
 .box {
   transform: translate3d(0, 0px, 0);
   transition: transform 600ms ease, opacity 600ms ease;
+  line-height: var(--box-line-height, 1.3);
   &>* {
     position: relative;
     opacity: 1;
@@ -63,7 +65,7 @@
   li {
     text-align: left;
     margin:0.3em 0.5em;
-    line-height: 1.3;
+    line-height: var(--box-line-height, 1.3);
     // list-style-position: inside;
     flex: 1 1 200px;
   }
