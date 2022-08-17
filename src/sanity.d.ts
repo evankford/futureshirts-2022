@@ -128,7 +128,7 @@ interface VideoOrImageVideo extends VideoObject {
  interface Opening {
     title: string,
     subtitle?: string
-    description: string,
+    description: Block[],
     fullDescription: Block[],
   }
 

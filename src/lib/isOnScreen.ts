@@ -23,11 +23,13 @@ const options:IntersectionObserverInit = {
 }
 
 function watchOnScreen(node:HTMLElement) {
+  console.log('Watching node')
   if (browser && observer) {
 
     observer.observe(node);
     return  {
       destroy() {
+        console.log('unwatching node')
         observer.unobserve(node);
       }
     }
@@ -35,6 +37,7 @@ function watchOnScreen(node:HTMLElement) {
 }
 function stopWatching(node:HTMLElement) {
   if (browser && observer) {
+    console.log('unwatching node')
     observer.unobserve(node);
   }
 }

@@ -275,8 +275,8 @@ text-align: center;
     position: relative;
     &::after {
       @include psuedo;
-      top: -2.5%;
-      left: -1.5%;
+      top: -24px;
+      left: -24px;
       background: rgb(var(--color-base-accent));
       border-radius: var(--box-border-radius);
       z-index: -1;
@@ -298,7 +298,15 @@ text-align: center;
     height: 100%;
     overflow: hidden;
     border-radius: var(--box-border-radius);
-    transition: transform 800ms ease;
+    transition: transform 800ms ease, opacity 500ms;
+    &.before {
+      transform: translateX( -60vw);
+      opacity: 0;
+    }
+    &.after {
+      transform: translateX( 60vw);
+      opacity: 0;
+    }
   }
 
   .wrap {

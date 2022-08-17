@@ -11,14 +11,20 @@
 </script>
 <div class="job-wrap" >
       <div class="job-bg" in:fade={{duration: 200, delay: 0}} out:fade={{ duration: 200, delay: 200}} on:click={()=> openJob = false}></div>
-      <div class="job-content page-content" in:fly={{ duration: 200, delay: 200, y: 50}} out:fly={{ duration: 200, delay: 0, y: 50}}>
-         <h2>{ job.title }</h2>
-         {#if job.subtitle}
-            <h4>{job.subtitle}</h4>
-          {/if}
+      <article class="job-content page-content" in:fly={{ duration: 200, delay: 200, y: 50}} out:fly={{ duration: 200, delay: 0, y: 50}}>
+        <heading>
+
+          <h2>{ job.title }</h2>
+          {#if job.subtitle}
+             <h4>{job.subtitle}</h4>
+           {/if}
+        </heading>
           <PortableText value={job.fullDescription} components={{listItem: {normal: LiNormal}}} />
+          <div class="buttons">
+            <a class="button" on:click={()=>{openJob=false}} href="#apply">Apply</a>
+          </div>
           <button on:click={()=>{openJob= false}} aria-label="Close Job description"><Fa icon={faXmark}/></button>
-      </div>
+      </article>
     </div>
 
 
@@ -38,6 +44,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  heading {
+    margin: 0 0 20px;
   }
   .job-bg{
     @include psuedo;
@@ -70,5 +79,11 @@ max-width: 900px;
     &:hover{
       opacity: 0.8;
     }
+  }
+  .button {
+    @include b.resetButton;
+    @include b.buttonStyles;
+    border-radius: 50px;
+    padding: 0.3em 0.9em;
   }
 </style>

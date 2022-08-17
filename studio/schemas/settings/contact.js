@@ -2,6 +2,17 @@ export default {
 	name: 'contactSettings',
 	title: 'Contact Settings',
 	type: 'document',
+	groups: [
+		{
+			name: 'content',
+			title: 'Content',
+			default: true
+		},
+		{
+			name: 'settings',
+			title: 'Settings'
+		}
+	],
 	initialValue: {
 		email: 'info@futureshirts.co',
 		title: 'Get In Touch',
@@ -15,71 +26,64 @@ export default {
 		{
 			name: 'title',
 			title: 'Title',
+			group: 'content',
 			type: 'string'
 		},
 		{
 			name: 'subtitle',
 			title: 'Subtitle',
+			group: 'content',
 			type: 'string'
 		},
-		{
-			name: 'content',
-			title: 'Content',
-			type: 'array',
-			of: [{ type: 'block' }]
-		},
-		{
-			name: 'video',
-			title: 'Video',
-			type: 'video'
-		},
+
 		{
 			name: 'email',
-			title: 'Email Address',
-			type: 'string',
-			validation: (Rule) =>
-				Rule.required().custom((email) => {
-					if (typeof email == undefined) {
-						return true;
-					}
-					const regex =
-						/[a-z0-9!#$%&'*+=?^_‘{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_‘{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gm;
-					if (regex.test(email)) {
-						return true;
-					} else {
-						return 'Please enter a valid email address';
-					}
-				})
+			title: 'Send To Emails',
+			group: 'settings',
+			type: 'emailArray',
+			description:
+				'Default Emails (all submissions are sent here). You can also set specific emails for "Contacting About" options, and leave this blank.'
 		},
 		{
 			name: 'contactOptions',
 			title: 'Contact Options',
+			group: 'settings',
 			type: 'array',
 			of: [{ type: 'contactOption' }]
 		},
 		{
 			name: 'successTitle',
 			title: 'Success Title',
+			group: 'settings',
 			type: 'string',
 			validation: (R) => R.required()
 		},
 		{
 			name: 'successMessage',
 			title: 'Success Message',
+			group: 'settings',
 			type: 'markdown',
 			validation: (R) => R.required()
 		},
 		{
 			name: 'errorTitle',
 			title: 'Error Title',
+			group: 'settings',
 			type: 'string',
 			validation: (R) => R.required()
 		},
 		{
 			name: 'errorMessage',
 			title: 'Error Message',
+			group: 'settings',
 			type: 'markdown',
 			validation: (R) => R.required()
+		},
+		{
+			name: 'video',
+			title: 'Video',
+			group: 'settings',
+			type: 'video'
 		}
 	]
 };

@@ -15,14 +15,24 @@ export default {
 			type: 'string'
 		},
 		{
+			name: 'email',
+			type: 'emailArray',
+			title: 'Specific Email Contact',
+			description: 'Forwards to an email if this option is selected.',
+		},
+		{
 			name: 'description',
-			title: 'description',
-			type: 'markdown',
-      validation: (R) => R.required()
+			title: 'Preview',
+			type: 'array',
+			of: [
+				{
+					type: 'block'
+				}
+			]
 		},
 		{
 			name: 'fullDescription',
-			title: 'fullDescription',
+			title: 'Description',
 			type: 'array',
 			of: [
 				{

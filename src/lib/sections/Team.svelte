@@ -102,7 +102,7 @@ import {hasJobs} from "$lib/stores";
 display: flex;
 flex-wrap: wrap;
 align-items: center;
-background: white;
+background: rgb(var(--color-base-background-accent));
 overflow: hidden;
 padding: 5px;
 border-radius: var(--box-border-radius);

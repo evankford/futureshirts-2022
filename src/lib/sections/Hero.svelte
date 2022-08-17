@@ -47,7 +47,6 @@ import isOnScreen from "$lib/isOnScreen";
 </script>
 <section use:isOnScreen class="hero image-hero" id={anchor}>
 
-  <div class="rotate">
     {#if heroGallery}
       <div class="bg">
         {#each heroGallery as galleryImage,i}
@@ -91,7 +90,6 @@ import isOnScreen from "$lib/isOnScreen";
         {/if}
       </div>
     </div>
-  </div>
 </section>
 
 <style lang="scss">
@@ -99,6 +97,18 @@ import isOnScreen from "$lib/isOnScreen";
 
   section {
 
+     position: relative;
+    min-height: clamp(400px, 75vh, 1000px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    color: rgb(var(--color-foreground));
+    padding: clamp(140px, 19vh, 320px) 0 clamp(20px, 6vh, 100px);
+
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    @include media-query($small) {
+      padding-bottom: 20px;
+    }
     overflow: hidden;
     --color-foreground: var(--color-base-background);
     --color-background: var(--color-base-text);
@@ -107,19 +117,7 @@ import isOnScreen from "$lib/isOnScreen";
 
   }
 
-  .rotate {
-    position: relative;
-    min-height: clamp(400px, 75vh, 1000px);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    color: rgb(var(--color-foreground));
-    padding: clamp(140px, 19vh, 320px) 0 clamp(20px, 6vh, 100px);
 
-    @include media-query($small) {
-      padding-bottom: 20px;
-    }
-  }
   .bg,.hero-content,.left,.right {
     transform-style: preserve-3d;
   }
@@ -226,6 +224,7 @@ import isOnScreen from "$lib/isOnScreen";
     flex: 1 1 300px;
     max-width: 570px;
     padding-right: 50px;
+    --titleLineHeight: 0.756;
   }
   .right {
     grid-area: content;

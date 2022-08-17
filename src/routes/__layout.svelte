@@ -85,7 +85,6 @@
   noindex={seo ? seo.nofollow : false}
   nofollow={seo ? seo.nofollow : false}
   description={seo ? seo.description : undefined}
-
   twitter={{
     handle: '@futureshirts',
     site: '@futureshirts',
@@ -97,9 +96,7 @@
 />
 
 <SkipButton />
-<!-- <div class="helper">
-  <span>Center: [{center[0]}, {center[1]}]</span><span>Rotate: [{rotate[0]}, {rotate[1]}]</span>
-</div> -->
+
 <Header {...header} smallMenuItems={footer?.menuItems}/>
 <main id="MainContent">
 <slot></slot>
@@ -120,21 +117,4 @@
   @use "../lib/styles/ress";
   @use "../lib/styles/app";
   @use "../lib/styles/devices";
-
-  main {
-    // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-
-  .helper {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    padding: 10px;
-    z-index: 150;
-    background: white;
-    span {
-      display: block;
-      padding: 0.4em
-    }
-  }
 </style>

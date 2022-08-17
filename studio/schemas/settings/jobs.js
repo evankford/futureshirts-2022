@@ -22,32 +22,27 @@ export default {
 			default: true
 		},
 		{
-			name: 'messages',
-			title: 'Messages'
+			name: 'settings',
+			title: 'Settings'
 		}
 	],
 	// __experimental_actions: [/*'create',*/ 'update', /*'delete',*/ 'publish'],
 	fields: [
 		{
 			name: 'email',
-			title: 'Email Address',
-			type: 'string',
-			group: 'messages',
-			validation: (Rule) =>
-				Rule.required().custom((email) => {
-					if (typeof email == undefined) {
-						return true;
-					}
-					const regex =
-						/[a-z0-9!#$%&'*+=?^_‘{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_‘{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gm;
-					if (regex.test(email)) {
-						return true;
-					} else {
-						return 'Please enter a valid email address';
-					}
-				})
+			title: 'Email',
+			type: 'emailArray',
+			group: 'settings',
+			description:
+				'Default Emails (all submissions are sent here). You can also set specific emails for "Contacting About" options, and leave this blank.'
 		},
-
+		{
+			name: 'openings',
+			title: 'Openings',
+			type: 'array',
+			group: 'content',
+			of: [{ type: 'job' }]
+		},
 		{
 			name: 'title',
 			title: 'Page Title',
@@ -62,75 +57,71 @@ export default {
 			group: 'content'
 		},
 		{
-			name: 'image',
-			title: 'Image',
-			type: 'image',
-			group: 'content'
-		},
-		{
 			name: 'content',
 			title: 'Content',
 			type: 'array',
 			group: 'content',
 			of: [{ type: 'block' }]
 		},
+
 		{
-			name: 'openings',
-			title: 'Openings',
-			type: 'array',
-			group: 'content',
-			of: [{ type: 'job' }]
+			name: 'image',
+			title: 'Hero Image',
+			description: 'Shows behind the hero. Use a large image (around 2400 x 1200px).',
+			type: 'image',
+			group: 'content'
 		},
+
 		{
 			name: 'haveOpeningsTitle',
 			title: 'Have Openings Title',
 			type: 'string',
-			group: 'messages'
+			group: 'settings'
 		},
 		{
 			name: 'haveOpenings',
 			title: 'Have Openings',
 			type: 'text',
-			group: 'messages'
+			group: 'settings'
 		},
 		{
 			name: 'noCurrentOpenings',
 			title: 'No Current Openings',
 			type: 'text',
-			group: 'messages'
+			group: 'settings'
 		},
 		{
 			name: 'noCurrentOpeningsTitle',
 			title: 'No Current Openings Title',
 			type: 'string',
-			group: 'messages'
+			group: 'settings'
 		},
 		{
 			name: 'successTitle',
 			title: 'Success Title',
 			type: 'string',
-			group: 'messages',
+			group: 'settings',
 			validation: (R) => R.required()
 		},
 		{
 			name: 'successMessage',
 			title: 'Success Message',
 			type: 'text',
-			group: 'messages',
+			group: 'settings',
 			validation: (R) => R.required()
 		},
 		{
 			name: 'errorTitle',
 			title: 'error Title',
 			type: 'string',
-			group: 'messages',
+			group: 'settings',
 			validation: (R) => R.required()
 		},
 		{
 			name: 'errorMessage',
 			title: 'error Message',
 			type: 'text',
-			group: 'messages',
+			group: 'settings',
 			validation: (R) => R.required()
 		}
 	]

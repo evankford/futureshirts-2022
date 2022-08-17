@@ -19,12 +19,11 @@
 
   function changeScroll() {
     if (window.scrollY < 50) {
+      scrolled = false;
       return;
     }
     scrolled = true;
-    if (browser) {
-      window.removeEventListener('scroll', changeScroll);
-    }
+
   }
 
   onMount(()=> {
@@ -34,9 +33,7 @@
   });
 
 </script>
-{#if !scrolled}
-  <div transition:fade class="scroll-helper" aria-hidden="true"><Fa icon={faChevronDown} /> Scroll For More </div>
-{/if}
+  <div class:visible={scrolled} class="scroll-helper" aria-hidden={scrolled} aria-label="Scroll For More"><Fa icon={faChevronDown} />  </div>
 {#each sections as section}
   {#if section.layout == 'hero'}
   <Hero {...section} />
@@ -64,34 +61,59 @@
     position: fixed;
     z-index: 100;
     bottom: 5%;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    width: auto;
+    background: rgb(var(--color-accent));
+    border-radius: 50px;
+    display: block;
     color: white;
     --color-foreground: 255,255,255;
-    text-shadow: 0 0 20px rgba(black, 0.85);
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    width: 50px;
+    opacity: 1;
+    transition: opacity 300ms ease, transform 300ms ease;
+    &[aria-hidden="true"] {
+      opacity: 0;
+      transform: translateY(200px);
+      animation: slideOut 1s ease 1 forwards;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-50%);
     text-align: center;
     @include t.label;
-    animation: scrollIndicate 4s linear infinite;
+    animation: scrollIndicate 4s ease infinite none;
+    animation-fill-mode: none;
   }
   @keyframes scrollIndicate {
     0% {
-      opacity: 0;
-      transform: translateY(-20px);
-    } 30% {
       opacity: 0.5;
-      transform: translateY(-2px);
+      transform: translateY(-20px);
     }
     50% {
-      opacity: 0.9;
+      opacity: 1;
       transform: translateY(0px);
     }
-    70% {
+
+    100% {
       opacity: 0.5;
-      transform: translateY(2px);
+      transform: translateY(-20px);
     }
+  }
+  @keyframes slideOut {
+    0% {
+      opacity: 0.5;
+      transform: translateY(-20px);
+    }
+
+
     100% {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(240px);
     }
   }
 </style>

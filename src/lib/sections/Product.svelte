@@ -1,14 +1,66 @@
 <script lang="ts">
   import SectionHeading from "$lib/components/SectionHeading.svelte";
-import isOnScreen from "$lib/isOnScreen";
+  import isOnScreen from "$lib/isOnScreen";
   import SectionBox from "$lib/components/SectionBox.svelte";
   import Image from "$lib/components/Image.svelte";
+import { browser } from "$app/env";
+import { onMount } from "svelte";
+import { onDestroy } from "svelte";
+
+
+  function handleOnScreen() {
+    if (!browser) {
+      return;
+    }
+    sectionDims = section.getBoundingClientRect();
+
+      window.addEventListener('scroll',handleScroll)
+      window.addEventListener('resize',handleResize)
+  }
+  function handleOffScreen() {
+    if (!browser) {
+      return;
+    }
+    window.removeEventListener('scroll', handleScroll)
+    window.removeEventListener('resize', handleResize)
+  }
+  let section:HTMLElement, scr: number = 0;
+
+  let sectionDims: ReturnType<HTMLElement["getBoundingClientRect"]> ;
+  let top: number = 0, bottom: number = 2000;
+
+  function handleResize() {
+    sectionDims = section.getBoundingClientRect();
+    console.log(sectionDims);
+    top =  sectionDims.top + window.scrollY;
+    bottom =  sectionDims.bottom + window.scrollY + window.innerHeight;
+    console.log(top, bottom)
+
+  }
+
+  onMount(() => {
+    if (browser) {
+      handleResize();
+      window.addEventListener('load', handleResize)
+      window.addEventListener('DOMContentLoaded', handleResize)
+    }
+  })
+  onDestroy(()=> {
+    if (browser) {
+      window.removeEventListener('load', handleResize)
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('DOMContentLoaded', handleResize)
+    }
+  })
+
+  function handleScroll() {
+    scr = Math.max(Math.min(1, (window.scrollY + window.innerHeight - top )/ (bottom - top) ), 0);
+  }
 
   export let title:string | null, subtitle: string| null, intro: string|null, box: Array<Block>, image:SanityImageObject, imageSmall:SanityImageObject, anchor: string, layout: string;
 
 </script>
-<section use:isOnScreen class={layout} id="{anchor}">
-  <div class="rotate">
+<section style="--scr: {scr}" bind:this={section} use:isOnScreen on:onscreen={handleOnScreen} on:offscreen={handleOffScreen} class={layout} id="{anchor}">
     <div class="bg">
     <div class="bg-inner" class:hide--small={imageSmall}>
       <Image {image} bg />
@@ -21,12 +73,13 @@ import isOnScreen from "$lib/isOnScreen";
   </div>
 
   <div class="content">
+    <div class="heading-wrap">
       <SectionHeading {title} {subtitle} {intro}/>
+    </div>
       <div class="boxWrap">
-        <SectionBox {box} style="boxed" list/>
+        <SectionBox {box} style="bordered" list/>
       </div>
   </div>
-</div>
 
 </section>
 
@@ -35,64 +88,71 @@ import isOnScreen from "$lib/isOnScreen";
 
   section {
     overflow: hidden;
-    --color-background: 255,255,255;
-    --depth: 100px;
-    --rotateYMod:3.5deg;
-    --rotateXMod:3.5deg;
-
-    @include media-query($small) {
-      --rotateXMod: 1deg;
-      --rotateYMod: 1deg;
-      --font-size-mega: 55px;
-    }
-    @include media-query($tiny) {
-      --rotateXMod: 0.5deg;
-      --rotateYMod: 0.5deg;
-      --font-size-mega: 44px;
-    }
-  }
-
-  .rotate {
-     padding: 120px 0;
+    padding: 120px 0;
     position: relative;
-    min-height: clamp(500px, 60vw, 950px);
+    min-height: clamp(500px, 90vh, 950px);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    display: flex;
+    align-items: center;
     @include media-query($small) {
       padding :200px 0 50px;
     }
 
+    --color-background: 255,255,255;
+
+
+    @include media-query($small) {
+      --font-size-mega: 55px;
+    }
+    @include media-query($tiny) {
+      --font-size-mega: 44px;
+    }
+    &::after {
+      @include psuedo;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0), 100px, rgba(0,0,0,0) calc(100% - 100px), rgba(0,0,0,0.1) 100% )
+    }
   }
 
   .bg {
-
-
-
     @include psuedoish;
+    position: fixed;
+
+
     height: 110%;
     width: 110%;
-    max-width: 1600px;
+    max-width: 1600px;;
+    top: -5%;
     left: 50%;
-    top: 50%;
-    transform: translate3d(-50%, -50%, -150px);
+    transform: translate3d(-50%, calc(-5% + (10% * var(--scr, 0.5))), 0);
     display: block;
 
   }
   .bg-inner {
     @include psuedoish;
   }
-  .boxWrap {
+  .boxWrap, .heading-wrap {
     max-width: 750px;
     margin: auto;
+
+  }
+  .heading-wrap {
+    background: black;
+    color: white;
+    padding: 20px;
+    margin-bottom: 2px;
+    border-top-right-radius: var(--border-radius);
+    border-top-left-radius: var(--border-radius);
   }
 
   .content {
     @include media-query($large-up) {
+      --font-size-mega: 100px;
       margin-top: 80px;
     }
     --titleMargin: 0 auto 0.25em;
     --box-bg-color: rgb(var(--color-background));
     position: relative;
     z-index: 2;
-    --depth: 150px;
     @include content-wrap;
     text-align: center;
     display: block;

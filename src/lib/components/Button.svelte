@@ -3,26 +3,26 @@ import getRefUrl from "$lib/ref";
 import isOnScreen, { stopWatching} from "$lib/isOnScreen";
 
 let invisible: boolean = true;
-export let noMargin = false, simple = false, underline = false, link:LinkURL | string | null = null;
+export let noMargin = false, small = false, simple = false, underline = false, link:LinkURL | string | null = null;
 </script>
 
 
 <div class="button-wrap" use:isOnScreen on:onscreen={(e)=>{invisible = false; stopWatching(e.target)} } class:invisible>
   {#if link == null}
-    <button on:click class="button" class:noMargin class:simple class:underline ><span><slot>Button Title</slot></span></button>
+    <button on:click class="button" class:noMargin class:simple class:small class:underline ><span><slot>Button Title</slot></span></button>
   {:else if typeof link == 'string'}
-    <a class="button" class:noMargin class:simple class:underline href="{link}"><span><slot>Button Title</slot></span></a>
+    <a class="button" class:noMargin class:simple class:small class:underline href="{link}"><span><slot>Button Title</slot></span></a>
   {:else}
     {#if link.type == 'internal' && link.ref}
-      <a class="button" class:noMargin class:simple class:underline href="{getRefUrl(link.ref)}"><span><slot>Button Title</slot></span></a>
+      <a class="button" class:noMargin class:simple class:small class:underline href="{getRefUrl(link.ref)}"><span><slot>Button Title</slot></span></a>
     {:else if link.type == 'external'}
       {#if link.openInNewTab}
-        <a class="button" class:noMargin class:simple class:underline target="_blank" href={link.url} rel="nofollow noopener noreferrer"><span><slot>Button Title</slot></span></a>
+        <a class="button" class:noMargin class:simple class:small class:underline target="_blank" href={link.url} rel="nofollow noopener noreferrer"><span><slot>Button Title</slot></span></a>
         {:else}
-        <a class="button" class:noMargin class:simple class:underline href={link.url}><span><slot>Button Title</slot></span></a>
+        <a class="button" class:noMargin class:simple class:small class:underline href={link.url}><span><slot>Button Title</slot></span></a>
       {/if}
     {:else if link.type == 'anchor' }
-      <a class="button" class:noMargin class:simple class:underline data-anchor href="{link.anchor}"><span><slot>Button Title</slot></span></a>
+      <a class="button" class:noMargin class:simple class:small class:underline data-anchor href="{link.anchor}"><span><slot>Button Title</slot></span></a>
     {/if}
   {/if}
 </div>
@@ -71,6 +71,9 @@ export let noMargin = false, simple = false, underline = false, link:LinkURL | s
       padding: 0;
       background: transparent;
       color: rgb(var(--color-simple-button, var(--color-foreground)));
+    }
+    &.small {
+      font-size: 16px;
     }
     &.underline {
       padding: 0 0.1em 0.25em;

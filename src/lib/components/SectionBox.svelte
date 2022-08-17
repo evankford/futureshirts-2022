@@ -11,3 +11,6 @@ import { browser } from "$app/env";
 <div class:offScreen class="box" use:isOnScreen on:onscreen={(e)=> browser ?  setTimeout(()=>{offScreen = false;  stopWatching(e.target);}, 150) : offScreen = false} class:list class:boxed={style=='boxed'} class:eachBoxed={style =='eachBoxed'} class:bordered={style=='bordered'}>
   <PortableText value={box} components={{listItem: {normal: LiNormal}}}/>
 </div>
+<style>
+
+</style>

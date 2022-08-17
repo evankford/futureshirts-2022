@@ -68,7 +68,7 @@
     justify-content: center;
     max-width: 900px;
     width:80%;
-    margin: 30px auto -40px;
+    margin: clamp(50px, calc(25px + 6vh), 100px) auto -90px;
     text-shadow: 0 0 40px rgba(0,0,0,0.5);
   }
 

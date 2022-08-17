@@ -10,7 +10,7 @@ export default [
 	{
 		name: 'computer',
 		title: 'Computer Preview 1',
-		info: '1920 x 1056',
+		description: '1920 x 1056px. For videos, keep the large version to < 4mb.',
 		type: 'videoOrImage',
 		group: 'content',
 		hidden: ({ document }) => !document.layout || document.layout !== 'ecommerce'
@@ -26,7 +26,7 @@ export default [
 		name: 'phone',
 		title: 'Phone Preview 1',
 		type: 'videoOrImage',
-		info: '900 x 1950',
+		description: '900 x 1950px. For videos, keep the large version to < 4mb.',
 		group: 'content',
 		hidden: ({ document }) => !document.layout || document.layout !== 'ecommerce'
 	},
@@ -34,14 +34,14 @@ export default [
 		name: 'phone2',
 		title: 'Phone Preview 2',
 		type: 'videoOrImage',
-		info: '900 x 1950',
+		description: '900 x 1950px. For videos, keep the large version to < 4mb.',
 		group: 'content',
 		hidden: ({ document }) => !document.layout || document.layout !== 'ecommerce'
 	},
 	{
 		name: 'tablet',
 		title: 'Tablet Preview',
-		info: '970 x 1056',
+		description: '970 x 1056px. For videos, keep the large version to < 4mb.',
 		type: 'videoOrImage',
 		group: 'content',
 		hidden: ({ document }) => !document.layout || document.layout !== 'ecommerce'

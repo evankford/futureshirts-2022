@@ -18,7 +18,7 @@
   --color-base-text-off: 109,110,114;
 
   //Relative Colors
-  --color-border: --color-base-border;
+  --color-border: var(--color-base-border);
   --color-accent-inverse: var(--color-base-background);
   --color-accent: var(--color-base-accent);
   --color-accent: var(--color-base-accent);
@@ -55,7 +55,7 @@
   --font-fallback: arial, sans-serif;
   --font-heading-base: "futura-pt", "Helvetica Neue", "Helvetica", arial, sans-serif;
   --font-heading-family: "futura-pt", "Helvetica Neue", "Helvetica", arial, sans-serif;
-  --font-heading-line-height: 1.18;
+  --font-heading-line-height: 1.14;
   --font-heading-ratio: 1.3;
   --font-heading-spacing: -0.035em;
   --font-heading-weight: 700;

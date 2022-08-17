@@ -6,12 +6,13 @@ export default {
 	type: 'document',
 	groups: [
 		{
-			name: 'settings',
-			title: 'Settings'
+			name: 'content',
+			title: 'Content',
+			default: true,
 		},
 		{
-			name: 'content',
-			title: 'Content'
+			name: 'settings',
+			title: 'Settings'
 		},
 		{
 			name: 'content',
@@ -163,6 +164,7 @@ export default {
 		{
 			name: 'moreVideo',
 			title: 'More Video',
+			description: 'An .mp4 video about 3MB or smaller. 720 x 720px preferred',
 			type: 'video',
 			group: ['content'],
 			hidden: ({ parent }) => !parent.layout || parent.layout !== 'more'

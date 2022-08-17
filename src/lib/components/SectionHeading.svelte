@@ -50,6 +50,7 @@
   .title {
     font-size: var(--font-size-mega);
     text-transform: lowercase;
+    line-height: var(--titleLineHeight, 0.9);
     margin: var(--titleMargin, 0.07em 0 0.2em);
     span {
       line-height: inherit;

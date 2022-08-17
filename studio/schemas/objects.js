@@ -10,7 +10,8 @@ import counter from "./objects/counter";
 import heroImage from "./objects/heroImage";
 import gallery from "./objects/gallery";
 import job from "./objects/job";
+import emailOption from "./objects/emailOption";
 import contactOption from "./objects/contactOption";
 
-export { codeSnippet, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage }
-export default [codeSnippet, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage ]
+export { emailOption, codeSnippet, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage }
+export default [emailOption, codeSnippet, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage ]

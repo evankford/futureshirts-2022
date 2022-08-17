@@ -1,6 +1,5 @@
 <script lang="ts">
   import isOnScreen from "$lib/isOnScreen";
-  import SvelteMarkdown from "svelte-markdown";
   import JobForm from "$lib/sections/JobForm.svelte";
   import PageHero from "$lib/sections/PageHero.svelte";
   import Button from "$lib/components/Button.svelte";
@@ -66,14 +65,19 @@
       <ul class="openings">
         {#each openings as opening, i}
         <li class="opening">
-          <h3>{opening.title}</h3>
-          {#if opening.subtitle}
-          <h4>{opening.subtitle}</h4>
-          {/if}
-          <div class="md">
-            <SvelteMarkdown source={opening.description}/>
+          <heading>
+            <h3>{opening.title}</h3>
+            {#if opening.subtitle}
+            <h4>{opening.subtitle}</h4>
+            {/if}
+          </heading>
+          <div class="excerpt">
+            <PortableText value={opening.description} components={{listItem: {normal: LiNormal}}} />
           </div>
-          <Button on:click={()=>openJob = i}>More Info</Button>
+          <div class="buttons">
+            <Button small link="#apply">Apply</Button>
+            <Button underline small on:click={()=>openJob = i}>More Info</Button>
+          </div>
         </li>
         {/each}
       </ul>
@@ -129,6 +133,11 @@ header {
    }
 
 
+   .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto 0 0;
+   }
    .jobs-heading {
     max-width: var(--text-width);
     text-align: center;
@@ -156,14 +165,25 @@ header {
 
     }
    }
-   .md {
+   .excerpt {
     font-size: 17px;
-    padding: 0;
-    margin-bottom: 12px;
+    padding: 12px 0 0;
+    border-top: 1px solid rgb(var(--color-border));
+
+    margin: 12px 0;
     :global(p) {
       line-height: 1.4;
     }
+    :global(h1), :global(h2), :global(h3) {
+      font-size: 24px;
+      margin: 0.5em auto 0.2em;
+      /* line-height: 1.4; */
+    }
 
+   }
+   heading {
+    width: 100%;
+    text-align: left;
    }
 
    .openings {
@@ -180,6 +200,10 @@ header {
 
    .opening {
     margin: var(--gap);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
     flex: 1 1 250px;
     @include media-query($medium-up) {
       max-width: 50%;
