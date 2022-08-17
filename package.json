@@ -16,7 +16,7 @@
 		"@sanity/image-url": "^1.0.1",
 		"@sanity/types": "^2.29.5",
 		"@sveltejs/adapter-cloudflare": "1.0.0-next.31",
-		"@sveltejs/kit": "next",
+		"@sveltejs/kit": "1.0.0-next.396",
 		"@types/byte-size": "^8.1.0",
 		"@types/mjml": "^4.7.0",
 		"@types/node": "^18.0.0",
