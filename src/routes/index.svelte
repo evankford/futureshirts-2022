@@ -7,49 +7,63 @@
   import Connect from "$lib/sections/Connect.svelte";
   import Ecommerce from "$lib/sections/Ecommerce.svelte";
   import Licensing from "$lib/sections/Licensing.svelte";
-  import { fade } from "svelte/transition";
+
   import { onMount } from "svelte";
   import { browser } from "$app/env";
   import Fa from "svelte-fa";
   import {  faChevronDown } from "@fortawesome/pro-regular-svg-icons";
+  import throttle from "$lib/throttle"
+  import { onDestroy } from "svelte";
 
 
   export let sections: SectionShape[];
   let scrolled: boolean = false;
 
+  const throttleChangeScroll = throttle( changeScroll, 30);
   function changeScroll() {
-    if (window.scrollY < 50) {
+    if (!browser ) {
+      return;
+    }
+    if ( window.scrollY < 50) {
       scrolled = false;
       return;
     }
     scrolled = true;
+    window.removeEventListener('scroll', throttleChangeScroll);
+    return;
 
   }
 
   onMount(()=> {
     if (browser) {
-      window.addEventListener('scroll', changeScroll);
+      window.addEventListener('scroll', throttleChangeScroll, {passive: true});
     }
   });
+  onDestroy(() => {
+    if (browser) {
+      window.removeEventListener('scroll', throttleChangeScroll);
+    }
+  })
 
 </script>
   <div class:visible={scrolled} class="scroll-helper" aria-hidden={scrolled} aria-label="Scroll For More"><Fa icon={faChevronDown} />  </div>
 {#each sections as section}
   {#if section.layout == 'hero'}
   <Hero {...section} />
-   {:else if section.layout == 'more'}
+  {:else if section.layout == 'more'}
   <More {...section} />
-{:else if section.layout == 'product'}
+  {:else if section.layout == 'product'}
   <Product {...section}/>
   {:else if section.layout == 'tour'}
   <Tour {...section} />
-  {:else if section.layout == 'ecommerce'}
+{:else if section.layout == 'ecommerce'}
   <Ecommerce {...section} />
   {:else if section.layout == 'licensing'}
   <Licensing {...section} />
   {:else if section.layout == 'team'}
   <Team {...section } />
   {:else if section.layout == 'connect'}
+  <!-- no. -->
   <Connect {...section}/>
   {/if}
 {/each}
@@ -86,34 +100,33 @@
     transform: translateX(-50%);
     text-align: center;
     @include t.label;
-    animation: scrollIndicate 4s ease infinite none;
-    animation-fill-mode: none;
+    animation: scrollIndicate 4s ease infinite alternate-reverse;
   }
   @keyframes scrollIndicate {
     0% {
       opacity: 0.5;
-      transform: translateY(-20px);
+      transform: translate3d(-50%, -20px, 0);
     }
     50% {
       opacity: 1;
-      transform: translateY(0px);
+      transform: translateY(-50%, 0px, 0);
     }
 
     100% {
       opacity: 0.5;
-      transform: translateY(-20px);
+      transform: translateY(-50%, -20px, 0);
     }
   }
   @keyframes slideOut {
     0% {
       opacity: 0.5;
-      transform: translateY(-20px);
+      transform: translate3d(-50%,-20px,0);
     }
 
 
     100% {
       opacity: 0;
-      transform: translateY(240px);
+      transform: translateY(-50%, 240px, 0);
     }
   }
 </style>

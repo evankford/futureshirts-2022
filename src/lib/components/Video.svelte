@@ -10,14 +10,17 @@
       if (!video.local) {
         return false;
       }
-      if (video.localSmall) {
-        return video.localSmall + ' 900w, ' + video.local
+      if (video.smallVideo) {
+        return video.smallVideo + ' 900w, ' + video.local
       } else {
         return video.local
       }
     }
   }
+
+  let src: string|false = false;
   onMount(async ()=> {
+    src = videoSrc();
     if (browser && !customElements.get('video-background')) {
       await import("@evankford/video-background");
     }
@@ -27,16 +30,15 @@
 </script>
 
 
-{#if bg}
-{#if videoSrc()}
-<video-background src={videoSrc()} loop>
+{#if bg && src}
+
+<video-background src={src} loop>
     {#if video.type != 'local' && video.fallbackImage}
     <Image image={video.fallbackImage} bg />
     {:else if video.type == 'local' && video.localImage}
     <Image image={video.localImage} bg />
     {/if}
   </video-background>
-{/if}
 {/if}
 
 

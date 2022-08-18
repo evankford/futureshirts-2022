@@ -1,46 +1,61 @@
 import { browser } from "$app/env";
 
+let observer:IntersectionObserver |undefined;
+
+const offscreenEvent = browser ? new CustomEvent('offscreen') : undefined;
+const onscreenEvent = browser ? new CustomEvent('onscreen') : undefined;
 
 function handleIntersection(entries:IntersectionObserverEntry[]) {
-  const offscreenEvent = new CustomEvent('offscreen')
-  const onscreenEvent = new CustomEvent('onscreen')
-
   entries.forEach(entry=> {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('onScreen');
-      entry.target.dispatchEvent(onscreenEvent)
-    }
-    else {
-      entry.target.classList.remove('onScreen');
-      entry.target.dispatchEvent(offscreenEvent)
+    if (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('onScreen');
+        entry.target.dispatchEvent(onscreenEvent)
+      }
+      else {
+        entry.target.classList.remove('onScreen');
+        entry.target.dispatchEvent(offscreenEvent)
+      }
     }
   })
 }
 
 const options:IntersectionObserverInit = {
-  threshold: [0,0.25,  0.75,  1],
-  // rootMargin: '-14px -14px',
+  threshold: [0, 0.1,  0.75,  1],
 }
 
-function watchOnScreen(node:HTMLElement) {
-  if (browser && observer) {
+let observed:HTMLElement[] = [];
 
-    observer.observe(node);
-    return  {
-      destroy() {
-        observer.unobserve(node);
-      }
+function watchOnScreen(node:HTMLElement) {
+  if (!browser || !node) {
+    return {
+      destroy() {}
+    }
+  }
+  if (!observer) {
+    observer = new IntersectionObserver(handleIntersection, options);
+  }
+  observer.observe(node);
+  observed.push(node);
+  return  {
+    destroy() {
+     stopWatching(node);
     }
   }
 }
 function stopWatching(node:HTMLElement) {
-  if (browser && observer) {
+
+  if (browser && observer && node) {
+    observed.indexOf(node) > -1 ? observed.splice(observed.indexOf(node), 1) : null;
     observer.unobserve(node);
+    if (observed.length == 0) {
+      observer.disconnect();
+      observer = undefined;
+    }
   }
 }
 
 
-const observer = browser && new IntersectionObserver(handleIntersection, options)
 
 export default watchOnScreen;
 export {stopWatching}

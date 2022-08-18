@@ -10,6 +10,7 @@ import isOnScreen from "$lib/isOnScreen";
   import { onMount } from "svelte";
   import { onDestroy } from "svelte";
   import { browser } from "$app/env";
+  import  throttle  from "$lib/throttle";
 
   let currentSlide = 0;
   let slideInterval: ReturnType<typeof setInterval>;
@@ -48,15 +49,15 @@ import isOnScreen from "$lib/isOnScreen";
     }
     sectionDims = section.getBoundingClientRect();
 
-      window.addEventListener('scroll',handleScroll)
-      window.addEventListener('resize',handleResize)
+      // window.addEventListener('scroll',throttleScroll, {passive: true});
+      // window.addEventListener('resize',throttleResize, {passive: true});
   }
   function handleOffScreen() {
     if (!browser) {
       return;
     }
-    window.removeEventListener('scroll', handleScroll)
-    window.removeEventListener('resize', handleResize)
+    window.removeEventListener('scroll', throttleScroll);
+    window.removeEventListener('resize', throttleResize);
   }
   let section:HTMLElement, scr: number = 0.5;
 
@@ -64,12 +65,17 @@ import isOnScreen from "$lib/isOnScreen";
   let top: number = 0, bottom: number = 2000;
 
   function handleResize() {
+    if (!section) {
+      return;
+    }
     sectionDims = section.getBoundingClientRect();
     top =  sectionDims.top + window.scrollY;
     bottom =  sectionDims.bottom + window.scrollY + window.innerHeight;
 
   }
 
+  const throttleScroll = throttle(handleScroll, 20);
+  const throttleResize = throttle( handleResize, 200);
   function handleScroll() {
     scr = Math.max(Math.min(1, (window.scrollY + window.innerHeight - top )/ (bottom - top) ), 0);
   }
@@ -86,8 +92,6 @@ import isOnScreen from "$lib/isOnScreen";
     startSlideInterval()
      if (browser) {
       handleResize();
-      window.addEventListener('load', handleResize)
-      window.addEventListener('DOMContentLoaded', handleResize)
     }
   });
 
@@ -146,9 +150,9 @@ import isOnScreen from "$lib/isOnScreen";
   section {
     --box-li-line-height : 1;
 
-     position: relative;
-    min-height: clamp(400px, 75vh, 1000px);
-    max-height: 90vh;
+    position: relative;
+    min-height: clamp(300px, calc(70 * var(--vh, 1vh)), 1000px);
+    max-height: calc(78 * var(--vh, 1vh));
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -175,11 +179,10 @@ import isOnScreen from "$lib/isOnScreen";
   .bg {
     @include psuedoish;
     position: fixed;
-    transform: translate3d(0, calc(0% - (10% * var(--scr, 0.5))), 0);
+    transform: translate3d(0, calc(0% - (5% * var(--scr, 0.5))), 0);
 
     z-index: 0;
-    height: 100%;
-    max-height: 100vh;
+    height: calc(85 * var(--vh, 1vh));
     width: 100%;
     left: 0%;
     top: 0%;

@@ -111,7 +111,7 @@ const unsubNav = navOpen.subscribe(val=> {
     position: fixed;
     top: 0;
     width: 100%;
-    padding-top: 120px;
+    padding: 120px 30px 30px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -119,6 +119,8 @@ const unsubNav = navOpen.subscribe(val=> {
     flex-direction: column;
     left: 0;
     color: inherit;
+
+    --menu-link-padding: 0;
     margin: auto 0 auto auto;
     pointer-events:  none;
     overflow: hidden;

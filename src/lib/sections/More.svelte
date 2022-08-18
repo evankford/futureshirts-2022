@@ -7,7 +7,6 @@ import isOnScreen from "$lib/isOnScreen";
 
 </script>
 <section use:isOnScreen class="more" id="{anchor}">
-  <div class="rotate">
 
     <div class="content ">
       <div class="left">
@@ -20,7 +19,6 @@ import isOnScreen from "$lib/isOnScreen";
     <div class="bottom ">
       <Video video={moreVideo} />
     </div>
-  </div>
 </section>
 <style lang="scss">
   @use "../styles/abstracts" as *;
@@ -71,9 +69,16 @@ import isOnScreen from "$lib/isOnScreen";
 
   position: absolute;
   left: 50%;
-  bottom: clamp(-80vw, -400px, -40vw);
-  width: clamp(60vw, 900px, 80vw);
-  height: clamp(60vw, 900px, 80vw);
+  transform: translate3d(-50%, 0, 0);
+  bottom: -150px;
+  width: 650px;
+  height: 650px;
+  @include media-query($medium-up) {
+    bottom: clamp(-60vw, -350px, -30vw);
+    width: clamp(60vw, 900px, 80vw);
+    height: clamp(60vw, 900px, 80vw);
+
+  }
   border-radius: 50%;
   overflow: hidden;
   z-index: 0;

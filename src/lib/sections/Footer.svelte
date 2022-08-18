@@ -79,6 +79,7 @@
   @use "../styles/abstracts/mixins/_type-elements" as type;
 
   footer {
+    --menu-link-padding: 0;
     padding: clamp(30px, calc(20px + 4vh), 55px) 0;
     background: rgb(var(--color-base-background-off));
     color: rgb(var(--color-base-text));
@@ -114,7 +115,10 @@
     margin: 12px auto;
   }
   .copyright, .left, ul {
-    flex: 1 1 200px;
+        flex: 1 1 200px;
+
+  }
+  .copyright, .left, ul, .support {
     margin: clamp(15px, calc(10px + 1.5vw), 25px) 20px;
   }
 

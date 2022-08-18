@@ -44,10 +44,13 @@
   import Header from "$lib/sections/Header.svelte";
   import SkipButton from "$lib/components/SkipButton.svelte";
   import Footer from "$lib/sections/Footer.svelte";
+  import { browser } from "$app/env";
   import {  onMount } from "svelte";
 
+  import throttle from "$lib/throttle";
   import {afterNavigate,
   beforeNavigate} from "$app/navigation";
+import { onDestroy } from "svelte";
 
   beforeNavigate(()=> {
     document.documentElement.style.scrollBehavior = 'auto';
@@ -58,6 +61,7 @@
     document.body.style.removeProperty('scroll-behavior');
   })
 
+
   function setGlobalStores() {
     hasJobs.set(jobs.openings && jobs.openings.length > 0);
     socialStore.set(socials.socials);
@@ -67,9 +71,29 @@
   }
 
   onMount(()=> {
+    if (browser && window) {
+
+      getVh();
+      window.addEventListener('resize', throttledVh, {passive: true});
+    }
     setGlobalStores();
   });
+  onDestroy(()=>{
+    if (browser && window) {
+      window.removeEventListener('resize', throttledVh)
+    }
+  })
 
+  const throttledVh = throttle(getVh, 300);
+
+  function getVh() {
+    if (browser && window) {
+      vh = document.documentElement.clientHeight / 100;
+    }
+  }
+
+
+  let vh:number | false = false;
 
   export let header: HeaderSettings, socials: SocialMediaSettings,  footer:FooterSettings, codes:CodeSnippetSettings, contact: ContactSettings, seo: SiteSEO, jobs: JobSettings, support: SimpleSupportSettings;
 
@@ -109,7 +133,7 @@
 <SkipButton />
 
 <Header {...header} smallMenuItems={footer?.menuItems}/>
-<main id="MainContent">
+<main id="MainContent"  style="{vh ? `--vh: ${vh}px;` : ''}">
 <slot></slot>
 </main>
 <Footer {...footer} />

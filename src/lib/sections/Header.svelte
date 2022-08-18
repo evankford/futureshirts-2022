@@ -7,6 +7,7 @@
   import HeaderLogo from "$lib/components/HeaderLogo.svelte";
   import { browser } from "$app/env";
   import { afterNavigate } from "$app/navigation";
+  import throttle from "$lib/throttle";
   let hasHeroImage = false;
   afterNavigate(()=> {
     setTimeout(() => {
@@ -23,10 +24,10 @@
   function watchWindowScroll() {
     if (!browser) return;
 
-    window.addEventListener('scroll', onWindowScroll);
+    window.addEventListener('scroll', throttleScroll);
 
   }
-
+  const throttleScroll = throttle( onWindowScroll, 100);
   function onWindowScroll() {
     if (!browser) return;
     const diff = window.scrollY - lastScrollTop
@@ -49,7 +50,7 @@
   function removeWindowScroll() {
     if (!browser) return;
 
-    window.removeEventListener('scroll', onWindowScroll);
+    window.removeEventListener('scroll', throttleScroll);
   }
 
   onMount(()=> {

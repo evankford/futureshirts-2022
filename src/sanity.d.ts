@@ -105,7 +105,7 @@ interface VideoObject {
   background: boolean,
   url: string | null,
   local: string | null,
-  localSmall: string | null,
+  smallVideo: string | null,
   localImage: SanityImageObject | null,
   fallbackImage: SanityImageObject | null,
   _type: 'video'

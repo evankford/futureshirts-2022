@@ -1,11 +1,12 @@
 <script lang="ts">
   import SectionHeading from "$lib/components/SectionHeading.svelte";
-import isOnScreen from "$lib/isOnScreen";
+  import isOnScreen from "$lib/isOnScreen";
   import Button from "$lib/components/Button.svelte";
-import Socials from "$lib/components/Socials.svelte";
+  import Socials from "$lib/components/Socials.svelte";
+  import { dev } from "$app/env";
   export let title:string | null, subtitle: string| null, intro: string|null, showSocials:boolean = true, instagramWidget:CodeShape, anchor: string, layout: string;
-
 </script>
+
 <section use:isOnScreen class="{layout}" id="{anchor}">
   <div class="content rotate">
     <div class="left">
@@ -19,7 +20,9 @@ import Socials from "$lib/components/Socials.svelte";
     </div>
     <div class="right">
       <div class="code">
+        {#if !dev}
          {@html instagramWidget.code}
+        {/if}
       </div>
 
     </div>
@@ -71,7 +74,10 @@ import Socials from "$lib/components/Socials.svelte";
   background: rgb(var(--color-accent-darker));
   z-index: 2;
   box-shadow: 5px 5px 18px rgba(0,0,0,0.4);
-  min-height: 300px;
+  min-height: 150px;
+  @include media-query($medium-up) {
+    min-height: 300px;
+  }
   min-width: clamp(150px, calc(200px + 5vw), 100%);
 }
 .right {

@@ -3,10 +3,12 @@
   import isOnScreen from "$lib/isOnScreen";
   import SectionBox from "$lib/components/SectionBox.svelte";
   import Image from "$lib/components/Image.svelte";
-import { browser } from "$app/env";
-import { onMount } from "svelte";
-import { onDestroy } from "svelte";
-import { afterNavigate } from "$app/navigation";
+  import { browser } from "$app/env";
+  import { onMount } from "svelte";
+  import { onDestroy } from "svelte";
+  import { afterNavigate } from "$app/navigation";
+  import throttle from "$lib/throttle";
+
 
 
   function handleOnScreen() {
@@ -15,15 +17,15 @@ import { afterNavigate } from "$app/navigation";
     }
     sectionDims = section.getBoundingClientRect();
 
-      window.addEventListener('scroll',handleScroll)
-      window.addEventListener('resize',handleResize)
+      window.addEventListener('scroll',throttleScroll, {passive: true});
+      window.addEventListener('resize',throttleResize, {passive: true});
   }
   function handleOffScreen() {
     if (!browser) {
       return;
     }
-    window.removeEventListener('scroll', handleScroll)
-    window.removeEventListener('resize', handleResize)
+    window.removeEventListener('scroll', throttleScroll);
+    window.removeEventListener('resize', throttleResize);
   }
   let section:HTMLElement, scr: number = 0;
 
@@ -31,10 +33,16 @@ import { afterNavigate } from "$app/navigation";
   let top: number = 0, bottom: number = 2000;
 
   function handleResize() {
+    if (!section) {
+      return;
+    }
     sectionDims = section.getBoundingClientRect();
     top =  sectionDims.top + window.scrollY;
     bottom =  sectionDims.bottom + window.scrollY + window.innerHeight;
   }
+
+  const throttleScroll = throttle( handleScroll, 40);
+  const throttleResize = throttle( handleResize, 100);
 
   afterNavigate(()=> {
     handleResize();
@@ -43,15 +51,6 @@ import { afterNavigate } from "$app/navigation";
   onMount(() => {
     if (browser) {
       handleResize();
-      window.addEventListener('load', handleResize)
-      window.addEventListener('DOMContentLoaded', handleResize)
-    }
-  })
-  onDestroy(()=> {
-    if (browser) {
-      window.removeEventListener('load', handleResize)
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('DOMContentLoaded', handleResize)
     }
   })
 

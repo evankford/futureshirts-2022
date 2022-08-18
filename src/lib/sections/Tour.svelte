@@ -1,14 +1,15 @@
 <script lang="ts">
   import SectionHeading from "$lib/components/SectionHeading.svelte";
-import isOnScreen from "$lib/isOnScreen";
+  import isOnScreen from "$lib/isOnScreen";
   import SectionBox from "$lib/components/SectionBox.svelte";
   import Image from "$lib/components/Image.svelte";
   import Quote from "$lib/components/Quote.svelte";
   import Fa from "svelte-fa";
   import {fly} from "svelte/transition";
   import {faChevronLeft, faChevronRight} from "@fortawesome/pro-regular-svg-icons"
-  import {onMount} from "svelte";
+  import {onMount, onDestroy} from "svelte";
   import {browser} from "$app/env"
+  import throttle from "$lib/throttle";
   let currentSlide = 0;
   let slideInterval: ReturnType<typeof setInterval>;
   function startSlideInterval() {
@@ -23,8 +24,7 @@ import isOnScreen from "$lib/isOnScreen";
       currentSlide = 0;
     }
     startSlideInterval();
-    setTimeout(changeQuoteHeight, 10);
-
+    throttleHeightChange();
   }
   function prevSlide() {
     clearInterval(slideInterval);
@@ -34,14 +34,13 @@ import isOnScreen from "$lib/isOnScreen";
       currentSlide = quoteGallery.length - 1;
     }
     startSlideInterval();
-    setTimeout(changeQuoteHeight, 10);
-  }
+    throttleHeightChange();  }
 
   function slideTo(num:number) {
     clearInterval(slideInterval);
     currentSlide = num;
     // startSlideInterval();
-    setTimeout(changeQuoteHeight, 10);
+    throttleHeightChange();
   }
 
 
@@ -83,6 +82,7 @@ import isOnScreen from "$lib/isOnScreen";
     step();
   }
 
+  const throttleHeightChange = throttle(changeQuoteHeight, 100);
   onMount(()=> {
     startSlideInterval()
 
@@ -90,9 +90,14 @@ import isOnScreen from "$lib/isOnScreen";
       setTimeout(() => {
         changeQuoteHeight()
       }, 1);
-      window.addEventListener('resize', changeQuoteHeight);
+      window.addEventListener('resize', throttleHeightChange, {passive: true});
     }
   });
+  onDestroy(()=>{
+    if (browser ) {
+      window.removeEventListener('resize', throttleHeightChange);
+    }
+  })
 
   let domSlides: HTMLLIElement[] =  [], quoteWrapperHeight=0;
 
