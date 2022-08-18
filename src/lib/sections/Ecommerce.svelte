@@ -61,6 +61,7 @@ import Laptop from "$lib/components/Laptop.svelte";
     }
 
     @include media-query($small) {
+      padding:  0;
       min-height: 1500px;
       --font-size-mega: 62px;
     }
@@ -89,7 +90,7 @@ import Laptop from "$lib/components/Laptop.svelte";
     flex-wrap: wrap;
     text-align: center;
     align-items: center;
-    margin: auto 0 0;
+    margin: auto 0 30px;
     justify-content: center;
     text-shadow: 0 0 40px rgba(0,0,0,0.5);
   }
