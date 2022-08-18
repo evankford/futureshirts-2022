@@ -22,6 +22,7 @@ function handleIntersection(entries:IntersectionObserverEntry[]) {
 
 const options:IntersectionObserverInit = {
   threshold: [0, 0.1,  0.75,  1],
+  rootMargin: '0 0  -25%',
 }
 
 let observed:HTMLElement[] = [];
