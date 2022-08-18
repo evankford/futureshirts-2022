@@ -42,7 +42,7 @@ import isOnScreen from "$lib/isOnScreen";
     --color-background: rgb(var(--color-base-background-accent));
     --color-foreground: rgb(var(--color-base-text));
 
-    padding: clamp(90px, 12vh, 160px) 0;
+    padding: clamp(60px, calc(10px + 9vh), 160px) 0;
   }
   .content {
 
@@ -88,7 +88,9 @@ import isOnScreen from "$lib/isOnScreen";
   --box-bg-color: var(--color-background);
 }
 .left {
-
+  @include media-query($tiny) {
+    text-align: center;
+  }
   --titleMargin: -0.12em 0 0.2em;
 }
 </style>

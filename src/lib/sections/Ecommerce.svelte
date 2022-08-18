@@ -75,6 +75,12 @@ import Laptop from "$lib/components/Laptop.svelte";
     width: 100%;
     overflow: unset;
     z-index: 2;
+    @include media-query($small) {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
     z-index: 200;
 
   }
@@ -83,6 +89,7 @@ import Laptop from "$lib/components/Laptop.svelte";
     flex-wrap: wrap;
     text-align: center;
     align-items: center;
+    margin: auto 0 0;
     justify-content: center;
     text-shadow: 0 0 40px rgba(0,0,0,0.5);
   }
@@ -174,7 +181,8 @@ import Laptop from "$lib/components/Laptop.svelte";
     max-width: 340px;
 
     @include media-query($small) {
-      margin: 20px auto 0 auto;
+      margin: auto ;
+      flex: 0 0 auto;
     }
 
   }

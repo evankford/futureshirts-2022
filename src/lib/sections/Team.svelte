@@ -44,14 +44,13 @@ import {hasJobs} from "$lib/stores";
     justify-content: center;
     flex-wrap: wrap;
     background-color: rgb(var(--color-base-background-off));
-    padding: clamp(120px, 20vh, 260px) 0 0;
+    padding: clamp(60px, 10vh, 120px) 0 0;
     color: rgb(var(--color-base-text));
     --color-background: rgb(var(--color-base-background-off));
     --color-foreground: rgb(var(--color-base-text));
-    @include media-query($tiny) {
-      --rotateXMod: 0.5deg;
-      --rotateYMod: 0.5deg;
-      --font-size-mega: 54px;
+    @include media-query($medium-up) {
+      padding: clamp(120px, 20vh, 260px) 0 0;
+      /* --font-size-mega: 54px; */
     }
   }
   .content {

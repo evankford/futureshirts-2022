@@ -4,7 +4,7 @@
   import { faArrowLeftLong, faArrowRightLong } from "@fortawesome/pro-regular-svg-icons";
   import { faCircle } from "@fortawesome/pro-solid-svg-icons";
   import SectionHeading from "$lib/components/SectionHeading.svelte";
-import isOnScreen from "$lib/isOnScreen";
+import isOnScreen, {stopWatching} from "$lib/isOnScreen";
   import SectionBox from "$lib/components/SectionBox.svelte";
   import Image from "$lib/components/Image.svelte";
   import { onMount } from "svelte";
@@ -27,6 +27,7 @@ import isOnScreen from "$lib/isOnScreen";
     startSlideInterval();
 
   }
+  let visible = false;
   function prevSlide() {
     clearInterval(slideInterval);
     if (currentSlide > 0 ) {
@@ -94,7 +95,7 @@ import isOnScreen from "$lib/isOnScreen";
       handleResize();
     }
   });
-
+  let el:HTMLElement;
   export let title:string | null, subtitle: string| null, intro: string|null, box: Array<Block>, heroGallery: Array<HeroImage>, anchor:string;
 </script>
 <section  style="--scr: {scr}" bind:this={section} use:isOnScreen on:onscreen={handleOnScreen} on:offscreen={handleOffScreen} class="hero image-hero" id={anchor}>
@@ -110,7 +111,13 @@ import isOnScreen from "$lib/isOnScreen";
     {/if}
     <div class="hero-content">
       <div class="left">
-        <SectionHeading {title} {subtitle} {intro} />
+        {#if title.toLowerCase() == 'merch made easy'}
+        <header bind:this={el} class="section-header" class:offscreen={!visible} use:isOnScreen on:onscreen={()=>{visible = true; stopWatching(el); }} >
+          <h1 class="title"><span>Merch</span><span>Made</span><span>Easy</span></h1>
+        </header>
+        {:else}
+          <SectionHeading {title} {subtitle} {intro} />
+        {/if}
       </div>
       <div class="bottom">
       {#if heroGallery && heroGallery.length}
@@ -176,6 +183,26 @@ import isOnScreen from "$lib/isOnScreen";
     transform-style: preserve-3d;
   }
 
+  .title {
+    font-size: var(--font-size-mega);
+    text-transform: lowercase;
+    line-height: var(--titleLineHeight, 0.9);
+    margin: var(--titleMargin, 0.07em 0 0.2em);
+
+    @include media-query($small) {
+      padding-left: 25px;
+    }
+
+    span {
+      display: block;
+      line-height: inherit;
+      text-align: left;
+      &:nth-child(2) {
+        margin: -0.2em 0 -0.225em -0.394em;
+      }
+    }
+  }
+
   .bg {
     @include psuedoish;
     position: fixed;
@@ -203,7 +230,7 @@ import isOnScreen from "$lib/isOnScreen";
     // background: rgba(black, 0.2);
     margin: clamp(12px,  calc(20px + 2vh), 40px) 0 0;
     @include media-query($small) {
-      opacity: 0.6;
+      opacity: 0.8;
       margin-top: 20px;
     }
   }
@@ -290,17 +317,19 @@ import isOnScreen from "$lib/isOnScreen";
   .left {
     grid-area: title;
     flex: 1 1 300px;
-    max-width: 570px;
+    max-width: min(60vw, 570px);
     padding-right: 50px;
     --titleMargin: 50px 0 0 ;
-
     --titleLineHeight: 0.756;
   }
   .right {
     grid-area: content;
     flex: 0 1 auto;
 
-    margin:20px  0 0;
+    margin:15px  0 0;
+    @include media-query($medium-up) {
+      margin-bottom: 40px;
+    }
     @include mono;
 
    :global(p) {

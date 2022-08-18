@@ -103,11 +103,9 @@
 
 
     @include media-query($small) {
-      --font-size-mega: 55px;
+      --font-size-mega: 60px;
     }
-    @include media-query($tiny) {
-      --font-size-mega: 44px;
-    }
+
     &::after {
       @include psuedo;
       background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0), 100px, rgba(0,0,0,0) calc(100% - 100px), rgba(0,0,0,0.2) 100% )
@@ -161,3 +159,5 @@
     }
   }
 </style>
+
+

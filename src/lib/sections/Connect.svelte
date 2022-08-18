@@ -42,7 +42,7 @@
     color: rgb(var(--color-base-text));
     --color-background: rgb(var(--color-base-background-off));
     --color-foreground: rgb(var(--color-base-text));
-    padding: clamp(90px, 12vh, 150px) 0 ;
+    padding: clamp(50px, 8vh, 150px) 0 ;
   }
   .content {
 

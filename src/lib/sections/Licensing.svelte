@@ -55,7 +55,7 @@ import isOnScreen from "$lib/isOnScreen";
     overflow: hidden;
 
     background-color: rgb(var(--color-base-background));
-    padding: clamp(80px, 12vh, 180px) 0;
+    padding: clamp(50px, 10vh, 180px) 0;
     color: rgb(var(--color-base-text));
     --color-background: var(--color-base-background);
     --color-foreground: var(--color-base-text);

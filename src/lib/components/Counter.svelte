@@ -28,30 +28,39 @@
 
   .counter {
     flex: 0 1 250px;
-    margin: 12px ;
+    margin: 5px 10px;
+    @include media-query($medium-up){
+            margin: 17px ;
+
+          }
     text-align: inherit;
 
      &.small {
       margin: 10px auto;
       flex: 0 0 auto;
+      font-size: 15px;
       max-width: 100%;
       @include media-query($medium-up){
         display: flex;
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
+        font-size: 16px;
       }
-      font-size: 16px;
     }
   }
   .subtitle {
     @include mono;
-    font-size: 16px;
+    font-size: 14px;;
+    @include media-query($medium-up) {
+
+      font-size: 16px;
+    }
 
 
   }
   .number {
-    font-size: clamp(25px, calc(22px + 1.8vw), 45px);
+    font-size: clamp(22px, calc(22px + 1.2vw), 39px);
     .small & {
       font-size: 32px;
       margin: 0 0.35em 0.1em;

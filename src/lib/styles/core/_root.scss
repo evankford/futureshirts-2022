@@ -112,7 +112,7 @@
 
   @include media-query($tiny) {
     --font-body-size: 16px;
-    --font-size-mega: clamp(60px, calc(50px + 2.5vmax),80px);
+    --font-size-mega: clamp(66px, calc(50px + 5.5vmax),80px);
     --font-body-line-height: 1.5;
     // --font-button-size: 14px;
     --font-button-letter-spacing: -00.5px;
