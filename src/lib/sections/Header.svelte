@@ -139,6 +139,9 @@
 .right {
   z-index: 1;
   justify-self: start;
+  @include media-query($small) {
+    margin-right: 10px;
+  }
 }
 
 .left {
