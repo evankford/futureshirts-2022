@@ -91,7 +91,7 @@
     overflow: hidden;
     padding: 120px 0;
     position: relative;
-    min-height: clamp(500px, 90vh, 950px);
+    min-height: clamp(500px, calc(90 * var(--vh, 1vh)), 950px);
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     display: flex;
     align-items: center;
@@ -117,11 +117,9 @@
   .bg {
     @include psuedoish;
     position: fixed;
-
-
-    height: 100%;
+    height: calc(100 * var(--vh, 1vh));
     width: 100%;
-    max-width: 1600px;;
+    max-width: 1600px;
     top: 0%;
     left: 50%;
     transform: translate3d(-50%, calc(0% - (10% * var(--scr, 0.5))), 0);
@@ -148,7 +146,7 @@
   .content {
     @include media-query($large-up) {
       --font-size-mega: 100px;
-      margin-top: 80px;
+      /* margin-top: 80px; */
     }
     --titleMargin: 0 auto 0.25em;
     --box-bg-color: rgb(var(--color-background));

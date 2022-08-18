@@ -49,8 +49,8 @@ import isOnScreen from "$lib/isOnScreen";
     }
     sectionDims = section.getBoundingClientRect();
 
-      // window.addEventListener('scroll',throttleScroll, {passive: true});
-      // window.addEventListener('resize',throttleResize, {passive: true});
+      window.addEventListener('scroll',throttleScroll, {passive: true});
+      window.addEventListener('resize',throttleResize, {passive: true});
   }
   function handleOffScreen() {
     if (!browser) {
@@ -186,6 +186,12 @@ import isOnScreen from "$lib/isOnScreen";
     width: 100%;
     left: 0%;
     top: 0%;
+    &::after {
+      @include psuedo;
+      position: 150px;
+      background: linear-gradient( to bottom, rgba(0,0,0,0), rgba(0,0,0,0.2));
+      z-index: 1;
+    }
 
   }
 
