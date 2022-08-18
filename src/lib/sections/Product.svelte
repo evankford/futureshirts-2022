@@ -6,6 +6,7 @@
 import { browser } from "$app/env";
 import { onMount } from "svelte";
 import { onDestroy } from "svelte";
+import { afterNavigate } from "$app/navigation";
 
 
   function handleOnScreen() {
@@ -33,8 +34,11 @@ import { onDestroy } from "svelte";
     sectionDims = section.getBoundingClientRect();
     top =  sectionDims.top + window.scrollY;
     bottom =  sectionDims.bottom + window.scrollY + window.innerHeight;
-
   }
+
+  afterNavigate(()=> {
+    handleResize();
+  })
 
   onMount(() => {
     if (browser) {

@@ -148,12 +148,12 @@ import isOnScreen from "$lib/isOnScreen";
 
      position: relative;
     min-height: clamp(400px, 75vh, 1000px);
+    max-height: 90vh;
     display: flex;
     align-items: flex-end;
     justify-content: center;
     color: rgb(var(--color-foreground));
     padding: clamp(140px, 19vh, 320px) 0 clamp(20px, 6vh, 100px);
-
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     @include media-query($small) {
       --vertical-rhythm: 2px;
@@ -179,7 +179,7 @@ import isOnScreen from "$lib/isOnScreen";
 
     z-index: 0;
     height: 100%;
-    max-height: 90vh;
+    max-height: 100vh;
     width: 100%;
     left: 0%;
     top: 0%;
@@ -289,6 +289,10 @@ import isOnScreen from "$lib/isOnScreen";
     flex: 0 1 auto;
     margin: 20px 0 0;
    @include mono;
+
+   :global(p) {
+    margin-bottom: 0;
+   }
 
 
   }

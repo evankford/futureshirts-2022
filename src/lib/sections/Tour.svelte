@@ -337,9 +337,14 @@ text-align: center;
       width: 75px;
       padding: 2px;
       @include media-query($medium-up) {
-        width: 90px;
-        height: 50px;
+        width: 95px;
+        height: 55px;
         padding: 5px;
+      }
+      @include media-query($large-up) {
+        width: 100px;
+        height: 70px;
+        padding: 8px;
       }
       transition: opacity 300ms ease, transform 300ms ease;
       transform: scale(0.8);

@@ -46,6 +46,18 @@
   import Footer from "$lib/sections/Footer.svelte";
   import {  onMount } from "svelte";
 
+  import {afterNavigate,
+  beforeNavigate} from "$app/navigation";
+
+  beforeNavigate(()=> {
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
+  })
+  afterNavigate(()=> {
+    document.documentElement.style.removeProperty('scroll-behavior');
+    document.body.style.removeProperty('scroll-behavior');
+  })
+
   function setGlobalStores() {
     hasJobs.set(jobs.openings && jobs.openings.length > 0);
     socialStore.set(socials.socials);
