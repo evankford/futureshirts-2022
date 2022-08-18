@@ -9,7 +9,7 @@ import Phone from "$lib/components/Phone.svelte";
 import Galaxy from "$lib/components/Galaxy.svelte";
 import Tablet from "$lib/components/Tablet.svelte";
 import Laptop from "$lib/components/Laptop.svelte";
-  export let title:string | null, layout: string, subtitle: string| null, box: Blocks[], intro: string|null, counters: CounterModel[], computer: VideoOrImage, computer2: VideoOrImage, phone:VideoOrImage, phone2:VideoOrImage, tablet:VideoOrImage, anchor: string;
+  export let title:string | null, layout: string, subtitle: string| null, box: Block[], intro: string|null, counters: CounterModel[], computer: VideoOrImage, computer2: VideoOrImage, phone:VideoOrImage, phone2:VideoOrImage, tablet:VideoOrImage, anchor: string;
 
 </script>
 <section use:isOnScreen id="{anchor}" class=" {layout}">
@@ -62,7 +62,7 @@ import Laptop from "$lib/components/Laptop.svelte";
 
     @include media-query($small) {
       min-height: 1500px;
-      --font-size-mega: 50px;
+      --font-size-mega: 62px;
     }
 
   }

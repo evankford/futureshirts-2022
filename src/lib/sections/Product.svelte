@@ -110,7 +110,7 @@
     }
     &::after {
       @include psuedo;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0), 100px, rgba(0,0,0,0) calc(100% - 100px), rgba(0,0,0,0.1) 100% )
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0), 100px, rgba(0,0,0,0) calc(100% - 100px), rgba(0,0,0,0.2) 100% )
     }
   }
 

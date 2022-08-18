@@ -51,7 +51,10 @@
     }
   }
 
-  &.offScreen,
+  &.offScreen {
+    transform: translate3d(0, min(30px, 50%), 0);
+    opacity: 0;
+  }
   &.offScreen > *{
     transform: translate3d(0, max(10px, 100%), 0);
     opacity: 0;

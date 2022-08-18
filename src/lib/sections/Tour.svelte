@@ -90,7 +90,7 @@
       setTimeout(() => {
         changeQuoteHeight()
       }, 1);
-      window.addEventListener('resize', throttleHeightChange, {passive: true});
+      // window.addEventListener('resize', throttleHeightChange, {passive: true});
     }
   });
   onDestroy(()=>{
@@ -112,6 +112,7 @@
  <div class="wrap">
    <div class="gallery">
      <ul class="slides">
+       <button aria-label="Previous Quote" on:click={prevSlide}><Fa icon={faChevronLeft}/></button>
 
        {#each quoteGallery as q, i}
 
@@ -119,9 +120,9 @@
         <Image fullWidth bg image={q.image} alt="{q.title} Merchandise"/>
        </li>
        {/each}
+       <button aria-label="Next Quote" on:click={nextSlide}><Fa icon={faChevronRight}/></button>
      </ul>
      <div class="bottom">
-       <button aria-label="Previous Quote" on:click={prevSlide}><Fa icon={faChevronLeft}/></button>
        <ul class="quotes" style="height: {quoteWrapperHeight}px;">
          {#each quoteGallery as q, i}
          {#if currentSlide == i}
@@ -131,7 +132,6 @@
             {/if}
          {/each}
        </ul>
-       <button aria-label="Previous Quote" on:click={nextSlide}><Fa icon={faChevronRight}/></button>
      </div>
      <ul class="logos">
        {#each quoteGallery as q, i}
@@ -223,29 +223,7 @@ text-align: center;
     justify-content: center;
     width: calc(100% + 70px);
     margin: 0 -35px;
-    button {
-      @include resetButton;
-      // @include hoverBox;
-      flex: 0 0 35px;
-      height: 35px;
-      border-radius: 35px;
 
-      margin: -18px 0;
-      background: rgb(var(--color-base-background));
-      color: rgb(var(--color-base-accent-darker));
-
-      opacity: 0.5;
-      transition: opacity 300ms ease, transform 300ms ease;
-      display: inline-block;
-      position: relative;
-      &:hover, &:focus-visible {
-        opacity: 1;
-        transform: translateY(-6px)
-      }
-      @include media-query($small) {
-        font-size: 12px;
-      }
-    }
   }
 
   .logos  {
@@ -273,8 +251,6 @@ text-align: center;
   }
   .slides {
     @include psuedo;
-
-
     position: relative;
     &::after {
       @include psuedo;
@@ -295,6 +271,37 @@ text-align: center;
         padding-bottom: 55%;
       }
 
+    button {
+      position: absolute;
+      top: calc(50% - 17.5px);
+      left: -20px;
+
+      &:last-child {
+        left: auto;
+        right: -20px;
+
+      }
+      @include resetButton;
+      // @include hoverBox;
+      flex: 0 0 35px;
+      height: 35px;
+      width: 35px;
+      border-radius: 35px;
+      z-index: 20;
+      background: rgb(var(--color-base-accent-darker));
+      color: rgb(var(--color-accent-inverse));
+
+      opacity: 0.5;
+      transition: opacity 300ms ease, transform 300ms ease;
+      display: inline-block;
+      &:hover, &:focus-visible {
+        opacity: 1;
+        transform: translateY(-6px)
+      }
+      @include media-query($small) {
+        font-size: 12px;
+      }
+    }
   }
 
   .slide-image {
@@ -307,6 +314,7 @@ text-align: center;
     overflow: hidden;
     border-radius: var(--box-border-radius);
     transition: transform 800ms ease, opacity 500ms;
+    pointer-events: none;
     &.before {
       transform: translateX( -60vw);
       opacity: 0;
