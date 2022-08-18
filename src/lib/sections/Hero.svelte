@@ -151,8 +151,8 @@ import isOnScreen from "$lib/isOnScreen";
     --box-li-line-height : 1;
 
     position: relative;
-    min-height: clamp(300px, calc(70 * var(--vh, 1vh)), 1000px);
-    max-height: calc(78 * var(--vh, 1vh));
+    height: clamp(300px, calc(78 * var(--vh, 1vh)), 1000px);
+    /* max-height: calc(78 * var(--vh, 1vh)); */
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -182,7 +182,7 @@ import isOnScreen from "$lib/isOnScreen";
     transform: translate3d(0, calc(0% - (5% * var(--scr, 0.5))), 0);
 
     z-index: 0;
-    height: calc(85 * var(--vh, 1vh));
+    height: calc(83 * var(--vh, 1vh));
     width: 100%;
     left: 0%;
     top: 0%;
@@ -203,7 +203,8 @@ import isOnScreen from "$lib/isOnScreen";
     // background: rgba(black, 0.2);
     margin: clamp(12px,  calc(20px + 2vh), 40px) 0 0;
     @include media-query($small) {
-      margin-top: 50px;
+      opacity: 0.6;
+      margin-top: 20px;
     }
   }
   button {
@@ -291,13 +292,16 @@ import isOnScreen from "$lib/isOnScreen";
     flex: 1 1 300px;
     max-width: 570px;
     padding-right: 50px;
+    --titleMargin: 50px 0 0 ;
+
     --titleLineHeight: 0.756;
   }
   .right {
     grid-area: content;
     flex: 0 1 auto;
-    margin: 20px 0 0;
-   @include mono;
+
+    margin:20px  0 0;
+    @include mono;
 
    :global(p) {
     margin-bottom: 0;
