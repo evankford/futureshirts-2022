@@ -24,6 +24,16 @@ export default {
 	},
 	fields: [
 		{
+			name: 'note',
+			type: 'note',
+			group:  ['settings', 'content'],
+			options: {
+				headline: 'These are the form settings',
+				message: 'To update the contact page, edit the page with the slug "/contact".',
+				tone: 'caution'
+			}
+		},
+		{
 			name: 'title',
 			title: 'Title',
 			group: 'content',
@@ -39,8 +49,11 @@ export default {
 		{
 			name: 'email',
 			title: 'Send To Emails',
-			group: 'settings',
-			type: 'emailArray',
+			group: ['settings', 'content'],
+			type: 'array',
+			of: [
+				{ type: 'emailOption'}
+			],
 			description:
 				'Default Emails (all submissions are sent here). You can also set specific emails for "Contacting About" options, and leave this blank.'
 		},

@@ -15,7 +15,8 @@
     "@sanity/code-input",
     "@sanity/orderable-document-list",
     "markdown",
-    "@sanity/production-preview"
+    "@sanity/production-preview",
+    "note-field"
   ],
   "env": {
     "development": {

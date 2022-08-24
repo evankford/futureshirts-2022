@@ -3,7 +3,7 @@
 import S from '@sanity/desk-tool/structure-builder';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 
-import { FaAddressCard , FaSearchengin, FaEnvelope, FaLink, FaBring, FaArrowDown, FaGear, FaArrowUp, FaCode } from 'react-icons/fa';
+import { FaAddressCard ,FaArrowRight, FaSearchengin, FaEnvelope, FaLink, FaBring, FaArrowDown, FaGear, FaArrowUp, FaCode } from 'react-icons/fa';
 import {TbSection, TbSettings } from 'react-icons/tb';
 
 
@@ -13,7 +13,6 @@ export default () =>
 
 		.items([
 			...S.documentTypeListItems()
-
 				.filter(
 				(listItem) =>
 					listItem.getSchemaType().name != 'section' &&
@@ -24,6 +23,7 @@ export default () =>
 						'footer',
 						'socialMedia',
 						'codes',
+						'redirection',
 						'jobs',
 						'support'
 					].includes(listItem.getId())
@@ -102,7 +102,17 @@ export default () =>
 										.id('codes')
 										.title('Header/Footer Code')
 										.documentId('codes')
-								)
+								),
+							// S.listItem()
+							// 	.title('Redirection')
+							// 	.icon(FaArrowRight)
+							// 	.child(
+							// 		S.document()
+							// 			.schemaType('redirection')
+							// 			.id('redirection')
+							// 			.title('Redirection')
+							// 			.documentId('redirection')
+							// 	)
 						])
 				),
 			S.listItem()

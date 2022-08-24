@@ -64,8 +64,8 @@ interface SocialMediaSettings {
 }
 interface ContactOption {
   title: string,
+  message: Block[],
   email?: string,
-  message?: string
 }
 
 
@@ -128,12 +128,18 @@ interface VideoOrImageVideo extends VideoObject {
  interface Opening {
     title: string,
     subtitle?: string
+    email: EmailOptionShape[],
     description: Block[],
     fullDescription: Block[],
   }
 
-  interface FormSettings {
+  interface EmailOptionShape {
+    name?:string
     email: string
+  }
+
+  interface FormSettings {
+    email: EmailOptionShape[]
     title: string
     subtitle ?:string
     successTitle: string

@@ -5,13 +5,13 @@
 {#if inNav }
 <li aria-hidden={!$navOpen} class:small>
   {#if (item.linkUrl.openInNewTab == true && item.linkUrl.type == 'external') }
-    <a on:click={()=>{$navOpen = false}} tabindex={$navOpen ? 0 : -1} href="{item.linkUrl.url}"  target="_blank" rel="nofollow noopener noreferrer">{item.title}</a>
+    <a on:click={()=>{setTimeout(()=>{$navOpen = false}, 5)}} tabindex={$navOpen ? 0 : -1} href="{item.linkUrl.url}"  target="_blank" rel="nofollow noopener noreferrer">{item.title}</a>
   {:else if item.linkUrl.anchor && item.linkUrl.type == 'anchor'}
-    <a on:click={()=>{$navOpen = false}} tabindex={$navOpen ? 0 : -1} href="{item.linkUrl.anchor}">{item.title}</a>
+    <a on:click={()=>{setTimeout(()=>{$navOpen = false}, 5)}} tabindex={$navOpen ? 0 : -1} href="{item.linkUrl.anchor}">{item.title}</a>
   {:else if item.linkUrl?.ref?.slug && item.linkUrl.type == 'internal'}
-    <a on:click={()=>{$navOpen = false}} tabindex={$navOpen ? 0 : -1} href="{item.linkUrl.ref.slug}">{item.title}</a>
+    <a on:click={()=>{setTimeout(()=>{$navOpen = false}, 5)}} tabindex={$navOpen ? 0 : -1} href="{item.linkUrl.ref.slug}">{item.title}</a>
   {:else if  item.linkUrl.type == 'internal' && item.linkUrl.url}
-    <a on:click={()=>{$navOpen = false}} href="{item.linkUrl.url}"  tabindex={$navOpen ? 0 : -1}>{item.title}</a>
+    <a on:click={()=>{setTimeout(()=>{$navOpen = false}, 5)}} href="{item.linkUrl.url}"  tabindex={$navOpen ? 0 : -1}>{item.title}</a>
   {/if}
 </li>
 {:else }

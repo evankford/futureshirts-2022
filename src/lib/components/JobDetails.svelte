@@ -2,11 +2,9 @@
 
   import { PortableText} from "@portabletext/svelte";
   import LiNormal from "$lib/components/portableText/LiNormal.svelte";
- import Fa from "svelte-fa";
+  import Fa from "svelte-fa";
   import { faXmark} from "@fortawesome/pro-regular-svg-icons";
-
   import { fade, fly } from 'svelte/transition';
-
   export let job:Opening, openJob:false|number = false;
 </script>
 <div class="job-wrap" >

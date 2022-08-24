@@ -24,7 +24,11 @@
 
   function processFields(f:Fields):FormData{
     let form_data = new FormData();
-    form_data.append('emailTo', emailTo ? emailTo : email);
+    const emailToArray:string[] = [];
+    email.forEach( a => {
+      emailToArray.push(`${a.name ? a.name + ' ' : ''}<${a.email}>`);
+    }
+    )
     form_data.append('formName', 'Contact Form');
     const keys = Object.keys(f);
     if (keys && keys.length >= 1) {
@@ -43,6 +47,9 @@
         }
       })
     }
+
+    form_data.append('emailTo', emailToArray.join(',') );
+
     return form_data;
   }
 
@@ -83,7 +90,7 @@
   }
 
   export let
-    email: string,
+    email: EmailOptionShape[],
     contactOptions: ContactOption[],
     successMessage: string,
     successTitle: string,

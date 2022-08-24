@@ -12,13 +12,29 @@
 
   function processFields(f:Fields):FormData {
     let form_data = new FormData();
-    form_data.append('emailTo', email );
+
+    const emailToArray:string[] = [];
+    email.forEach( a => {
+      console.log(a);
+      emailToArray.push(`${a.name ? a.name + ' ' : ''}<${a.email}>`);
+    }
+    )
+
     form_data.append('formName', 'Job Application' );
 
     const keys = Object.keys(f);
     if (keys && keys.length >= 1) {
       keys.forEach((key, i) => {
         const value = f[key].value ? f[key].value : false;
+
+        if ([key ==  'opening']){
+          const matchedOpening = openings.find(v=> v.title  == value);
+          if (matchedOpening){
+            matchedOpening.email.forEach(a=>{
+              emailToArray.push(`${a.name ? a.name + ' ' : ''}<${a.email}>`);
+            })
+          }
+        }
         if ( Array.isArray(value )) {
           let str = '';
           value.forEach(val=> {
@@ -32,13 +48,13 @@
         }
       })
     }
+    form_data.append('emailTo', emailToArray.join(',') );
     return form_data;
   }
 
 
    const onSubmit:SubmitFunction = async (f:Fields)=> {
     const processed =processFields(f);
-    console.log(processed)
     try {
       const resp =  await fetch('/sendemail', {
         method: 'POST' ,
@@ -73,7 +89,7 @@
   }
 
   export let
-    email: string,
+    email: EmailOptionShape[],
     openings: Opening[],
     successMessage: string,
     successTitle: string,

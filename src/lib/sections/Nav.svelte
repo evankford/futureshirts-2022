@@ -119,7 +119,6 @@ const unsubNav = navOpen.subscribe(val=> {
     flex-direction: column;
     left: 0;
     color: inherit;
-
     --menu-link-padding: 0;
     margin: auto 0 auto auto;
     pointer-events:  none;

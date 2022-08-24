@@ -293,3 +293,8 @@ progress {
 [aria-disabled='true'] {
   cursor: default;
 }
+
+.selection {
+  overflow: hidden !important;
+}
+

@@ -10,6 +10,9 @@
 		"sourceMap": true,
 		"strict": false,
 		"module": "ESNext",
+		"lib" : [
+			 "dom.iterable" // <- there you are
+		]
 	},
 	"exclude": [
 		"./studio"

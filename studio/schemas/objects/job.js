@@ -16,8 +16,11 @@ export default {
 		},
 		{
 			name: 'email',
-			type: 'emailArray',
-			title: 'Specific Email Contact',
+			type: 'array',
+			of: [
+				{type: 'emailOption'}
+			],
+			title: 'Specific Email Contact(s)',
 			description: 'Forwards to an email if this option is selected.',
 		},
 		{

@@ -31,7 +31,8 @@ export default {
 		{
 			name: 'email',
 			title: 'Email',
-			type: 'emailArray',
+			type: 'array',
+			of: [{type: 'emailOption'}],
 			group: 'settings',
 			description:
 				'Default Emails (all submissions are sent here). You can also set specific emails for "Contacting About" options, and leave this blank.'

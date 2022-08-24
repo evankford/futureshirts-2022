@@ -24,6 +24,8 @@
     padding: 0 0 0 1em;
   }
 
+
+
   a:not(.button) {
     line-height: inherit;
     font-weight: 600;
@@ -34,12 +36,10 @@
     padding: 0 2px;
     margin: 0 -1px;
     // text-decoration: none;
-    color: rgb(var(--color-accent));
+    color: inherit;
     text-underline-offset: 2px;
     overflow: hidden;
-    &:visited {
-      color: rgb(var(--color-accent-darker));
-    }
+
     // &::after {
     //   @include psuedo;
     //   background: rgb(var(--color-accent));
@@ -56,15 +56,12 @@
     }
   }
 
+
+
    & > * {
       opacity: 1;
       transform: translate3d(0, 0px, 0);
       transition: transform 600ms ease, opacity 600ms ease;
-    }
-
-    &.invisible > * {
-      transform: translate3d(0, max(10px, 100%), 0);
-      opacity: 0;
     }
 
 

@@ -84,7 +84,6 @@ import isOnScreen from "$lib/isOnScreen";
 
     border-radius: var(--box-border-radius);
     overflow: hidden;
-
     box-shadow: 0 4px 54px rgba(0, 0 , 0, 0.25);
     border: 2px solid rgb(var(--color-border));
   }

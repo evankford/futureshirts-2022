@@ -5,14 +5,7 @@
 
   export let title:string | null, intro: string | null, subtitle: string | null;
 
-  function splitTitle(t:string):string {
-    let toReturn:string = '';
-    const words = t.split(' ');
-    words.forEach(word=> {
-      toReturn += '<span>'
-    })
-    return toReturn;
-  }
+
 </script>
 
 {#if title || intro || subtitle }

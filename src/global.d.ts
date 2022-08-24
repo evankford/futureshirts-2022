@@ -8,7 +8,6 @@ interface ImportMetaEnv {
   VITE_CANONICAL_URL: string
   VITE_MAILGUN_KEY: string
   VITE_MAILGUN_DOMAIN: string
-  VITE_MAILGUN_BASE_URL: string
   VITE_SANITY_TOKEN: string
   VITE_IS_PREVIEW: string
 }

@@ -196,6 +196,7 @@
     color: var(--field-color);
     line-height: var(--field-line-height);
     font-size: var(--field-font-size);
+    font-weight: var(--field-font-weight);
     padding: var(--field-padding-y, var(--field-padding)) 4px;
     width: 100%;
     border-bottom: var(--field-border-width) solid currentColor;

@@ -35,26 +35,26 @@
   }
   let listOpen = false, value: string | false , filterText ='';
 
-  export let id:string = "opening", openings: ContactOption[] = [], required:boolean = true;
+  export let id:string = "opening", openings: Opening[] = [], required:boolean = true;
 </script>
 <FieldWrap {id}>
-<label class:filled={value && value != '' || filterText.length > 0} class:active={listOpen} for={id}>
-  <span class="label">Applying For<RequiredIndicator {required} /></span>
-  <div class="select">
-    <Select
-    on:focus={()=>listOpen = true}
-     isClearable={false} showChevron
-     --chevron-box-shadow="none"
-    --input-color="var(--field-color)" --icons-color="var(--field-color-semi, var(--field-color))" --icons-color-focused="var(--field-color)"
-    --border-radius="var(--field-border-radius)" --background="transparent" --color="var(--field-color)" --height="calc(var(--field-line-height) + (2 * var(--field-padding-y)) + var(--field-padding-top-bump) + 2px)"
-    --input-padding="calc(var(--field-padding-top-bump) + 2px + var(--field-padding-y, var(--field-padding))) var(--field-padding-x, var(--field-padding)) calc(var(--field-padding-y, var(--field-padding)) + 2px)"
-    --selected-item-padding="calc(var(--field-padding-top-bump) + 2px +  var(--field-padding-y, var(--field-padding))) 0  var(--field-padding-y, var(--field-padding))"
-    --border-focus-color="var(--field-focused-color)"
-    placeholder=""
-    items={options} {id} on:change={handleChange} bind:listOpen bind:value bind:filterText />
-  </div>
+  <label class:filled={value && value != '' || filterText.length > 0} class:active={listOpen} for={id}>
+    <span class="label">Applying For<RequiredIndicator {required} /></span>
+    <div class="select">
+      <Select
+      on:focus={()=>listOpen = true}
+      isClearable={false} showChevron
+      --chevron-box-shadow="none"
+      --input-color="var(--field-color)" --icons-color="var(--field-color-semi, var(--field-color))" --icons-color-focused="var(--field-color)"
+      --border-radius="var(--field-border-radius)" --background="transparent" --color="var(--field-color)" --height="calc(var(--field-line-height) + (2 * var(--field-padding-y)) + var(--field-padding-top-bump) + 2px)"
+      --input-padding="calc(var(--field-padding-top-bump) + 2px + var(--field-padding-y, var(--field-padding))) var(--field-padding-x, var(--field-padding)) calc(var(--field-padding-y, var(--field-padding)) + 2px)"
+      --selected-item-padding="calc(var(--field-padding-top-bump) + 2px +  var(--field-padding-y, var(--field-padding))) 0  var(--field-padding-y, var(--field-padding))"
+      --border-focus-color="var(--field-focused-color)"
+      placeholder=""
+      items={options} {id} on:change={handleChange} bind:listOpen bind:value bind:filterText />
+    </div>
 
-</label>
+  </label>
 </FieldWrap>
 <style lang="scss">
 

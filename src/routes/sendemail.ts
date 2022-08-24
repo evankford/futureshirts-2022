@@ -1,5 +1,7 @@
 import {Buffer} from "buffer";
+import {Readable} from "stream";
 import { FormData  } from 'formdata-node';
+import { FormDataEncoder } from 'form-data-encoder';
 import {contact, job, support} from '$lib/emailTemplate';
 import type { IFormDataOptions } from "mailgun.js/interfaces/IFormData";
 
@@ -23,7 +25,7 @@ interface EmailData {
   [key:string] : string | string[] | Attachment[] |  false,
 }
 
-function convertToFormData(data:EmailData):FormDataNode {
+function convertToFormData(data:EmailData):FormData {
   let fData = new FormData();
   Object.keys(data).forEach(key => {
     const val = data[key] ;
@@ -39,7 +41,7 @@ function convertToFormData(data:EmailData):FormDataNode {
     if (Array.isArray(val)) {
       val.forEach(l=> {
         if (typeof l == 'string' ) {
-          fData.append(key, l);
+          fData.append(key,  l );
           return;
         }
         fData.append(key, JSON.stringify(l));
@@ -48,6 +50,7 @@ function convertToFormData(data:EmailData):FormDataNode {
     }
     fData.append(key, data[key] as string)
   });
+  console.log(fData);
   return fData
 }
 
@@ -61,14 +64,14 @@ async function generateAttachments(data: ContactData | JobData | SupportData) {
     attachments.push(
       {
         filename: data.name + '-resume.pdf',
-        data:new File([data.resume], data.name + '-resume.pdf')
+        data:data.resume
       }
     );
   }
   if ('coverLetter' in data) {
     attachments.push({
       filename: data.name + '-coverLetter.pdf',
-      data:new File([ data.coverLetter ], data.name + '-coverLetter.pdf')
+      data:data.coverLetter
     });
   }
   return attachments.length > 0 ? attachments : false
@@ -81,8 +84,6 @@ function convertFormData(form_data: FormData):ContactData | JobData | SupportDat
     //@ts-ignore
     prim[pair[0] ] = pair[1];
   }
-  form_data.forEach((value, key) => {
-  })
 
    if (!('emailTo' in prim)) {
     errors.push({code: 500, message: 'No Destination Email sent (emailTo field)'})
@@ -196,7 +197,7 @@ export async function POST({ request }) {
       from: `Futureshirts Website <mailgun@${import.meta.env.VITE_MAILGUN_DOMAIN}>`,
       'h:Reply-To': converted.email,
       'h:Content-type': 'multipart/form-data',
-      to: ["evankerrickford@gmail.com"], //'${converted.emailTo}'
+      to: converted.emailTo, //'${converted.emailTo}'
       subject:  `${converted.formName} Submission ${'topic' in converted ? '(' + converted.topic + ')' : ''}`,
       html,
       attachment
@@ -205,27 +206,30 @@ export async function POST({ request }) {
 
     //// switch to fetch;
     try {
-      const resp = await fetch (import.meta.env.VITE_MAILGUN_BASE_URL + '/messages', {
-        method: 'post',
-        body: v,
-        headers: {
-          'Authorization' : 'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64')
-        }
+      const encoder = new FormDataEncoder(v);
+      console.log(v.get('to'));
+      const resp = await fetch(`https://api.mailgun.net/v3/${import.meta.env.VITE_MAILGUN_DOMAIN}/messages`, {
+        method: "post",
+        body: Readable.from(encoder.encode()) as unknown as ReadableStream,
+        headers: Object.assign(
+          {
+            'Authorization' : 'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64')
+          }
+          , encoder.headers
+        )
       });
-      // const contentType = resp.headers.get("content-type")
-
-      // if (contentType && contentType.indexOf("application/json") !== -1) {
-      //   const j = await resp.json();
-      //   console.log(j);
-      // }
+      const contentType = resp.headers.get("content-type")
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const j = await resp.json();
+        console.log(j);
+        errors.push({code: 500, message:j})
+      }
 
       if (resp.status == 200) {
         success = true;
       } else {
+        console.log(resp);
         return JSON.stringify(resp);
-        if (resp.statusText) {
-          errors.push({code: resp.status, message:resp.statusText})
-        }
 
       }
     } catch(e) {

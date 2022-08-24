@@ -79,7 +79,7 @@
   @use "../styles/abstracts/mixins/_type-elements" as type;
 
   footer {
-    --menu-link-padding: 0;
+    --menu-link-padding: 4px;
     padding: clamp(30px, calc(20px + 4vh), 55px) 0;
     background: rgb(var(--color-base-background-off));
     color: rgb(var(--color-base-text));

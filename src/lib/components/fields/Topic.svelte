@@ -2,17 +2,17 @@
   import { slide } from "svelte/transition";
   import { onMount, getContext } from "svelte";
   import setupField from "$lib/setupField";
+  import { PortableText} from "@portabletext/svelte";
+
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
   import Select from "svelte-select";
   import RequiredIndicator from "$lib/components/fields/RequiredIndicator.svelte";
-
-  import SvelteMarkdown from "svelte-markdown";
 
   const context:FieldStore = getContext('fields');
 
   type SelectOption = {value: string, label: string}
   let options: Array<SelectOption>;
-  let currentMessage:string | false = false;
+  let currentMessage:Block[] | false = false;
   function validate(v:any) {
     if (typeof v !== 'string') {
       return "Please select a topic"
@@ -61,7 +61,7 @@
     items={options} {id} on:change={handleChange} bind:listOpen bind:value bind:filterText />
   </div>
   {#if currentMessage}
-    <div transition:slide class="message"><SvelteMarkdown source={currentMessage}/></div>
+    <div transition:slide class="message"><PortableText value={currentMessage}/></div>
   {/if}
 </label>
 </FieldWrap>

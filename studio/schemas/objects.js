@@ -12,6 +12,7 @@ import gallery from "./objects/gallery";
 import job from "./objects/job";
 import emailOption from "./objects/emailOption";
 import contactOption from "./objects/contactOption";
+import redirect from "./objects/redirect";
 
-export { emailOption, codeSnippet, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage }
-export default [emailOption, codeSnippet, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage ]
+export { emailOption, codeSnippet, redirect, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage }
+export default [emailOption, codeSnippet, redirect, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage ]
