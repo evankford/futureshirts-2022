@@ -133,7 +133,7 @@
          {/each}
        </ul>
      </div>
-     <ul class="logos">
+     <!-- <ul class="logos">
        {#each quoteGallery as q, i}
         <li class="slide-logo" >
           <button on:click={()=>slideTo(i)} aria-current={currentSlide == i}>
@@ -141,7 +141,7 @@
           </button>
         </li>
        {/each}
-     </ul>
+     </ul> -->
    </div>
     <div class="content">
       <div class="hide--small">

@@ -1,5 +1,5 @@
 import {Buffer} from "buffer";
-import {Readable} from "stream";
+import {Readable} from "readable-stream";
 import { FormData  } from 'formdata-node';
 import { FormDataEncoder } from 'form-data-encoder';
 import {contact, job, support} from '$lib/emailTemplate';
