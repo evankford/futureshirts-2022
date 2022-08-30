@@ -23,7 +23,7 @@ export default {
 			name: 'logo',
 			title: 'Logo',
 			type: 'image',
-			validation: (R) => R.required()
+			// validation: (R) => R.required()
 		},
 		{
 			name: 'quote',

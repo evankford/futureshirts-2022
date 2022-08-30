@@ -207,7 +207,6 @@ export async function POST({ request }) {
     //// switch to fetch;
     try {
       const encoder = new FormDataEncoder(v);
-      console.log(v.get('to'));
       const resp = await fetch(`https://api.mailgun.net/v3/${import.meta.env.VITE_MAILGUN_DOMAIN}/messages`, {
         method: "post",
         body: Readable.from(encoder.encode()) as unknown as ReadableStream,
