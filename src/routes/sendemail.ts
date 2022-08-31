@@ -219,18 +219,24 @@ export async function POST({ request }) {
     // const v = convertToFormData(data);
     //// switch to fetch;
     try {
+      errors.push({code: 500, message: "Made it 1"});
       const mailgun = new Mailgun(FormData);
       const mg = mailgun.client({username: 'api', key:import.meta.env.VITE_MAILGUN_KEY });
+      errors.push({code: 500, message: "Made it 2"});
 
       const resp = await mg.messages.create(import.meta.env.VITE_MAILGUN_DOMAIN, data);
+      errors.push({code: 500, message: "Made it 3"});
 
       if (resp.status == 200) {
+        errors.push({code: 500, message: "Made it 4"});
         success = true;
       } else {
+        errors.push({code: 500, message: "Made it 4 success"});
         errors.push({code: resp.status, message:resp.message})
 
       }
     } catch(e) {
+      errors.push({code: 500, message: "Catched"});
       return {
         status: 500,
         body: { errors }
