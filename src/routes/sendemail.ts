@@ -237,12 +237,12 @@ export async function POST({ request }) {
       }
     } catch(e) {
       errors.push({code: 500, message: "Catched"});
+      errors.push({code: 520, message:e})
+      errors.push({code: 520, message: JSON.stringify(e) + "Error sending email. Please try again."})
       return {
         status: 500,
         body: { errors }
       }
-      errors.push({code: 520, message: JSON.stringify(e) + "Error sending email. Please try again."})
-      errors.push({code: 520, message:e})
     }
 
 
