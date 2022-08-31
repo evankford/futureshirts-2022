@@ -1,6 +1,6 @@
 import {Buffer} from "buffer";
 // import {Readable} from "readable-stream";
-import FormData from "form-data";
+import fFormData from "form-data";
 import Mailgun from "mailgun.js";
 
 // import { FormDataEncoder } from 'form-data-encoder';
@@ -216,7 +216,8 @@ export async function POST({ request }) {
     //// switch to fetch;
     try {
       errors.push({code: 500, message: "Made it 1"});
-      const mailgun = new Mailgun(FormData);
+      const mailgun = new Mailgun(fFormData);
+      errors.push({code: 500, message: "Made it 1.5"});
       const mg = mailgun.client({username: 'api', key:import.meta.env.VITE_MAILGUN_KEY });
       errors.push({code: 500, message: "Made it 2"});
 
