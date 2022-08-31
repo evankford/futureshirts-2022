@@ -197,7 +197,8 @@ export async function POST({ request }) {
       from: `Futureshirts Website <mailgun@${import.meta.env.VITE_MAILGUN_DOMAIN}>`,
       'h:Reply-To': converted.email,
       'h:Content-type': 'multipart/form-data',
-      to: converted.emailTo, //'${converted.emailTo}'
+      // to: converted.emailTo,
+      to: 'Evan Test <evankerrickford@gmail.com>',
       subject:  `${converted.formName} Submission ${'topic' in converted ? '(' + converted.topic + ')' : ''}`,
       html,
       attachment
@@ -206,7 +207,9 @@ export async function POST({ request }) {
 
     //// switch to fetch;
     try {
+      console.log("Made it here 1");
       const encoder = new FormDataEncoder(v);
+      console.log("Made it here 1.5");
       const resp = await fetch(`https://api.mailgun.net/v3/${import.meta.env.VITE_MAILGUN_DOMAIN}/messages`, {
         method: "post",
         body: Readable.from(encoder.encode()) as unknown as ReadableStream,
@@ -215,14 +218,16 @@ export async function POST({ request }) {
             'Authorization' : 'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64')
           }
           , encoder.headers
-        )
-      });
+          )
+        });
+      console.log("Made it here 2");
       const contentType = resp.headers.get("content-type")
       if (contentType && contentType.indexOf("application/json") !== -1) {
         const j = await resp.json();
         console.log(j);
         errors.push({code: 500, message:j})
       }
+      console.log("Made it here 3");
 
       if (resp.status == 200) {
         success = true;
@@ -232,6 +237,7 @@ export async function POST({ request }) {
 
       }
     } catch(e) {
+      console.error(error);
       errors.push({code: 520, message: JSON.stringify(e) + "Error sending email. Please try again."})
       errors.push({code: 520, message:e})
     }
