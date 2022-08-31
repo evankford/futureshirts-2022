@@ -204,7 +204,7 @@ export async function POST({ request }) {
     //// switch to fetch;
     try {
       errors.push({code: 1, message: "Got Here"})
-      let encoder: ReturnType<typeof FormDataEncoder>;
+      let encoder: ReturnType<typeof FormDataEncoder> | false = false;
       try {
 
         encoder = new FormDataEncoder(v);
@@ -215,6 +215,7 @@ export async function POST({ request }) {
       }
       if (!encoder) {
         return {
+          status: 500,
           body : {
             errors
           }
