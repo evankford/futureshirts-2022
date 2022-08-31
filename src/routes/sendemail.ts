@@ -204,14 +204,17 @@ export async function POST({ request }) {
     //// switch to fetch;
     try {
       const encoder = new FormDataEncoder(v);
-      console.log(v.get('from'));
       errors.push({code: 1, message: "Got Here"})
+      const h = 'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64');
+      errors.push({code: 1.5, message: "Got Here"});
+      const read =  Readable.from(encoder)
+      errors.push({code: 1.75, message: "Got Here"});;
       const resp = await fetch(`https://api.mailgun.net/v3/${import.meta.env.VITE_MAILGUN_DOMAIN}/messages`, {
         method: "post",
-        body: Readable.from(encoder),
+        body: read,
         headers: Object.assign(
           {
-            'Authorization' : 'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64')
+            'Authorization' : h
           },
           encoder.headers
           )
