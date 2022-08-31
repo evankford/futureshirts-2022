@@ -210,7 +210,10 @@ export async function POST({ request }) {
         encoder = new FormDataEncoder(v);
         errors.push({code: 1.1, message: "Made it past encoder"});
       } catch(e) {
+
         errors.push({code: 1.2, message: "Can't instantiate encoder"});
+        errors.push({code:1.20 , message: e})
+        errors.push({code:1.20 , message: JSON.parse(e)});
 
       }
       if (!encoder) {
