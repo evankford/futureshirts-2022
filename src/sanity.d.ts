@@ -65,7 +65,7 @@ interface SocialMediaSettings {
 interface ContactOption {
   title: string,
   message: Block[],
-  email?: string,
+  email?: EmailOptionShape[],
 }
 
 

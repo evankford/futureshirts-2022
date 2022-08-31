@@ -6,29 +6,23 @@
   import Message from "$lib/components/fields/Message.svelte";
   import SubmitButton from "$lib/components/fields/SubmitButton.svelte";
   import SvelteMarkdown from "svelte-markdown";
-  import { onMount } from "svelte";
-  let emailTo: string | false = false;
-  let emailOverride: string | false = false;
+  let emailOverride: EmailOptionShape[] | false = false;
 
-  onMount(()=> {
-    if (!emailOverride) {
-      emailTo = email
-    }
-  })
 
-  $: {
-    if (emailOverride) {
-      emailTo = emailOverride;
-    }
-  }
 
   function processFields(f:Fields):FormData{
     let form_data = new FormData();
     const emailToArray:string[] = [];
     email.forEach( a => {
       emailToArray.push(`${a.name ? a.name + ' ' : ''}<${a.email}>`);
+
     }
     )
+    if (emailOverride) {
+      emailOverride.forEach(e=> {
+        emailToArray.push(`${e.name ? e.name + ' ' : ''}<${e.email}>`)
+      })
+    }
     form_data.append('formName', 'Contact Form');
     const keys = Object.keys(f);
     if (keys && keys.length >= 1) {
@@ -98,9 +92,7 @@
     errorTitle: string;
 </script>
 <FormWrap id="contact" {onSubmit}>
-  {#if emailTo}
-  <input type="hidden" name="emailTo" value={emailOverride ? emailOverride : emailTo}/>
-  {/if}
+
   <Name required/>
   <Email required/>
   <Topic topics={contactOptions} bind:emailTo={emailOverride}/>

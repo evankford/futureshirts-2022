@@ -15,7 +15,6 @@
 
     const emailToArray:string[] = [];
     email.forEach( a => {
-      console.log(a);
       emailToArray.push(`${a.name ? a.name + ' ' : ''}<${a.email}>`);
     }
     )
@@ -109,8 +108,6 @@
     <h3>References:</h3>
   <p>Please add details for up to 4 references.</p>
   <References required max={4}/>
-
-
   <SubmitButton centered>Submit Application<span slot="processing">Submitting</span></SubmitButton>
   <div slot="success">
     {#if successTitle}<h2>{successTitle}</h2>{/if}

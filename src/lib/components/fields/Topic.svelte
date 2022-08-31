@@ -43,7 +43,7 @@
   }
   let listOpen = false, value: string | false , filterText ='';
 
-  export let topics: ContactOption[] = [], emailTo:false|string = false, id: string = "topic", required:boolean = true;
+  export let topics: ContactOption[] = [], emailTo:EmailOptionShape[] | false = false, id: string = "topic", required:boolean = true;
 </script>
 <FieldWrap {id}>
 <label class:filled={value && value != '' || filterText.length > 0} class:active={listOpen} for={id}>
