@@ -60,11 +60,10 @@
       });
       const json = await resp.json();
 
+      console.log(resp);
       if (resp.status != 200) {
-        console.log(resp);
         let message:string | undefined = undefined;
         if (json.errors) {
-
          json.errors.map((error : {code: number, message: string})=>{
           message += `<br/> Error ${error.code}:   ${error.message}.<br/>`
          })
@@ -78,7 +77,7 @@
         success: true
       }
     } catch(e) {
-
+      console.log(e);
       return {
         success:false,
         message : `<br/> Error ${e}:.<br/>`
