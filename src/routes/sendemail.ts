@@ -233,7 +233,6 @@ export async function POST({ request }) {
       } else {
         errors.push({code: 500, message: "Made it 4 success"});
         errors.push({code: resp.status, message:resp.message})
-
       }
     } catch(e) {
       errors.push({code: 500, message: "Catched"});
