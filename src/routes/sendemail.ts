@@ -1,11 +1,9 @@
 import {Buffer} from "buffer";
-// import {Readable} from "readable-stream";
-import fFormData from "form-data";
-import Mailgun from "mailgun.js/mailgun.node";
-
-// import { FormDataEncoder } from 'form-data-encoder';
+import {Readable} from "readable-stream";
+import {FormDataEncoder} from "form-data-encoder"
+import {FormData as NodeFormData}  from 'formdata-node';
 import {contact, job, support} from '$lib/emailTemplate';
-import type { MailgunMessageData } from "mailgun.js/interfaces/Messages";
+import type { IFormDataOptions } from "mailgun.js/interfaces/IFormData";
 
 function generateHTML(data: ContactData | JobData | SupportData):string | false {
   if (!('formName' in data)) {
@@ -27,8 +25,8 @@ interface EmailData {
   [key:string] : string | string[] | Attachment[] |  false,
 }
 
-function convertToFormData(data:EmailData):FormData {
-  let fData = new FormData();
+function convertToFormData(data:EmailData):NodeFormData {
+  let fData = new NodeFormData();
   Object.keys(data).forEach(key => {
     const val = data[key] ;
     if (!val) {return;}
@@ -52,7 +50,7 @@ function convertToFormData(data:EmailData):FormData {
     }
     fData.append(key, data[key] as string)
   });
-  return fData
+  return fData;
 }
 
 interface Attachment {
@@ -81,8 +79,8 @@ async function generateAttachments(data: ContactData | JobData | SupportData) {
 function convertFormData(form_data: FormData):ContactData | JobData | SupportData | false | ResponseError[] {
   let errors:ResponseError[] = [];
   let prim: {[key:string]: FormDataEntryValue } ={};
+
   for (const pair of form_data.entries()) {
-    //@ts-ignore
     prim[pair[0] ] = pair[1];
   }
 
@@ -171,7 +169,6 @@ export async function POST({ request }) {
   const converted = convertFormData(formData);
   if (Array.isArray(converted)) {
     errors = converted;
-    errors.push({code: 500, message: 'converted has an error'});
     return {
         status: 500,
         body: { errors }
@@ -187,68 +184,59 @@ export async function POST({ request }) {
          }
       }
   }
+    //Need to check for email-to:
+
+
 
     const html = generateHTML(converted);
 
-    if (!html) {
-      return {
-         status: 500,
-          body: {
-            errors: [
-              {code: 500, message: "Could not generate html"}
-            ]
-          }
-      }
-    }
-
     let attachment = await generateAttachments(converted);
-    let data:MailgunMessageData = {
+    let data:IFormDataOptions = {
       from: `Futureshirts Website <mailgun@${import.meta.env.VITE_MAILGUN_DOMAIN}>`,
       'h:Reply-To': converted.email,
-      'h:Content-type': 'multipart/form-data',
       // to: converted.emailTo,
       to: 'Evan Test <evankerrickford@gmail.com>',
       subject:  `${converted.formName} Submission ${'topic' in converted ? '(' + converted.topic + ')' : ''}`,
       html,
       attachment
     }
-    // const v = convertToFormData(data);
+    const v = convertToFormData(data) ;
     //// switch to fetch;
     try {
-      errors.push({code: 500, message: "Made it 1"});
-      const mailgun = new Mailgun(fFormData);
-      errors.push({code: 500, message: "Made it 1.5"});
-      const mg = mailgun.client({username: 'api', key:import.meta.env.VITE_MAILGUN_KEY });
-      errors.push({code: 500, message: "Made it 2"});
+      const encoder = new FormDataEncoder(v);
+      console.log(v.get('from'));
+      errors.push({code: 1, message: "Got Here"})
+      const resp = await fetch(`https://api.mailgun.net/v3/${import.meta.env.VITE_MAILGUN_DOMAIN}/messages`, {
+        method: "post",
+        body: Readable.from(encoder),
+        headers: Object.assign(
+          {
+            'Authorization' : 'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64')
+          },
+          encoder.headers
+          )
+        });
+        errors.push({code: 2, message: "Got Here"});
 
-      const resp = await mg.messages.create(import.meta.env.VITE_MAILGUN_DOMAIN, data);
-      errors.push({code: 500, message: "Made it 3"});
-      errors.push({code:510, message: JSON.stringify(resp)});
 
-      if (resp.status == 200) {
-        errors.push({code: 500, message: "Made it 4"});
+        if (resp.status == 200) {
+        errors.push({code: 3, message: "Got Successe"});
         success = true;
       } else {
-        errors.push({code: 500, message: "Made it 4 success"});
-        errors.push({code: resp.status, message:"Something in the message?"})
+        errors.push({code: 3, message: "Got Failed"});
+        const j =await  resp.json();
+        errors.push({code: 500, message:JSON.stringify(j)})
       }
     } catch(e) {
-      errors.push({code: 500, message: "Catched"});
-      errors.push({code: 521, message:Object.keys(e).join(',')})
-      if (e.message) {
-        errors.push({code: 521, message:e.message})
-      }
-      errors.push({code: 522, message:e})
-      errors.push({code: 523, message: JSON.stringify(e) + "Error sending email. Please try again."})
+      errors.push({code: 4, message: "Got Caught"});
+      console.error(e);
       return {
         status: 500,
         body: { errors }
       }
     }
 
-
     if (success) {
-      console.log(errors);
       return {
         status: 200,
         body: {

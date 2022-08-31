@@ -67,7 +67,6 @@
       if (resp.status != 200) {
         let message:string | undefined = undefined;
         if (json.errors) {
-
          json.errors.map((error : {code: number, message: string})=>{
           message += `Error ${error.code}:   ${error.message}.<br/>`
          })

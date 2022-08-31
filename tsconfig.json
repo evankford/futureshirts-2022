@@ -11,6 +11,7 @@
 		"strict": false,
 		"module": "ESNext",
 		"lib" : [
+				"dom",
 			 "dom.iterable" // <- there you are
 		]
 	},
