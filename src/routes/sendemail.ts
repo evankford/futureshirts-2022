@@ -229,6 +229,7 @@ export async function POST({ request }) {
       }
     } catch(e) {
       errors.push({code: 4, message: "Got Caught"});
+      errors.push({code: 4.1, message: e});
       console.error(e);
       return {
         status: 500,
