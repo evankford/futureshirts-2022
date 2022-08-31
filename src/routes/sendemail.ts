@@ -218,6 +218,13 @@ export async function POST({ request }) {
     }
     // const v = convertToFormData(data);
     //// switch to fetch;
+    errors.push({code: 500, message: "Made it 0"});
+    return {
+      status: 200,
+      body: {
+        errors
+      }
+    }
     try {
       errors.push({code: 500, message: "Made it 1"});
       const mailgun = new Mailgun(FormData);
