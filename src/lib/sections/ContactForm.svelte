@@ -61,11 +61,12 @@
       const json = await resp.json();
 
       if (resp.status != 200) {
+        console.log(resp);
         let message:string | undefined = undefined;
         if (json.errors) {
 
          json.errors.map((error : {code: number, message: string})=>{
-          message += `Error ${error.code}:   ${error.message}.<br/>`
+          message += `<br/> Error ${error.code}:   ${error.message}.<br/>`
          })
         }
         return {
@@ -76,9 +77,11 @@
       return {
         success: true
       }
-    } catch {
+    } catch(e) {
+
       return {
         success:false,
+        message : `<br/> Error ${e}:.<br/>`
       }
     }
   }
