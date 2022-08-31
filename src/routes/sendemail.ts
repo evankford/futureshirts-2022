@@ -207,9 +207,9 @@ export async function POST({ request }) {
 
     //// switch to fetch;
     try {
-      console.log("Made it here 1");
+      errors.push({message: "Made it here 1", code: 520});
       const encoder = new FormDataEncoder(v);
-      console.log("Made it here 1.5");
+      errors.push({message: "Made it here 1.5", code: 520});
       const resp = await fetch(`https://api.mailgun.net/v3/${import.meta.env.VITE_MAILGUN_DOMAIN}/messages`, {
         method: "post",
         body: Readable.from(encoder.encode()) as unknown as ReadableStream,
@@ -220,14 +220,14 @@ export async function POST({ request }) {
           , encoder.headers
           )
         });
-      console.log("Made it here 2");
+      errors.push({message: "Made it here 2", code: 520});
       const contentType = resp.headers.get("content-type")
       if (contentType && contentType.indexOf("application/json") !== -1) {
         const j = await resp.json();
-        console.log(j);
+        errors.push({message: j, code: 520});
         errors.push({code: 500, message:j})
       }
-      console.log("Made it here 3");
+      errors.push({message: "Made it here 3", code: 520});
 
       if (resp.status == 200) {
         success = true;
