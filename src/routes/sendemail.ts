@@ -1,7 +1,7 @@
 import {Buffer} from "buffer";
 // import {Readable} from "readable-stream";
 import fFormData from "form-data";
-import Mailgun from "mailgun.js";
+import Mailgun from "mailgun.js/mailgun.node";
 
 // import { FormDataEncoder } from 'form-data-encoder';
 import {contact, job, support} from '$lib/emailTemplate';
