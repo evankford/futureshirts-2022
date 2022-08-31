@@ -172,6 +172,7 @@ export async function POST({ request }) {
   const converted = convertFormData(formData);
   if (Array.isArray(converted)) {
     errors = converted;
+    errors.push({code: 500, message: 'converted has an error'});
     return {
         status: 500,
         body: { errors }
@@ -187,10 +188,6 @@ export async function POST({ request }) {
          }
       }
   }
-  if (formData) {
-    //Need to check for email-to:
-
-
 
     const html = generateHTML(converted);
 
@@ -218,13 +215,6 @@ export async function POST({ request }) {
     }
     // const v = convertToFormData(data);
     //// switch to fetch;
-    errors.push({code: 500, message: "Made it 0"});
-    return {
-      status: 200,
-      body: {
-        errors
-      }
-    }
     try {
       errors.push({code: 500, message: "Made it 1"});
       const mailgun = new Mailgun(FormData);
@@ -266,7 +256,7 @@ export async function POST({ request }) {
         body: { errors }
       }
     }
-  }
+
 
   return {
     status: 500,
