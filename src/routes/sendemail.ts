@@ -203,7 +203,23 @@ export async function POST({ request }) {
     const v = convertToFormData(data) ;
     //// switch to fetch;
     try {
-      const encoder = new FormDataEncoder(v);
+      errors.push({code: 1, message: "Got Here"})
+      let encoder: ReturnType<typeof FormDataEncoder>;
+      try {
+
+        encoder = new FormDataEncoder(v);
+        errors.push({code: 1.1, message: "Made it past encoder"});
+      } catch(e) {
+        errors.push({code: 1.2, message: "Can't instantiate encoder"});
+
+      }
+      if (!encoder) {
+        return {
+          body : {
+            errors
+          }
+        }
+      }
       errors.push({code: 1, message: "Got Here"})
       const h = 'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64');
       errors.push({code: 1.5, message: "Got Here"});
