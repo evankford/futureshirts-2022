@@ -5,7 +5,6 @@ import Mailgun from "mailgun.js";
 
 // import { FormDataEncoder } from 'form-data-encoder';
 import {contact, job, support} from '$lib/emailTemplate';
-import type { IFormDataOptions, InputFormData } from "mailgun.js/interfaces/IFormData";
 import type { MailgunMessageData } from "mailgun.js/interfaces/Messages";
 
 function generateHTML(data: ContactData | JobData | SupportData):string | false {
@@ -223,13 +222,14 @@ export async function POST({ request }) {
 
       const resp = await mg.messages.create(import.meta.env.VITE_MAILGUN_DOMAIN, data);
       errors.push({code: 500, message: "Made it 3"});
+      errors.push({code:510, message: JSON.stringify(resp)});
 
       if (resp.status == 200) {
         errors.push({code: 500, message: "Made it 4"});
         success = true;
       } else {
         errors.push({code: 500, message: "Made it 4 success"});
-        errors.push({code: resp.status, message:resp.message})
+        errors.push({code: resp.status, message:"Something in the message?"})
       }
     } catch(e) {
       errors.push({code: 500, message: "Catched"});
@@ -243,6 +243,7 @@ export async function POST({ request }) {
 
 
     if (success) {
+      console.log(errors);
       return {
         status: 200,
         body: {
