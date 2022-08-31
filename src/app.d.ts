@@ -13,3 +13,9 @@ declare namespace App {
 		footer: FooterSettings,
 	}
 }
+
+declare global {
+  interface FormData {
+    entries(): Iterator<[USVString, USVString | Blob]>;
+  }
+}

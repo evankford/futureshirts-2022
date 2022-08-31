@@ -31,6 +31,7 @@
 <script lang="ts">
   ///Okay, doing some hover type things here
   import { navigating } from "$app/stores";
+  import "$lib/styles/global.scss";
   navigating.subscribe(val=> {
     if (val) {
       navOpen.set(false);
@@ -149,7 +150,5 @@ import { onDestroy } from "svelte";
 
 <style lang="scss" global>
   //Import global styles
-  @use "../lib/styles/ress";
-  @use "../lib/styles/app";
-  @use "../lib/styles/devices";
+
 </style>

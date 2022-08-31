@@ -344,7 +344,7 @@ text-align: center;
     --box-bg-color: rgb(var(--color-background));
   }
 
-  .slide-logo {
+  /* .slide-logo {
     button {
       height: 40px;
       width: 75px;
@@ -374,7 +374,7 @@ text-align: center;
         transform: scale(0.95);
       }
     }
-  }
+  } */
 
 
 </style>
