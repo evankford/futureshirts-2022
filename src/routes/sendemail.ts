@@ -213,7 +213,8 @@ export async function POST({ request }) {
 
         errors.push({code: 1.2, message: "Can't instantiate encoder"});
         errors.push({code:1.20 , message: e})
-        errors.push({code:1.20 , message: JSON.parse(e)});
+        errors.push({code:1.20 , message: e.message})
+        errors.push({code:1.20 , message: JSON.stringify(e)});
 
       }
       if (!encoder) {
