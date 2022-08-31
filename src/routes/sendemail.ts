@@ -27,7 +27,7 @@ interface EmailData {
   [key:string] : string | string[] | Attachment[] |  false,
 }
 
-function convertToFormData(data:EmailData):NFormData {
+function convertToFormData(data:EmailData):FormData {
   let fData = new FormData();
   Object.keys(data).forEach(key => {
     const val = data[key] ;
