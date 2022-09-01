@@ -71,6 +71,7 @@
 		"byte-size": "^8.1.0",
 		"countup.js": "^2.3.2",
 		"detect-it": "^4.0.1",
+		"formdata-polyfill": "^4.0.10",
 		"just-debounce-it": "^3.1.1",
 		"mailgun.js": "^7.0.4",
 		"mjml": "^4.13.0",

@@ -14,8 +14,3 @@ declare namespace App {
 	}
 }
 
-declare global {
-  interface FormData {
-    entries(): Iterator<[USVString, USVString | Blob]>;
-  }
-}

@@ -1,7 +1,7 @@
 import {Buffer} from "buffer";
 import {Readable} from "readable-stream";
-import {FormDataEncoder} from "form-data-encoder"
-import {FormData as NodeFormData}  from 'formdata-node';
+import {FormDataEncoder, type FormDataLike} from "form-data-encoder"
+import { FormData } from 'formdata-polyfill/esm.min.js'
 import {contact, job, support} from '$lib/emailTemplate';
 import type { IFormDataOptions } from "mailgun.js/interfaces/IFormData";
 
@@ -25,8 +25,8 @@ interface EmailData {
   [key:string] : string | string[] | Attachment[] |  false,
 }
 
-function convertToFormData(data:EmailData):NodeFormData {
-  let fData = new NodeFormData();
+function convertToFormData(data:EmailData) {
+  let fData = new FormData();
   Object.keys(data).forEach(key => {
     const val = data[key] ;
     if (!val) {return;}
@@ -204,10 +204,10 @@ export async function POST({ request }) {
     //// switch to fetch;
     try {
       errors.push({code: 1, message: "Got Here"})
-      let encoder: ReturnType<typeof FormDataEncoder> | false = false;
+      let encoder: FormDataEncoder | false = false;
       try {
 
-        encoder = new FormDataEncoder(v);
+        encoder = new FormDataEncoder(v as unknown as FormDataLike);
         errors.push({code: 1.1, message: "Made it past encoder"});
       } catch(e) {
 
