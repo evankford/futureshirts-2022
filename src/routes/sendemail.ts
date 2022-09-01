@@ -230,12 +230,12 @@ export async function POST({ request }) {
       }
       errors.push({code: 1, message: "Got Here"})
       errors.push({code: 1.1, message: "Got Here"});
-      let read: ReturnType<Readable.from>;
+      let read: Readable;
       try {
 
-         read =  Readable.from(encoder.encode())
+         read =  Readable.from(encoder)
       } catch(e) {
-      errors.push({code: 1.2, message: "Can't instantiate reader"});
+        errors.push({code: 1.2, message: "Can't instantiate reader"});
         errors.push({code:1.20 , message: e})
         errors.push({code:1.20 , message: e.message})
         errors.push({code:1.20 , message: JSON.stringify(e)});
@@ -274,6 +274,7 @@ export async function POST({ request }) {
         errors.push({code: 3, message: "Got Success"});
         success = true;
       } else {
+        console.log(read);
         errors.push({code: 3, message: "Got Failed"});
         const j =await  resp.json();
         if ('message' in j) {
