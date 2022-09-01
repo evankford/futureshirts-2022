@@ -197,6 +197,7 @@ export async function POST({ request }) {
     let data:IFormDataOptions = {
       from: `Futureshirts Website <mailgun@${import.meta.env.VITE_MAILGUN_DOMAIN}>`,
       'h:Reply-To': converted.email,
+      'h:Content-Type': 'multipart/form-data',
       // to: converted.emailTo,
       to: 'Evan Test <evankerrickford@gmail.com>',
       subject:  `${converted.formName} Submission ${'topic' in converted ? '(' + converted.topic + ')' : ''}`,
@@ -270,7 +271,12 @@ export async function POST({ request }) {
       } else {
         errors.push({code: 3, message: "Got Failed"});
         const j =await  resp.json();
-        errors.push({code: 500, message:JSON.stringify(j)})
+        if ('message' in j) {
+          errors.push({code: 500, message:j.message})
+        } else {
+
+          errors.push({code: 500, message:JSON.stringify(j)})
+        }
       }
     } catch(e) {
       errors.push({code: 4, message: "Got Caught"});
