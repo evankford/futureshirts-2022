@@ -257,10 +257,10 @@ export async function POST({ request }) {
         method: "post",
         body: read,
         headers: Object.assign(
+          encoder.headers,
           {
             'Authorization' : h
-          },
-          encoder.headers
+          }
           )
         });
         errors.push({code: 2, message: "Got Here"});
