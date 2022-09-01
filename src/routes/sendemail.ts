@@ -197,7 +197,6 @@ export async function POST({ request }) {
     let data:IFormDataOptions = {
       from: `Futureshirts Website <mailgun@${import.meta.env.VITE_MAILGUN_DOMAIN}>`,
       'h:Reply-To': converted.email,
-      'h:Content-Type': 'multipart/form-data',
       // to: converted.emailTo,
       to: 'Evan Test <evankerrickford@gmail.com>',
       subject:  `${converted.formName} Submission ${'topic' in converted ? '(' + converted.topic + ')' : ''}`,
@@ -232,6 +231,7 @@ export async function POST({ request }) {
       errors.push({code: 1, message: "Got Here"})
       const h = 'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64');
       errors.push({code: 1.1, message: "Got Here"});
+      errors.push({code: 1.1, message: JSON.stringify(encoder.headers)});
       let read: ReturnType<Readable.from>;
       try {
 
@@ -251,6 +251,7 @@ export async function POST({ request }) {
           }
         }
       }
+
       errors.push({code: 1.75, message: "Got Here"});;
       const resp = await fetch(`https://api.mailgun.net/v3/${import.meta.env.VITE_MAILGUN_DOMAIN}/messages`, {
         method: "post",
@@ -266,16 +267,16 @@ export async function POST({ request }) {
 
 
         if (resp.status == 200) {
-        errors.push({code: 3, message: "Got Successe"});
+        errors.push({code: 3, message: "Got Success"});
         success = true;
       } else {
         errors.push({code: 3, message: "Got Failed"});
         const j =await  resp.json();
         if ('message' in j) {
-          errors.push({code: 500, message:j.message})
+          errors.push({code: resp.status, message:j.message})
         } else {
 
-          errors.push({code: 500, message:JSON.stringify(j)})
+          errors.push({code: resp.status, message:JSON.stringify(j)})
         }
       }
     } catch(e) {
