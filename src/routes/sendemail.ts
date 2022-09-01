@@ -228,7 +228,25 @@ export async function POST({ request }) {
       errors.push({code: 1, message: "Got Here"})
       const h = 'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64');
       errors.push({code: 1.5, message: "Got Here"});
-      const read =  Readable.from(encoder)
+      let read: ReturnType<Readable.from>;
+      try {
+
+         read =  Readable.from(encoder)
+      } catch(e) {
+      errors.push({code: 1.2, message: "Can't instantiate reader"});
+        errors.push({code:1.20 , message: e})
+        errors.push({code:1.20 , message: e.message})
+        errors.push({code:1.20 , message: JSON.stringify(e)});
+
+      }
+      if (!read) {
+        return {
+          status: 500,
+          body : {
+            errors
+          }
+        }
+      }
       errors.push({code: 1.75, message: "Got Here"});;
       const resp = await fetch(`https://api.mailgun.net/v3/${import.meta.env.VITE_MAILGUN_DOMAIN}/messages`, {
         method: "post",
