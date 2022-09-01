@@ -6,7 +6,7 @@ import {contact, job, support} from '$lib/emailTemplate';
 import type { IFormDataOptions } from "mailgun.js/interfaces/IFormData";
 
 // @ts-ignore
-window.Buffer = window.Buffer || Buffer;
+globalThis.Buffer = Buffer;
 
 function generateHTML(data: ContactData | JobData | SupportData):string | false {
   if (!('formName' in data)) {
@@ -211,7 +211,7 @@ export async function POST({ request }) {
       try {
 
         encoder = new FormDataEncoder(v as unknown as FormDataLike);
-        errors.push({code: 1.1, message: "Made it past encoder"});
+        // errors.push({code: 1.1, message: "Made it past encoder"});
       } catch(e) {
 
         errors.push({code: 1.2, message: "Can't instantiate encoder"});
@@ -230,11 +230,11 @@ export async function POST({ request }) {
       }
       errors.push({code: 1, message: "Got Here"})
       const h = 'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64');
-      errors.push({code: 1.5, message: "Got Here"});
+      errors.push({code: 1.1, message: "Got Here"});
       let read: ReturnType<Readable.from>;
       try {
 
-         read =  Readable.from(encoder)
+         read =  Readable.from(encoder.encode())
       } catch(e) {
       errors.push({code: 1.2, message: "Can't instantiate reader"});
         errors.push({code:1.20 , message: e})
