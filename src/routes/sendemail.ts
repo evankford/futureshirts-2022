@@ -255,7 +255,7 @@ export async function POST({ request }) {
       const headers = Object.assign(
           encoder.headers,
           {
-            'Authorization' :  'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64');
+            'Authorization' :  'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64'),
           }
           )
       errors.push({code: 2, message: "Got Here"});
