@@ -5,6 +5,9 @@ import { FormData } from 'formdata-polyfill/esm.min.js'
 import {contact, job, support} from '$lib/emailTemplate';
 import type { IFormDataOptions } from "mailgun.js/interfaces/IFormData";
 
+// @ts-ignore
+window.Buffer = window.Buffer || Buffer;
+
 function generateHTML(data: ContactData | JobData | SupportData):string | false {
   if (!('formName' in data)) {
     throw new Error("How did this happen? No form name in data");
