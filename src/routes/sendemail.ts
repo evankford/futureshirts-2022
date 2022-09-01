@@ -230,7 +230,6 @@ export async function POST({ request }) {
       }
       errors.push({code: 1, message: "Got Here"})
       errors.push({code: 1.1, message: "Got Here"});
-      errors.push({code: 1.1, message: JSON.stringify(encoder.headers)});
       let read: ReturnType<Readable.from>;
       try {
 
@@ -250,14 +249,18 @@ export async function POST({ request }) {
           }
         }
       }
-
-      errors.push({code: 1.75, message: "Got Here"});;
-      const headers = Object.assign(
-          encoder.headers,
-          {
-            'Authorization' :  'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64'),
-          }
-          )
+      errors.push({code: 1.75, message: "Got Here"});
+      const startHeaders = {
+        'Authorization' :  'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64'),
+      }
+      const headers:HeadersInit = Object.assign(
+        startHeaders,
+        encoder.headers,
+        );
+        errors.push({code: 1.1, message: JSON.stringify(headers)});
+        console.log(headers);
+      errors.push({code: 1.85, message: "Got Here"});
+      errors.push({code: 2, message: "Got Headers"});
       errors.push({code: 2, message: "Got Here"});
       const resp = await fetch(`https://api.mailgun.net/v3/${import.meta.env.VITE_MAILGUN_DOMAIN}/messages`, {
         method: "post",
