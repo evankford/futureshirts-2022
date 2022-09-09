@@ -177,14 +177,15 @@ export const POST:RequestHandler = async ({ request }) => {
       html,
       attachment
     }
+  Sentry.captureMessage("Pre mailgun.");
+
+  try{
 
     const M = new Mailgun(FormDataN);
     const mail = M.client({username:'api', key: import.meta.env.VITE_MAILGUN_KEY });
-
-     //// switch to fetch;
     try {
       Sentry.captureMessage("Trying to send.");
-      await mail.messages.create(import.meta.env.VITE_MAILGUN_DOMAIN, data);
+      await mail!.messages.create(import.meta.env.VITE_MAILGUN_DOMAIN, data);
       success=true;
 
 
@@ -197,6 +198,12 @@ export const POST:RequestHandler = async ({ request }) => {
         status: 500
       })
     }
+  } catch(e){
+    Sentry.captureException(e);
+    throw error(500, "Mailgun didn't work");
+  }
+
+     //// switch to fetch;
 
     if (success) {
       return json$1({
