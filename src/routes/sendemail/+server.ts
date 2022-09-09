@@ -11,7 +11,6 @@ Sentry.init({
 
 Sentry.captureMessage('Sendmail loaded');
 
-
 import { error, json as json$1 } from '@sveltejs/kit';
 import {Buffer} from "buffer";
 import FormDataN from 'form-data'
@@ -219,6 +218,7 @@ export const POST:RequestHandler = async ({ request }) => {
    }
   } catch(e){
     Sentry.captureException(e);
+    throw error(500, "Error at outside wrap");
   }
 
      //// switch to fetch;
