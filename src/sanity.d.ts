@@ -152,7 +152,7 @@ interface ContactSettings extends FormSettings {
   image:SanityImageObject
   content: Block[]
   contactOptions: ContactOption[]
-  contactVideo?: VideoObject
+  contactVideo?: VideoOrImage
 }
 interface SupportSettings extends DocBase {
   email: string,

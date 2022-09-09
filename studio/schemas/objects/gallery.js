@@ -11,7 +11,7 @@ export default {
 			name: 'images',
 			title: 'Images',
 			type: 'array',
-			of: [Image, { type: 'video'}],
+			of: [Image],
 			options: {
 				isHighlighted: true
 			}

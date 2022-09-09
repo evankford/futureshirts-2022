@@ -3,7 +3,8 @@
 import isOnScreen from "$lib/isOnScreen";
   import Video from "$lib/components/Video.svelte";
   import SectionBox from "$lib/components/SectionBox.svelte";
-  export let title:string | null, subtitle: string| null, intro: string|null, box: Array<Block>, moreVideo:VideoObject, anchor: string;
+import Image from "$lib/components/Image.svelte";
+  export let title:string | null, subtitle: string| null, intro: string|null, box: Array<Block>, moreVideo:VideoOrImage, anchor: string;
 
 </script>
 <section use:isOnScreen class="more" id="{anchor}">
@@ -17,7 +18,11 @@ import isOnScreen from "$lib/isOnScreen";
       </div>
     </div>
     <div class="bottom ">
-      <Video video={moreVideo} />
+      {#if moreVideo.is == 'video'}
+        <Video video={moreVideo} />
+      {:else}
+       <Image width={1200} image={moreVideo.image}/>
+      {/if}
     </div>
 </section>
 <style lang="scss">
@@ -74,9 +79,9 @@ import isOnScreen from "$lib/isOnScreen";
   width: 650px;
   height: 650px;
   @include media-query($medium-up) {
-    bottom: clamp(-60vw, -350px, -30vw);
-    width: clamp(60vw, 900px, 80vw);
-    height: clamp(60vw, 900px, 80vw);
+    bottom: clamp(-28vw, -300px, -30vw);
+    width: clamp(50vw, 900px, 80vw);
+    height: clamp(50vw, 900px, 80vw);
 
   }
   border-radius: 50%;

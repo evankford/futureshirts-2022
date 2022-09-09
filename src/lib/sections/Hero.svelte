@@ -145,7 +145,7 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
       </div>
       <div class="right">
         {#if box}
-        <SectionBox {box} style="none"/>
+        <SectionBox {box} style="simple"/>
         {/if}
       </div>
     </div>

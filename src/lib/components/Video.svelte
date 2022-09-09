@@ -11,7 +11,7 @@
         return false;
       }
       if (video.smallVideo) {
-        return video.smallVideo + ' 900w, ' + video.local
+        return video.smallVideo + ' 750w, ' + video.local
       } else {
         return video.local
       }

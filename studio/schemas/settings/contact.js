@@ -23,16 +23,7 @@ export default {
 		errorMessage: "We couldn't send your message. Please reload this page and try again."
 	},
 	fields: [
-		{
-			name: 'note',
-			type: 'note',
-			group:  ['settings', 'content'],
-			options: {
-				headline: 'These are the form settings',
-				message: 'To update the contact page, edit the page with the slug "/contact".',
-				tone: 'caution'
-			}
-		},
+
 		{
 			name: 'title',
 			title: 'Title',
@@ -96,7 +87,7 @@ export default {
 			name: 'video',
 			title: 'Video',
 			group: 'settings',
-			type: 'video'
+			type: 'videoOrImage'
 		}
 	]
 };

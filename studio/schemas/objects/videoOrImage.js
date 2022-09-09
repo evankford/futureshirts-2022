@@ -27,14 +27,15 @@ export default {
         hotspot: true,
         accept: 'image/jpeg'
       },
+      hidden:({parent})=>parent.is !='image'
       // validation: (R) => R.required()
     },
     {
       name: 'type',
       title: 'Type',
       type: 'string',
-      initialValue: 'youtube',
-      default: 'youtube',
+      initialValue: 'local',
+      default: 'local',
       hidden: ({parent})=> parent.is !== 'video',
       options: {
         layout: 'select',

@@ -165,7 +165,7 @@ export default {
 			name: 'moreVideo',
 			title: 'More Video',
 			description: 'An .mp4 video about 3MB or smaller. 720 x 720px preferred',
-			type: 'video',
+			type: 'videoOrImage',
 			group: ['content'],
 			hidden: ({ parent }) => !parent.layout || parent.layout !== 'more'
 		},

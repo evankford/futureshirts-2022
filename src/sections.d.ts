@@ -52,7 +52,7 @@ interface HeroSection extends CommonSection {
 
 interface MoreSection extends CommonSection {
   layout: 'more'
-  moreVideo: VideoObject
+  moreVideo: VideoOrImage
 }
 
 interface ProductSection extends ImageSection {

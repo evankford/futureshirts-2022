@@ -2,6 +2,7 @@
 
   import isOnScreen, {stopWatching} from "$lib/isOnScreen";
   import Video from "$lib/components/Video.svelte";
+  import Image from "$lib/components/Image.svelte";
   import ContactForm from "$lib/sections/ContactForm.svelte";
   import { slide } from "svelte/transition";
   import LiNormal from "$lib/components/portableText/LiNormal.svelte";
@@ -13,7 +14,11 @@
 <section use:isOnScreen on:onscreen={(e)=> {onScreen = true; stopWatching(e.target);}} class="page-content hero-image image-hero">
   {#if onScreen && data.contactVideo}
   <div transition:slide class="bg">
+    {#if data.contactVideo.is=='image'}
+    <Image width={1200} image={data.contactVideo.image}/>
+    {:else}
     <Video video={data.contactVideo} />
+    {/if}
   </div>
   {/if}
   <div class="wrap">
