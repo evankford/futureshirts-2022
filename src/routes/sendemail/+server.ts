@@ -1,5 +1,14 @@
 import * as Sentry from "@sentry/svelte";
 
+Sentry.init({
+  dsn: "https://2582249d11884e0390407a00c3c0d958@o473025.ingest.sentry.io/6735437",
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
+
 
 import { error, json as json$1 } from '@sveltejs/kit';
 import {Buffer} from "buffer";
