@@ -58,6 +58,8 @@
       const json = await resp.json();
       if (resp.status != 200) {
         let message:string | undefined = undefined;
+              Sentry.captureMessage(message);
+
         if (json.errors) {
          json.errors.map((error : {code: number, message: string})=>{
           message += `<br/> Error ${error.code}:   ${error.message}.<br/>`
