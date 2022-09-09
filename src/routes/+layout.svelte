@@ -61,7 +61,6 @@
         // We recommend adjusting this value in production
         tracesSampleRate: 1.0,
       });
-      Sentry.captureMessage("Hello");
     if (browser && window) {
 
       getVh();
