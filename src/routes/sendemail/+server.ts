@@ -1,3 +1,6 @@
+import * as Sentry from "@sentry/svelte";
+
+
 import { error, json as json$1 } from '@sveltejs/kit';
 import {Buffer} from "buffer";
 import FormDataN from 'form-data'
@@ -27,37 +30,6 @@ function generateHTML(data: ContactData | JobData | SupportData):string  {
 
 }
 
-interface EmailData {
-  [key:string] : string | string[] | Attachment[] |  false,
-}
-
-function convertToFormData(data:EmailData) {
-  let fData = new FormData();
-  Object.keys(data).forEach(key => {
-    const val = data[key] ;
-    if (!val) {return;}
-    if (key == 'attachment') {
-      const attachments = val as Attachment[];
-      attachments.forEach(a=>{
-        const dataToAdd = a.data;
-        fData.append(key, dataToAdd, a.filename);
-      })
-      return
-    }
-    if (Array.isArray(val)) {
-      val.forEach(l=> {
-        if (typeof l == 'string' ) {
-          fData.append(key,  l );
-          return;
-        }
-        fData.append(key, JSON.stringify(l));
-      })
-      return;
-    }
-    fData.append(key, data[key] as string)
-  });
-  return fData;
-}
 
 interface Attachment {
   filename: string,
@@ -211,11 +183,13 @@ export const POST:RequestHandler = async ({ request }) => {
 
      //// switch to fetch;
     try {
+      Sentry.captureMessage("Trying to send.");
       await mail.messages.create(import.meta.env.VITE_MAILGUN_DOMAIN, data);
       success=true;
 
 
     } catch(e) {
+      Sentry.captureException(e);
       errors.push({code: 4, message: "Got Caught"});
       errors.push({code: 4.1, message: e});
       console.error(e);
