@@ -155,8 +155,8 @@ export const POST:RequestHandler = async ({ request }) => {
   let success = false;
   let errors: ResponseError[] = [];
 
-  Sentry.captureMessage('Sendmail got here');
   try{
+    Sentry.captureMessage('Sendmail got here');
 
     const sentFormData = await request.formData();
     const converted = convertFormData(sentFormData);
