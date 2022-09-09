@@ -156,6 +156,7 @@ export const POST:RequestHandler = async ({ request }) => {
   let errors: ResponseError[] = [];
 
   try{
+    errors.push({ message: "Nrer ", code: 1})
     Sentry.captureMessage('Sendmail got here');
 
     const sentFormData = await request.formData();
@@ -214,11 +215,15 @@ export const POST:RequestHandler = async ({ request }) => {
     }
   } catch(e){
     Sentry.captureException(e);
-    throw error(500, "Mailgun didn't work");
+   return json$1({ errors }, {
+        status: 500
+      })
    }
   } catch(e){
     Sentry.captureException(e);
-    throw error(500, "Error at outside wrap");
+     return json$1({ errors }, {
+        status: 500
+      })
   }
 
      //// switch to fetch;
@@ -235,7 +240,9 @@ export const POST:RequestHandler = async ({ request }) => {
     }
 
 
-  return json$1({
+    Sentry.captureMessage("Nothing happened?");
+  return json$1(
+    {
   errors: [
     {
       code: 505,
