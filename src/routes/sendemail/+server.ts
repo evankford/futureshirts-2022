@@ -9,6 +9,8 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
+Sentry.captureMessage('Sendmail loaded');
+
 
 import { error, json as json$1 } from '@sveltejs/kit';
 import {Buffer} from "buffer";
@@ -153,6 +155,8 @@ function convertFormData(form_data: FormData):ContactData | JobData | SupportDat
 export const POST:RequestHandler = async ({ request }) => {
   let success = false;
   let errors: ResponseError[] = [];
+
+  Sentry.captureMessage('Sendmail got here');
 
   const sentFormData = await request.formData();
   const converted = convertFormData(sentFormData);
