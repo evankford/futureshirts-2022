@@ -3,6 +3,7 @@
   import Name from "$lib/components/fields/Name.svelte";
   import Email from "$lib/components/fields/Email.svelte";
   import Topic from "$lib/components/fields/Topic.svelte";
+  import * as Sentry from "@sentry/svelte";
   import Message from "$lib/components/fields/Message.svelte";
   import SubmitButton from "$lib/components/fields/SubmitButton.svelte";
   import SvelteMarkdown from "svelte-markdown";
@@ -53,10 +54,6 @@
       const resp =  await fetch('/sendemail', {
         method: 'POST' ,
         body: processFields(f),
-        // headers: {
-        // 'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL',
-        // 'charset' : 'UTF-8'
-        // }
       });
       const json = await resp.json();
       if (resp.status != 200) {
@@ -76,6 +73,7 @@
       }
     } catch(e) {
       console.log(e);
+      Sentry.captureException(e);
       return {
         success:false,
         message : `<br/> Error ${e}:.<br/>`
