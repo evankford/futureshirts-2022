@@ -6,12 +6,7 @@ const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
 	preprocess: preprocess(),
-
 	kit: {
-
-		prerender: {
-			default: process.env.NODE_ENV ? process.env.NODE_ENV != 'staging' : true
-		},
 		adapter: adapter(),
 	}
 };

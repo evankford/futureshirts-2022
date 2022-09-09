@@ -1,4 +1,5 @@
 <script lang="ts">
+
   import Hero from "$lib/sections/Hero.svelte";
   import More from "$lib/sections/More.svelte";
   import Product from "$lib/sections/Product.svelte";
@@ -9,14 +10,14 @@
   import Licensing from "$lib/sections/Licensing.svelte";
 
   import { onMount } from "svelte";
-  import { browser } from "$app/env";
+  import { browser } from "$app/environment";
   import Fa from "svelte-fa";
   import {  faChevronDown } from "@fortawesome/pro-regular-svg-icons";
   import throttle from "$lib/throttle"
   import { onDestroy } from "svelte";
 
 
-  export let sections: SectionShape[];
+  export let data: SiteSettings;
   let scrolled: boolean = false;
 
   const throttleChangeScroll = throttle( changeScroll, 30);
@@ -44,10 +45,9 @@
       window.removeEventListener('scroll', throttleChangeScroll);
     }
   })
-
 </script>
   <div class:visible={scrolled} class="scroll-helper" aria-hidden={scrolled} aria-label="Scroll For More"><Fa icon={faChevronDown} />  </div>
-{#each sections as section}
+{#each data.sections as section}
   {#if section.layout == 'hero'}
   <Hero {...section} />
   {:else if section.layout == 'more'}

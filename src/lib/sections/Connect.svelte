@@ -3,7 +3,7 @@
   import isOnScreen from "$lib/isOnScreen";
   import Button from "$lib/components/Button.svelte";
   import Socials from "$lib/components/Socials.svelte";
-  import { dev } from "$app/env";
+  import { dev } from "$app/environment";
   export let title:string | null, subtitle: string| null, intro: string|null, showSocials:boolean = true, instagramWidget:CodeShape, anchor: string, layout: string;
 </script>
 

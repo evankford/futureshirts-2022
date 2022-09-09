@@ -1,4 +1,3 @@
-import { json as json$1 } from '@sveltejs/kit';
 import {Buffer} from "buffer";
 import {Readable} from "readable-stream";
 import {FormDataEncoder, type FormDataLike} from "form-data-encoder"
@@ -164,7 +163,7 @@ function convertFormData(form_data: FormData):ContactData | JobData | SupportDat
   return false;
 }
 
-/** @type {import('./$types').RequestHandler} */
+/** @type {import('./__types/sendemail').RequestHandler} */
 export async function POST({ request }) {
   let success = false;
   let errors: ResponseError[] = [];
@@ -173,18 +172,20 @@ export async function POST({ request }) {
   const converted = convertFormData(formData);
   if (Array.isArray(converted)) {
     errors = converted;
-    return json$1({ errors }, {
-      status: 500
-    })
+    return {
+        status: 500,
+        body: { errors }
+    }
   } else if (!converted) {
-     return json$1({
- errors: [{
-   code: 500,
-   message: "Error converting form data"
- }]
-}, {
-       status: 500
-     })
+     return {
+        status: 500,
+        body: {
+          errors: [{
+            code: 500,
+            message: "Error converting form data"
+          }]
+         }
+      }
   }
     //Need to check for email-to:
 
@@ -220,11 +221,12 @@ export async function POST({ request }) {
 
       }
       if (!encoder) {
-        return json$1({
-  errors
-}, {
-          status: 500
-        })
+        return {
+          status: 500,
+          body : {
+            errors
+          }
+        }
       }
       errors.push({code: 1, message: "Got Here"})
       errors.push({code: 1.1, message: "Got Here"});
@@ -240,11 +242,12 @@ export async function POST({ request }) {
 
       }
       if (!read) {
-        return json$1({
-  errors
-}, {
-          status: 500
-        })
+        return {
+          status: 500,
+          body : {
+            errors
+          }
+        }
       }
       errors.push({code: 1.75, message: "Got Here"});
       const startHeaders = {
@@ -255,6 +258,7 @@ export async function POST({ request }) {
         encoder.headers,
         );
         errors.push({code: 1.1, message: JSON.stringify(headers)});
+        console.log(headers);
       errors.push({code: 1.85, message: "Got Here"});
       errors.push({code: 2, message: "Got Headers"});
       errors.push({code: 2, message: "Got Here"});
@@ -284,31 +288,39 @@ export async function POST({ request }) {
       errors.push({code: 4, message: "Got Caught"});
       errors.push({code: 4.1, message: e});
       console.error(e);
-      return json$1({ errors }, {
-        status: 500
-      })
+      return {
+        status: 500,
+        body: { errors }
+      }
     }
 
     if (success) {
-      return json$1({
-  message: 'Successfully sent email'
-})
+      return {
+        status: 200,
+        body: {
+          message: 'Successfully sent email'
+        }
+      }
     }
     if (errors.length > 0) {
-      return json$1({ errors }, {
-        status: 500
-      })
+      return {
+        status: 500,
+        body: { errors }
+      }
     }
 
 
-  return json$1({
-  errors: [
-    {
-      code: 505,
-      message: "No Data Sent"
+  return {
+    status: 500,
+    body: {
+      errors: [
+        {
+          code: 505,
+          message: "No Data Sent"
+        }
+      ]
     }
-  ]
-}, {
-    status: 500
-  })
+  }
 }
+
+export const prerender = false;

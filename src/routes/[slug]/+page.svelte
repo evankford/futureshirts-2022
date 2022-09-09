@@ -5,36 +5,31 @@
   import PageHero from "$lib/sections/PageHero.svelte";
   import { PortableText} from "@portabletext/svelte";
   let visible: boolean = false;
-  export let
-  content: Block[] | undefined = undefined,
-  slug: string| undefined = undefined,
-  title:string | undefined = undefined,
-  subtitle: string | undefined = undefined,
-  image: SanityImageObject | undefined = undefined,
-  seo: PageSeo | undefined = undefined;
+  export let data:PageData;
+
 </script>
 
-<HeadHelper {seo} {slug} />
+<HeadHelper seo={data}/>
 
-<PageHero {image} >
+<PageHero image={data.image} >
   <heading class="page-heading">
-    {#if title}
-    <h1 class:long={title.length > 12}>{title}</h1>
+    {#if data.title}
+    <h1 class:long={data.title.length > 12}>{data.title}</h1>
     {/if}
-    {#if subtitle}
-    <h2 class="h3">{subtitle}</h2>
+    {#if data.subtitle}
+    <h2 class="h3">{data.subtitle}</h2>
     {/if}
     </heading>
 </PageHero>
-<div class:hasImage={image} class="page-content" class:invisible={!visible} use:isOnScreen on:onscreen={(e)=>{visible = true; stopWatching(e.target); }}>
+<div class:hasImage={data.image} class="page-content" class:invisible={!visible} use:isOnScreen on:onscreen={(e)=>{visible = true; stopWatching(e.target); }}>
 
-    {#if content && content.length > 0}
-    <PortableText value={content} components={{listItem: {normal: LiNormal}}} />
+    {#if data.content && data.content.length > 0}
+    <PortableText value={data.content} components={{listItem: {normal: LiNormal}}} />
     {/if}
 </div>
 
 <style lang="scss">
-  @use "../lib/styles/abstracts" as *;
+  @use "../../lib/styles/abstracts" as *;
 
   .page-content {
     @include content-wrap;

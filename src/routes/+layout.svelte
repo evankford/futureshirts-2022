@@ -1,34 +1,7 @@
-<script context="module" lang="ts">
-  /** @type {import('./__types/__layout.d.ts').Load} */
-  export async function load({ fetch }) {
-    const url = '/site.json';
-    try {
-      const res = await fetch(url);
-      const data:SiteSettings = await res.json();
-
-      return {
-        status: res.status,
-        props: {
-          codes: data.codes,
-          header: data.header,
-          footer: data.footer,
-          seo: data.seo,
-          contact: data.contact,
-          jobs: data.jobs,
-          socials: data.socials,
-          support: data.support
-        },
-      }
-    } catch(e) {
-      return {
-        status: 500
-      }
-    }
-
-  }
-</script>
-
 <script lang="ts">
+
+
+  // export let data;
   ///Okay, doing some hover type things here
   import { navigating } from "$app/stores";
   import "$lib/styles/global.scss";
@@ -45,7 +18,7 @@
   import Header from "$lib/sections/Header.svelte";
   import SkipButton from "$lib/components/SkipButton.svelte";
   import Footer from "$lib/sections/Footer.svelte";
-  import { browser } from "$app/env";
+  import { browser } from "$app/environment";
   import {  onMount } from "svelte";
 
   import throttle from "$lib/throttle";
@@ -64,11 +37,11 @@ import { onDestroy } from "svelte";
 
 
   function setGlobalStores() {
-    hasJobs.set(jobs.openings && jobs.openings.length > 0);
-    socialStore.set(socials.socials);
-    seoStore.set(seo);
-    contactStore.set(contact);
-    supportStore.set(support);
+    hasJobs.set(data.jobs.openings && data.jobs.openings.length > 0);
+    socialStore.set(data.socials.socials);
+    seoStore.set(data.seo);
+    contactStore.set(data.contact);
+    supportStore.set(data.support);
   }
 
   onMount(()=> {
@@ -95,18 +68,17 @@ import { onDestroy } from "svelte";
 
 
   let vh:number | false = false;
-
-  export let header: HeaderSettings, socials: SocialMediaSettings,  footer:FooterSettings, codes:CodeSnippetSettings, contact: ContactSettings, seo: SiteSEO, jobs: JobSettings, support: SimpleSupportSettings;
+  export let data:SiteSettings;
 
 </script>
 
 <svelte:head>
-  {#if seo.favicon}
-      <link rel="icon" type="image/png" href="{urlFor(seo.favicon).width(32).height(32).url()}" />
+  {#if data.seo.favicon}
+      <link rel="icon" type="image/png" href="{urlFor(data.seo.favicon).width(32).height(32).url()}" />
   {/if}
-  {#if codes?.headerCode?.length}
+  {#if data.codes?.headerCode?.length}
   <!-- Header Code Inserts -->
-    {#each codes.headerCode as codeSnippet}
+    {#each data.codes.headerCode as codeSnippet}
       {#if codeSnippet.active}
         {@html codeSnippet.code.code}
       {/if}
@@ -117,38 +89,33 @@ import { onDestroy } from "svelte";
 </svelte:head>
 
 <MetaTags
-  title={seo ? seo.title : 'Futureshirts'}
-  noindex={seo ? seo.nofollow : false}
-  nofollow={seo ? seo.nofollow : false}
-  description={seo ? seo.description : undefined}
+  title={data.seo ? data.seo.title : 'Futureshirts'}
+  noindex={data.seo ? data.seo.nofollow : false}
+  nofollow={data.seo ? data.seo.nofollow : false}
+  description={data.seo ? data.seo.description : undefined}
   twitter={{
     handle: '@futureshirts',
     site: '@futureshirts',
-    title:seo ? seo.title : 'Futureshirts',
-    description: seo ? seo.description : undefined,
-    image: seo && seo.image ?  urlFor(seo.image).width(1200).height(900).url() : undefined,
+    title:data.seo ? data.seo.title : 'Futureshirts',
+    description: data.seo ? data.seo.description : undefined,
+    image: data.seo && data.seo.image ?  urlFor(data.seo.image).width(1200).height(900).url() : undefined,
     imageAlt: 'Futureshirts'
   }}
 />
 
 <SkipButton />
 
-<Header {...header} smallMenuItems={footer?.menuItems}/>
+<Header {...data.header} smallMenuItems={data.footer?.menuItems}/>
 <main id="MainContent"  style="{vh ? `--vh: ${vh}px;` : ''}">
 <slot></slot>
 </main>
-<Footer {...footer} />
+<Footer {...data.footer} />
 
-{#if codes?.footerCode?.length}
+{#if data.codes?.footerCode?.length}
 <!-- Footer Code inserts -->
-  {#each codes.footerCode as codeSnippet}
+  {#each data.codes.footerCode as codeSnippet}
     {#if codeSnippet.active}
       {@html codeSnippet.code.code}
     {/if}
   {/each}
 {/if}
-
-<style lang="scss" global>
-  //Import global styles
-
-</style>

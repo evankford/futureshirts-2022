@@ -1,4 +1,5 @@
 <script lang="ts">
+
   import isOnScreen from "$lib/isOnScreen";
   import JobForm from "$lib/sections/JobForm.svelte";
   import PageHero from "$lib/sections/PageHero.svelte";
@@ -11,59 +12,44 @@
 
   let openJob:number|false = false;
 
-  export let
-    email: string,
-    image: SanityImageObject | undefined = undefined,
-    title: string | undefined = undefined,
-    subtitle: string | undefined = undefined,
-     content: Block[] | undefined = undefined,
-    successTitle: string ,
-    successMessage: string ,
-    errorTitle: string ,
-    errorMessage: string ,
-    haveOpeningsTitle: string | undefined = undefined,
-    haveOpenings: string | undefined = undefined,
-    noCurrentOpeningsTitle: string | undefined = undefined,
-    noCurrentOpenings: string | undefined = undefined,
-    openings: Opening[];
-
+  export let data:JobSettings;
 
 </script>
-<PageHero {image} >
+<PageHero image={data.image} >
   <header>
-    {#if title}
-      <h1>{title}</h1>
+    {#if data.title}
+      <h1>{data.title}</h1>
       {/if}
-    {#if subtitle}
-      <h2>{subtitle}</h2>
+    {#if data.subtitle}
+      <h2>{data.subtitle}</h2>
       {/if}
       <Button link="#apply"> Apply</Button>
   </header>
 </PageHero>
-<div use:isOnScreen class="wrap" class:has-image={image}>
+<div use:isOnScreen class="wrap" class:has-image={data.image}>
   <section class="jobs page-content">
-   {#if content}
-      <PortableText value={content} components={{listItem: {normal: LiNormal}}} />
+   {#if data.content}
+      <PortableText value={data.content} components={{listItem: {normal: LiNormal}}} />
     {/if}
     <div class="jobs-heading">
-        {#if openings.length > 0}
-          <h2>{haveOpeningsTitle ? haveOpeningsTitle : 'Current Openings:'}</h2>
-          {#if haveOpenings}
+        {#if data.openings.length > 0}
+          <h2>{data.haveOpeningsTitle ? data.haveOpeningsTitle : 'Current Openings:'}</h2>
+          {#if data.haveOpenings}
           <big>
 
-            {haveOpenings}
+            {data.haveOpenings}
           </big>
           {/if}
           {:else }
-          <h2 class="h3">{noCurrentOpeningsTitle ? noCurrentOpeningsTitle : 'Current Openings:'}</h2>
-          {#if noCurrentOpenings}
-          {noCurrentOpenings}
+          <h2 class="h3">{data.noCurrentOpeningsTitle ? data.noCurrentOpeningsTitle : 'Current Openings:'}</h2>
+          {#if data.noCurrentOpenings}
+          {data.noCurrentOpenings}
           {/if}
           {/if}
       </div>
-      {#if openings.length > 0}
+      {#if data.openings.length > 0}
       <ul class="openings">
-        {#each openings as opening, i}
+        {#each data.openings as opening, i}
         <li class="opening">
           <heading>
             <h3>{opening.title}</h3>
@@ -85,23 +71,23 @@
 
   </section>
 
-    {#if typeof openJob == 'number' && openings[openJob] }
-      <JobDetails bind:openJob job={openings[openJob]}/>
+    {#if typeof openJob == 'number' && data.openings[openJob] }
+      <JobDetails bind:openJob job={data.openings[openJob]}/>
     {/if}
 
   <section class="form page-content" id="apply">
     <div class="form-inner">
       <h2>Submit your Application</h2>
-      <JobForm {email} {openings} {errorTitle} { errorMessage} { successMessage} { successTitle} />
+      <JobForm email={data.email} openings={data.openings} errorTitle={data.errorTitle} errorMessage={data.errorMessage} successMessage={data.successMessage} successTitle={data.successTitle} />
     </div>
 
   </section>
 </div>
 
 <style lang="scss">
-  @use "../lib/styles/abstracts" as *;
-  @use "../lib/styles/abstracts/mixins/type-elements" as type;
-  @use "../lib/styles/core/_backgrounds" as bg;
+  @use "../../lib/styles/abstracts" as *;
+  @use "../../lib/styles/abstracts/mixins/type-elements" as type;
+  @use "../../lib/styles/core/_backgrounds" as bg;
 header {
   text-align: center;
   max-width: var(--text-width);

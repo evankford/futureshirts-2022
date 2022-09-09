@@ -9,7 +9,7 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
   import Image from "$lib/components/Image.svelte";
   import { onMount } from "svelte";
   import { onDestroy } from "svelte";
-  import { browser } from "$app/env";
+  import { browser } from "$app/environment";
   import  throttle  from "$lib/throttle";
 
   let currentSlide = 0;
@@ -215,9 +215,18 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
     top: 0%;
     &::after {
       @include psuedo;
-      position: 150px;
-      background: linear-gradient( to bottom, rgba(0,0,0,0), rgba(0,0,0,0.2));
+      background: linear-gradient( to bottom,rgba(0,0,0,0.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) calc(60% - 200px),  rgba(0,20,30,0.3));
       z-index: 1;
+    }
+    &::before {
+      @include psuedo;
+      z-index: 1;
+      display: none;
+      mix-blend-mode: darken;
+      background-color: rgb(167 170 191 / 50%);
+      @supports (mix-blend-mode: darken){
+        display: block;
+      }
     }
 
   }

@@ -1,22 +1,11 @@
-<script context="module">
-  /** @type {import('@sveltejs/kit').Load} */
-  export function load({ error, status }) {
-    return {
-      props: {
-        title: `${status}: ${error.message}`,
-      }
-    };
-  }
-</script>
-
-
 <script lang="ts">
   import Button from "$lib/components/Button.svelte";
-  export let title:string;
+  import { page } from '$app/stores';
+
 </script>
 <section>
   <h1 class="mega">Oops!</h1>
-  <h3>{title}</h3>
+  <h3>{$page.status} : {$page.error.message}</h3>
   <p class="large">Looks like something went wrong. Let's get you back on the right track!</p>
   <Button link="/">Back To Homepage</Button>
 

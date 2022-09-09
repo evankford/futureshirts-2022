@@ -66,6 +66,7 @@
       margin: 0 0.35em 0.1em;
     }
     @include extra;
+    letter-spacing: 0.01em;
     min-height: 0.9em;
   }
 

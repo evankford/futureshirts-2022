@@ -78,6 +78,7 @@ interface SiteSettings {
   socials: SocialMediaSettings | null,
   jobs: JobSettings | null
   support: SimpleSupportSettings | null
+  sections?: SectionShape[]
 }
 
 
@@ -150,7 +151,8 @@ interface VideoOrImageVideo extends VideoObject {
 interface ContactSettings extends FormSettings {
   image:SanityImageObject
   content: Block[]
-  stores: ContactOption[]
+  contactOptions: ContactOption[]
+  contactVideo?: VideoObject
 }
 interface SupportSettings extends DocBase {
   email: string,
@@ -194,4 +196,13 @@ interface SimpleSupportSettings {
   title: string
   subtitle: string
   email: string
+}
+
+interface PageData extends PageSEO {
+  title: string,
+  subtitle?: string,
+  image?: SanityImageObject,
+  email?:string,
+  counters?: CounterModel[]
+  content: Block[]
 }

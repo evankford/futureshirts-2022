@@ -1,4 +1,5 @@
 <script lang="ts">
+
   import HeadHelper from "$lib/components/HeadHelper.svelte";
   import LiNormal from "$lib/components/portableText/LiNormal.svelte";
   import isOnScreen, {stopWatching} from "$lib/isOnScreen";
@@ -7,47 +8,50 @@
   import { PortableText} from "@portabletext/svelte";
   import Counter from "$lib/components/Counter.svelte";
   let visible: boolean = false;
-  export let
-    content: Block[] | undefined = undefined,
-    title:string | undefined = undefined,
-    subtitle: string | undefined = undefined,
-    image: SanityImageObject | undefined = undefined,
-    email: string,
-    counters: null | CounterModel[];
+
+  export let data:PageData;
+
+  // export let
+  //   content: Block[] | undefined = undefined,
+  //   title:string | undefined = undefined,
+  //   subtitle: string | undefined = undefined,
+  //   image: SanityImageObject | undefined = undefined,
+  //   email: string,
+  //   counters: null | CounterModel[];
 </script>
 
-<HeadHelper slug="support"  />
+<HeadHelper seo={data}  />
 
-<PageHero {image} >
+<PageHero image={data.image} >
   <heading class="page-heading">
-    {#if title}
-    <h1 class:long={title.length > 12}>{title}</h1>
+    {#if data.title}
+    <h1 class:long={data.title.length > 12}>{data.title}</h1>
     {/if}
-    {#if subtitle}
-    <h2 class="h3">{subtitle}</h2>
+    {#if data.subtitle}
+    <h2 class="h3">{data.subtitle}</h2>
     {/if}
-    {#if email}
-    <h3 class="h3"><Button underline link="mailto:{email}">{email}</Button></h3>
+    {#if data.email}
+    <h3 class="h3"><Button underline link="mailto:{data.email}">{data.email}</Button></h3>
     {/if}
-    {#if counters}
+    {#if data.counters}
     <div class="bottom">
-      {#each counters as counter }
+      {#each data.counters as counter }
         <Counter small {...counter} />
       {/each}
     </div>
     {/if}
     </heading>
 </PageHero>
-<div class:hasImage={image} class="page-content" class:invisible={!visible} use:isOnScreen on:onscreen={(e)=>{visible = true; stopWatching(e.target); }}>
+<div class:hasImage={data.image} class="page-content" class:invisible={!visible} use:isOnScreen on:onscreen={(e)=>{visible = true; stopWatching(e.target); }}>
   <div class="inner">
-    {#if content && content.length > 0}
-    <PortableText value={content} components={{listItem: {normal: LiNormal}}} />
+    {#if data.content && data.content.length > 0}
+    <PortableText value={data.content} components={{listItem: {normal: LiNormal}}} />
     {/if}
   </div>
 </div>
 
 <style lang="scss">
-  @use "../lib/styles/abstracts" as *;
+  @use "../../lib/styles/abstracts" as *;
 
   .page-content {
     @include content-wrap;

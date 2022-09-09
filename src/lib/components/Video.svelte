@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { browser } from "$app/env";
+  import { browser } from "$app/environment";
   import { onMount } from "svelte";
   import Image from "./Image.svelte";
 
@@ -34,9 +34,9 @@
 
 <video-background src={src} loop>
     {#if video.type != 'local' && video.fallbackImage}
-    <Image image={video.fallbackImage} bg />
+    <Image image={video.fallbackImage} bg fullWidth />
     {:else if video.type == 'local' && video.localImage}
-    <Image image={video.localImage} bg />
+    <Image image={video.localImage} bg  fullWidth/>
     {/if}
   </video-background>
 {/if}

@@ -8,7 +8,7 @@
   import {fly} from "svelte/transition";
   import {faChevronLeft, faChevronRight} from "@fortawesome/pro-regular-svg-icons"
   import {onMount, onDestroy} from "svelte";
-  import {browser} from "$app/env"
+  import {browser} from "$app/environment"
   import throttle from "$lib/throttle";
   let currentSlide = 0;
   let slideInterval: ReturnType<typeof setInterval>;
@@ -176,7 +176,7 @@
     }
     background-repeat: repeat;
     overflow: hidden;
-    --titleLineHeight: 0.7;
+    --titleLineHeight: 0.8;
   }
 
   .top {

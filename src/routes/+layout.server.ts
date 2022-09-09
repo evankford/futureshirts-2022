@@ -1,5 +1,5 @@
+import { error ,json} from '@sveltejs/kit';
 import { sanityGet } from "$lib/sanity";
-import {json} from "@sveltejs/kit";
 import { getSingleDocument, getSingleDocumentFromSlug } from "$lib/draftCheck";
 const menuHelper = `[]{title, linkUrl{type, url, openInNewTab, anchor, ref->{'slug' : slug.current }}}`;
 import { videoFields } from "$lib/sanity";
@@ -15,9 +15,15 @@ const query = `
   "support"  : ${getSingleDocumentFromSlug('support')}{title,subtitle,email}
 }`;
 
-/** @type {import('./$types').RequestHandler} */
-export async function GET({fetch}) {
-  const res = await sanityGet<SiteSettings>(query, fetch);
-  return json(res);
-}
 
+import type { PageServerLoad } from  "./$types";
+const load:PageServerLoad = async() => {
+    try {
+    return sanityGet<SiteSettings>(query);
+  } catch(e) {
+    console.error(e);
+    throw error(500, "IS THIS THE ERROR?");
+  }
+}
+export {load};
+export const prerender = process.env.NODE_ENV ? process.env.NODE_ENV != 'staging' : true;

@@ -1,4 +1,6 @@
 import sanityClient from '@sanity/client'
+import { error, json } from '@sveltejs/kit';
+
 import imageUrlBuilder from '@sanity/image-url'
 import type { SanityImageSource} from "@sanity/image-url/lib/types/types"
 const apiVersion = '2021-10-21';
@@ -18,38 +20,37 @@ export const urlFor = (source:SanityImageSource) => {
   return builder.image(source);
 }
 
-export const sanityFetch = async (query:string) => {
+export const sanityFetch = async (query:string, fetcher:typeof fetch| undefined = undefined) => {
   const url = `https://${projectId}.api.sanity.io/v${apiVersion}/data/query/${dataset}?query=${encodeURIComponent(query)}`;
   const headers = {
     'Content-Type': 'application/json',
     'Authorization' : `Bearer ${import.meta.env.VITE_SANITY_TOKEN}`
   }
-  return fetch(url, {headers})
+  if (fetcher){
+
+    return await fetcher(url, {headers})
+  }
+
+  return await fetch(url, {headers});
 }
 
 
-export const sanityGet = async <T>(query:string):Promise<{status:number, body: string | T | any}> => {
+export const sanityGet = async<T>(query:string, fetcher: typeof fetch | undefined = undefined):Promise<T> => {
   try {
-      const resp = await sanityFetch(query);
+      const resp = await sanityFetch(query, fetcher );
       const data = await resp.json();
       if (!data?.result)  {
-        return {
-          status: 400,
-          body: { message: "No data"}
-        }
+        throw error(400, "No Data returned from CMS");
       }
-      return {
-        status: 200,
-        body: data.result
-      };
+      return data.result
     } catch(e:any) {
       console.error(e);
-      return {
-        status: 500,
-        body : e
-      }
+      throw error(500, e);
+
     }
   }
+
+
 
 const combineButtons = `"buttons" : buttons[]{title, "linkUrl" : linkUrl{..., ref->{slug, _type}}}`
 const standardStuff = `layout, title, intro , subtitle, anchor`

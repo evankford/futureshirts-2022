@@ -59,7 +59,6 @@
         // }
       });
       const json = await resp.json();
-      console.log(resp);
       if (resp.status != 200) {
         let message:string | undefined = undefined;
         if (json.errors) {

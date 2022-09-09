@@ -5,7 +5,7 @@
   import {navOpen} from "$lib/stores"
 
   import HeaderLogo from "$lib/components/HeaderLogo.svelte";
-  import { browser } from "$app/env";
+  import { browser } from "$app/environment";
   import { afterNavigate } from "$app/navigation";
   import throttle from "$lib/throttle";
   let hasHeroImage = false;

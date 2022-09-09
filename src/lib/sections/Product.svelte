@@ -3,7 +3,7 @@
   import isOnScreen from "$lib/isOnScreen";
   import SectionBox from "$lib/components/SectionBox.svelte";
   import Image from "$lib/components/Image.svelte";
-  import { browser } from "$app/env";
+  import { browser } from "$app/environment";
   import { onMount } from "svelte";
   import { onDestroy } from "svelte";
   import { afterNavigate } from "$app/navigation";

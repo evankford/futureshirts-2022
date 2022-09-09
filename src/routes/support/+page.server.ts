@@ -1,9 +1,11 @@
 import { sanityGet } from "$lib/sanity";
 import { getSingleDocumentFromSlug } from "$lib/draftCheck";
 
-/** @type {import('./__types/support]').RequestHandler} */
-export async function GET() {
+import type { PageServerLoad } from "./$types";
+const load: PageServerLoad = async ()=>{
   const query = `${getSingleDocumentFromSlug('support')}{email,title,subtitle,counters,image,blurb,content}`
-  const res = await sanityGet<SiteSettings>(query)
+  const res = await sanityGet<PageData>(query, fetch)
   return res;
 }
+
+export {load};

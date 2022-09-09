@@ -2,7 +2,7 @@
   import Socials from "$lib/components/Socials.svelte";
   import MenuItem from "$lib/components/MenuItem.svelte";
   import {navOpen} from "$lib/stores"
-  import {browser} from "$app/env"
+  import {browser} from "$app/environment"
   import Fa from "svelte-fa";
   import {faBarsSort, faXmark} from "@fortawesome/pro-regular-svg-icons";
   import { fly } from "svelte/transition";
@@ -111,7 +111,7 @@ const unsubNav = navOpen.subscribe(val=> {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 120px 30px 30px;
+    padding: 120px 30px;
     height: 100%;
     display: flex;
     align-items: center;

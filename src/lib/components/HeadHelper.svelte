@@ -2,7 +2,7 @@
   import {seo as seoStore} from "$lib/stores";
   import { urlFor } from "$lib/sanity";
   import { MetaTags } from 'svelte-meta-tags';
-  export let seo: PageSEO | SiteSEO | undefined = undefined, slug:string |undefined = undefined;
+  export let seo: PageSEO | SiteSEO | undefined = undefined;
 </script>
 
 {#if seo}
