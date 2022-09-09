@@ -167,11 +167,11 @@ export const POST:RequestHandler = async ({ request }) => {
       })
     } else if (!converted) {
        return json$1({
-   errors: [{
-     code: 500,
-     message: "Error converting form data"
-   }]
-  }, {
+        errors: [{
+          code: 500,
+          message: "Error converting form data"
+        }]
+        }, {
          status: 500
        })
     }
@@ -248,3 +248,4 @@ export const POST:RequestHandler = async ({ request }) => {
 }
 
 export const prerender = false;
+export const ssr = false;
