@@ -5,6 +5,7 @@
 		// "forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		// "skipLibCheck": true,
+		"allowSyntheticDefaultImports": true,
 		// "sourceMap": true,
 	},
 	"exclude": [

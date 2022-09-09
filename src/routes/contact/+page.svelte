@@ -31,7 +31,7 @@
     {/if}
     <div class="form">
         <ContactForm email={data.email} successMessage={data.successMessage} successTitle={data.successTitle} errorMessage={data.errorMessage} errorTitle={data.errorTitle} contactOptions={data.contactOptions} />
-    </div>
+    </div>g
   </div>
 
 </section>

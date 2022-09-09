@@ -1,10 +1,11 @@
+import { json as json$1 } from '@sveltejs/kit';
 import {Buffer} from "buffer";
 import {Readable} from "readable-stream";
 import {FormDataEncoder, type FormDataLike} from "form-data-encoder"
 import { FormData } from 'formdata-polyfill/esm.min.js'
 import {contact, job, support} from '$lib/emailTemplate';
 import type { IFormDataOptions } from "mailgun.js/interfaces/IFormData";
-
+import type { RequestHandler } from "./$types";
 // @ts-ignore
 globalThis.Buffer = Buffer;
 
@@ -163,29 +164,29 @@ function convertFormData(form_data: FormData):ContactData | JobData | SupportDat
   return false;
 }
 
-/** @type {import('./__types/sendemail').RequestHandler} */
-export async function POST({ request }) {
+/** @type {import('./$types').RequestHandler} */
+
+
+export const POST:RequestHandler = async ({ request }) => {
   let success = false;
   let errors: ResponseError[] = [];
 
-  const formData = await request.formData() as FormData;
-  const converted = convertFormData(formData);
+  const sentFormData = await request.formData();
+  const converted = convertFormData(sentFormData);
   if (Array.isArray(converted)) {
     errors = converted;
-    return {
-        status: 500,
-        body: { errors }
-    }
+    return json$1({ errors }, {
+      status: 500
+    })
   } else if (!converted) {
-     return {
-        status: 500,
-        body: {
-          errors: [{
-            code: 500,
-            message: "Error converting form data"
-          }]
-         }
-      }
+     return json$1({
+ errors: [{
+   code: 500,
+   message: "Error converting form data"
+ }]
+}, {
+       status: 500
+     })
   }
     //Need to check for email-to:
 
@@ -221,12 +222,11 @@ export async function POST({ request }) {
 
       }
       if (!encoder) {
-        return {
-          status: 500,
-          body : {
-            errors
-          }
-        }
+        return json$1({
+  errors
+}, {
+          status: 500
+        })
       }
       errors.push({code: 1, message: "Got Here"})
       errors.push({code: 1.1, message: "Got Here"});
@@ -242,12 +242,11 @@ export async function POST({ request }) {
 
       }
       if (!read) {
-        return {
-          status: 500,
-          body : {
-            errors
-          }
-        }
+        return json$1({
+  errors
+}, {
+          status: 500
+        })
       }
       errors.push({code: 1.75, message: "Got Here"});
       const startHeaders = {
@@ -255,16 +254,13 @@ export async function POST({ request }) {
       }
       const headers:HeadersInit = Object.assign(
         startHeaders,
-        encoder.headers,
+        // encoder.headers,
         );
-        errors.push({code: 1.1, message: JSON.stringify(headers)});
-        console.log(headers);
-      errors.push({code: 1.85, message: "Got Here"});
       errors.push({code: 2, message: "Got Headers"});
-      errors.push({code: 2, message: "Got Here"});
+        console.log(v.get('from'));
       const resp = await fetch(`https://api.mailgun.net/v3/${import.meta.env.VITE_MAILGUN_DOMAIN}/messages`, {
-        method: "post",
-        body: read,
+        method: "POST",
+        body: v,
         headers
         });
 
@@ -274,7 +270,6 @@ export async function POST({ request }) {
         errors.push({code: 3, message: "Got Success"});
         success = true;
       } else {
-        console.log(read);
         errors.push({code: 3, message: "Got Failed"});
         const j =await  resp.json();
         if ('message' in j) {
@@ -288,39 +283,31 @@ export async function POST({ request }) {
       errors.push({code: 4, message: "Got Caught"});
       errors.push({code: 4.1, message: e});
       console.error(e);
-      return {
-        status: 500,
-        body: { errors }
-      }
+      return json$1({ errors }, {
+        status: 500
+      })
     }
 
     if (success) {
-      return {
-        status: 200,
-        body: {
-          message: 'Successfully sent email'
-        }
-      }
+      return json$1({
+  message: 'Successfully sent email'
+})
     }
     if (errors.length > 0) {
-      return {
-        status: 500,
-        body: { errors }
-      }
+      return json$1({ errors }, {
+        status: 500
+      })
     }
 
 
-  return {
-    status: 500,
-    body: {
-      errors: [
-        {
-          code: 505,
-          message: "No Data Sent"
-        }
-      ]
+  return json$1({
+  errors: [
+    {
+      code: 505,
+      message: "No Data Sent"
     }
-  }
+  ]
+}, {
+    status: 500
+  })
 }
-
-export const prerender = false;

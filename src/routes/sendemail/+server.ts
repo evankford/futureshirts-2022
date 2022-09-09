@@ -1,15 +1,16 @@
-import { json as json$1 } from '@sveltejs/kit';
+import { error, json as json$1 } from '@sveltejs/kit';
 import {Buffer} from "buffer";
-import {Readable} from "readable-stream";
-import {FormDataEncoder, type FormDataLike} from "form-data-encoder"
-import { FormData } from 'formdata-polyfill/esm.min.js'
+import FormDataN from 'form-data'
 import {contact, job, support} from '$lib/emailTemplate';
 import type { IFormDataOptions } from "mailgun.js/interfaces/IFormData";
+import type { RequestHandler } from "./$types";
 
+import Mailgun from "mailgun.js";
+import type { MailgunMessageData } from 'mailgun.js/interfaces/Messages';
 // @ts-ignore
 globalThis.Buffer = Buffer;
 
-function generateHTML(data: ContactData | JobData | SupportData):string | false {
+function generateHTML(data: ContactData | JobData | SupportData):string  {
   if (!('formName' in data)) {
     throw new Error("How did this happen? No form name in data");
   }
@@ -22,7 +23,8 @@ function generateHTML(data: ContactData | JobData | SupportData):string | false 
   if (data.formName == 'Support Form') {
     return support(data) ;
   }
-  return false;
+  throw new Error("Should have a form name.");
+
 }
 
 interface EmailData {
@@ -165,12 +167,14 @@ function convertFormData(form_data: FormData):ContactData | JobData | SupportDat
 }
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ request }) {
+
+
+export const POST:RequestHandler = async ({ request }) => {
   let success = false;
   let errors: ResponseError[] = [];
 
-  const formData = await request.formData() as FormData;
-  const converted = convertFormData(formData);
+  const sentFormData = await request.formData();
+  const converted = convertFormData(sentFormData);
   if (Array.isArray(converted)) {
     errors = converted;
     return json$1({ errors }, {
@@ -191,9 +195,8 @@ export async function POST({ request }) {
 
 
     const html = generateHTML(converted);
-
     let attachment = await generateAttachments(converted);
-    let data:IFormDataOptions = {
+    let data:MailgunMessageData = {
       from: `Futureshirts Website <mailgun@${import.meta.env.VITE_MAILGUN_DOMAIN}>`,
       'h:Reply-To': converted.email,
       // to: converted.emailTo,
@@ -202,84 +205,16 @@ export async function POST({ request }) {
       html,
       attachment
     }
-    const v = convertToFormData(data) ;
-    //// switch to fetch;
+
+    const M = new Mailgun(FormDataN);
+    const mail = M.client({username:'api', key: import.meta.env.VITE_MAILGUN_KEY });
+
+     //// switch to fetch;
     try {
-      errors.push({code: 1, message: "Got Here"})
-      let encoder: FormDataEncoder | false = false;
-      try {
+      await mail.messages.create(import.meta.env.VITE_MAILGUN_DOMAIN, data);
+      success=true;
 
-        encoder = new FormDataEncoder(v as unknown as FormDataLike);
-        // errors.push({code: 1.1, message: "Made it past encoder"});
-      } catch(e) {
 
-        errors.push({code: 1.2, message: "Can't instantiate encoder"});
-        errors.push({code:1.20 , message: e})
-        errors.push({code:1.20 , message: e.message})
-        errors.push({code:1.20 , message: JSON.stringify(e)});
-
-      }
-      if (!encoder) {
-        return json$1({
-  errors
-}, {
-          status: 500
-        })
-      }
-      errors.push({code: 1, message: "Got Here"})
-      errors.push({code: 1.1, message: "Got Here"});
-      let read: Readable;
-      try {
-
-         read =  Readable.from(encoder)
-      } catch(e) {
-        errors.push({code: 1.2, message: "Can't instantiate reader"});
-        errors.push({code:1.20 , message: e})
-        errors.push({code:1.20 , message: e.message})
-        errors.push({code:1.20 , message: JSON.stringify(e)});
-
-      }
-      if (!read) {
-        return json$1({
-  errors
-}, {
-          status: 500
-        })
-      }
-      errors.push({code: 1.75, message: "Got Here"});
-      const startHeaders = {
-        'Authorization' :  'Basic ' + Buffer.from(`api:${import.meta.env.VITE_MAILGUN_KEY}`).toString('base64'),
-      }
-      const headers:HeadersInit = Object.assign(
-        startHeaders,
-        encoder.headers,
-        );
-        errors.push({code: 1.1, message: JSON.stringify(headers)});
-      errors.push({code: 1.85, message: "Got Here"});
-      errors.push({code: 2, message: "Got Headers"});
-      errors.push({code: 2, message: "Got Here"});
-      const resp = await fetch(`https://api.mailgun.net/v3/${import.meta.env.VITE_MAILGUN_DOMAIN}/messages`, {
-        method: "post",
-        body: read,
-        headers
-        });
-
-        errors.push({code: 2.1, message: "Got Here"});
-
-        if (resp.status == 200) {
-        errors.push({code: 3, message: "Got Success"});
-        success = true;
-      } else {
-        console.log(read);
-        errors.push({code: 3, message: "Got Failed"});
-        const j =await  resp.json();
-        if ('message' in j) {
-          errors.push({code: resp.status, message:j.message})
-        } else {
-
-          errors.push({code: resp.status, message:JSON.stringify(j)})
-        }
-      }
     } catch(e) {
       errors.push({code: 4, message: "Got Caught"});
       errors.push({code: 4.1, message: e});

@@ -12,7 +12,7 @@
   afterNavigate(()=> {
     setTimeout(() => {
       hasHeroImage = browser && document.body.querySelector('.image-hero') != null;
-    }, 600);
+    }, 100);
   })
 
 
