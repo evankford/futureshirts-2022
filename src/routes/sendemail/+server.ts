@@ -157,24 +157,26 @@ export const POST:RequestHandler = async ({ request }) => {
   let errors: ResponseError[] = [];
 
   Sentry.captureMessage('Sendmail got here');
+  try{
 
-  const sentFormData = await request.formData();
-  const converted = convertFormData(sentFormData);
-  if (Array.isArray(converted)) {
-    errors = converted;
-    return json$1({ errors }, {
-      status: 500
-    })
-  } else if (!converted) {
-     return json$1({
- errors: [{
-   code: 500,
-   message: "Error converting form data"
- }]
-}, {
-       status: 500
-     })
-  }
+    const sentFormData = await request.formData();
+    const converted = convertFormData(sentFormData);
+    if (Array.isArray(converted)) {
+      errors = converted;
+      return json$1({ errors }, {
+        status: 500
+      })
+    } else if (!converted) {
+       return json$1({
+   errors: [{
+     code: 500,
+     message: "Error converting form data"
+   }]
+  }, {
+         status: 500
+       })
+    }
+
     //Need to check for email-to:
 
 
@@ -214,6 +216,9 @@ export const POST:RequestHandler = async ({ request }) => {
   } catch(e){
     Sentry.captureException(e);
     throw error(500, "Mailgun didn't work");
+   }
+  } catch(e){
+    Sentry.captureException(e);
   }
 
      //// switch to fetch;
