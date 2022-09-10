@@ -1,9 +1,7 @@
-import EnvironmentPlugin from 'vite-plugin-environment';
 import { sveltekit } from '@sveltejs/kit/vite';
 /** @type {import('vite').UserConfig} */
 const config = {
-  plugins: [sveltekit(),
-	EnvironmentPlugin(['AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY'])],
+  plugins: [sveltekit()],
 	server: {
 		port: 3003
 	},
