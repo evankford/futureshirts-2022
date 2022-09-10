@@ -1,5 +1,6 @@
 /// <reference types="@portabletext/svelte"/>
 /// <reference types="svelte" />
+/// <reference types="svelte/store" />
 /// <reference types="mailgun.js" />
 
 interface ImportMetaEnv {
@@ -7,18 +8,44 @@ interface ImportMetaEnv {
   VITE_DATASET: string;
   VITE_CANONICAL_URL: string
   VITE_MAILGUN_KEY: string
+  VITE_SENDGRID_KEY: string
   VITE_MAILGUN_DOMAIN: string
   VITE_SANITY_TOKEN: string
   VITE_IS_PREVIEW: string
+  VITE_AWS_ACCESS_KEY_ID: string
+  VITE_AWS_SECRET_ACCESS_KEY: string
+  VITE_GSHEETS_CLIENT_EMAIL: string
+  VITE_GSHEETS_PRIVATE_KEY: string
 }
 
  interface FormField {
-    value:string|File | JobReference[],
+    value:string
     errorMsg: string |false,
     validator: (val:any) => false | string,
   }
 
-type Fields = {[key:string] : FormField}
+type Fields = {
+  resume?: FileField,
+  coverLetter?: FileField,
+  topic?:FormField,
+  name?: FormField,
+  email?:FormField,
+  message?:FormField
+  opening?:FormField
+  phone?:FormField
+  references?:ReferenceField
+}
+interface ReferenceField {
+  value:JobReference[],
+    errorMsg: string |false,
+    validator: (val:any) => false | string,
+}
+interface FileField {
+  value:File,
+  errorMsg: string |false,
+  validator: (val:any) => false | string,
+}
+
 type FieldStore = Writable<Fields>
 interface JobReference {
   name:string,
@@ -29,7 +56,7 @@ interface JobReference {
 
 interface SubmissionData {
   formName: string
-  emailTo: string
+  emailTo: string[]
   name: string
   email: string
 }
@@ -43,8 +70,8 @@ interface JobData extends SubmissionData {
   formName: 'Job Application'
   phone: string,
   opening: string,
-  resume: File,
-  coverLetter:File,
+  resume: string,
+  coverLetter:string,
   references: JobReference[]
 }
 interface SupportData extends SubmissionData {

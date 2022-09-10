@@ -1,7 +1,9 @@
+import EnvironmentPlugin from 'vite-plugin-environment';
 import { sveltekit } from '@sveltejs/kit/vite';
 /** @type {import('vite').UserConfig} */
 const config = {
-  plugins: [sveltekit()],
+  plugins: [sveltekit(),
+	EnvironmentPlugin(['AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY'])],
 	server: {
 		port: 3003
 	},
@@ -17,7 +19,8 @@ const config = {
 			'@fortawesome/pro-regular-svg-icons',
 			'@fortawesome/pro-solid-svg-icons'
 		]
-	}
+	},
+	envPrefix: ['VITE_', 'AWS_']
 };
 
 

@@ -25,13 +25,6 @@
   import {afterNavigate,
   beforeNavigate} from "$app/navigation";
   import { onDestroy } from "svelte";
-
-  import * as Sentry from "@sentry/svelte";
-  import { BrowserTracing } from "@sentry/tracing";
-
-
-
-
   beforeNavigate(()=> {
     document.documentElement.style.scrollBehavior = 'auto';
     document.body.style.scrollBehavior = 'auto';
@@ -51,16 +44,6 @@
   }
 
   onMount(()=> {
-          // Initialize the Sentry SDK here
-      Sentry.init({
-        dsn: "https://2582249d11884e0390407a00c3c0d958@o473025.ingest.sentry.io/6735437",
-        integrations: [new BrowserTracing()],
-
-        // Set tracesSampleRate to 1.0 to capture 100%
-        // of transactions for performance monitoring.
-        // We recommend adjusting this value in production
-        tracesSampleRate: 1.0,
-      });
     if (browser && window) {
 
       getVh();

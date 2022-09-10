@@ -4,6 +4,7 @@
   import RequiredIndicator from "$lib/components/fields/RequiredIndicator.svelte";
   import byteSize from "byte-size";
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
+  import Fa from "svelte-fa";
 
   const context:FieldStore = getContext('fields');
   function validate(v:any) {
@@ -54,7 +55,7 @@
       })
     }, 20);
   }
-  export let required = true, id="upload", label="Upload", maxSize = 2000000, accept=".pdf";
+  export let required = true, id="upload", label="Upload", maxSize = 2000000, accept=".pdf", uploading=false, uploaded=false;
 </script>
 
 <FieldWrap {id}>
@@ -63,6 +64,7 @@
     <input type="file" {accept} {required} {id} on:change={handleChange}  bind:files={uploadValue}/>
     <label class="faux-input" for={id}>{@html uploadValue.length == 1 ? truncate(uploadValue[0].name) : 'Upload File' }</label>
     <small class="footer">Accepts {accept} files. Max size {byteSize(maxSize).toString()}</small>
+    {#if uploading}Uploading{/if}{#if uploaded}Uploaded{/if}
   </div>
 </FieldWrap>
 

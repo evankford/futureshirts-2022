@@ -59,12 +59,7 @@
   }
 
 
-  let references: JobReference[] = [  {
-      name: '',
-      relation: '',
-      email: '',
-      phone: ''
-    }];
+  let references: JobReference[] = [  ];
 
   function addReference(){
 
@@ -99,7 +94,7 @@
       return val;
     })
   }
-  export let required = true, id="references", label="References", max:number = 4;
+  export let required = false, id="references", label="References", max:number = 4;
 </script>
 
 <FieldWrap {id}>
@@ -134,20 +129,33 @@
           {#if i < max }
             <button type="button" on:click={()=>{addReference();}} aria-label="Add Reference"><Fa icon={faCirclePlus}/></button>
           {/if}
-          {#if i > 0 }
+
             <button type="button" on:click={()=>{removeReference(i)}} aria-label="Remove Reference"><Fa icon={faCircleMinus}/></button>
-          {/if}
+
         </div>
       </li>
       {/each}
     </ul>
+    {#if references.length == 0}
+    <div class="just-button" transition:slide>
+      <button type="button" on:click={()=>{addReference();}} aria-label="Add Reference"><Fa icon={faCirclePlus}/></button>
+    </div>
+
+    {/if}
   </div>
 </FieldWrap>
 
 <style lang="scss">
    @use "../../styles/abstracts" as *;
    @use "../../styles/elements/_fields.scss" as fields;
+  .just-button{
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    width:100%;
+    top:-38px;
 
+  }
    ul {
 
     --number-size: 32px;
