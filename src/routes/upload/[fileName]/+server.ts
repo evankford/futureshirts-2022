@@ -3,15 +3,16 @@ import { S3Client } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 import { json, error } from '@sveltejs/kit';
 
-const uploader = new S3Client({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
-    }
-})
+
 export const POST:RequestHandler = async({request, params})=> {
   try{
+    const uploader = new S3Client({
+      region: 'us-east-1',
+      credentials: {
+        accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
+      }
+  })
     const now = new Date();
 
     const path=`${now.getFullYear()}/${now.getMonth()}/${now.getDate()}/${params.fileName}`

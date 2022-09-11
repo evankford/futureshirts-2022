@@ -47,7 +47,8 @@
   function fail(message:string){
 
     resetStatuses();
-
+    errorTitle="Failed in form submission";
+    errorMessage=message;
      return {
         success: false,
         message
@@ -107,7 +108,6 @@
       resume,
       coverLetter,
     }
-    console.log(data);
     if (resume && coverLetter){
         const resp =  await fetch('/sendemail', {
           method: 'POST' ,
