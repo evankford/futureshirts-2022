@@ -138,7 +138,6 @@ export const POST:RequestHandler = async ({ request }) => {
     errors.push({code:1.1, message: 'Getting to client thing'});
     const command = new SendEmailCommand(data);
     errors.push({code:2, message: 'working'});
-    return json(errors, {status: 520});
     return mailer.send(command).then(()=>{
         errors.push({code:3, message: 'working'});
         return json({
