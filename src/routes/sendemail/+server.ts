@@ -1,11 +1,12 @@
 
 
-import {  json as json$1 } from '@sveltejs/kit';
+import {  json } from '@sveltejs/kit';
 import {contact, job, support} from '$lib/emailTemplate';
 import type { RequestHandler } from "./$types";
 import { AwsClient } from 'aws4fetch';
 import { Buffer } from 'buffer';
 import {SESClient, SendEmailCommand, type SendEmailCommandInput} from "@aws-sdk/client-ses";
+
 
 
 
@@ -131,37 +132,44 @@ export const POST:RequestHandler = async ({ request }) => {
     },
   }
 
+  try {
 
-  errors.push({code:1, message: 'Getting to client thing'});
-  const mailer = new SESClient({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
-    }
-  });
-  errors.push({code:1.1, message: 'Getting to client thing'});
-  const command = new SendEmailCommand(data);
-  errors.push({code:2, message: 'working'});
-  return mailer.send(command).then(()=>{
-      errors.push({code:3, message: 'working'});
-      return json$1({
-        message: 'Successfully sent email',
-        errors
+    errors.push({code:1, message: 'Getting to client thing'});
+    const mailer = new SESClient({
+      region: 'us-east-1',
+      credentials: {
+        accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
+      }
+    });
+    errors.push({code:1.1, message: 'Getting to client thing'});
+    const command = new SendEmailCommand(data);
+    errors.push({code:2, message: 'working'});
+    return json(errors);
+    return mailer.send(command).then(()=>{
+        errors.push({code:3, message: 'working'});
+        return json({
+          message: 'Successfully sent email',
+          errors
+        })
+        }).catch(e=>{
+        console.error(e);
+        errors.push({code: 4, message: "Got Caught"});
+        errors.push({code: 4.1, message: JSON.stringify(e)});
+        if('Code' in e){
+          errors.push({code: 4.1, message: JSON.stringify(e.Code)});
+          }
+        return json( {
+          status: 500,
+          errors
+        })
       })
-      }).catch(e=>{
-      console.error(e);
-      errors.push({code: 4, message: "Got Caught"});
-      errors.push({code: 4.1, message: JSON.stringify(e)});
-      if('Code' in e){
-        errors.push({code: 4.1, message: JSON.stringify(e.Code)});
-        }
-      return json$1( {
-        status: 500,
-        errors
-      })
-    })
+  } catch(e) {
+    errors.push({code:4, message:e});
+    return json(errors);
+
   }
+}
 
 export const prerender = false;
 export const ssr = false;
