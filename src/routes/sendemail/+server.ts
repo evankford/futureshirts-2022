@@ -8,11 +8,6 @@ import { Buffer } from 'buffer';
 import { AwsClient } from 'aws4fetch'
 
 
-const sender = new AwsClient ({
-  region: 'us-east-1',
-  accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
- });
 
 function generateHTML(data: ContactData | JobData | SupportData):string  {
   if (!('formName' in data)) {
@@ -131,13 +126,15 @@ export const POST:RequestHandler = async ({ request }) => {
         }
       },
     }
-
-
+    const sender = new AwsClient ({
+      region: 'us-east-1',
+      accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
+    });
 
 
     const response = await sender.fetch('https://email.us-east-1.amazonaws.com/v2/email/outbound-emails', { method: 'POST' , body:JSON.stringify(body), headers:{'Content-Type' : 'application/json'}});
     const j = await response.json();
-    console.log(j);
     if ('MessageId' in j) {
       return json({
            message: 'Successfully sent email',
@@ -154,3 +151,5 @@ export const POST:RequestHandler = async ({ request }) => {
 
   }
 }
+
+export const prerender = false;
