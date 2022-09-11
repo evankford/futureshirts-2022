@@ -138,13 +138,13 @@ export const POST:RequestHandler = async ({ request }) => {
     errors.push({code:1.1, message: 'Getting to client thing'});
     const command = new SendEmailCommand(data);
     errors.push({code:2, message: 'working'});
-    return json(errors);
+    return json(errors, {status: 520});
     return mailer.send(command).then(()=>{
         errors.push({code:3, message: 'working'});
         return json({
           message: 'Successfully sent email',
           errors
-        })
+        }, {status: 520})
         }).catch(e=>{
         console.error(e);
         errors.push({code: 4, message: "Got Caught"});
@@ -155,12 +155,12 @@ export const POST:RequestHandler = async ({ request }) => {
         return json( {
           status: 500,
           errors
-        })
+        }, {status: 520})
       })
   } catch(e) {
     console.error(e);
     errors.push({code:4, message:e});
-    return json(errors, {status: 404});
+    return json(errors, {status: 520});
 
   }
 }
