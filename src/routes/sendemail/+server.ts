@@ -110,7 +110,7 @@ export const POST:RequestHandler = async ({ request }) => {
 
 
   const sentFormData:JobData|ContactData = await request.json();
-  await tryToAddToSheets(sentFormData);
+  // await tryToAddToSheets(sentFormData);
   const html = generateHTML(sentFormData);
 
   let data:SendEmailCommandInput = {
@@ -156,8 +156,9 @@ export const POST:RequestHandler = async ({ request }) => {
       if('Code' in e){
         errors.push({code: 4.1, message: JSON.stringify(e.Code)});
         }
-      return json$1({ errors }, {
-        status: 500
+      return json$1( {
+        status: 500,
+        errors
       })
     })
   }
