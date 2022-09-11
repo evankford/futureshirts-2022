@@ -99,6 +99,7 @@ export const POST:RequestHandler = async ({ request }) => {
   let errors: ResponseError[] = [];
 
   try {
+
     errors.push({code:0, message: 'Started'});
 
     const sentFormData:JobData|ContactData = await request.json();
@@ -138,12 +139,13 @@ export const POST:RequestHandler = async ({ request }) => {
     errors.push({code:1.1, message: 'Getting to client thing'});
     const command = new SendEmailCommand(data);
     errors.push({code:2, message: 'working'});
-    return mailer.send(command).then(()=>{
+    return mailer.send(command).then((m)=>{
         errors.push({code:3, message: 'working'});
+        console.log(m)
         return json({
           message: 'Successfully sent email',
           errors
-        }, {status: 520})
+        }, {status: 200})
         }).catch(e=>{
         console.error(e);
         errors.push({code: 4, message: "Got Caught"});
@@ -153,10 +155,11 @@ export const POST:RequestHandler = async ({ request }) => {
         if('Code' in e){
           errors.push({code: 4.1, message: JSON.stringify(e.Code)});
           }
+        console.log(errors);
         return json( {
           status: 500,
           errors
-        }, {status: 520})
+        }, {status: 520, statusText: "Not sure"})
       })
   } catch(e) {
     console.error(e);
