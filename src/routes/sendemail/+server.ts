@@ -99,10 +99,14 @@ export const POST:RequestHandler = async ({ request }) => {
   let errors: ResponseError[] = [];
 
   try {
+    errors.push({code:0, message: 'Started'});
+
     const sentFormData:JobData|ContactData = await request.json();
     // await tryToAddToSheets(sentFormData);
+    errors.push({code:0.1, message: 'Got request data'});
     const html = generateHTML(sentFormData);
 
+    errors.push({code:0.2, message: 'Got html template'});
     let data:SendEmailCommandInput = {
       Source: `fs@m.ekfapps.com`,
       ReplyToAddresses: [sentFormData.email],
