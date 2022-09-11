@@ -160,7 +160,7 @@ export const POST:RequestHandler = async ({ request }) => {
   } catch(e) {
     console.error(e);
     errors.push({code:4, message:e});
-    return json(errors);
+    return json(errors, {status: 404});
 
   }
 }
