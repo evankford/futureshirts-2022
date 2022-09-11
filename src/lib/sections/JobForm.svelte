@@ -45,7 +45,6 @@
   }
 
   function fail(message:string){
-
     resetStatuses();
     errorTitle="Failed in form submission";
     errorMessage=message;

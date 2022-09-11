@@ -43,26 +43,27 @@
       });
       const json = await resp.json();
       if (resp.status != 200) {
-        let message:string | undefined = undefined;
 
         if (json.errors) {
          json.errors.map((error : {code: number, message: string})=>{
-          message += `<br/> Error ${error.code}:   ${error.message}.<br/>`
+          errorTitle+=error.code
+          errorMessage += `<br/>${error.message}.<br/>`
          })
         }
+        errorTitle="Failed with no errors"
+        errorMessage ="Failed with no errors"
         return {
           success: false,
-          message
         }
       }
       return {
         success: true
       }
     } catch(e) {
-      console.log(e);
+      errorTitle="Caught";
+      errorMessage+= `<br/> Error ${e}:.<br/>`
       return {
         success:false,
-        message : `<br/> Error ${e}:.<br/>`
       }
     }
   }
@@ -72,7 +73,7 @@
     contactOptions: ContactOption[],
     successMessage: string,
     successTitle: string,
-    errorMessage: string,
+    errorMessage: string ="",
     errorTitle: string;
 </script>
 <FormWrap id="contact" {onSubmit}>
