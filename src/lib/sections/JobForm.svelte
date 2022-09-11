@@ -58,15 +58,16 @@
     try{
       console.log('Uploading file');
       const response = await fetch(`/upload/${name}`, {
-        method: 'POST',
+        method: 'PUT',
         body: file,
       });
 
-      const rData:CompleteMultipartUploadCommandOutput = await response.json();
+      const rData:{path?: string, success: boolean} = await response.json();
+      if (rData.path) {
+        return rData.path;
 
-      if (rData && rData.Location) {
-        return rData.Location;
       }
+
     }
     catch(e){
       console.error(e);

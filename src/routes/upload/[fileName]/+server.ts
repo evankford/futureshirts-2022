@@ -1,44 +1,31 @@
-// import type { RequestHandler} from './$types';
-// import { S3Client } from '@aws-sdk/client-s3';
-// import { Upload } from '@aws-sdk/lib-storage';
+import type { RequestHandler} from './$types';
 import { json, error } from '@sveltejs/kit';
+import { AwsClient } from 'aws4fetch'
 
 
-export const POST:RequestHandler = async({request, params})=> {
-  return json({done: true});
-  try{
-    const uploader = new S3Client({
+ const uploader = new AwsClient ({
       region: 'us-east-1',
-      credentials: {
         accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
         secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
-      }
-  })
-    const now = new Date();
+ });
 
-    const path=`${now.getFullYear()}/${now.getMonth()}/${now.getDate()}/${params.fileName}`
+ const url = 'https://futureshirtsuploads.s3.amazonaws.com';
+export const PUT:RequestHandler = async({request, params})=> {
+  const stuff = await request.blob();
+  const body = await stuff.arrayBuffer()
 
-  const stuff = await request.body;
-  const upload = await new Upload({
-    client: uploader,
-    params:{
-      Body:stuff,
-        Key: path,
-        Bucket:'futureshirtsuploads',
-        ACL:'public-read',
-        ContentType:'application/pdf',
-    },
-    queueSize:4,
-    leavePartsOnError:false
-  });
-  return upload.done().then(e=>{console.log(e);
-    return json(e);
-  }).catch(e=>{
+  const now = new Date();
+  const path=`${now.getFullYear()}/${now.getMonth()}/${now.getDate()}/${params.fileName}`
+
+  try {
+
+    await uploader.fetch(`${url}/${path}`, {body, method: 'PUT', headers: {'Content-Type': 'application/pdf', "Content-Length": stuff.size.toString(), "x-amz-acl": 'public-read'}})
+    // const j = await response.json();
+    // console.log(j);
+    return json({path: `${url}/${path}`, success: true});
+
+  } catch(e) {
     console.error(e);
-    throw error(500, e);
-  })
-  } catch(e){
-    console.error(e);
-    throw error(500, e);
+    return json(e)
   }
 }

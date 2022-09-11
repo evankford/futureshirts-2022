@@ -4,8 +4,15 @@ import {  json } from '@sveltejs/kit';
 import {contact, job, support} from '$lib/emailTemplate';
 import type { RequestHandler } from "./$types";
 import { Buffer } from 'buffer';
-import {SESClient, SendEmailCommand, type SendEmailCommandInput} from "@aws-sdk/client-ses";
 
+import { AwsClient } from 'aws4fetch'
+
+
+const sender = new AwsClient ({
+  region: 'us-east-1',
+  accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
+ });
 
 function generateHTML(data: ContactData | JobData | SupportData):string  {
   if (!('formName' in data)) {
@@ -103,41 +110,43 @@ export const POST:RequestHandler = async ({ request }) => {
     // await tryToAddToSheets(sentFormData);
     const html = generateHTML(sentFormData);
 
-    let data:SendEmailCommandInput = {
-      Source: `fs@m.ekfapps.com`,
+    let body = {
+      FromEmailAddress: `fs@m.ekfapps.com`,
       ReplyToAddresses: [sentFormData.email],
       Destination: {
         ToAddresses: ['evankerrickford@gmail.com'],
       },
-      Message:{
-        Subject: {
-          Data: `${sentFormData.formName} Submission ${'topic' in sentFormData ? '(' + sentFormData.topic + ')' : ''}`,
-        },
-        Body: {
-          Html: {
-            Data: html
-          }
-        },
+      Content:{
+        Simple: {
+          Subject: {
+            Charset: 'utf-8',
+            Data: `${sentFormData.formName} Submission ${'topic' in sentFormData ? '(' + sentFormData.topic + ')' : ''}`,
+          },
+          Body: {
+            Html: {
+              Charset: 'utf-8',
+              Data: html
+            }
+          },
+        }
       },
     }
 
 
 
-    const mailer = new SESClient({
-      region: 'us-east-1',
-      credentials: {
-        accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
-      }
-    });
-    const command = new SendEmailCommand(data);
 
-    const response = await mailer.send(command);
-    errors.push({code:2.3, message: JSON.stringify(response.$metadata)});
-     return json({
-          message: 'Successfully sent email',
-          errors
-        }, {status: 202});
+    const response = await sender.fetch('https://email.us-east-1.amazonaws.com/v2/email/outbound-emails', { method: 'POST' , body:JSON.stringify(body), headers:{'Content-Type' : 'application/json'}});
+    const j = await response.json();
+    console.log(j);
+    if ('MessageId' in j) {
+      return json({
+           message: 'Successfully sent email',
+           errors
+         }, {status: 200});
+    }
+    errors.push({code: 3, message: j.message});
+    return json(errors, {status: 520});
+    // console.log(response);
   } catch(e) {
     console.error(e);
     errors.push({code:4, message:e});
