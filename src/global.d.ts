@@ -7,15 +7,12 @@ interface ImportMetaEnv {
   VITE_PROJECT_ID: string;
   VITE_DATASET: string;
   VITE_CANONICAL_URL: string
-  VITE_MAILGUN_KEY: string
-  VITE_SENDGRID_KEY: string
-  VITE_MAILGUN_DOMAIN: string
   VITE_SANITY_TOKEN: string
   VITE_IS_PREVIEW: string
   VITE_AWS_ACCESS_KEY_ID: string
   VITE_AWS_SECRET_ACCESS_KEY: string
-  VITE_GSHEETS_CLIENT_EMAIL: string
-  VITE_GSHEETS_PRIVATE_KEY: string
+  VITE_SHEETS_USERNAME: string
+  VITE_SHEETS_PASSWORD: string
 }
 
  interface FormField {

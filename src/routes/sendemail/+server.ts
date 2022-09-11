@@ -4,9 +4,8 @@ import {  json as json$1 } from '@sveltejs/kit';
 import {contact, job, support} from '$lib/emailTemplate';
 import type { RequestHandler } from "./$types";
 
-import { GoogleSpreadsheet } from "google-spreadsheet";
 
-
+import { Buffer } from 'buffer';
 import {SESClient, SendEmailCommand, type SendEmailCommandInput} from "@aws-sdk/client-ses";
 import Email from '$lib/components/fields/Email.svelte';
 
@@ -17,9 +16,6 @@ const mailer = new SESClient({
       secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
     }
 })
-
-const JobDoc = new GoogleSpreadsheet('1_eGgD_YMzUFRQjZ3Jw9mUQZCLIxmMYepxbgIKTVBR84');
-const ContactDoc = new GoogleSpreadsheet('12bbyq064266vw4WNnSZyTKK6g_V0EMK70jCJiW4wZWA');
 
 function generateHTML(data: ContactData | JobData | SupportData):string  {
   if (!('formName' in data)) {
@@ -37,52 +33,70 @@ function generateHTML(data: ContactData | JobData | SupportData):string  {
   throw new Error("Should have a form name.");
 }
 
-/** @type {import('./$types').RequestHandler} */
-
 
 async function tryToAddToSheets(d:JobData|ContactData):Promise<boolean> {
-  let doc= JobDoc;
-  if (d.formName=="Contact Form"){
-    doc = ContactDoc;
-  }
-  await doc.useServiceAccountAuth({
-    client_email: import.meta.env.VITE_GSHEETS_CLIENT_EMAIL,
-    private_key: import.meta.env.VITE_GSHEETS_PRIVATE_KEY.replace(/\\n/g, '\n')
-  });
+  try{
 
-  await doc.loadInfo();
-  const sheet = doc.sheetsByIndex[0];
+    let url=`https://sheetdb.io/api/v1/g8v9yhih3d96b`;
+    let  headers = {
+        'Authorization': 'Basic ' + Buffer.from(import.meta.env.VITE_SHEETS_USERNAME_JOBS + ":" + import.meta.env.VITE_SHEETS_PASSWORD_JOBS).toString('base64'),
+        'Content-Type':'application/json'
+      }
 
+    if (d.formName=='Contact Form'){
+      url='https://sheetdb.io/api/v1/7xgvdjl1g7j0h';
+      headers = {
+        'Authorization': 'Basic ' + Buffer.from(import.meta.env.VITE_SHEETS_USERNAME + ":" + import.meta.env.VITE_SHEETS_PASSWORD).toString('base64'),
+        'Content-Type':'application/json'
+      }
+    }
 
-  let cleaned:{ [header: string]: string | number | boolean; } = {
-    "Date Submitted":new Date().toString(),
-    Name:d.name,
-    Email: d.email
-  }
+    let toSend:{ [header: string]: string | number | boolean; } = {
+      "Date":new Date().toString(),
+      "Name":d.name,
+      "Email": d.email
+    }
 
-  if (d.formName == 'Contact Form'){
-    cleaned.Message = d.message;
-    cleaned.Topic= d.topic;
-  } else {
-    let refs:string;
+    if (d.formName == 'Contact Form'){
+      toSend["Topic"]= d.topic;
+      toSend["Message"] = d.message;
+    } else {
+      let refs:string='';
 
+      d.references.forEach(r=>{
+        refs+=`${r.name}: ${r.relation} - ${r.email} ${r.phone} \n`
+      })
+      toSend['Opening'] = d.opening;
+      toSend['Phone'] = d.phone;
+      toSend['Resume'] = d.resume;
+      toSend['Cover Letter'] = d.coverLetter;
+      toSend['References'] = refs;
+    }
 
+    const keyResp = await fetch(url + '/keys',{headers});
+    const keys = await keyResp.json();
+    const body = JSON.stringify({data:[toSend]});
+    console.log(body);
+    console.log(keys);
+    const resp = await fetch(url, {
+      method:"POST",
+      body,
+      headers
+    })
 
-    cleaned.Opening = d.opening;
-    cleaned.Phone = d.phone;
-    cleaned.Resume = d.resume;
-    cleaned['Cover Letter'] = d.coverLetter;
-    cleaned.References;
-  }
-  const success = await sheet.addRow(
-   cleaned
-  );
+    const j = await resp.json();
 
-  if (success){
+    console.log(j)
+    if ('created' in j && j.created==1){
+      return true;
+
+    }
+
     return true;
-
-  }
-  return false;
+  } catch(e){
+    console.error(e);
+    throw new Error("Couldn't add to sheet")
+    }
 
 }
 

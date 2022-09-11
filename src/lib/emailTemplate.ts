@@ -101,7 +101,7 @@ export function job(data:JobData) {
     ${ data.references ? `
     <tr>
       <td ${labelAttrs}>References:</td>
-      <td ${valueAttrs}>${data.references}</td>
+      <td ${valueAttrs}>${createReferences(data.references)}</td>
     </tr>
     `:''
   }
@@ -139,4 +139,15 @@ export function support(data:SupportData) {
     </tr>
     ${commonAfter}
   `
+}
+
+function createReferences(references:JobReference[]){
+
+  let refs:string = '';
+
+  references.forEach(r=>{
+    refs+=`<p>${r.name}: ${r.relation} - <a href="mailto:${r.email}">${r.email}</a> ${r.phone} </p>`
+  })
+
+  return refs;
 }

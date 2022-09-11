@@ -99,6 +99,12 @@
 
 <FieldWrap {id}>
   <div class="wrap" for={id}>
+     {#if references.length == 0}
+    <div class="just-button" transition:slide>
+      <button type="button" on:click={()=>{addReference();}} aria-label="Add Reference"><Fa icon={faCirclePlus}/></button>
+    </div>
+
+    {/if}
     <ul class="references">
       {#each references as reference, i}
       <li class="reference" transition:slide>
@@ -136,12 +142,7 @@
       </li>
       {/each}
     </ul>
-    {#if references.length == 0}
-    <div class="just-button" transition:slide>
-      <button type="button" on:click={()=>{addReference();}} aria-label="Add Reference"><Fa icon={faCirclePlus}/></button>
-    </div>
 
-    {/if}
   </div>
 </FieldWrap>
 
