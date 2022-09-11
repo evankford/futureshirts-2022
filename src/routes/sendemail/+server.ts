@@ -3,11 +3,9 @@
 import {  json as json$1 } from '@sveltejs/kit';
 import {contact, job, support} from '$lib/emailTemplate';
 import type { RequestHandler } from "./$types";
-
-
+import { AwsClient } from 'aws4fetch';
 import { Buffer } from 'buffer';
 import {SESClient, SendEmailCommand, type SendEmailCommandInput} from "@aws-sdk/client-ses";
-import Email from '$lib/components/fields/Email.svelte';
 
 const mailer = new SESClient({
     region: 'us-east-1',
@@ -16,6 +14,13 @@ const mailer = new SESClient({
       secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
     }
 })
+
+const awser = new AwsClient({
+   accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY,
+    region:'us-east-1';
+})
+
 
 function generateHTML(data: ContactData | JobData | SupportData):string  {
   if (!('formName' in data)) {
@@ -103,7 +108,6 @@ async function tryToAddToSheets(d:JobData|ContactData):Promise<boolean> {
 
 export const POST:RequestHandler = async ({ request }) => {
 
-  let success = false;
   let errors: ResponseError[] = [];
 
 
@@ -132,16 +136,22 @@ export const POST:RequestHandler = async ({ request }) => {
 
 
   const command = new SendEmailCommand(data);
+
+  const awsPosted = ''
+  errors.push({code:1, message: 'working'});
   return mailer.send(command).then(()=>{
-                return json$1({
-        message: 'Successfully sent email'
+      errors.push({code:2, message: 'working'});
+      return json$1({
+        message: 'Successfully sent email',
+        errors
       })
       }).catch(e=>{
-      success = false;
       console.error(e);
       errors.push({code: 4, message: "Got Caught"});
       errors.push({code: 4.1, message: JSON.stringify(e)});
-
+      if('Code' in e){
+        errors.push({code: 4.1, message: JSON.stringify(e.Code)});
+        }
       return json$1({ errors }, {
         status: 500
       })
