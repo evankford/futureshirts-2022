@@ -1,10 +1,11 @@
-import type { RequestHandler} from './$types';
-import { S3Client } from '@aws-sdk/client-s3';
-import { Upload } from '@aws-sdk/lib-storage';
+// import type { RequestHandler} from './$types';
+// import { S3Client } from '@aws-sdk/client-s3';
+// import { Upload } from '@aws-sdk/lib-storage';
 import { json, error } from '@sveltejs/kit';
 
 
 export const POST:RequestHandler = async({request, params})=> {
+  return json({done: true});
   try{
     const uploader = new S3Client({
       region: 'us-east-1',

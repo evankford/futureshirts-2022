@@ -99,15 +99,10 @@ export const POST:RequestHandler = async ({ request }) => {
   let errors: ResponseError[] = [];
 
   try {
-
-    errors.push({code:0, message: 'Started'});
-
     const sentFormData:JobData|ContactData = await request.json();
     // await tryToAddToSheets(sentFormData);
-    errors.push({code:0.1, message: 'Got request data'});
     const html = generateHTML(sentFormData);
 
-    errors.push({code:0.2, message: 'Got html template'});
     let data:SendEmailCommandInput = {
       Source: `fs@m.ekfapps.com`,
       ReplyToAddresses: [sentFormData.email],
@@ -128,7 +123,6 @@ export const POST:RequestHandler = async ({ request }) => {
 
 
 
-    errors.push({code:1, message: 'Getting to client thing'});
     const mailer = new SESClient({
       region: 'us-east-1',
       credentials: {
@@ -136,12 +130,9 @@ export const POST:RequestHandler = async ({ request }) => {
         secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
       }
     });
-    errors.push({code:1.1, message: 'Getting to client thing'});
     const command = new SendEmailCommand(data);
-    errors.push({code:2, message: 'working'});
 
     const response = await mailer.send(command);
-    console.log(response);
     errors.push({code:2.3, message: JSON.stringify(response.$metadata)});
      return json({
           message: 'Successfully sent email',
@@ -154,6 +145,3 @@ export const POST:RequestHandler = async ({ request }) => {
 
   }
 }
-
-export const prerender = false;
-export const ssr = false;
