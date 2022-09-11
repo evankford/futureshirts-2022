@@ -3,19 +3,8 @@
 import {  json } from '@sveltejs/kit';
 import {contact, job, support} from '$lib/emailTemplate';
 import type { RequestHandler } from "./$types";
-import { AwsClient } from 'aws4fetch';
 import { Buffer } from 'buffer';
 import {SESClient, SendEmailCommand, type SendEmailCommandInput} from "@aws-sdk/client-ses";
-
-
-
-
-const awser = new AwsClient({
-   accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY,
-    region:'us-east-1'
-
-})
 
 
 function generateHTML(data: ContactData | JobData | SupportData):string  {
@@ -109,30 +98,30 @@ export const POST:RequestHandler = async ({ request }) => {
 
   let errors: ResponseError[] = [];
 
-
-  const sentFormData:JobData|ContactData = await request.json();
-  // await tryToAddToSheets(sentFormData);
-  const html = generateHTML(sentFormData);
-
-  let data:SendEmailCommandInput = {
-    Source: `fs@m.ekfapps.com`,
-    ReplyToAddresses: [sentFormData.email],
-    Destination: {
-      ToAddresses: ['evankerrickford@gmail.com'],
-    },
-    Message:{
-      Subject: {
-        Data: `${sentFormData.formName} Submission ${'topic' in sentFormData ? '(' + sentFormData.topic + ')' : ''}`,
-      },
-      Body: {
-        Html: {
-          Data: html
-        }
-      },
-    },
-  }
-
   try {
+    const sentFormData:JobData|ContactData = await request.json();
+    // await tryToAddToSheets(sentFormData);
+    const html = generateHTML(sentFormData);
+
+    let data:SendEmailCommandInput = {
+      Source: `fs@m.ekfapps.com`,
+      ReplyToAddresses: [sentFormData.email],
+      Destination: {
+        ToAddresses: ['evankerrickford@gmail.com'],
+      },
+      Message:{
+        Subject: {
+          Data: `${sentFormData.formName} Submission ${'topic' in sentFormData ? '(' + sentFormData.topic + ')' : ''}`,
+        },
+        Body: {
+          Html: {
+            Data: html
+          }
+        },
+      },
+    }
+
+
 
     errors.push({code:1, message: 'Getting to client thing'});
     const mailer = new SESClient({
@@ -165,6 +154,7 @@ export const POST:RequestHandler = async ({ request }) => {
         })
       })
   } catch(e) {
+    console.error(e);
     errors.push({code:4, message:e});
     return json(errors);
 
