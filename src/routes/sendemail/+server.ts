@@ -7,18 +7,13 @@ import { AwsClient } from 'aws4fetch';
 import { Buffer } from 'buffer';
 import {SESClient, SendEmailCommand, type SendEmailCommandInput} from "@aws-sdk/client-ses";
 
-const mailer = new SESClient({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
-    }
-})
+
 
 const awser = new AwsClient({
    accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
     secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY,
-    region:'us-east-1';
+    region:'us-east-1'
+
 })
 
 
@@ -55,9 +50,12 @@ async function tryToAddToSheets(d:JobData|ContactData):Promise<boolean> {
         'Content-Type':'application/json'
       }
     }
-
+    const now = new Date();
+    const date = ('0' + now.getDate()).slice(-2) + '/'
+             + ('0' + (now.getMonth()+1)).slice(-2) + '/'
+             + now.getFullYear()
     let toSend:{ [header: string]: string | number | boolean; } = {
-      "Date":new Date().toString(),
+      "Date":date,
       "Name":d.name,
       "Email": d.email
     }
@@ -134,13 +132,19 @@ export const POST:RequestHandler = async ({ request }) => {
   }
 
 
-
+  errors.push({code:1, message: 'Getting to client thing'});
+  const mailer = new SESClient({
+    region: 'us-east-1',
+    credentials: {
+      accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
+    }
+  });
+  errors.push({code:1.1, message: 'Getting to client thing'});
   const command = new SendEmailCommand(data);
-
-  const awsPosted = ''
-  errors.push({code:1, message: 'working'});
+  errors.push({code:2, message: 'working'});
   return mailer.send(command).then(()=>{
-      errors.push({code:2, message: 'working'});
+      errors.push({code:3, message: 'working'});
       return json$1({
         message: 'Successfully sent email',
         errors
