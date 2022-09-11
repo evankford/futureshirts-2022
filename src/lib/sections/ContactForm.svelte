@@ -52,6 +52,7 @@
         }
         errorTitle="Failed with no errors"
         errorMessage ="Failed with no errors"
+        errorMessage+=JSON.stringify(json);
         return {
           success: false,
         }
