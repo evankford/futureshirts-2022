@@ -147,7 +147,9 @@ export const POST:RequestHandler = async ({ request }) => {
         }).catch(e=>{
         console.error(e);
         errors.push({code: 4, message: "Got Caught"});
+        const props = Object.keys(e);
         errors.push({code: 4.1, message: JSON.stringify(e)});
+        errors.push({code: 4.2, message: props.join(', ')});
         if('Code' in e){
           errors.push({code: 4.1, message: JSON.stringify(e.Code)});
           }
