@@ -3,9 +3,6 @@
   import {page} from "$app/stores";
   import { urlFor } from "$lib/sanity";
   import { MetaTags } from 'svelte-meta-tags';
-  $: {
-    console.log(seo);
-  }
   export let seo: PageSEO | SiteSEO | undefined = undefined;
 </script>
 

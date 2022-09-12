@@ -24,6 +24,7 @@
   import throttle from "$lib/throttle";
   import {afterNavigate, beforeNavigate} from "$app/navigation";
   import { onDestroy } from "svelte";
+import HeadHelper from "$lib/components/HeadHelper.svelte";
 
   beforeNavigate(()=> {
     document.documentElement.style.scrollBehavior = 'auto';
@@ -99,21 +100,7 @@
 
 </svelte:head>
 
-<MetaTags
-  title={data.seo ? data.seo.title : 'Futureshirts'}
-  noindex={data.seo ? data.seo.nofollow : false}
-  nofollow={data.seo ? data.seo.nofollow : false}
-  description={data.seo ? data.seo.description : undefined}
-  twitter={{
-    handle: '@futureshirts',
-    site: '@futureshirts',
-    title:data.seo ? data.seo.title : 'Futureshirts',
-    description: data.seo ? data.seo.description : undefined,
-    image: data.seo && data.seo.image ?  urlFor(data.seo.image).width(1200).height(900).url() : undefined,
-    imageAlt: 'Futureshirts'
-  }}
-/>
-
+<HeadHelper seo={data.seo}/>
 <SkipButton />
 
 <Header {...data.header} smallMenuItems={data.footer?.menuItems}/>
