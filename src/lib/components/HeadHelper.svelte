@@ -9,7 +9,6 @@
 {#if seo}
 <MetaTags
   title={seo && seo.title ? seo.title : $seoStore && $seoStore.title ? $seoStore.title : 'Futureshirts'}
-  canonical={$page.url.href}
   noindex={seo ? seo.nofollow : $seoStore && $seoStore.nofollow ? $seoStore.nofollow : false}
   nofollow={seo ? seo.nofollow : $seoStore && $seoStore.nofollow ? $seoStore.nofollow : false}
   description={seo && seo.description ? seo.description : $seoStore && $seoStore.description ? $seoStore.description : undefined}
@@ -17,7 +16,6 @@
   openGraph={{
     type: 'website',
     site_name:"Futureshirts",
-    url: $page.url.href,
     title:seo && seo.title ? seo.title : $seoStore && $seoStore.title ? $seoStore.title : 'Futureshirts',
     description:seo && seo.description ? seo.description : $seoStore && $seoStore.description ? $seoStore.description : undefined,
     images:[ {
