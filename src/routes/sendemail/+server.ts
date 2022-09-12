@@ -102,14 +102,17 @@ export const POST:RequestHandler = async ({ request }) => {
 
   try {
     const sentFormData:JobData|ContactData = await request.json();
-    // await tryToAddToSheets(sentFormData);
+    if(sentFormData.formName == "Job Application")
+    {
+      await tryToAddToSheets(sentFormData);
+    }
     const html = generateHTML(sentFormData);
 
     let body = {
       FromEmailAddress: `fs@m.ekfapps.com`,
       ReplyToAddresses: [sentFormData.email],
       Destination: {
-        ToAddresses: ['evankerrickford@gmail.com'],
+        ToAddresses: sentFormData.emailTo,
       },
       Content:{
         Simple: {
