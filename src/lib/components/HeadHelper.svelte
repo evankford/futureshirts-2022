@@ -1,6 +1,5 @@
 <script lang="ts">
   import {seo as seoStore} from "$lib/stores";
-  import {page} from "$app/stores";
   import { urlFor } from "$lib/sanity";
   import { MetaTags } from 'svelte-meta-tags';
   export let seo: PageSEO | SiteSEO | undefined = undefined;
@@ -29,7 +28,6 @@
     site: 'https://futureshirts.com',
     title: seo && seo.title  ? seo.title : $seoStore && $seoStore.title ? $seoStore.title : 'Futureshirts',
     description: seo && seo.description ? seo.description : $seoStore && $seoStore.description ? $seoStore.description : undefined,
-    image: seo && seo.image ?  urlFor(seo.image).width(1200).height(900).url() : $seoStore && $seoStore.image ? urlFor($seoStore.image).width(1200).height(900).url() : undefined,
     imageAlt: 'Futureshirts'
   }}
 
