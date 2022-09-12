@@ -9,10 +9,6 @@
   import { afterNavigate } from "$app/navigation";
   import throttle from "$lib/throttle";
   let hasHeroImage = false;
-
-  if ($page.url.pathname== ''){
-    hasHeroImage=true;
-  }
   afterNavigate(()=> {
     setTimeout(() => {
       hasHeroImage = browser && document.body.querySelector('.image-hero') != null;
@@ -73,7 +69,7 @@
 
 
 
-<header class:stuck class:scrolled class:navOpen={$navOpen} class="site-header" class:home={hasHeroImage && !$page.error}>
+<header class:stuck class:scrolled class:navOpen={$navOpen} class="site-header" class:home={(hasHeroImage && !$page.error) || $page.url.pathname == '/'}>
   <div class="header-content">
 
     <div class="hide--small left">
