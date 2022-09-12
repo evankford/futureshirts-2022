@@ -114,7 +114,7 @@
   <img loading={lazy ? 'lazy' : 'eager'} class="respimg-img" alt={alt} src={urlFor(image).format('webp').width(width).url()} />
 </picture>
 {:else }
-{#if isInSlide && !isCurrentSlide}
+{#if isInSlide && !isCurrentSlide &&!loaded}
 <picture class:bg data-src="{urlFor(image).format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
   <img style="{!loaded && blurUp ? `background-image: url('${urlFor(image).format('webp').blur(30).width(100).url()}');` : 'background-image: none;'}" loading={lazy ? 'lazy' : 'eager'} class="respimg-img"  alt={alt} src={urlFor(image).format('webp').width(200).url()} />
 </picture>
