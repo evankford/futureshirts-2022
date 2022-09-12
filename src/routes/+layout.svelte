@@ -22,9 +22,9 @@
   import {  onMount } from "svelte";
 
   import throttle from "$lib/throttle";
-  import {afterNavigate,
-  beforeNavigate} from "$app/navigation";
+  import {afterNavigate, beforeNavigate} from "$app/navigation";
   import { onDestroy } from "svelte";
+
   beforeNavigate(()=> {
     document.documentElement.style.scrollBehavior = 'auto';
     document.body.style.scrollBehavior = 'auto';
@@ -43,13 +43,24 @@
     supportStore.set(data.support);
   }
 
-  onMount(()=> {
+  onMount(async ()=> {
     if (browser && window) {
 
       getVh();
       window.addEventListener('resize', throttledVh, {passive: true});
     }
     setGlobalStores();
+    // fonts
+    const WebfontModule = await import('webfontloader');
+    if (WebfontModule){
+      const WebFont = WebfontModule.default;
+      WebFont.load({
+        typekit: {
+          id: 'qie7wdg',
+        }
+      });
+    }
+
   });
   onDestroy(()=>{
     if (browser && window) {

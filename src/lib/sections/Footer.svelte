@@ -3,7 +3,7 @@
   import Socials from "$lib/components/Socials.svelte";
   import Button from "$lib/components/Button.svelte";
   import {hasJobs, support } from "$lib/stores";
-  export let menuItems:MenuItemShape[] | null, copyrightText:string ;
+  export let menuItems:MenuItemShape[] | null, copyrightText:string, address:string|false=false ;
 </script>
 
 <footer class="site-footer">
@@ -68,6 +68,11 @@
   </div>
   {/if}
   <div class="copyright">
+    {#if address}
+    <address>
+      {address}
+    </address>
+    {/if}
     <p>© {new Date().getFullYear()} {copyrightText}</p>
     <p>an <a href="https://evankerrickford.com" target="_blank" rel="nofollow noopener noreferrer">ekf</a> site</p>
   </div>
@@ -122,10 +127,16 @@
     margin: clamp(15px, calc(10px + 1.5vw), 25px) 20px;
   }
 
+  address{
+    display: block;
+    font-style: normal;
+  }
+
   .copyright {
     @include mono;
-    p {
-      margin: 0.4em auto;
+
+    p, address {
+      margin: 1em auto;
     }
     font-size: 12px;
     letter-spacing: 0;

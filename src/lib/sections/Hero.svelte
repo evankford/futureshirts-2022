@@ -104,7 +104,7 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
       <div class="bg">
         {#each heroGallery as galleryImage,i}
         <div class="slide" class:visible={i === currentSlide}>
-          <Image image={galleryImage.image} bg />
+          <Image lazy={false} isInSlide isCurrentSlide={i===currentSlide} image={galleryImage.image} bg />
         </div>
         {/each}
       </div>
@@ -223,7 +223,7 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
       z-index: 1;
       display: none;
       mix-blend-mode: darken;
-      background-color: rgb(167 170 191 / 50%);
+      background-color: rgb(157 160 171 / 50%);
       @supports (mix-blend-mode: darken){
         display: block;
       }

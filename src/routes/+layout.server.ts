@@ -6,7 +6,7 @@ import { videoFields } from "$lib/sanity";
 const query = `
 {
   "header"   : ${getSingleDocument('header')} {menuItems${menuHelper}, 'contactLink': { 'title':  coalesce(^.contactLink.title, 'Get in Touch'), 'slug': coalesce(^.slug, '/contact')}},
-  "footer"   : ${getSingleDocument('footer')} {menuItems${menuHelper}, copyrightText},
+  "footer"   : ${getSingleDocument('footer')} {menuItems${menuHelper}, copyrightText, address},
   "codes"    : ${getSingleDocument('codes')} {headerCode, footerCode},
   "contact"  : ${getSingleDocument('contactSettings')} {title, subtitle, sites, contactOptions, 'video' : ${videoFields('video')}, email, successTitle, successMessage, errorTitle, errorMessage},
   "seo"      : ${getSingleDocument('siteSEO')} {title, description, nofollow, favicon, image},

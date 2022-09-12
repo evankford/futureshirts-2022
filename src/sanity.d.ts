@@ -34,6 +34,7 @@ interface HeaderSettings {
 
 interface FooterSettings {
   copyrightText: string,
+  address: string,
   menuItems: MenuItemShape[]
 }
 interface SiteSEO {

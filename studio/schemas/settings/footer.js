@@ -18,6 +18,11 @@ export default {
       title: 'Menu items',
       type: 'array',
       of: [{type: 'menuItem'}],
+    },
+    {
+      name: 'address',
+      title: 'Address',
+      type: 'string'
     }
   ]
 }

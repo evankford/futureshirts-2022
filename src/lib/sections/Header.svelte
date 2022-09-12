@@ -9,6 +9,10 @@
   import { afterNavigate } from "$app/navigation";
   import throttle from "$lib/throttle";
   let hasHeroImage = false;
+
+  if ($page.url.pathname== ''){
+    hasHeroImage=true;
+  }
   afterNavigate(()=> {
     setTimeout(() => {
       hasHeroImage = browser && document.body.querySelector('.image-hero') != null;

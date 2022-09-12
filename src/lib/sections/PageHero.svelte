@@ -7,7 +7,7 @@
 <section use:isOnScreen class:offscreen={!onScreen} on:onscreen={(e)=>{ onScreen = true; stopWatching(e.target); }} class:image-hero={image != undefined}>
   {#if image}
   <div class="bg">
-    <Image {image} bg />
+    <Image lazy={false} {image} bg />
   </div>
   {/if}
   <div class="content">

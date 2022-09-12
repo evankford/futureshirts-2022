@@ -104,16 +104,25 @@
   width: number | null | false = false,
   aspect: number | false = false,
   transparency: boolean =  false,
+  lazy: boolean= true,
+  isInSlide: boolean=false,
+  isCurrentSlide: boolean=false,
   fullWidth: boolean =  false;
 </script>
 {#if width && width <= 150}
 <picture class:bg data-src="{urlFor(image).format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
-  <img loading="lazy" class="respimg-img" alt={alt} src={urlFor(image).format('webp').width(width).url()} />
+  <img loading={lazy ? 'lazy' : 'eager'} class="respimg-img" alt={alt} src={urlFor(image).format('webp').width(width).url()} />
 </picture>
 {:else }
+{#if isInSlide && !isCurrentSlide}
 <picture class:bg data-src="{urlFor(image).format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
-  <img style="{!loaded && blurUp ? `background-image: url('${urlFor(image).format('webp').blur(30).width(100).url()}');` : 'background-image: none;'}" loading="lazy" class="respimg-img" on:load={()=>{ setTimeout(()=>{loaded = true}, 1000 )}}  alt={alt} src={urlFor(image).format('webp').width(200).url()} srcset={buildSrcSet(image, width ? width : trySize(image).width, aspect ? aspect : trySize(image).aspect, !transparency)}/>
+  <img style="{!loaded && blurUp ? `background-image: url('${urlFor(image).format('webp').blur(30).width(100).url()}');` : 'background-image: none;'}" loading={lazy ? 'lazy' : 'eager'} class="respimg-img"  alt={alt} src={urlFor(image).format('webp').width(200).url()} />
 </picture>
+{:else}
+<picture class:bg data-src="{urlFor(image).format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
+  <img style="{!loaded && blurUp ? `background-image: url('${urlFor(image).format('webp').blur(30).width(100).url()}');` : 'background-image: none;'}" loading={lazy ? 'lazy' : 'eager'} class="respimg-img" on:load={()=>{ setTimeout(()=>{loaded = true}, 50 )}}  alt={alt} src={urlFor(image).format('webp').width(200).url()} srcset={buildSrcSet(image, width ? width : trySize(image).width, aspect ? aspect : trySize(image).aspect, !transparency)}/>
+</picture>
+{/if}
 {/if}
 
 

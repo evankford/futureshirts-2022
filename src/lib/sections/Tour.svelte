@@ -105,7 +105,6 @@
 
 </script>
 <section use:isOnScreen class=" {layout}" id="{anchor}">
-  <div class="rotate">
     <div class="top hide--medium-up">
       <SectionHeading {title} {subtitle} {intro}/>
   </div>
@@ -113,12 +112,10 @@
    <div class="gallery">
      <ul class="slides">
        <button aria-label="Previous Quote" on:click={prevSlide}><Fa icon={faChevronLeft}/></button>
-
        {#each quoteGallery as q, i}
-
-       <li class="slide-image" class:after={currentSlide < i} class:before={currentSlide > i} aria-current={currentSlide == i}>
-        <Image fullWidth bg image={q.image} alt="{q.title} Merchandise"/>
-       </li>
+        <li class="slide-image" class:after={currentSlide < i} class:before={currentSlide > i} aria-current={currentSlide == i}>
+          <Image isInSlide isCurrentSlide={currentSlide === i} width={750} bg image={q.image} alt="{q.title} Merchandise"/>
+        </li>
        {/each}
        <button aria-label="Next Quote" on:click={nextSlide}><Fa icon={faChevronRight}/></button>
      </ul>
@@ -149,8 +146,7 @@
       </div>
         <SectionBox {box} style="boxed" />
     </div>
- </div>
-  </div>
+</div>
 
 </section>
 
