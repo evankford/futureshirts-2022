@@ -20,6 +20,7 @@ specifiers:
   '@sanity/image-url': ^1.0.1
   '@sanity/types': ^2.31.1
   '@sveltejs/adapter-cloudflare': next
+  '@sveltejs/adapter-netlify': 1.0.0-next.77
   '@sveltejs/kit': next
   '@types/byte-size': ^8.1.0
   '@types/google-spreadsheet': ^3.3.0
@@ -87,6 +88,7 @@ dependencies:
   '@fortawesome/pro-regular-svg-icons': 6.2.0
   '@fortawesome/pro-solid-svg-icons': 6.2.0
   '@portabletext/svelte': 1.0.1_svelte@3.50.1
+  '@sveltejs/adapter-netlify': 1.0.0-next.77
   aws4fetch: 1.0.13
   byte-size: 8.1.0
   countup.js: 2.3.2
@@ -106,8 +108,8 @@ devDependencies:
   '@sanity/client': 3.3.6
   '@sanity/image-url': 1.0.1
   '@sanity/types': 2.31.1
-  '@sveltejs/adapter-cloudflare': 1.0.0-next.32
-  '@sveltejs/kit': 1.0.0-next.480_svelte@3.50.1+vite@3.1.0
+  '@sveltejs/adapter-cloudflare': 1.0.0-next.33
+  '@sveltejs/kit': 1.0.0-next.481_svelte@3.50.1+vite@3.1.0
   '@types/byte-size': 8.1.0
   '@types/google-spreadsheet': 3.3.0
   '@types/mjml': 4.7.0
@@ -1244,6 +1246,10 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
+  /@iarna/toml/2.2.5:
+    resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
+    dev: false
+
   /@jridgewell/resolve-uri/3.1.0:
     resolution: {integrity: sha512-F2msla3tad+Mfht5cJq7LSXcdudKTWCVYUgw6pLFOOHSTtZlj6SWNYAp+AhuqLmWdBO2X5hPrLcu8cVP8fy28w==}
     engines: {node: '>=6.0.0'}
@@ -1380,16 +1386,24 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/adapter-cloudflare/1.0.0-next.32:
-    resolution: {integrity: sha512-tzkUsdQlBk9xUjcGUOBYos4HKaeaXvz9v4TQ1QS2yIHEtL5xvMEDPZ94/DB2gPL4LZCnYbdY2lsy5HCsoN0hkQ==}
+  /@sveltejs/adapter-cloudflare/1.0.0-next.33:
+    resolution: {integrity: sha512-RNHHv3qcIZG7JbvucZEUEM5Vxqt6VApfIpXcOuAfq5IhJ+AOR33L+aAtkbIxhCcXr8d237YHibNWFSnxCHoVOg==}
     dependencies:
       '@cloudflare/workers-types': 3.16.0
-      esbuild: 0.14.54
+      esbuild: 0.15.7
       worktop: 0.8.0-next.14
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.480_svelte@3.50.1+vite@3.1.0:
-    resolution: {integrity: sha512-RnltVDZFksAkeIZ0wgMQDr4POz3WZxSDy6D/ycIjrz3VXMDYWxKRqmTEI7Yl7TxPgUabeYHGRm/qI+nSXOb/Yw==}
+  /@sveltejs/adapter-netlify/1.0.0-next.77:
+    resolution: {integrity: sha512-g4+i8xQROxw4Olt5T0bJAj3qCDuluQ/JnvzqajEz620COuIddpa2B1xK5DmbAhxQox823jLNTxg7LOEpBqD3bw==}
+    dependencies:
+      '@iarna/toml': 2.2.5
+      esbuild: 0.15.7
+      set-cookie-parser: 2.5.1
+    dev: false
+
+  /@sveltejs/kit/1.0.0-next.481_svelte@3.50.1+vite@3.1.0:
+    resolution: {integrity: sha512-rgt6KKjUmx/S/a/duntAp+yds9F3fSm6uq8nvfWHuT1aVGSC5sOdNDrKqck7PCUc9/GPJ6WJu3et5R69hqevRw==}
     engines: {node: '>=16.14'}
     hasBin: true
     requiresBuild: true
@@ -4552,7 +4566,6 @@ packages:
 
   /set-cookie-parser/2.5.1:
     resolution: {integrity: sha512-1jeBGaKNGdEq4FgIrORu/N570dwoPYio8lSoYLWmX7sQ//0JY08Xh9o5pBcgmHQ/MbsYp/aZnOe1s1lIsbLprQ==}
-    dev: true
 
   /shebang-command/2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
