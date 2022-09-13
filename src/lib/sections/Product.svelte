@@ -142,9 +142,9 @@
   }
 
   .content {
+    --font-size-mega: 48px;
     @include media-query($large-up) {
       --font-size-mega: 100px;
-      /* margin-top: 80px; */
     }
     --titleMargin: 0 auto 0.25em;
     --box-bg-color: rgb(var(--color-background));

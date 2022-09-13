@@ -3,18 +3,17 @@
   import Nav from "./Nav.svelte";
   import { onDestroy, onMount, tick, } from "svelte";
   import {navOpen} from "$lib/stores"
-
   import HeaderLogo from "$lib/components/HeaderLogo.svelte";
   import { browser } from "$app/environment";
   import { afterNavigate } from "$app/navigation";
   import throttle from "$lib/throttle";
   let hasHeroImage = false;
+
   afterNavigate(()=> {
     setTimeout(() => {
       hasHeroImage = browser && document.body.querySelector('.image-hero') != null;
-    }, 100);
+    }, 500);
   })
-
 
   let stuck:boolean = true;
   let scrolled:boolean = false
@@ -23,10 +22,9 @@
 
   function watchWindowScroll() {
     if (!browser) return;
-
     window.addEventListener('scroll', throttleScroll);
-
   }
+
   const throttleScroll = throttle( onWindowScroll, 100);
   function onWindowScroll() {
     if (!browser) return;
@@ -62,13 +60,8 @@
     removeWindowScroll();
   })
 
-
-
   export let menuItems: MenuItemShape[] | null, contactLink: ContactLink, smallMenuItems:MenuItemShape[] = [];
 </script>
-
-
-
 <header class:stuck class:scrolled class:navOpen={$navOpen} class="site-header" class:home={(hasHeroImage && !$page.error)}>
   <div class="header-content">
     <div class="hide--small left">
@@ -103,7 +96,6 @@
       color: rgb(var(--color-base-background));
     }
 
-
     &::before {
       @include psuedo;
       transition: transform 200ms 100ms linear;
@@ -122,88 +114,86 @@
         transform: translateY(calc(-0.5 * var(--pad)));
       }
       &::before {
-          transform: translateY(0)
-
-        }
-
+        transform: translateY(0)
+      }
     }
   }
-.left, .right {
-  position: relative;
-  z-index: 3;
 
-}
-
-.right {
-  z-index: 1;
-  justify-self: start;
-  @include media-query($small) {
-    margin-right: 10px;
-  }
-}
-
-.left {
-  display: inline-block;
-  width: auto;
-  justify-self: end;
-  margin: auto 6px;
-}
-
-a {
-  z-index: 2;
-  color: currentColor;
-  @include mono;
-  letter-spacing: 0;
-  text-decoration: none;
-  text-transform: lowercase;
-  display: inline-block;
-  position: relative;
-  padding: 0.2em 0.8em;
-  @include media-query($medium) {
-    font-size: 16px;
-    padding: 0
-  }
- @include hoverBox;
-
-}
-
-
-.middle {
-
-  flex: 1 1 200px;
-  width: 100%;
-  max-width: 350px;
-  padding: var(--pad);
-  display: block;
-  z-index: 1;
-  margin: auto;
-  position: relative;
-  .navOpen & {
-    z-index:4;
+  .left, .right {
+    position: relative;
+    z-index: 3;
   }
 
-}
-
-.header-content {
-  @include content-wrap;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 200ms linear;
-  @include media-query($medium) {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-  @include media-query($small) {
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
-  }
-
-  @include media-query($medium-up) {
-      display: grid;
-      grid-template-columns: 1fr 400px 1fr;
-      width: 100%;
+  .right {
+    z-index: 1;
+    justify-self: start;
+    @include media-query($small) {
+      margin-right: 10px;
     }
-}
+  }
+
+  .left {
+    display: inline-block;
+    width: auto;
+    justify-self: end;
+    margin: auto 6px;
+  }
+
+  a {
+    z-index: 2;
+    color: currentColor;
+    @include mono;
+    letter-spacing: 0;
+    text-decoration: none;
+    text-transform: lowercase;
+    display: inline-block;
+    position: relative;
+    padding: 0.2em 0.8em;
+    @include media-query($medium) {
+      font-size: 16px;
+      padding: 0
+    }
+  @include hoverBox;
+
+  }
+
+
+  .middle {
+
+    flex: 1 1 200px;
+    width: 100%;
+    max-width: 350px;
+    padding: var(--pad);
+    display: block;
+    z-index: 1;
+    margin: auto;
+    position: relative;
+    .navOpen & {
+      z-index:4;
+    }
+
+  }
+
+  .header-content {
+    @include content-wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 200ms linear;
+    @include media-query($medium) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    @include media-query($small) {
+      padding-left: 0.3rem;
+      padding-right: 0.3rem;
+    }
+
+    @include media-query($medium-up) {
+        display: grid;
+        grid-template-columns: 1fr 400px 1fr;
+        width: 100%;
+      }
+  }
 
 </style>

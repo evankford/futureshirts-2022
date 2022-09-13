@@ -19,7 +19,7 @@
   @use "../styles/abstracts" as *;
   section {
     --font-extra-line-height: 1;
-      padding: clamp(170px, calc(100px + 10vh), 300px) 0  0;
+      padding: clamp(100px, calc(50px + 10vh), 300px) 0  0;
 
     &.image-hero {
       --color-background: var(--color-base-text);
