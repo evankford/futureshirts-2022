@@ -86,6 +86,10 @@ import {hasJobs} from "$lib/stores";
   flex-basis: 330px;
   position: relative;
   z-index: 2;
+   @include media-query($small) {
+    margin-left: 0;
+    margin-right: 0;
+  }
   &::after {
     @include psuedo;
 
@@ -110,6 +114,9 @@ grid-template-columns: repeat(7, 1fr);
   @include media-query($large-up) {
     grid-template-columns: repeat(8, 1fr);
   }
+   @include media-query($small) {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
 .gallery-item {
   position: relative;
@@ -133,5 +140,6 @@ grid-template-columns: repeat(7, 1fr);
   text-align: left;
   --font-size-mega: clamp(60px, calc(50px + 3.5vw), 100px);
   --titleMargin: 0 0 20px;
+
 }
 </style>
