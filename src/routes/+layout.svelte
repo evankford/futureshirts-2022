@@ -46,6 +46,7 @@ import HeadHelper from "$lib/components/HeadHelper.svelte";
 
   onMount(async ()=> {
     if (browser && window) {
+      await import("@evankford/video-background");
 
       getVh();
       window.addEventListener('resize', throttledVh, {passive: true});
