@@ -69,11 +69,9 @@
 
 
 
-<header class:stuck class:scrolled class:navOpen={$navOpen} class="site-header" class:home={(hasHeroImage && !$page.error) || $page.url.pathname == '/'}>
+<header class:stuck class:scrolled class:navOpen={$navOpen} class="site-header" class:home={(hasHeroImage && !$page.error)}>
   <div class="header-content">
-
     <div class="hide--small left">
-
       {#if contactLink && contactLink.title}
         <a href="{contactLink.slug}">{contactLink.title}</a>
       {/if}
