@@ -115,10 +115,11 @@ interface VideoObject {
 
 type VideoOrImage = VideoOrImageImage | VideoOrImageVideo
 
-interface VideoOrImageImage {
+interface VideoOrImageImage  {
   is: 'image',
   title: string | null,
-  image: SanityImageObject
+  image: SanityImageObject,
+
 }
 
 interface VideoOrImageVideo extends VideoObject {

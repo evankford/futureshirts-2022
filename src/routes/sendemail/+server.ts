@@ -47,7 +47,7 @@ async function tryToAddToSheets(d:JobData|ContactData):Promise<boolean> {
              + ('0' + (now.getMonth()+1)).slice(-2) + '/'
              + now.getFullYear()
     let toSend:{ [header: string]: string | number | boolean; } = {
-      "Date":date,
+      "Date Submitted":date,
       "Name":d.name,
       "Email": d.email
     }
@@ -57,10 +57,11 @@ async function tryToAddToSheets(d:JobData|ContactData):Promise<boolean> {
       toSend["Message"] = d.message;
     } else {
       let refs:string='';
-
-      d.references.forEach(r=>{
-        refs+=`${r.name}: ${r.relation} - ${r.email} ${r.phone} \n`
-      })
+      if (d.references){
+        d.references.forEach(r=>{
+          refs+=`${r.name}: ${r.relation} - ${r.email} ${r.phone} \n`
+        })
+      }
       toSend['Opening'] = d.opening;
       toSend['Phone'] = d.phone;
       toSend['Resume'] = d.resume;
@@ -71,8 +72,6 @@ async function tryToAddToSheets(d:JobData|ContactData):Promise<boolean> {
     const keyResp = await fetch(url + '/keys',{headers});
     const keys = await keyResp.json();
     const body = JSON.stringify({data:[toSend]});
-    console.log(body);
-    console.log(keys);
     const resp = await fetch(url, {
       method:"POST",
       body,
@@ -90,7 +89,6 @@ async function tryToAddToSheets(d:JobData|ContactData):Promise<boolean> {
     return true;
   } catch(e){
     console.error(e);
-    throw new Error("Couldn't add to sheet")
     }
 
 }

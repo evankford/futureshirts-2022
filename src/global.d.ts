@@ -1,7 +1,6 @@
 /// <reference types="@portabletext/svelte"/>
 /// <reference types="svelte" />
 /// <reference types="svelte/store" />
-/// <reference types="mailgun.js" />
 
 interface ImportMetaEnv {
   VITE_PROJECT_ID: string;
@@ -13,6 +12,8 @@ interface ImportMetaEnv {
   VITE_AWS_SECRET_ACCESS_KEY: string
   VITE_SHEETS_USERNAME: string
   VITE_SHEETS_PASSWORD: string
+  VITE_SHEETS_USERNAME_JOBS: string
+  VITE_SHEETS_PASSWORD_JOBS: string
 }
 
  interface FormField {
