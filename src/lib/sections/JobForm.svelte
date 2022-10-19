@@ -154,7 +154,7 @@
   <h3>Resume + Cover Letter:</h3>
   <p>Please upload documents as 1-2 page .pdf files less than 2mb each.</p>
   <Upload id="resume" label="Resume" uploading={uploadingResume} uploaded={uploadedResume}/>
-  <Upload id="coverLetter" label="Cover Letter" uploading={uploadingCoverLetter}  uploaded={uploadedCoverLetter}/>
+  <Upload id="coverLetter" required={false} label="Cover Letter" uploading={uploadingCoverLetter}  uploaded={uploadedCoverLetter}/>
 
   <div class="references-header">
 
