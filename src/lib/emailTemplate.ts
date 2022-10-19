@@ -94,10 +94,11 @@ export function job(data:JobData) {
       <td ${labelAttrs}>Resume:</td>
       <td ${valueAttrs}><a href="${data.resume}" target="_blank">View Resume</a></td>
     </tr>
+    ${ data.coverLetter ? `
     <tr>
       <td ${labelAttrs}>Cover Letter:</td>
       <td ${valueAttrs}><a href="${data.coverLetter}" target="_blank">View Cover Letter</a></td>
-    </tr>
+    </tr>` : '' }
     ${ data.references ? `
     <tr>
       <td ${labelAttrs}>References:</td>

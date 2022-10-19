@@ -83,14 +83,17 @@
     uploadingResume= true;
     uploadingCoverLetter=true;
     const resume = await uploadFile(f.resume.value, slugify(`${f.name.value}-${f.opening.value}-resume.pdf`));
-    const coverLetter = await uploadFile(f.coverLetter.value, slugify(`${f.name.value}-${f.opening.value}-coverLetter.pdf`));
+    let coverLetter:string | false = false;
+    if (f.coverLetter.value) {
+       coverLetter = await uploadFile(f.coverLetter.value, slugify(`${f.name.value}-${f.opening.value}-coverLetter.pdf`));
+    }
     if(!resume){
       return fail("Resume failed to upload. Please try again");
     } else {
       uploadingResume=false;
       uploadedResume=true;
     }
-    if(!coverLetter){
+    if(f.coverLetter.value && !coverLetter){
       return fail("Cover Letter failed to upload. Please try again");
     } else {
       uploadingCoverLetter=false;
@@ -161,7 +164,7 @@
     <h3>References:</h3>
     <p>Please add details for up to 4 references.</p>
   </div>
-  <References  max={4}/>
+  <References max={4}/>
   <SubmitButton centered>Submit Application<span slot="processing">Submitting</span></SubmitButton>
   <div slot="success">
     {#if successTitle}<h2>{successTitle}</h2>{/if}

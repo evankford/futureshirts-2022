@@ -65,12 +65,15 @@ async function tryToAddToSheets(d:JobData|ContactData):Promise<boolean> {
       toSend['Opening'] = d.opening;
       toSend['Phone'] = d.phone;
       toSend['Resume'] = d.resume;
-      toSend['Cover Letter'] = d.coverLetter;
-      toSend['References'] = refs;
+      if ('resume'in d) {
+        toSend['Cover Letter'] = d.coverLetter;
+      }
+      if(refs){
+        toSend['References'] = refs;
+      }
     }
 
     const keyResp = await fetch(url + '/keys',{headers});
-    const keys = await keyResp.json();
     const body = JSON.stringify({data:[toSend]});
     const resp = await fetch(url, {
       method:"POST",
@@ -80,7 +83,6 @@ async function tryToAddToSheets(d:JobData|ContactData):Promise<boolean> {
 
     const j = await resp.json();
 
-    console.log(j)
     if ('created' in j && j.created==1){
       return true;
 

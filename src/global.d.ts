@@ -69,7 +69,7 @@ interface JobData extends SubmissionData {
   phone: string,
   opening: string,
   resume: string,
-  coverLetter:string,
+  coverLetter:string | false,
   references: JobReference[]
 }
 interface SupportData extends SubmissionData {
