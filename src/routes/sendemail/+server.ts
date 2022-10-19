@@ -73,7 +73,8 @@ async function tryToAddToSheets(d:JobData|ContactData):Promise<boolean> {
       }
     }
 
-    const keyResp = await fetch(url + '/keys',{headers});
+    // const keyResp = await fetch(url + '/keys',{headers});
+    // const keys = await keyResp.json();
     const body = JSON.stringify({data:[toSend]});
     const resp = await fetch(url, {
       method:"POST",
@@ -83,6 +84,7 @@ async function tryToAddToSheets(d:JobData|ContactData):Promise<boolean> {
 
     const j = await resp.json();
 
+    console.log(j)
     if ('created' in j && j.created==1){
       return true;
 
@@ -105,7 +107,9 @@ export const POST:RequestHandler = async ({ request }) => {
     if(sentFormData.formName == "Job Application")
     {
       await tryToAddToSheets(sentFormData);
+      console.log("Added to sheets")
     }
+
     const html = generateHTML(sentFormData);
 
     let body = {

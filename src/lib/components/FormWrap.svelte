@@ -41,11 +41,10 @@
       processing.set(true);
 
       onSubmit(currentFields).then((r:SubmitResponse)=>{
-
-        if ( r.success) {
+        if ( r && r.success) {
           handleSuccess();
         } else {
-          handleFailure(r.message);
+          handleFailure(r.message ?? "No Message found");
         }
       }).catch(e=> {
         handleError(e);

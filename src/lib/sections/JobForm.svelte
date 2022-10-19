@@ -30,17 +30,19 @@
 
   function collectEmails(opening:string){
       const emailToArray:string[] = [];
+      if (email && email.length>= 1) {
       email.forEach( a => {
         emailToArray.push(a.email);
 
       }
       )
+    }
       const matchedOpening = openings.find(v=> v.title  == opening);
-      matchedOpening.email.forEach(a=>{
-        emailToArray.push(a.email);
-      });
-
-
+      if (matchedOpening && matchedOpening.email.length >= 0) {
+        matchedOpening.email.forEach(a=>{
+          emailToArray.push(a.email);
+        });
+      }
       return emailToArray;
   }
 
@@ -84,7 +86,7 @@
     uploadingCoverLetter=true;
     const resume = await uploadFile(f.resume.value, slugify(`${f.name.value}-${f.opening.value}-resume.pdf`));
     let coverLetter:string | false = false;
-    if (f.coverLetter.value) {
+    if (f.coverLetter.value != null) {
        coverLetter = await uploadFile(f.coverLetter.value, slugify(`${f.name.value}-${f.opening.value}-coverLetter.pdf`));
     }
     if(!resume){
@@ -93,7 +95,7 @@
       uploadingResume=false;
       uploadedResume=true;
     }
-    if(f.coverLetter.value && !coverLetter){
+    if(f.coverLetter.value != null && !coverLetter){
       return fail("Cover Letter failed to upload. Please try again");
     } else {
       uploadingCoverLetter=false;
@@ -111,28 +113,26 @@
       resume,
       coverLetter,
     }
-    if (resume && coverLetter){
-        const resp =  await fetch('/sendemail', {
-          method: 'POST' ,
-          body: JSON.stringify(data),
-          headers: {
-          'Content-Type': 'application/json'
-          }
-        });
-        const json = await resp.json();
+      const resp =  await fetch('/sendemail', {
+        method: 'POST' ,
+        body: JSON.stringify(data),
+        headers: {
+        'Content-Type': 'application/json'
+        }
+      });
+      const json = await resp.json();
 
-        if (resp.status != 200) {
-          let message:string | undefined = undefined;
-          if (json.errors) {
-          json.errors.map((error : {code: number, message: string})=>{
-            message += `Error ${error.code}:   ${error.message}.<br/>`
-          })
-          }
-          return fail(message)
+      if (resp.status != 200) {
+        let message:string | undefined = undefined;
+        if (json.errors) {
+        json.errors.map((error : {code: number, message: string})=>{
+          message += `Error ${error.code}:   ${error.message}.<br/>`
+        })
         }
-        return {
-          success: true
-        }
+        return fail(message)
+      }
+      return {
+        success: true
       }
     } catch(e) {
       console.error(e);
