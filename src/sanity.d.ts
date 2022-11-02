@@ -134,6 +134,7 @@ interface VideoOrImageVideo extends VideoObject {
     email: EmailOptionShape[],
     description: Block[],
     fullDescription: Block[],
+    active: boolean
   }
 
   interface EmailOptionShape {

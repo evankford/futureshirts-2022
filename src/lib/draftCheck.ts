@@ -24,6 +24,18 @@ export function getSingleDocument(id:string) : string {
   return `*[_id == '${id}'][0]`;
 }
 
+
+
+export function getActiveJobs(id:string) : string {
+    if (isPreview()){
+        return  `coalesce(
+      *[_id == 'drafts.${id}'][0],
+      *[_id == '${id}'][0]
+    )`;
+    }
+    return `*[_id == '${id}'][0]`;
+}
+
 export function getSingleDocumentFromSlug(slug:string) : string {
     if (isPreview()){
     return  `coalesce(

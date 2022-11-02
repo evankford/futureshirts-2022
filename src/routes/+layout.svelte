@@ -1,6 +1,4 @@
 <script lang="ts">
-
-
   // export let data;
   ///Okay, doing some hover type things here
   import { navigating } from "$app/stores";
@@ -24,7 +22,7 @@
   import throttle from "$lib/throttle";
   import {afterNavigate, beforeNavigate} from "$app/navigation";
   import { onDestroy } from "svelte";
-import HeadHelper from "$lib/components/HeadHelper.svelte";
+  import HeadHelper from "$lib/components/HeadHelper.svelte";
 
   beforeNavigate(()=> {
     document.documentElement.style.scrollBehavior = 'auto';
@@ -37,7 +35,9 @@ import HeadHelper from "$lib/components/HeadHelper.svelte";
 
 
   function setGlobalStores() {
-    hasJobs.set(data.jobs.openings && data.jobs.openings.length > 0);
+    const activeJobs = data.jobs.openings ? data.jobs.openings.filter(opening=> opening.active == true): false;
+
+    hasJobs.set(activeJobs && activeJobs.length > 0);
     socialStore.set(data.socials.socials);
     seoStore.set(data.seo);
     contactStore.set(data.contact);
