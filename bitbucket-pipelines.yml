@@ -15,10 +15,6 @@ pipelines:
             - pnpx wrangler pages publish build --project-name=fs-site-2022-staging --branch staging
           caches:
             - pnpm
-          env:
-
-      - step:
-          name: Deploy to staging
     production:
       - step:
           name: Build and test
@@ -30,8 +26,3 @@ pipelines:
             - pnpx wrangler pages publish build --project-name=fs-site-2022 --branch production
           caches:
             - pnpm
-          env:
-
-      - step:
-          name: Deploy to staging
-
