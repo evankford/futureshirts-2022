@@ -55,7 +55,6 @@
 		"@aws-sdk/credential-provider-node": "^3.231.0",
 		"@aws-sdk/lib-storage": "^3.231.0",
 		"@evankford/video-background": "^0.9.13",
-		"@fortawesome/fontawesome-pro": "^6.2.1",
 		"@fortawesome/free-brands-svg-icons": "^6.2.1",
 		"@fortawesome/free-solid-svg-icons": "^6.2.1",
 		"@portabletext/svelte": "^1.0.1",
