@@ -4,6 +4,8 @@ import isOnScreen from "$lib/isOnScreen";
   import Button from "$lib/components/Button.svelte";
   import Image from "$lib/components/Image.svelte";
 import {hasJobs} from "$lib/stores";
+import type {SanityImageObject} from "@sanity/image-url/lib/types/types";
+
   export let title:string | null, subtitle: string| null, intro: string|null, image: SanityImageObject | false, logoGallery: false | SanityImageObject[] = false, anchor: string, layout: string;
 </script>
 <section use:isOnScreen class="{layout}" id="{anchor}">

@@ -1,6 +1,7 @@
 /// <reference types="@portabletext/svelte"/>
 /// <reference types="svelte" />
-/// <reference types="svelte/store" />
+
+import type {Writable} from "svelte/store";
 
 interface ImportMetaEnv {
   VITE_PROJECT_ID: string;
@@ -45,6 +46,7 @@ interface FileField {
 }
 
 type FieldStore = Writable<Fields>
+
 interface JobReference {
   name:string,
   relation: string,

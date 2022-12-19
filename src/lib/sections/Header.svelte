@@ -7,6 +7,7 @@
   import { browser } from "$app/environment";
   import { afterNavigate } from "$app/navigation";
   import throttle from "$lib/throttle";
+  import type {ContactLink, MenuItemShape} from "$lib/types/sanity";
   let hasHeroImage = false;
 
   afterNavigate(()=> {
@@ -15,8 +16,8 @@
     }, 500);
   })
 
-  let stuck:boolean = true;
-  let scrolled:boolean = false
+  let stuck = true;
+  let scrolled = false
 
   let lastScrollTop:number = browser ? window.scrollY : 0;
 
@@ -111,7 +112,7 @@
     &.scrolled.stuck:not(.navOpen) {
       color: white;
       .header-content {
-        transform: translateY(calc(-0.5 * var(--pad)));
+        transform: translateY(calc(-0.5 * var(--pad, 12px)));
       }
       &::before {
         transform: translateY(0)

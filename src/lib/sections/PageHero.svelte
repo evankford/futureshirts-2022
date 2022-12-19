@@ -1,7 +1,9 @@
 <script lang="ts">
   import Image from "$lib/components/Image.svelte";
   import isOnScreen, {stopWatching} from "$lib/isOnScreen";
-  let onScreen:boolean = false;
+  import type {SanityImageObject} from "@sanity/image-url/lib/types/types";
+
+  let onScreen = false;
   export let  image: SanityImageObject | undefined = undefined;
 </script>
 <section use:isOnScreen class:offscreen={!onScreen} on:onscreen={(e)=>{ onScreen = true; stopWatching(e.target); }} class:image-hero={image != undefined}>

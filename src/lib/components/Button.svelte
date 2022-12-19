@@ -2,7 +2,7 @@
 import getRefUrl from "$lib/ref";
 import isOnScreen, { stopWatching} from "$lib/isOnScreen";
 
-let invisible: boolean = true;
+let invisible = true;
 export let noMargin = false, small = false, simple = false, underline = false, link:LinkURL | string | null = null;
 </script>
 

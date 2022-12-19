@@ -1,5 +1,5 @@
 <script lang="ts">
-    import setupField from "$lib/setupField";
+  import setupField from "$lib/setupField";
   import { getContext, onMount } from "svelte";
   import RequiredIndicator from "$lib/components/fields/RequiredIndicator.svelte";
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
@@ -29,7 +29,7 @@
     })
   }
   let textActive = false;
-  export let required:boolean = false, id="email", value = '', label="Email Address";
+  export let required = false, id="email", value = '', label="Email Address";
 </script>
 
 <FieldWrap {id}>

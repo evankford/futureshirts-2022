@@ -1,5 +1,6 @@
 <script lang="ts">
   import Image from "./Image.svelte";
+  import type {VideoObject} from "../types/sanity";
 
   function videoSrc():string |false{
     if (video.type != 'local') {
@@ -13,7 +14,7 @@
   }
 
 
-  export let video: VideoObject, bg:boolean = true;
+  export let video: VideoObject, bg = true;
 </script>
 
 

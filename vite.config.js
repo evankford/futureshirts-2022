@@ -14,8 +14,7 @@ const config = {
 	ssr: {
 		noExternal: [
 			'@fortawesome/free-brands-svg-icons',
-			'@fortawesome/pro-regular-svg-icons',
-			'@fortawesome/pro-solid-svg-icons'
+			'@fortawesome/free-solid-svg-icons',
 		]
 	},
 	envPrefix: ['VITE_', 'AWS_']

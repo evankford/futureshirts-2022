@@ -3,6 +3,7 @@
   import Socials from "$lib/components/Socials.svelte";
   import Button from "$lib/components/Button.svelte";
   import {hasJobs, support } from "$lib/stores";
+  import type {MenuItemShape} from "$lib/types/sanity";
   export let menuItems:MenuItemShape[] | null, copyrightText:string, address:string|false=false ;
 </script>
 

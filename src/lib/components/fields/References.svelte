@@ -4,17 +4,15 @@
   import { getContext, onMount } from "svelte";
   import RequiredIndicator from "$lib/components/fields/RequiredIndicator.svelte";
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
-  import { faCirclePlus, faCircleMinus } from "@fortawesome/pro-regular-svg-icons"
+  import { faCirclePlus, faCircleMinus } from "@fortawesome/free-solid-svg-icons"
     import{validate as validateEmail} from 'email-validator';
   import {phone, type PhoneResult} from 'phone';
-
   import Fa from "svelte-fa";
-
 
   const context:FieldStore = getContext('fields');
 
   function validateReference (r:JobReference, i: number) {
-    let resp:string  = '';
+    let resp  = '';
     if (r.name == '') {
       resp += `Please enter a name for reference ${i + 1}.<br/>`
     }
@@ -31,7 +29,7 @@
     if (r.phone == '') {
       resp += `Please enter a phone number for reference ${i + 1}.<br/>`
     } else {
-      const validatedPhone = phone(r.phone);
+      const validatedPhone:PhoneResult = phone(r.phone);
       if (!validatedPhone.isValid) {
         resp += `Please enter a valid phone number for reference ${i + 1}.<br/>`
       }
@@ -162,10 +160,9 @@
     --number-size: 32px;
     padding: 0;
     list-style: none;
-    margin: 0;
-    width: calc(100% + var(--number-size));
-    margin-left: calc(-1 * var(--number-size));
-    @include media-query($small) {
+     width: calc(100% + var(--number-size));
+     margin: 0 0 0 calc(-1 * var(--number-size));
+     @include media-query($small) {
       --number-size: 16px;
     }
    }

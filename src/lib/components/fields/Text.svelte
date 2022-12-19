@@ -29,7 +29,7 @@
     })
   }
   let textActive = false;
-  export let required :boolean = false, id="email", value = '', label="Email Address";
+  export let required=false, id="email", value = '', label="Email Address";
 </script>
 
 <FieldWrap {id}>

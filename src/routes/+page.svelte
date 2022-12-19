@@ -12,13 +12,13 @@
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
   import Fa from "svelte-fa";
-  import {  faChevronDown } from "@fortawesome/pro-regular-svg-icons";
+  import {  faChevronDown } from "@fortawesome/free-solid-svg-icons";
   import throttle from "$lib/throttle"
   import { onDestroy } from "svelte";
-
+  import type {SiteSettings} from "../lib/types/sanity";
 
   export let data: SiteSettings;
-  let scrolled: boolean = false;
+  let scrolled = false;
 
   const throttleChangeScroll = throttle( changeScroll, 30);
   function changeScroll() {

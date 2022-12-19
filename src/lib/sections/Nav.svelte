@@ -4,10 +4,11 @@
   import {navOpen} from "$lib/stores"
   import {browser} from "$app/environment"
   import Fa from "svelte-fa";
-  import {faBarsSort, faXmark} from "@fortawesome/pro-regular-svg-icons";
+  import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
   import { fly } from "svelte/transition";
   import {hasJobs} from "$lib/stores";
   import { onDestroy } from "svelte";
+  import type {MenuItemShape} from "$lib/types/sanity";
 
 const unsubNav = navOpen.subscribe(val=> {
   if (browser) {
@@ -31,7 +32,7 @@ const unsubNav = navOpen.subscribe(val=> {
   {#if $navOpen}
     <span transition:fly={{x: 60}}><Fa icon={faXmark} /></span>
   {:else}
-    <span transition:fly={{x: 60}}><Fa icon={faBarsSort} /></span>
+    <span transition:fly={{x: 60}}><Fa icon={faBars} /></span>
   {/if}
 </button>
 <nav class:navOpen={$navOpen} aria-hidden={!$navOpen}>

@@ -1,43 +1,45 @@
-/// <reference path="../node_modules/@sanity/image-url/lib/types/types.d.ts" />
+import type {
+    SanityImageObject,
+    SanityAsset
+}  from "@sanity/image-url/lib/types/types";
+import type {Block, CounterModel, SectionShape} from "$lib/types/sections";
 /// <reference types="@sanity/image-url" />
 
-
-
-interface LinkURL {
+export interface LinkURL {
   type: 'internal' | 'external' | 'anchor' | 'submenu',
   anchor?: string,
   ref?:DocBase,
   url?:string,
   openInNewTab?:boolean
-  submenu?: MenuItem[]
+  submenu?: MenuItemShape[]
 }
 
-interface MenuItemShape {
+export interface MenuItemShape {
   title: string,
   linkUrl: LinkURL
 }
 
-interface CodeSnippetSettings {
+export interface CodeSnippetSettings {
   headerCode?: CodeSnippet[],
   footerCode?: CodeSnippet[]
 }
 
-interface ContactLink {
+export interface ContactLink {
   title: string,
   slug: string
 }
 
-interface HeaderSettings {
+export interface HeaderSettings {
   contactLink: ContactLink
   menuItems: MenuItemShape[]
 }
 
-interface FooterSettings {
+export interface FooterSettings {
   copyrightText: string,
   address: string,
   menuItems: MenuItemShape[]
 }
-interface SiteSEO {
+export interface SiteSEO {
   title: string,
   description: string,
   nofollow: boolean,
@@ -45,32 +47,32 @@ interface SiteSEO {
   image: SanityImageObject
 }
 
-interface PageSEO {
+export interface PageSEO {
   title?:string,
   description?:string,
   nofollow?: boolean
   image?: SanityImageObject
 }
-type SocialLinkType ='facebook'| 'instagram' |'twitter' | 'youtube' |'tiktok'| 'spotify' | 'apple' | 'twitch'
+export type SocialLinkType ='facebook'| 'instagram' |'twitter' | 'youtube' |'tiktok'| 'spotify' | 'apple' | 'twitch'
 
-interface SocialLink {
+export interface SocialLink {
   type: SocialLinkType
   url: string,
 }
 
-interface SocialMediaSettings {
+export interface SocialMediaSettings {
   socials: SocialLink[]
   image: SanityImageObject,
 
 }
-interface ContactOption {
+export interface ContactOption {
   title: string,
   message: Block[],
   email?: EmailOptionShape[],
 }
 
 
-interface SiteSettings {
+export interface SiteSettings {
   seo: SiteSEO | null,
   header: HeaderSettings | null,
   footer: FooterSettings | null,
@@ -83,25 +85,25 @@ interface SiteSettings {
 }
 
 
-interface CodeShape {
+export interface CodeShape {
   _type: 'code',
   language: 'html' ,
   code: string
 }
 
-interface CodeSnippet {
+export interface CodeSnippet {
   code: CodeShape,
   title: string,
   active: boolean
 }
 
-interface LocalVideo extends SanityAsset {
+export interface LocalVideo extends SanityAsset {
 
   image: SanityImageObject,
   smallVersion: SanityAsset //?
  }
 
-interface VideoObject {
+export interface VideoObject {
   type: 'youtube' | 'vimeo' | 'local',
   title: string | null,
   background: boolean,
@@ -113,22 +115,22 @@ interface VideoObject {
   _type: 'video'
 }
 
-type VideoOrImage = VideoOrImageImage | VideoOrImageVideo
+export type VideoOrImage = VideoOrImageImage | VideoOrImageVideo
 
-interface VideoOrImageImage  {
+export interface VideoOrImageImage  {
   is: 'image',
   title: string | null,
   image: SanityImageObject,
 
 }
 
-interface VideoOrImageVideo extends VideoObject {
+export interface VideoOrImageVideo extends VideoObject {
   is: 'video'
   image: SanityImageObject
 }
 
 
- interface Opening {
+ export interface Opening {
     title: string,
     subtitle?: string
     email: EmailOptionShape[],
@@ -137,12 +139,12 @@ interface VideoOrImageVideo extends VideoObject {
     active: boolean
   }
 
-  interface EmailOptionShape {
+  export interface EmailOptionShape {
     name?:string
     email: string
   }
 
-  interface FormSettings {
+  export interface FormSettings {
     email: EmailOptionShape[]
     title: string
     subtitle ?:string
@@ -151,19 +153,19 @@ interface VideoOrImageVideo extends VideoObject {
     errorTitle: string
     errorMessage: string
   }
-interface ContactSettings extends FormSettings {
+export interface ContactSettings extends FormSettings {
   image:SanityImageObject
   content: Block[]
   contactOptions: ContactOption[]
   contactVideo?: VideoOrImage
 }
-interface SupportSettings extends DocBase {
+export interface SupportSettings extends DocBase {
   email: string,
   counters?: CounterModel[],
 
 }
 
-  interface JobSettings extends FormSettings{
+  export interface JobSettings extends FormSettings{
     image:SanityImageObject
     content: Block[]
     haveOpeningsTitle: string
@@ -173,12 +175,12 @@ interface SupportSettings extends DocBase {
     openings: Opening[]
   }
 
-interface SlugShape {
+export interface SlugShape {
   _type: 'slug',
   current: string
 }
 
-  interface SEOSettingsBase {
+  export interface SEOSettingsBase {
   seoTitle?: string,
   slug: string,
   seoImage?:SanityImageObject,
@@ -186,7 +188,7 @@ interface SlugShape {
 }
 
 
-  interface DocBase extends SEOSettingsBase {
+  export interface DocBase extends SEOSettingsBase {
   _type: 'company'|'news'|'page',
   _createdAt: string,
   _id: string,
@@ -195,13 +197,13 @@ interface SlugShape {
   image?:SanityImageObject
 }
 
-interface SimpleSupportSettings {
+export interface SimpleSupportSettings {
   title: string
   subtitle: string
   email: string
 }
 
-interface PageData extends PageSEO {
+export interface PageData extends PageSEO {
   title: string,
   subtitle?: string,
   image?: SanityImageObject,

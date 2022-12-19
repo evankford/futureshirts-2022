@@ -4,6 +4,8 @@ import isOnScreen from "$lib/isOnScreen";
   import Video from "$lib/components/Video.svelte";
   import SectionBox from "$lib/components/SectionBox.svelte";
 import Image from "$lib/components/Image.svelte";
+  import type {VideoOrImage} from "$lib/types/sanity";
+  import type {Block} from "$lib/types/sections";
   export let title:string | null, subtitle: string| null, intro: string|null, box: Array<Block>, moreVideo:VideoOrImage, anchor: string;
 
 </script>
@@ -14,7 +16,7 @@ import Image from "$lib/components/Image.svelte";
         <SectionHeading {title} {subtitle} {intro}/>
       </div>
       <div class="right">
-        <SectionBox {box} style="eachBoxed"/>
+        <SectionBox {box} boxStyle="eachBoxed" />
       </div>
     </div>
     <div class="bottom ">

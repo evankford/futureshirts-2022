@@ -6,10 +6,12 @@
   import Quote from "$lib/components/Quote.svelte";
   import Fa from "svelte-fa";
   import {fly} from "svelte/transition";
-  import {faChevronLeft, faChevronRight} from "@fortawesome/pro-regular-svg-icons"
+  import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons"
   import {onMount, onDestroy} from "svelte";
   import {browser} from "$app/environment"
   import throttle from "$lib/throttle";
+  import type {Block, QuoteShape} from "$lib/types/sections";
+
   let currentSlide = 0;
   let slideInterval: ReturnType<typeof setInterval>;
   function startSlideInterval() {
