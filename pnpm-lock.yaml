@@ -10,6 +10,7 @@ specifiers:
   '@esbuild-plugins/node-globals-polyfill': ^0.1.1
   '@esbuild-plugins/node-modules-polyfill': ^0.1.4
   '@evankford/video-background': ^0.9.13
+  '@fortawesome/fontawesome-common-types': ^6.2.1
   '@fortawesome/free-brands-svg-icons': ^6.2.1
   '@fortawesome/free-solid-svg-icons': ^6.2.1
   '@portabletext/svelte': ^1.0.1
@@ -67,6 +68,7 @@ dependencies:
   '@aws-sdk/credential-provider-node': 3.231.0
   '@aws-sdk/lib-storage': 3.231.0_iuu2dslkebrimg5lnvlefpr354
   '@evankford/video-background': 0.9.13
+  '@fortawesome/fontawesome-common-types': 6.2.1
   '@fortawesome/free-brands-svg-icons': 6.2.1
   '@fortawesome/free-solid-svg-icons': 6.2.1
   '@portabletext/svelte': 1.0.1_svelte@3.55.0
@@ -1427,13 +1429,13 @@ packages:
     dev: false
 
   /@fortawesome/fontawesome-common-types/6.2.1:
-    resolution: {integrity: sha512-Sz07mnQrTekFWLz5BMjOzHl/+NooTdW8F8kDQxjWwbpOJcnoSg4vUDng8d/WR1wOxM0O+CY9Zw0nR054riNYtQ==, tarball: '@fortawesome/fontawesome-common-types/-/6.2.1/fontawesome-common-types-6.2.1.tgz'}
+    resolution: {integrity: sha512-Sz07mnQrTekFWLz5BMjOzHl/+NooTdW8F8kDQxjWwbpOJcnoSg4vUDng8d/WR1wOxM0O+CY9Zw0nR054riNYtQ==}
     engines: {node: '>=6'}
     requiresBuild: true
     dev: false
 
   /@fortawesome/free-brands-svg-icons/6.2.1:
-    resolution: {integrity: sha512-L8l4MfdHPmZlJ72PvzdfwOwbwcCAL0vx48tJRnI6u1PJXh+j2f3yDoKyQgO3qjEsgD5Fr2tQV/cPP8F/k6aUig==, tarball: '@fortawesome/free-brands-svg-icons/-/6.2.1/free-brands-svg-icons-6.2.1.tgz'}
+    resolution: {integrity: sha512-L8l4MfdHPmZlJ72PvzdfwOwbwcCAL0vx48tJRnI6u1PJXh+j2f3yDoKyQgO3qjEsgD5Fr2tQV/cPP8F/k6aUig==}
     engines: {node: '>=6'}
     requiresBuild: true
     dependencies:
@@ -1441,7 +1443,7 @@ packages:
     dev: false
 
   /@fortawesome/free-solid-svg-icons/6.2.1:
-    resolution: {integrity: sha512-oKuqrP5jbfEPJWTij4sM+/RvgX+RMFwx3QZCZcK9PrBDgxC35zuc7AOFsyMjMd/PIFPeB2JxyqDr5zs/DZFPPw==, tarball: '@fortawesome/free-solid-svg-icons/-/6.2.1/free-solid-svg-icons-6.2.1.tgz'}
+    resolution: {integrity: sha512-oKuqrP5jbfEPJWTij4sM+/RvgX+RMFwx3QZCZcK9PrBDgxC35zuc7AOFsyMjMd/PIFPeB2JxyqDr5zs/DZFPPw==}
     engines: {node: '>=6'}
     requiresBuild: true
     dependencies:
