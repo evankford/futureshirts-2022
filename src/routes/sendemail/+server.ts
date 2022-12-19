@@ -135,8 +135,8 @@ export const POST:RequestHandler = async ({ request }) => {
     }
     const sender = new AwsClient ({
       region: 'us-east-1',
-      accessKeyId:import.meta.env.VITE_AWS_ACCESS_KEY_ID,
-      secretAccessKey:import.meta.env.VITE_AWS_SECRET_ACCESS_KEY
+      accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
     });
 
 

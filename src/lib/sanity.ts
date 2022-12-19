@@ -4,15 +4,15 @@ import { error, json } from '@sveltejs/kit';
 import imageUrlBuilder from '@sanity/image-url'
 import type { SanityImageSource} from "@sanity/image-url/lib/types/types"
 const apiVersion = '2021-10-21';
-const projectId = import.meta.env.VITE_PROJECT_ID;
-const dataset = import.meta.env.VITE_DATASET
+const projectId = import.meta.env.SANITY_PROJECT_ID;
+const dataset = import.meta.env.SANITY_DATASET
 
 export const client = sanityClient({
   projectId,
   dataset,
   apiVersion,
   useCdn: true,
-  token: import.meta.env.VITE_SANITY_TOKEN
+  token: import.meta.env.SANITY_TOKEN
 })
 
 const builder = imageUrlBuilder(client);
@@ -24,7 +24,7 @@ export const sanityFetch = async (query:string, fetcher:typeof fetch| undefined 
   const url = `https://${projectId}.api.sanity.io/v${apiVersion}/data/query/${dataset}?query=${encodeURIComponent(query)}`;
   const headers = {
     'Content-Type': 'application/json',
-    'Authorization' : `Bearer ${import.meta.env.VITE_SANITY_TOKEN}`
+    'Authorization' : `Bearer ${import.meta.env.SANITY_TOKEN}`
   }
   if (fetcher){
 
