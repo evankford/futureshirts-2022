@@ -23,7 +23,7 @@ pipelines:
             - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
             - pnpm install
             - pnpm run build
-            - pnpx svelte-sitemap --domain https://futureshirts.co
+            - pnpx svelte-sitemap --domain https://futureshirts.co --out-dir=.svelte-kit/cloudflare
             - pnpx wrangler pages publish .svelte-kit/cloudflare --project-name=fs-site-2022 --branch production
           caches:
             - pnpm
