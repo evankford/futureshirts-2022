@@ -10,12 +10,13 @@
   import Licensing from "$lib/sections/Licensing.svelte";
 
   import { onMount } from "svelte";
+  import {fade} from "svelte/transition";
   import { browser } from "$app/environment";
-  import Fa from "svelte-fa";
   import {  faChevronDown } from "@fortawesome/free-solid-svg-icons";
   import throttle from "$lib/throttle"
   import { onDestroy } from "svelte";
-  import type {SiteSettings} from "../lib/types/sanity";
+  import type {SiteSettings} from "$lib/types/sanity";
+  import { default as Fa } from "svelte-fa";
 
   export let data: SiteSettings;
   let scrolled = false;
@@ -46,23 +47,31 @@
     }
   })
 </script>
-  <div class:visible={scrolled} class="scroll-helper" aria-hidden={scrolled} aria-label="Scroll For More"><Fa icon={faChevronDown} />  </div>
+
+<svelte:head>
+  <title>Merch Made Easy— offering services in product development, creative, tour and on-site support, e-commerce, marketing, retail and brand partnerships, and fulfillment/logistics.</title>
+</svelte:head>
+{#if !scrolled}
+  <div transition:fade class="scroll-helper visible" aria-hidden="true" aria-label="Scroll For More">
+    <Fa icon={faChevronDown} />
+  </div>
+  {/if}
 {#each data.sections as section}
-  {#if section.layout == 'hero'}
+  {#if section.layout === 'hero'}
   <Hero {...section} />
-  {:else if section.layout == 'more'}
+  {:else if section.layout === 'more'}
   <More {...section} />
-  {:else if section.layout == 'product'}
+  {:else if section.layout === 'product'}
   <Product {...section}/>
-  {:else if section.layout == 'tour'}
+  {:else if section.layout === 'tour'}
   <Tour {...section} />
-{:else if section.layout == 'ecommerce'}
+{:else if section.layout === 'ecommerce'}
   <Ecommerce {...section} />
-  {:else if section.layout == 'licensing'}
+  {:else if section.layout === 'licensing'}
   <Licensing {...section} />
-  {:else if section.layout == 'team'}
+  {:else if section.layout === 'team'}
   <Team {...section } />
-  {:else if section.layout == 'connect'}
+  {:else if section.layout === 'connect'}
   <!-- no. -->
   <Connect {...section}/>
   {/if}
@@ -76,13 +85,10 @@
     z-index: 100;
     bottom: 5%;
     left: 50%;
-    width: auto;
     background: rgb(var(--color-accent));
     border-radius: 50px;
-    display: block;
     color: white;
     --color-foreground: 255,255,255;
-    display: inline-block;
     height: 50px;
     line-height: 50px;
     width: 50px;
@@ -122,7 +128,6 @@
       opacity: 0.5;
       transform: translate3d(-50%,-20px,0);
     }
-
 
     100% {
       opacity: 0;

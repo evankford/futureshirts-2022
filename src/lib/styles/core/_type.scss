@@ -58,6 +58,9 @@ h1, .h1 {
   &.small {
     --modifier: 1.7;
   }
+  & + h3, & + .h3{
+    margin-top: 1em;
+  }
 }
 
 .title + .subtitle {
@@ -94,10 +97,6 @@ h2, .h2 {
 @include media-query($small) {
   //bring it up on small screens;
   --modifier: 1.4;
-}
-@include media-query($tiny) {
-  //bring it up on small screens;
-  // --modifier: 1.3;
 }
 
 }

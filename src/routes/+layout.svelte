@@ -9,7 +9,7 @@
     }
   })
 
-  import { MetaTags } from 'svelte-meta-tags';
+  // import { MetaTags } from 'svelte-meta-tags';
   import { urlFor } from "$lib/sanity";
   import { hasJobs, navOpen, socials as socialStore, seo as seoStore, contact as contactStore, support as supportStore} from "$lib/stores";
 
@@ -23,6 +23,7 @@
   import {afterNavigate, beforeNavigate} from "$app/navigation";
   import { onDestroy } from "svelte";
   import HeadHelper from "$lib/components/HeadHelper.svelte";
+  import type {SiteSettings} from "$lib/types/sanity";
 
   beforeNavigate(()=> {
     document.documentElement.style.scrollBehavior = 'auto';
