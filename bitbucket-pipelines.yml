@@ -24,7 +24,7 @@ pipelines:
             - pnpm install
             - pnpm run build
             - pnpx svelte-sitemap --domain https://futureshirts.co --out-dir=.svelte-kit/cloudflare
-            - pnpx wrangler pages publish .svelte-kit/cloudflare --project-name=fs-site-2022 --branch=production
+            - pnpx wrangler pages publish .svelte-kit/cloudflare --project-name=fs-site--branch=production
           caches:
             - pnpm
   custom:
@@ -37,6 +37,6 @@ pipelines:
             - pnpm install
             - pnpm run build
             - pnpx svelte-sitemap --domain https://futureshirts.co --out-dir=.svelte-kit/cloudflare
-            - pnpx wrangler pages publish .svelte-kit/cloudflare --project-name=fs-site-2022 --branch=production
+            - pnpx wrangler pages publish .svelte-kit/cloudflare --project-name=fs-site --branch=production
           caches:
             - pnpm
