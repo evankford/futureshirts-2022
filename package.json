@@ -67,6 +67,7 @@
 		"phone": "^3.1.31",
 		"slugify": "^1.6.5",
 		"svelte-markdown": "^0.2.3",
+		"svelte-sitemap": "^2.5.4",
 		"throttle-debounce": "^5.0.0",
 		"vite": "^4.0.2",
 		"webfontloader": "^1.6.28"
