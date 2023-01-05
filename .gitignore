@@ -7,5 +7,4 @@ node_modules
 .env.*
 !.env.example
 .netlify
-
-**/.idea/*.xml
+.idea/**/*.xml

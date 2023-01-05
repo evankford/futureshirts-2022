@@ -5,6 +5,7 @@
 
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
   import Select from "svelte-select";
+  import type {Opening} from "$lib/types/sanity";
 
   const context:FieldStore = getContext('fields');
 
@@ -35,7 +36,7 @@
   }
   let listOpen = false, value: string | false , filterText ='';
 
-  export let id:string = "opening", openings: Opening[] = [], required:boolean = true;
+  export let id  = "opening", openings: Opening[] = [], required = true;
 </script>
 <FieldWrap {id}>
   <label class:filled={value && value != '' || filterText.length > 0} class:active={listOpen} for={id}>

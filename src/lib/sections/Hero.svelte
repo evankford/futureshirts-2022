@@ -1,8 +1,7 @@
 <script lang="ts">
   import Fa from "svelte-fa";
   import { fly } from "svelte/transition";
-  import { faArrowLeftLong, faArrowRightLong } from "@fortawesome/pro-regular-svg-icons";
-  import { faCircle } from "@fortawesome/pro-solid-svg-icons";
+  import { faCircle, faLeftLong, faRightLong  } from "@fortawesome/free-solid-svg-icons";
   import SectionHeading from "$lib/components/SectionHeading.svelte";
 import isOnScreen, {stopWatching} from "$lib/isOnScreen";
   import SectionBox from "$lib/components/SectionBox.svelte";
@@ -11,6 +10,8 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
   import { onDestroy } from "svelte";
   import { browser } from "$app/environment";
   import  throttle  from "$lib/throttle";
+  import type {Block, HeroImage} from "$lib/types/sections";
+
 
   let currentSlide = 0;
   let slideInterval: ReturnType<typeof setInterval>;
@@ -60,10 +61,10 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
     window.removeEventListener('scroll', throttleScroll);
     window.removeEventListener('resize', throttleResize);
   }
-  let section:HTMLElement, scr: number = 0.5;
+  let section:HTMLElement, scr = 0.5;
 
   let sectionDims: ReturnType<HTMLElement["getBoundingClientRect"]> ;
-  let top: number = 0, bottom: number = 2000;
+  let top = 0, bottom = 2000;
 
   function handleResize() {
     if (!section) {
@@ -95,6 +96,8 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
       handleResize();
     }
   });
+
+
   let el:HTMLElement;
   export let title:string | null, subtitle: string| null, intro: string|null, box: Array<Block>, heroGallery: Array<HeroImage>, anchor:string;
 </script>
@@ -131,7 +134,7 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
         {/if}
         <nav aria-label="Slide {currentSlide + 1} of {heroGallery.length} active.">
           <button on:click={prevSlide} aria-label="Previous Slide" aria-disabled={currentSlide == 0}>
-            <Fa icon={faArrowLeftLong}/>
+            <Fa icon={faLeftLong}/>
           </button>
           {#each Array(heroGallery.length) as _, i}
             <button class="dot" class:active={i == currentSlide } on:click={()=> {slideTo(i)}}  aria-label="Go To Slide {i}">
@@ -139,13 +142,13 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
             </button>
           {/each}
           <button on:click={nextSlide} aria-label="Next Slide" aria-disabled={currentSlide + 1 >= heroGallery.length}>
-            <Fa icon={faArrowRightLong}/>
+            <Fa icon={faRightLong}/>
           </button>
         </nav>
       </div>
       <div class="right">
         {#if box}
-        <SectionBox {box} style="simple"/>
+        <SectionBox {box} boxStyle="simple"/>
         {/if}
       </div>
     </div>

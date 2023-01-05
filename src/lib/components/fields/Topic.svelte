@@ -3,11 +3,11 @@
   import { onMount, getContext } from "svelte";
   import setupField from "$lib/setupField";
   import { PortableText} from "@portabletext/svelte";
-
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
   import Select from "svelte-select";
   import RequiredIndicator from "$lib/components/fields/RequiredIndicator.svelte";
-
+  import type {Block} from "$lib/types/sections";
+  import type {ContactOption, EmailOptionShape} from "$lib/types/sanity";
   const context:FieldStore = getContext('fields');
 
   type SelectOption = {value: string, label: string}
@@ -43,7 +43,7 @@
   }
   let listOpen = false, value: string | false , filterText ='';
 
-  export let topics: ContactOption[] = [], emailTo:EmailOptionShape[] | false = false, id: string = "topic", required:boolean = true;
+  export let topics: ContactOption[] = [], emailTo:EmailOptionShape[] | false = false, id = "topic", required = true;
 </script>
 <FieldWrap {id}>
 <label class:filled={value && value != '' || filterText.length > 0} class:active={listOpen} for={id}>

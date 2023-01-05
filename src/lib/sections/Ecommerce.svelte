@@ -9,6 +9,8 @@ import Phone from "$lib/components/Phone.svelte";
 import Galaxy from "$lib/components/Galaxy.svelte";
 import Tablet from "$lib/components/Tablet.svelte";
 import Laptop from "$lib/components/Laptop.svelte";
+  import type {Block, CounterModel} from "$lib/types/sections";
+  import type {VideoOrImage} from "$lib/types/sanity";
   export let title:string | null, layout: string, subtitle: string| null, box: Block[], intro: string|null, counters: CounterModel[], computer: VideoOrImage, computer2: VideoOrImage, phone:VideoOrImage, phone2:VideoOrImage, tablet:VideoOrImage, anchor: string;
 
 </script>

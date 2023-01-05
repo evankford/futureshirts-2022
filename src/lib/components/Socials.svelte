@@ -2,7 +2,7 @@
   import { faFacebookF, faTwitter, faInstagram, faTiktok, faYoutube, faSpotify} from "@fortawesome/free-brands-svg-icons"
   import Fa from "svelte-fa";
 import { socials, navOpen } from "$lib/stores";
-export let inNav:boolean = false;
+export let inNav = false;
 </script>
 
 {#if $socials && $socials.length > 0}

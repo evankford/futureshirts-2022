@@ -21,7 +21,7 @@
     return false;
   }
 
-  function truncate(str:string, n:number = 25){
+  function truncate(str:string, n = 25){
     return (str.length > n) ? str.substring(0, n-1) + '&hellip;' : str;
   };
 

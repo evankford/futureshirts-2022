@@ -1,6 +1,7 @@
 <script lang="ts">
   import { urlFor } from "$lib/sanity";
   import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import type {SanityImageObject} from "@sanity/image-url/lib/types/types";
 
   const widths = [150, 300, 600, 900, 1200, 1500, 1800, 2100, 2500, 3000];
 
@@ -98,16 +99,16 @@
   image:SanityImageObject,
   fixedHeight:number|false = false,
   fixedWidth: number|false = false,
-  blurUp: boolean =true,
+  blurUp =true,
   alt: string|null = null,
-  bg:boolean = false,
+  bg = false,
   width: number | null | false = false,
   aspect: number | false = false,
-  transparency: boolean =  false,
-  lazy: boolean= true,
-  isInSlide: boolean=false,
-  isCurrentSlide: boolean=false,
-  fullWidth: boolean =  false;
+  transparency =  false,
+  lazy= true,
+  isInSlide=false,
+  isCurrentSlide=false,
+  fullWidth =  false;
 </script>
 {#if width && width <= 150}
 <picture class:bg data-src="{urlFor(image).format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
@@ -169,7 +170,7 @@
     background-size:var(--image-fill, cover);
     background-repeat: no-repeat;
     object-fit: var(--image-fill, cover);
-    object-position: var(--obj-pos, 50%, 50%);
+    object-position: var(--obj-pos, 50% 50%);
     z-index: 1;
   }
 

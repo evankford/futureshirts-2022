@@ -3,9 +3,6 @@
   import { slide, fade } from "svelte/transition";
   import { writable, type Writable, derived, type Readable} from "svelte/store";
 
-
-
-
   function handleFailure(msg: string | undefined = undefined) {
     processing.set(false);
     formSuccess.set(false);

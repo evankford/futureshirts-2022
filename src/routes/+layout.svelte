@@ -1,6 +1,4 @@
 <script lang="ts">
-
-
   // export let data;
   ///Okay, doing some hover type things here
   import { navigating } from "$app/stores";
@@ -11,7 +9,7 @@
     }
   })
 
-  import { MetaTags } from 'svelte-meta-tags';
+  // import { MetaTags } from 'svelte-meta-tags';
   import { urlFor } from "$lib/sanity";
   import { hasJobs, navOpen, socials as socialStore, seo as seoStore, contact as contactStore, support as supportStore} from "$lib/stores";
 
@@ -24,7 +22,8 @@
   import throttle from "$lib/throttle";
   import {afterNavigate, beforeNavigate} from "$app/navigation";
   import { onDestroy } from "svelte";
-import HeadHelper from "$lib/components/HeadHelper.svelte";
+  import HeadHelper from "$lib/components/HeadHelper.svelte";
+  import type {SiteSettings} from "$lib/types/sanity";
 
   beforeNavigate(()=> {
     document.documentElement.style.scrollBehavior = 'auto';
@@ -37,7 +36,9 @@ import HeadHelper from "$lib/components/HeadHelper.svelte";
 
 
   function setGlobalStores() {
-    hasJobs.set(data.jobs.openings && data.jobs.openings.length > 0);
+    const activeJobs = data.jobs.openings ? data.jobs.openings.filter(opening=> opening.active == true): false;
+
+    hasJobs.set(activeJobs && activeJobs.length > 0);
     socialStore.set(data.socials.socials);
     seoStore.set(data.seo);
     contactStore.set(data.contact);

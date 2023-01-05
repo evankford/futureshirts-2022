@@ -1,6 +1,7 @@
 <script lang="ts">
   import {navOpen} from "$lib/stores"
-  export let item:MenuItemShape, small: boolean = false, inNav:boolean = false;
+  import type {MenuItemShape} from "$lib/types/sanity";
+  export let item:MenuItemShape, small = false, inNav = false;
 </script>
 {#if inNav }
 <li aria-hidden={!$navOpen} class:small>

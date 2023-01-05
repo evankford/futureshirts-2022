@@ -7,6 +7,7 @@
   import Message from "$lib/components/fields/Message.svelte";
   import SubmitButton from "$lib/components/fields/SubmitButton.svelte";
   import SvelteMarkdown from "svelte-markdown";
+  import type {EmailOptionShape, ContactOption} from "$lib/types/sanity";
   let emailOverride: EmailOptionShape[] | false = false;
 
   function collectEmails(){
@@ -74,7 +75,7 @@
     contactOptions: ContactOption[],
     successMessage: string,
     successTitle: string,
-    errorMessage: string ="",
+    errorMessage ="",
     errorTitle: string;
 </script>
 <FormWrap id="contact" {onSubmit}>

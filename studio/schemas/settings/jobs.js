@@ -58,14 +58,6 @@ export default {
 			group: 'content'
 		},
 		{
-			name: 'content',
-			title: 'Content',
-			type: 'array',
-			group: 'content',
-			of: [{ type: 'block' }]
-		},
-
-		{
 			name: 'image',
 			title: 'Hero Image',
 			description: 'Shows behind the hero. Use a large image (around 2400 x 1200px).',

@@ -8,7 +8,8 @@
   import { onDestroy } from "svelte";
   import { afterNavigate } from "$app/navigation";
   import throttle from "$lib/throttle";
-
+  import type {Block} from "$lib/types/sections";
+  import type {SanityImageObject} from "@sanity/image-url/lib/types/types";
 
 
   function handleOnScreen() {
@@ -27,10 +28,10 @@
     window.removeEventListener('scroll', throttleScroll);
     window.removeEventListener('resize', throttleResize);
   }
-  let section:HTMLElement, scr: number = 0;
+  let section:HTMLElement, scr = 0;
 
   let sectionDims: ReturnType<HTMLElement["getBoundingClientRect"]> ;
-  let top: number = 0, bottom: number = 2000;
+  let top = 0, bottom = 2000;
 
   function handleResize() {
     if (!section) {
@@ -108,7 +109,7 @@
 
     &::after {
       @include psuedo;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0), 100px, rgba(0,0,0,0) calc(100% - 100px), rgba(0,0,0,0.2) 100% )
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0) 100px, rgba(0,0,0,0) calc(100% - 100px), rgba(0,0,0,0.2) 100% )
     }
   }
 

@@ -1,6 +1,8 @@
 <script lang="ts">
   import Image from "$lib/components/Image.svelte";
-  export let  hidden:boolean = false, logo:SanityImageObject, quote:string, quoteTitle:string | undefined, subtitle: string | undefined
+  import type {SanityImageObject} from "@sanity/image-url/lib/types/types";
+
+  export let  hidden = false, logo:SanityImageObject, quote:string, quoteTitle:string | undefined, subtitle: string | undefined
 </script>
 {#if quote}
 <div class="wrap" aria-hidden={hidden}>

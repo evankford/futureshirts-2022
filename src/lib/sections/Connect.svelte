@@ -4,7 +4,8 @@
   import Button from "$lib/components/Button.svelte";
   import Socials from "$lib/components/Socials.svelte";
   import { dev } from "$app/environment";
-  export let title:string | null, subtitle: string| null, intro: string|null, showSocials:boolean = true, instagramWidget:CodeShape, anchor: string, layout: string;
+  import type {CodeShape} from "$lib/types/sanity";
+  export let title:string | null, subtitle: string| null, intro: string|null, showSocials = true, instagramWidget:CodeShape, anchor: string, layout: string;
 </script>
 
 <section use:isOnScreen class="{layout}" id="{anchor}">

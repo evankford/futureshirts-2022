@@ -3,15 +3,15 @@
   import {CountUp} from "countup.js";
   let counter:HTMLSpanElement;
   let wrap:HTMLElement;
-  let invisible: boolean = true;
+  let invisible = true;
 
   function start() {
     invisible = false;
     let demo = new CountUp(counter, number);
     if (!demo.error) {
-      demo.start();
+    demo.start();
     } else {
-      console.error(demo.error);
+      console.error(demo.error);
     }
     stopWatching(wrap);
   }

@@ -42,6 +42,12 @@ export default {
 					type: 'block'
 				}
 			]
+		},
+		{
+			name: 'active',
+			title: 'Active',
+			type: 'boolean',
+			initialValue: true,
 		}
 	]
 };

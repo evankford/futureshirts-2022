@@ -5,6 +5,10 @@ const query = `${getSingleDocument('jobs')} {email,title, subtitle,image,success
 
 import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad=async()=> {
-  return await sanityGet<JobSettings>(query);
+  const all:JobSettings = await sanityGet<JobSettings>(query);
+  if (all.openings) {
+    all.openings = all.openings.filter(op=>op.active == true);
+  }
+  return all;
 }
 

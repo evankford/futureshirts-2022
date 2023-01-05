@@ -5,6 +5,8 @@ import isOnScreen from "$lib/isOnScreen";
 
   import Image from "$lib/components/Image.svelte";
   import { urlFor } from "$lib/sanity";
+  import type {Block} from "$lib/types/sections";
+  import type { SanityImageObject} from "@sanity/image-url/lib/types/types";
 
   export let title:string | null, layout: string, subtitle: string| null, intro: string|null, box: Block[] , image: SanityImageObject | false, image2: SanityImageObject | false, logoGallery: SanityImageObject[], anchor: string;
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 
-  export let required:boolean = false;
+  export let required = false;
 </script>
 {#if required}<span  aria-label="(Required)">*</span> {/if}
 <style>
