@@ -1,7 +1,7 @@
 <script lang="ts">
     import type {TeamMember} from "$lib/types/sanity";
     import Image from "$lib/components/Image.svelte";
-    import {onMount} from "svelte";
+    import {onDestroy, onMount} from "svelte";
     import {writable} from "svelte/store";
     import type {SanityImageObject} from "@sanity/image-url/lib/types/types";
     import {fade} from "svelte/transition";
@@ -28,21 +28,27 @@
             return 0
         })
     }
-
+  let slideInterval: ReturnType<typeof setInterval>;
+    let teamMembersSorted:TeamMember[] = [];
     onMount(()=>{
-        teamMembers= teamMembers.sort(() => (Math.random() > .5) ? 1 : -1);
-        setInterval(nextOffset, 10000);
+        teamMembersSorted = teamMembers.sort(() => (Math.random() > .5) ? 1 : -1);
+        nextOffset();
+        slideInterval = setInterval(nextOffset, 900*9);
     })
+    onDestroy(()=>{
+        clearInterval(slideInterval);
+        }
+    );
 </script>
 
-{#if teamMembers.length > 0}
+{#if teamMembersSorted.length > 0 }
 <ul>
 <!--    Create 6 cards to work with-->
     {#each cards as cardIndex}
         <li>
             {#each getDividedImages(cardIndex) as image, index}
-                {#if index === $currentOffset}
-                    <div transition:fade={{delay: cardIndex * 800, duration: 600}} class="transitioner">
+                {#if index === $currentOffset }
+                    <div transition:fade|local={{delay: cardIndex * 900, duration: 500}} class="transitioner">
                         <Image {image} width={600} bg/>
                     </div>
                 {/if}

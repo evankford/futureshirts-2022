@@ -21,7 +21,7 @@
   @use "../styles/abstracts" as *;
   section {
     --font-extra-line-height: 1;
-      padding: clamp(60px, calc(50px + 5vh), 300px) 0 clamp(30px, calc(25px + 2.5vh), 100px) 0;
+      padding: clamp(60px, calc(50px + 5vh + 2vw), 300px) 0 clamp(30px, calc(25px + 2.5vh), 100px) 0;
 
     &.image-hero {
       --color-background: var(--color-base-text);
