@@ -3,8 +3,8 @@
 import S from '@sanity/desk-tool/structure-builder';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 
-import { FaAddressCard ,FaArrowRight, FaSearchengin, FaEnvelope, FaLink, FaBring, FaArrowDown, FaGear, FaArrowUp, FaCode } from 'react-icons/fa';
-import {TbSection, TbSettings } from 'react-icons/tb';
+import { FaAddressCard , FaSearchengin, FaEnvelope, FaLink, FaArrowDown,  FaArrowUp, FaCode } from 'react-icons/fa';
+import {TbSection, TbSettings, TbUsers } from 'react-icons/tb';
 
 
 export default () =>
@@ -15,7 +15,7 @@ export default () =>
 			...S.documentTypeListItems()
 				.filter(
 				(listItem) =>
-					listItem.getSchemaType().name != 'section' &&
+					!['section', 'teamMember'].includes(listItem.getSchemaType().name) &&
 					![
 						'siteSEO',
 						'contactSettings',
@@ -32,6 +32,11 @@ export default () =>
 				type: 'section',
 				icon: TbSection,
 				title: 'Front page Sections'
+			}),
+			orderableDocumentListDeskItem({
+				type: 'teamMember',
+				icon: TbUsers,
+				title: 'Team'
 			}),
 
 			S.divider(),

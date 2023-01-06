@@ -49,6 +49,13 @@ export function getSingleDocumentFromSlug(slug:string) : string {
 export function getSections() : string {
   if (isPreview()){
    return `*[ _type == 'section' && !defined(*[_id == "drafts." + ^._id][0])] | order(orderRank)`;
-  };
+  }
   return `*[_type == 'section' && !(_id in path("drafts.**"))] | order(orderRank)`;
+}
+
+export function getTeamMembers() : string {
+  if (isPreview()){
+   return `*[ _type == 'teamMember' && !defined(*[_id == "drafts." + ^._id][0])]`;
+  }
+  return `*[_type == 'teamMember' && !(_id in path("drafts.**"))]`;
 }

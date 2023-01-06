@@ -27,7 +27,7 @@
 <style>
   h1 {
     color: currentColor;
-    margin: 0;
+    margin: -2% 0 0;
   }
   a {
     line-height: 0;

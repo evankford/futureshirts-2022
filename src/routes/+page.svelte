@@ -49,7 +49,7 @@
 </script>
 
 <svelte:head>
-  <title>Merch Made Easy— offering services in product development, creative, tour and on-site support, e-commerce, marketing, retail and brand partnerships, and fulfillment/logistics.</title>
+  <title>Futureshirts | Making Merch Easy</title>
 </svelte:head>
 {#if !scrolled}
   <div transition:fade class="scroll-helper visible" aria-hidden="true" aria-label="Scroll For More">

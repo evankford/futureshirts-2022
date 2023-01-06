@@ -6,7 +6,7 @@
   let onScreen = false;
   export let  image: SanityImageObject | undefined = undefined;
 </script>
-<section use:isOnScreen class:offscreen={!onScreen} on:onscreen={(e)=>{ onScreen = true; stopWatching(e.target); }} class:image-hero={image != undefined}>
+<section use:isOnScreen class:offscreen={!onScreen} on:onscreen={(e)=>{ onScreen = true; stopWatching(e.target); }} class:image-hero={image !== undefined}>
   {#if image}
   <div class="bg">
     <Image lazy={false} {image} bg />
@@ -21,7 +21,7 @@
   @use "../styles/abstracts" as *;
   section {
     --font-extra-line-height: 1;
-      padding: clamp(100px, calc(50px + 10vh), 300px) 0  0;
+      padding: clamp(60px, calc(50px + 5vh), 300px) 0 clamp(30px, calc(25px + 2.5vh), 100px) 0;
 
     &.image-hero {
       --color-background: var(--color-base-text);

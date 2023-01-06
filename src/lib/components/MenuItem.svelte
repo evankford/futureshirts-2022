@@ -4,26 +4,26 @@
   export let item:MenuItemShape, small = false, inNav = false;
 </script>
 {#if inNav }
-<li aria-hidden={!$navOpen} class:small>
-  {#if (item.linkUrl.openInNewTab == true && item.linkUrl.type == 'external') }
+<li aria-hidden="{$navOpen}" class:small>
+  {#if (item.linkUrl.openInNewTab === true && item.linkUrl.type === 'external') }
     <a on:click={()=>{setTimeout(()=>{$navOpen = false}, 5)}} tabindex={$navOpen ? 0 : -1} href="{item.linkUrl.url}"  target="_blank" rel="nofollow noopener noreferrer">{item.title}</a>
-  {:else if item.linkUrl.anchor && item.linkUrl.type == 'anchor'}
+  {:else if item.linkUrl.anchor && item.linkUrl.type === 'anchor'}
     <a on:click={()=>{setTimeout(()=>{$navOpen = false}, 5)}} tabindex={$navOpen ? 0 : -1} href="{item.linkUrl.anchor}">{item.title}</a>
-  {:else if item.linkUrl?.ref?.slug && item.linkUrl.type == 'internal'}
+  {:else if item.linkUrl?.ref?.slug && item.linkUrl.type === 'internal'}
     <a on:click={()=>{setTimeout(()=>{$navOpen = false}, 5)}} tabindex={$navOpen ? 0 : -1} href="{item.linkUrl.ref.slug}">{item.title}</a>
-  {:else if  item.linkUrl.type == 'internal' && item.linkUrl.url}
+  {:else if  item.linkUrl.type === 'internal' && item.linkUrl.url}
     <a on:click={()=>{setTimeout(()=>{$navOpen = false}, 5)}} href="{item.linkUrl.url}"  tabindex={$navOpen ? 0 : -1}>{item.title}</a>
   {/if}
 </li>
 {:else }
 <li class:small>
-  {#if (item.linkUrl.openInNewTab == true && item.linkUrl.type == 'external') }
+  {#if (item.linkUrl.openInNewTab === true && item.linkUrl.type === 'external') }
     <a href="{item.linkUrl.url}"  target="_blank" rel="nofollow noopener noreferrer">{item.title}</a>
-  {:else if item.linkUrl.anchor && item.linkUrl.type == 'anchor'}
+  {:else if item.linkUrl.anchor && item.linkUrl.type === 'anchor'}
     <a href="{item.linkUrl.anchor}">{item.title}</a>
-   {:else if item.linkUrl?.ref?.slug && item.linkUrl.type == 'internal'}
+   {:else if item.linkUrl?.ref?.slug && item.linkUrl.type === 'internal'}
     <a href="{item.linkUrl.ref.slug}">{item.title}</a>
-    {:else if  item.linkUrl.type == 'internal' && item.linkUrl.url}
+    {:else if  item.linkUrl.type === 'internal' && item.linkUrl.url}
     <a href="{item.linkUrl.url}">{item.title}</a>
   {/if}
 </li>
@@ -51,7 +51,7 @@
     @include mono();
     // text-transform: uppercase;
     // font-family: var(--font-body-family);
-   font-size: inherit;
+    font-size: inherit;
     font-weight: 400;
     text-transform: lowercase;
     cursor: pointer;
@@ -59,8 +59,8 @@
     color: inherit;
     display: inline-block;
     z-index: 1;
-    padding: 0.3em var(--menu-link-padding, 0.7em);
-    margin: 0.1em;
+    padding: 0.3em 0.3em;
+    margin: 0.1em -0.3em;
 
    @include hoverBox;
   }

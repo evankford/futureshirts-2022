@@ -6,11 +6,11 @@
   --border-radius-small: calc(var(--border-radius) * 0.5);
   --border-radius: 13px;
    //Base Color
-  --color-base-background: 251,251,253;
   --color-base-accent: 77,98,255;
   --color-base-accent-dull: 73,85,177;
   --color-base-accent-lighter: 156, 170,255;
   --color-base-accent-darker:26,41,150;
+  --color-base-accent-darkest:13,20,75;
   --color-base-background: 255,255,255;
   --color-base-background-off: 235,236,243;
   --color-base-background-accent: 230,223,209;
@@ -22,7 +22,6 @@
   --color-border: var(--color-base-border);
   --color-accent-inverse: var(--color-base-background);
   --color-accent: var(--color-base-accent);
-  --color-accent: var(--color-base-accent);
   --color-background: var(--color-base-background);
   --color-foreground: var(--color-base-text);
   --color-accent-darker:var(--color-base-accent-darker);
@@ -31,7 +30,7 @@
 
   --color-label-alpha: 0.87;
   --space-around: 20px;
-  --document-width: 1300px;
+  --document-width: 1350px;
   --text-width: 800px;
   --content-width: 1100px;
   --font-body-family-base: "futura-pt", "Helvetica Neue", "Helvetica", arial, sans-serif;
@@ -41,11 +40,12 @@
   --font-body-weight: 400;
   --font-mono-family: "input-mono", "Courier New", monospace;
   --font-mono-letter-spacing: 0.04em;
-  --font-mono-line-height: 1.2;
+  --font-mono-line-height: 1.35;
+  --font-mono-large-size: 21px;
   --font-mono-size: 16px;
   --font-mono-weight: 400;
   --font-button-family: "futura-pt", "Helvetica Neue", "Helvetica", arial, sans-serif;
-  --font-button-letter-spacing: -0.04em;
+  --font-button-letter-spacing: -0.03em;
   --font-button-size: 20px;
   --font-button-weight: 700;
   --font-extra-base: "futura-pt", "Helvetica Neue", "Helvetica", arial, sans-serif;
@@ -78,7 +78,7 @@
   --site-text-width: 750px;
   --vertical-rhythm: 0.5rem;
 
-  --font-size-mega: clamp(72px, calc(76px + 5vw), 140px);
+  --font-size-mega: clamp(66px, calc(76px + 4.2vw), 130px);
   --font-size-mega-small: clamp(50px, calc(36px + 4vw), 90px);
 
   --box-border-radius: 14px;
@@ -114,7 +114,7 @@
 
   @include media-query($tiny) {
     --font-body-size: 16px;
-    --font-size-mega: clamp(66px, calc(45px + 4.5vmax),80px);
+    --font-size-mega: clamp(60px, calc(45px + 4.5vmax),80px);
     --font-body-line-height: 1.5;
     // --font-button-size: 14px;
     --font-button-letter-spacing: -00.5px;
@@ -146,9 +146,9 @@
   }
   @include media-query($widescreen) {
     --site-spacing:40px;
-    --font-size-mega: clamp(90px, calc(76px + 4vw), 150px);
+    --font-size-mega: clamp(90px, calc(76px + 3.5vw), 125px);
     --font-nav-size: 35px;
-    --document-width: clamp(70vw, calc((100vw - 1300px) * 0.1 + 1300px), 90vw)
+    --document-width: clamp(70vw, calc((100vw - 1350px) * 0.1 + 1350px), 93vw)
   }
    @include media-query($tiny) {
     --site-spacing: 15px;

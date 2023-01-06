@@ -8,10 +8,9 @@
   import LiNormal from "$lib/components/portableText/LiNormal.svelte";
   import JobDetails from "$lib/components/JobDetails.svelte";
 
-  import { fade, fly } from 'svelte/transition'
+  import type {JobSettings} from "$lib/types/sanity";
 
   let openJob:number|false = false;
-
   export let data:JobSettings;
 
 </script>
@@ -35,10 +34,9 @@
         {#if data.openings.length > 0}
           <h2>{data.haveOpeningsTitle ? data.haveOpeningsTitle : 'Current Openings:'}</h2>
           {#if data.haveOpenings}
-          <big>
-
+          <div class="big">
             {data.haveOpenings}
-          </big>
+          </div>
           {/if}
           {:else }
           <h2 class="h3">{data.noCurrentOpeningsTitle ? data.noCurrentOpeningsTitle : 'Current Openings:'}</h2>
@@ -51,12 +49,12 @@
       <ul class="openings">
         {#each data.openings as opening, i}
         <li class="opening">
-          <heading>
+          <header class="opening__header">
             <h3>{opening.title}</h3>
             {#if opening.subtitle}
             <h4>{opening.subtitle}</h4>
             {/if}
-          </heading>
+          </header>
           <div class="excerpt">
             <PortableText value={opening.description} components={{listItem: {normal: LiNormal}}} />
           </div>
@@ -80,7 +78,6 @@
       <h2>Submit your Application</h2>
       <JobForm email={data.email} openings={data.openings} errorTitle={data.errorTitle} errorMessage={data.errorMessage} successMessage={data.successMessage} successTitle={data.successTitle} />
     </div>
-
   </section>
 </div>
 
@@ -119,6 +116,9 @@ header {
    }
 
 
+   .big {
+     font-size: 1.3em;
+   }
    .buttons {
     display: flex;
     flex-wrap: wrap;
@@ -167,7 +167,7 @@ header {
     }
 
    }
-   heading {
+   .opening__header {
     width: 100%;
     text-align: left;
    }

@@ -1,4 +1,4 @@
-import type {VideoOrImage, CodeShape} from "./sanity";
+import type {VideoOrImage, CodeShape, TeamMember} from "./sanity";
 
 export type SectionLayout = 'hero' | 'more' | 'product' | 'tour' | 'ecommerce' | 'licensing' | 'team' | 'connect'
 
@@ -84,6 +84,7 @@ export interface LicensingSection extends ImageSection {
 export interface TeamSection extends ImageSection {
   layout: 'team',
   logoGallery: Array<SanityImageObject>
+  teamMembers: Array<TeamMember>
 }
 
 export interface ConnectSection extends SectionBase {

@@ -1,81 +1,71 @@
 <script lang="ts">
   import SectionHeading from "$lib/components/SectionHeading.svelte";
-import isOnScreen from "$lib/isOnScreen";
+  import isOnScreen from "$lib/isOnScreen";
   import Button from "$lib/components/Button.svelte";
-  import Image from "$lib/components/Image.svelte";
-import {hasJobs} from "$lib/stores";
-import type {SanityImageObject} from "@sanity/image-url/lib/types/types";
-
-  export let title:string | null, subtitle: string| null, intro: string|null, image: SanityImageObject | false, logoGallery: false | SanityImageObject[] = false, anchor: string, layout: string;
+  import {hasJobs} from "$lib/stores";
+  import type {TeamMember} from "$lib/types/sanity";
+  import TeamSectionGallery from "$lib/components/TeamSectionGallery.svelte";
+  export let title:string | null, subtitle: string| null, intro: string|null,   anchor: string, layout: string, teamMembers: TeamMember[];
 </script>
+
 <section use:isOnScreen class="{layout}" id="{anchor}">
-  <div class="content rotate">
+  <div class="content">
+    <div class="left  ">
+      <TeamSectionGallery {teamMembers} />
+    </div>
     <div class="right ">
       <SectionHeading {title} {subtitle} {intro}/>
-      {#if hasJobs }
-      <Button link="/jobs">join the team</Button>
-      {/if}
-    </div>
-    <div class="left  ">
-      {#if logoGallery && logoGallery.length > 0}
-      <div class="gallery" aria-label="Gallery of team members!">
-        {#each logoGallery as image, i}
-        <div class="gallery-item">
-          <Image {image} bg width={150} alt={""} />
-        </div>
-        {/each}
+      <div class="buttons">
+        <Button link="/team">meet the team</Button>
+        {#if hasJobs }
+          <Button link="/jobs">jobs at futureshirts</Button>
+        {/if}
       </div>
-      {:else if image}
-      <div class="img">
-        <Image {image} width={900} alt={image.alt ? image.alt : 'The Futureshirts Team'} />
-      </div>
-      {/if}
+
     </div>
+
   </div>
 </section>
 <style lang="scss">
   @use "../styles/abstracts" as *;
 
   section {
-    --rotateXMod: 2.5deg;
-    --rotateYMod: 2.5deg;
     overflow: hidden;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: rgb(var(--color-base-background-off));
-    padding: clamp(60px, 10vh, 120px) 0 0;
-    color: rgb(var(--color-base-text));
-    --color-background: rgb(var(--color-base-background-off));
-    --color-foreground: rgb(var(--color-base-text));
-    @include media-query($medium-up) {
-      padding: clamp(120px, 20vh, 260px) 0 0;
-      /* --font-size-mega: 54px; */
+    background-color: rgb(var(--color-base-accent-darker));
+    padding: 20px 0;
+    @include media-query($large-up){
+      padding: 50px 0;
     }
+    color: rgb(var(--color-base-background));
+    --color-background: rgb(var(--color-base-background-accent));
+    --color-foreground: rgb(var(--color-base-text));
   }
   .content {
-    @include content-wrap;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
     position: relative;
+    flex-wrap: wrap;
     z-index: 2;
-     @include media-query($medium-up) {
-      flex-direction: row-reverse;
+    width:100%;
+    @include media-query($large-up) {
       flex-wrap: nowrap;
     }
 
   }
-  .left, .right {
-    transform-style: preserve-3d;
-    flex: 1 1 240px;
-    max-width: 550px;
-    text-align: center;
-    margin: 24px;
+
+.buttons {
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: flex-start;
+  align-items: center;
 }
+
 .img {
   border-radius: var(--box-border-radius);
   overflow: hidden;
@@ -84,27 +74,22 @@ import type {SanityImageObject} from "@sanity/image-url/lib/types/types";
   border-bottom: 4px solid white;
 }
 .left {
-  max-width: 800px;
-  flex-basis: 330px;
-  position: relative;
+  flex: 0  0 100%;
   z-index: 2;
-   @include media-query($small) {
-    margin-left: 0;
-    margin-right: 0;
-  }
-  &::after {
-    @include psuedo;
+  overflow: hidden;
+  margin:  0 auto;
+  position: relative;
 
-    z-index: -1;
-    left: -5%;
-    top: -5%;
-    background: rgb(var(--color-base-accent));
-    border-radius: var(--box-border-radius)
+
+  @include media-query($medium-up) {
+    flex: 0 0  50%;
+    margin: auto 0 auto auto;
+    max-width: 700px;
   }
+
 }
 
 .gallery {
-display: flex;
 flex-wrap: wrap;
 align-items: center;
 background: rgb(var(--color-base-background-accent));
@@ -139,9 +124,19 @@ grid-template-columns: repeat(7, 1fr);
   --justifySocials: center;
 }
 .right {
-  text-align: left;
-  --font-size-mega: clamp(60px, calc(50px + 3.5vw), 100px);
-  --titleMargin: 0 0 20px;
+  flex: 1 1 300px;
+  padding: 24px;
+text-align: center;
+  max-width: 90%;
+  --titleMargin: 0.14em 0 0.3em;
+  @include media-query($medium-up){
+    padding: clamp(24px, calc(20px + 4vmin), 65px);
+    margin: auto auto auto -5px;
+    text-align: left;
+    max-width: 500px;
+
+  }
+  --font-size-mega: clamp(60px, calc(50px + 2.5vw), 100px);
 
 }
 </style>

@@ -68,9 +68,13 @@ const unsubNav = navOpen.subscribe(val=> {
     right: 0;
     top: 0;
     width: var(--buttonSize);
-    transition: color 600ms ease;
     height: var(--buttonSize);
     text-align: center;
+    overflow: hidden;
+    z-index: 2;
+    display: inline-block;
+    transition: color 200ms ease;
+
     @include media-query($small) {
       --buttonSize: 36px;
     }
@@ -83,10 +87,7 @@ const unsubNav = navOpen.subscribe(val=> {
       left: 50%;
       margin: calc(-0.25 * var(--buttonSize)) calc(-0.25 * var(--buttonSize) + 2px);
     }
-    overflow: hidden;
-    z-index: 2;
-    display: inline-block;
-    transition: color 200ms ease;
+
     &:hover, &:focus-visible {
       color: white;
       &:after {
@@ -160,7 +161,7 @@ const unsubNav = navOpen.subscribe(val=> {
         margin: 1em 0;
         opacity: 0.8;
     @include media-query($large-up) {
-      font-size: 18px;
+      font-size: 17px;
     }
     }
   }
@@ -169,7 +170,7 @@ const unsubNav = navOpen.subscribe(val=> {
     transition: transform 300ms ease, opacity 300ms ease;
     transform: translateY(10px);
     font-size: 18px;
-    margin: 0;
+    margin: 0 0 0 -1.4em;
     padding: 0.4em;
     .navOpen &  {
       opacity: 1;
