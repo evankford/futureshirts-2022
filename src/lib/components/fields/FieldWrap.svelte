@@ -8,7 +8,8 @@
   let processing:Writable<boolean> = getContext('processing');
   let submitted:Writable<boolean> = getContext('submitted');
   let error = false;
-  let unsub = ()=> {//intentionally null;}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  let unsub = ()=> {}
 
   onMount(()=> {
     unsub = fields.subscribe((val:Fields) =>{
