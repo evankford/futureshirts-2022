@@ -7,3 +7,5 @@ const load:PageServerLoad= async()=>{
     return await sanityGet<TeamPageData>(query);
 }
 export {load};
+
+export const prerender = process.env.NODE_ENV ? process.env.NODE_ENV != 'development' : true;

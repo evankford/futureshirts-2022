@@ -14,3 +14,4 @@ export const load: PageServerLoad=async()=> {
   return all;
 }
 
+export const prerender = process.env.NODE_ENV ? process.env.NODE_ENV != 'development' : true;
