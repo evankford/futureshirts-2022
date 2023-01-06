@@ -3,7 +3,7 @@ const draftCheck = import.meta.env.mode == 'staging' ?'' : '';
 export default draftCheck;
 
 function isPreview(){
-  return (['staging', 'development', 'dev', 'DEVELOPMENT', 'STAGING'].includes(import.meta.env.mode) || ['staging', 'development', 'dev', 'DEVELOPMENT', 'STAGING'].includes(process.env.NODE_ENV) || import.meta.env.VITE_IS_PREVIEW == 'true');
+  return (['staging', 'development', 'dev', 'DEVELOPMENT', 'STAGING'].includes(import.meta.env.mode) || ['staging', 'development', 'dev', 'DEVELOPMENT', 'STAGING'].includes(process.env.NODE_ENV) || import.meta.env.VITE_IS_PREVIEW === true);
 }
 
 export function getId(id: string):string {
