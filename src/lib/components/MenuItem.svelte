@@ -4,7 +4,7 @@
   export let item:MenuItemShape, small = false, inNav = false;
 </script>
 {#if inNav }
-<li aria-hidden="{$navOpen}" class:small>
+<li aria-hidden="{!$navOpen}" class:small>
   {#if (item.linkUrl.openInNewTab === true && item.linkUrl.type === 'external') }
     <a on:click={()=>{setTimeout(()=>{$navOpen = false}, 5)}} tabindex={$navOpen ? 0 : -1} href="{item.linkUrl.url}"  target="_blank" rel="nofollow noopener noreferrer">{item.title}</a>
   {:else if item.linkUrl.anchor && item.linkUrl.type === 'anchor'}
