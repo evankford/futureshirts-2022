@@ -127,7 +127,7 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
         <div class="who">
           {#each Array(heroGallery.length) as _, i}
             {#if i === currentSlide}
-              <span in:fly={{duration:400, delay: 300, y: 20}} out:fly={{duration: 300, y:20}}>{heroGallery[i].title}</span>
+              <span in:fly|local={{duration:400, delay: 300, y: 20}} out:fly={{duration: 300, y:20}}>{heroGallery[i].title}</span>
             {/if}
           {/each}
         </div>

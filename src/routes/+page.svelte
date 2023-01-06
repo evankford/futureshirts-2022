@@ -52,7 +52,7 @@
   <title>Futureshirts | Making Merch Easy</title>
 </svelte:head>
 {#if !scrolled}
-  <div transition:fade class="scroll-helper visible" aria-hidden="true" aria-label="Scroll For More">
+  <div transition:fade|local class="scroll-helper visible" aria-hidden="true" aria-label="Scroll For More">
     <Fa icon={faChevronDown} />
   </div>
   {/if}

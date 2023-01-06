@@ -30,9 +30,9 @@ const unsubNav = navOpen.subscribe(val=> {
 
 <button class="nav-toggle" class:navOpen={$navOpen} on:click={()=>{$navOpen = !$navOpen}}>
   {#if $navOpen}
-    <span transition:fly={{x: 60}}><Fa icon={faXmark} /></span>
+    <span transition:fly|local={{x: 60}}><Fa icon={faXmark} /></span>
   {:else}
-    <span transition:fly={{x: 60}}><Fa icon={faBars} /></span>
+    <span transition:fly|local={{x: 60}}><Fa icon={faBars} /></span>
   {/if}
 </button>
 <nav class:navOpen={$navOpen} aria-hidden={!$navOpen}>

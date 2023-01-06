@@ -117,7 +117,7 @@
        <ul class="quotes" style="height: {quoteWrapperHeight}px;">
          {#each quoteGallery as q, i}
          {#if currentSlide === i}
-           <li bind:this={domSlides[i]} out:fly={{duration: 200, x: browser ? window.innerWidth : 500}} in:fly={{delay: 100, x: browser ? window.innerWidth : 500 }} class="slide-quote" aria-current={currentSlide === i} aria-hidden={currentSlide != i}>
+           <li bind:this={domSlides[i]} out:fly|local={{duration: 200, x: browser ? window.innerWidth : 500}} in:fly|local={{delay: 100, x: browser ? window.innerWidth : 500 }} class="slide-quote" aria-current={currentSlide === i} aria-hidden={currentSlide !== i}>
               <Quote logo={q.logo} quoteTitle={q.quoteTitle} subtitle={q.subtitle} quote={q.quote} />
             </li>
             {/if}

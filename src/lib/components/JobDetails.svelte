@@ -10,15 +10,15 @@
   export let job:Opening, openJob:false|number = false;
 </script>
 <div class="job-wrap" >
-      <div class="job-bg" in:fade={{duration: 200, delay: 0}} out:fade={{ duration: 200, delay: 200}} on:click={()=> openJob = false}></div>
+      <div class="job-bg" in:fade|local={{duration: 200, delay: 0}} out:fade|local={{ duration: 200, delay: 200}} on:click={()=> openJob = false}></div>
       <article class="job-content page-content" in:fly={{ duration: 200, delay: 200, y: 50}} out:fly={{ duration: 200, delay: 0, y: 50}}>
-        <heading>
+        <header>
 
           <h2>{ job.title }</h2>
           {#if job.subtitle}
              <h4>{job.subtitle}</h4>
            {/if}
-        </heading>
+        </header>
           <PortableText value={job.fullDescription} components={{listItem: {normal: LiNormal}}} />
           <div class="buttons">
             <a class="button" on:click={()=>{openJob=false}} href="#apply">Apply</a>
@@ -45,7 +45,7 @@
     align-items: center;
     justify-content: center;
   }
-  heading {
+  header {
     margin: 0 0 20px;
   }
   .job-bg{

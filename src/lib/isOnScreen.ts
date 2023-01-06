@@ -25,12 +25,15 @@ const options:IntersectionObserverInit = {
   // rootMargin: '0 0%',
 }
 
-let observed:HTMLElement[] = [];
+const observed:HTMLElement[] = [];
 
 function watchOnScreen(node:HTMLElement) {
+
   if (!browser || !node) {
     return {
-      destroy() {}
+      destroy(){
+        console.log('Destroyed');
+      }
     }
   }
   if (!observer) {
