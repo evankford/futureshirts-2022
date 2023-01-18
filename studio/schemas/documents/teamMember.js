@@ -3,34 +3,6 @@ export default {
 	name: 'teamMember',
 	title: 'Team Member',
 	type: 'document',
-	initialValue:{
-		questions:[
-			{
-				question: 'What’s The Oldest Band Tee You Own?',
-				answer:  ''
-			},
-			{
-				question: 'What Band Have you seen in concert the most?',
-				answer:  ''
-			},
-			{
-				question: 'Hoodie or Crewneck?',
-				answer:  ''
-			},
-			{
-				question: 'Favorite Merch Accessory you’ve ever had?',
-				answer:  ''
-			},
-			{
-				question: 'Favorite concert ‘moment’?',
-				answer:  ''
-			},
-			{
-				question: 'First concert attended?',
-				answer:  ''
-			},
-		]
-	},
 	fields: [
 		orderRankField({ type: 'teamMember' }),
 		{
@@ -44,10 +16,30 @@ export default {
 			title: 'Questions',
 			type: 'array',
 			of: [{type: 'teamQuestion'}],
-			select: {
-				title: 'title',
-				subtitle: 'releaseDate'
-			}
+			initialValue: [{
+				_type: 'teamQuestion',
+				question: 'What’s The Oldest Band Tee You Own?'
+			},
+				{
+					_type: 'teamQuestion',
+					question: 'What Band Have you seen in concert the most?'
+				},
+				{
+					_type: 'teamQuestion',
+					question: 'Hoodie or Crewneck?'
+				},
+				{
+					_type: 'teamQuestion',
+					question: 'Favorite Merch Accessory you’ve ever had?'
+				},
+				{
+					_type: 'teamQuestion',
+					question: 'Favorite concert ‘moment’?'
+				},
+				{
+					_type: 'teamQuestion',
+					question: 'First concert attended?'
+				}]
 		},
 		{
 			name: 'image',

@@ -78,7 +78,7 @@
                     <li class="question-item">
                         <div class="question">{question.question}</div>
                         {#if question.answer !== ''}
-                            <div class="answer">{question.answer}</div>
+                            <div class="answer">{@html question.answer}</div>
                         {:else}
                             <div class="answer">{ noAnswers[i] }</div>
                         {/if}
