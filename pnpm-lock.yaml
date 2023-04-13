@@ -53,7 +53,7 @@ specifiers:
   svelte-markdown: ^0.2.3
   svelte-meta-tags: ^2.6.4
   svelte-preprocess: ^4.10.7
-  svelte-select: 5.0.0-beta.14
+  svelte-select: 5.6.0
   svelte-sitemap: ^2.5.4
   throttle-debounce: ^5.0.0
   tslib: ^2.4.1
@@ -121,7 +121,7 @@ devDependencies:
   svelte-fa: 3.0.3
   svelte-meta-tags: 2.6.4_dac65n7trnhpakk3veyc6ft7fi
   svelte-preprocess: 4.10.7_6ekcmly6tycmj5sgqech3fzf7q
-  svelte-select: 5.0.0-beta.14
+  svelte-select: 5.6.0
   tslib: 2.4.1
   typescript: 4.6.4
   vite-plugin-environment: 1.1.3_vite@4.0.4
@@ -1431,6 +1431,16 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: false
+
+  /@floating-ui/core/1.2.6:
+    resolution: {integrity: sha512-EvYTiXet5XqweYGClEmpu3BoxmsQ4hkj3QaYA6qEnigCWffTP3vNRwBReTdrwDwo7OoJ3wM8Uoe9Uk4n+d4hfg==}
+    dev: true
+
+  /@floating-ui/dom/1.2.6:
+    resolution: {integrity: sha512-02vxFDuvuVPs22iJICacezYJyf7zwwOCWkPNkWNBr1U0Qt1cKFYzWvxts0AmqcOQGwt/3KJWcWIgtbUU38keyw==}
+    dependencies:
+      '@floating-ui/core': 1.2.6
+    dev: true
 
   /@fortawesome/fontawesome-common-types/6.2.1:
     resolution: {integrity: sha512-Sz07mnQrTekFWLz5BMjOzHl/+NooTdW8F8kDQxjWwbpOJcnoSg4vUDng8d/WR1wOxM0O+CY9Zw0nR054riNYtQ==}
@@ -4657,6 +4667,13 @@ packages:
     resolution: {integrity: sha512-GIikJjcVCD+5Y/x9hZc2R4gvuA0gVftacuWu1a+zVQWSFjFYZ+hhU825x+QNs2slsppfrgmFiUyU9Sz9gj4Rdw==}
     dev: true
 
+  /svelte-floating-ui/1.2.8:
+    resolution: {integrity: sha512-8Ifi5CD2Ui7FX7NjJRmutFtXjrB8T/FMNoS2H8P81t5LHK4I9G4NIs007rLWG/nRl7y+zJUXa3tWuTjYXw/O5A==}
+    dependencies:
+      '@floating-ui/core': 1.2.6
+      '@floating-ui/dom': 1.2.6
+    dev: true
+
   /svelte-hmr/0.15.1_svelte@3.55.0:
     resolution: {integrity: sha512-BiKB4RZ8YSwRKCNVdNxK/GfY+r4Kjgp9jCLEy0DuqAKfmQtpL38cQK3afdpjw4sqSs4PLi3jIPJIFp259NkZtA==}
     engines: {node: ^12.20 || ^14.13.1 || >= 16}
@@ -4739,8 +4756,11 @@ packages:
       typescript: 4.6.4
     dev: true
 
-  /svelte-select/5.0.0-beta.14:
-    resolution: {integrity: sha512-ICs0gjTZDv8yMnUjJY53DYGEV8xVbXa93WIWlczEOujRgEzIMAxAA2m7aIv9GCu7VWh2Pd/7gDJZUF5Dy/FSbw==}
+  /svelte-select/5.6.0:
+    resolution: {integrity: sha512-+EDXupp3Lr/hKlXNra1vR1VEGxEEsFxYPs5yDDqQE+xagyAOd8P54IJtU84Z5QN3HYc8l2Hp+tNCCYZoTWWxyQ==}
+    dependencies:
+      '@floating-ui/dom': 1.2.6
+      svelte-floating-ui: 1.2.8
     dev: true
 
   /svelte-sitemap/2.5.4:

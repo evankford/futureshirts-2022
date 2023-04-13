@@ -168,20 +168,26 @@ header {
 
    }
    .opening__header {
-    width: 100%;
-    text-align: left;
+      width: 100%;
+      text-align: left;
+      margin-bottom: auto;
+      margin-top: 0
+   }
+
+   .opening__header h3 {
+     margin: 0;
    }
 
    .openings {
-    --gap: 10px;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: calc(100% + 2 * var(--gap));
-    max-width:  calc(100% + 2 * var(--gap));
-    margin: 0 calc(-1 * var(--gap));
+      --gap: 10px;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: calc(100% + 2 * var(--gap));
+      max-width:  calc(100% + 2 * var(--gap));
+      margin: 0 calc(-1 * var(--gap));
    }
 
    .opening {

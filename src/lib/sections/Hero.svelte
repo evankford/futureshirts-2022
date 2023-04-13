@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Fa from "svelte-fa";
+  import Fa from 'svelte-fa/src/fa.svelte';
   import { fly } from "svelte/transition";
   import { faCircle, faLeftLong, faRightLong  } from "@fortawesome/free-solid-svg-icons";
   import SectionHeading from "$lib/components/SectionHeading.svelte";

@@ -3,7 +3,7 @@
   import MenuItem from "$lib/components/MenuItem.svelte";
   import {navOpen} from "$lib/stores"
   import {browser} from "$app/environment"
-  import Fa from "svelte-fa";
+  import Fa from 'svelte-fa/src/fa.svelte';
   import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
   import { fly } from "svelte/transition";
   import {hasJobs} from "$lib/stores";
@@ -35,7 +35,7 @@ const unsubNav = navOpen.subscribe(val=> {
     <span transition:fly|local={{x: 60}}><Fa icon={faBars} /></span>
   {/if}
 </button>
-<nav class:navOpen={$navOpen} aria-hidden={!$navOpen}>
+<nav class:navOpen={$navOpen}>
   <ul class="main">
     {#each menuItems as item }
       <MenuItem inNav {item}/>

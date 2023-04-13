@@ -2,7 +2,6 @@
     import type {TeamMember} from "$lib/types/sanity";
     import Image from "$lib/components/Image.svelte";
     import { onMount} from "svelte";
-    import {fade} from "svelte/transition";
     export let teamMembers:TeamMember[];
 
     let teamMembersSorted:TeamMember[] = [];
@@ -17,12 +16,9 @@
     {#each teamMembersSorted as teamMember}
 <!--    Create 6 cards to work with-->
         <li>
-
             <Image image={teamMember.image} width={200} bg/>
         </li>
     {/each}
-    {#if teamMembersSorted.length % 8 !== 0}
-    {/if}
 </ul>
 {/if}
 

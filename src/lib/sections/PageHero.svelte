@@ -39,7 +39,7 @@
   .content {
     @include content-wrap;
     @include animateInBasic;
-    max-width: var(--text-width);
+    //max-width: var(--text-width);
     margin: auto;
 
     width: 100%;

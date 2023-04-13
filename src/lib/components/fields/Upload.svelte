@@ -4,10 +4,10 @@
   import RequiredIndicator from "$lib/components/fields/RequiredIndicator.svelte";
   import byteSize from "byte-size";
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
-  import Fa from "svelte-fa";
+  import type {FieldStore, Fields} from "../../../global";
 
   const context:FieldStore = getContext('fields');
-  function validate(v:any) {
+  function validate(v:unknown) {
     if (v && v instanceof File) {
       if (v.size > maxSize) {
         return `Please upload a ${label.toLowerCase()} less than ${byteSize(maxSize).toString()}.`;
@@ -23,15 +23,15 @@
 
   function truncate(str:string, n = 25){
     return (str.length > n) ? str.substring(0, n-1) + '&hellip;' : str;
-  };
+  }
 
   onMount(()=> {
     setupField(id, validate, context);
   });
-  let uploadValue:any = '';
+  let uploadValue:unknown = '';
 
 
-  function processFileList(u: any) {
+  function processFileList(u: unknown) {
     if (u instanceof FileList) {
       return u[0];
     }
@@ -59,10 +59,10 @@
 </script>
 
 <FieldWrap {id}>
-  <div class="wrap" for={id}>
+  <div class="wrap">
     <span class="label">{label}<RequiredIndicator {required} /></span>
     <input type="file" {accept} {required} {id} on:change={handleChange}  bind:files={uploadValue}/>
-    <label class="faux-input" for={id}>{@html uploadValue.length == 1 ? truncate(uploadValue[0].name) : 'Upload File' }</label>
+    <label class="faux-input" for={id}>{@html uploadValue.length === 1 ? truncate(uploadValue[0].name) : 'Upload File' }</label>
     <small class="footer">Accepts {accept} files. Max size {byteSize(maxSize).toString()}</small>
     {#if uploading}Uploading{/if}{#if uploaded}Uploaded{/if}
   </div>

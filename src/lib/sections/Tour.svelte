@@ -4,7 +4,7 @@
   import SectionBox from "$lib/components/SectionBox.svelte";
   import Image from "$lib/components/Image.svelte";
   import Quote from "$lib/components/Quote.svelte";
-  import Fa from "svelte-fa";
+  import Fa from 'svelte-fa/src/fa.svelte';
   import {fly} from "svelte/transition";
   import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons"
   import {onMount, onDestroy} from "svelte";
@@ -103,16 +103,18 @@
   </div>
  <div class="wrap">
    <div class="gallery">
-     <ul class="slides">
-       <button aria-label="Previous Quote" on:click={prevSlide}><Fa icon={faChevronLeft}/></button>
-       {#each quoteGallery as q, i}
-        <li class="slide-image" class:after={currentSlide < i} class:before={currentSlide > i}
-            aria-current={currentSlide === i}>
-          <Image aspect="1" isInSlide isCurrentSlide={currentSlide === i} width={950} bg image={q.image} alt="{q.title} Merchandise"/>
-        </li>
-       {/each}
-       <button aria-label="Next Quote" on:click={nextSlide}><Fa icon={faChevronRight}/></button>
-     </ul>
+       <div class="slides">
+           <button aria-label="Previous Quote" on:click={prevSlide}><Fa icon={faChevronLeft}/></button>
+           <ul>
+               {#each quoteGallery as q, i}
+                   <li class="slide-image" class:after={currentSlide < i} class:before={currentSlide > i}
+                       aria-current={currentSlide === i}>
+                       <Image aspect="1" isInSlide isCurrentSlide={currentSlide === i} width={950} bg image={q.image} alt="{q.title} Merchandise"/>
+                   </li>
+               {/each}
+           </ul>
+           <button aria-label="Next Quote" on:click={nextSlide}><Fa icon={faChevronRight}/></button>
+       </div>
      <div class="bottom">
        <ul class="quotes" style="height: {quoteWrapperHeight}px;">
          {#each quoteGallery as q, i}
@@ -304,7 +306,6 @@ text-align: center;
   }
 
   .slide-image {
-
     position: absolute;
     top: 0;
     z-index: 20;

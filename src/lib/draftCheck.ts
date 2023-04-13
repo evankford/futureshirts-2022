@@ -55,7 +55,7 @@ export function getSections() : string {
 
 export function getTeamMembers() : string {
   if (isPreview()){
-   return `*[ _type == 'teamMember' && !defined(*[_id == "drafts." + ^._id][0])]`;
+   return `*[ _type == 'teamMember' && active && !defined(*[_id == "drafts." + ^._id][0])]`;
   }
-  return `*[_type == 'teamMember' && !(_id in path("drafts.**"))]`;
+  return `*[_type == 'teamMember' && active && !(_id in path("drafts.**"))]`;
 }

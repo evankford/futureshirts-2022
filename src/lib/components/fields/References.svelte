@@ -2,13 +2,12 @@
   import setupField from "$lib/setupField";
   import { slide }from "svelte/transition"
   import { getContext, onMount } from "svelte";
-  import RequiredIndicator from "$lib/components/fields/RequiredIndicator.svelte";
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
   import { faCirclePlus, faCircleMinus } from "@fortawesome/free-solid-svg-icons"
     import{validate as validateEmail} from 'email-validator';
-  import {phone, type PhoneResult} from 'phone';
-  import Fa from "svelte-fa";
-
+  import { default as phone, type PhoneResult} from 'phone';
+  import type {FieldStore, JobReference, Fields} from "../../../global";
+  import Fa from 'svelte-fa/src/fa.svelte';
   const context:FieldStore = getContext('fields');
 
   function validateReference (r:JobReference, i: number) {
@@ -37,7 +36,7 @@
     return resp;
   }
 
-  function validate(v:any) {
+  function validate(v:unknown) {
     if ( !(Array.isArray(v))) {
      if (required) {
       return `Please add valid ${label}.`;
@@ -47,7 +46,7 @@
 
     let errorString = '';
 
-    v.forEach((r:any, i:number)=> {
+    v.forEach((r:JobReference, i:number)=> {
       const error = validateReference(r, i);
       if (error && error != '') {
         errorString+= error;
@@ -92,16 +91,15 @@
       return val;
     })
   }
-  export let required = false, id="references", label="References", max:number = 4;
+  export let required = false, id="references", label="References", max = 4;
 </script>
 
 <FieldWrap {id}>
-  <div class="wrap" for={id}>
-     {#if references.length == 0}
-    <div class="just-button" transition:slide>
-      <button type="button" on:click={()=>{addReference();}} aria-label="Add Reference"><Fa icon={faCirclePlus}/></button>
-    </div>
-
+  <div class="wrap">
+   {#if references.length === 0}
+      <div class="just-button" transition:slide>
+        <button type="button" on:click={()=>{addReference();}} aria-label="Add Reference"><Fa icon={faCirclePlus}/></button>
+      </div>
     {/if}
     <ul class="references">
       {#each references as reference, i}
