@@ -20,6 +20,10 @@ const redirects: RedirectOption[]=[
 	},
 	{
 		from: '/pages/jobs',
+		to:'/jobs'
+	},
+	{
+		from: '/privacy',
 		to:'/privacy-policy'
 	},
 	{
@@ -33,7 +37,11 @@ const redirects: RedirectOption[]=[
 	},
 	{
 		from:'/pages/faq',
-		to: '/faq'
+		to: '/support'
+	},
+	{
+		from:'/faq',
+		to: '/support'
 	},
 	{
 		from:'/collections/staff',

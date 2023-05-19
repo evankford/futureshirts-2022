@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Fa from "svelte-fa";
+  import Fa from 'svelte-fa/src/fa.svelte';
   import { fly } from "svelte/transition";
   import { faCircle, faLeftLong, faRightLong  } from "@fortawesome/free-solid-svg-icons";
   import SectionHeading from "$lib/components/SectionHeading.svelte";
@@ -114,7 +114,7 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
     {/if}
     <div class="hero-content">
       <div class="left">
-        {#if title.toLowerCase() == 'merch made easy'}
+        {#if title.toLowerCase() === 'merch made easy'}
         <header bind:this={el} class="section-header" class:offscreen={!visible} use:isOnScreen on:onscreen={()=>{visible = true; stopWatching(el); }} >
           <h1 class="title"><span>Merch</span><span>Made</span><span>Easy</span></h1>
         </header>
@@ -127,17 +127,17 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
         <div class="who">
           {#each Array(heroGallery.length) as _, i}
             {#if i === currentSlide}
-              <span in:fly={{duration:400, delay: 300, y: 20}} out:fly={{duration: 300, y:20}}>{heroGallery[i].title}</span>
+              <span in:fly|local={{duration:400, delay: 300, y: 20}} out:fly={{duration: 300, y:20}}>{heroGallery[i].title}</span>
             {/if}
           {/each}
         </div>
         {/if}
         <nav aria-label="Slide {currentSlide + 1} of {heroGallery.length} active.">
-          <button on:click={prevSlide} aria-label="Previous Slide" aria-disabled={currentSlide == 0}>
+          <button on:click={prevSlide} aria-label="Previous Slide" aria-disabled={currentSlide === 0}>
             <Fa icon={faLeftLong}/>
           </button>
           {#each Array(heroGallery.length) as _, i}
-            <button class="dot" class:active={i == currentSlide } on:click={()=> {slideTo(i)}}  aria-label="Go To Slide {i}">
+            <button class="dot" class:active={i === currentSlide } on:click={()=> {slideTo(i)}}  aria-label="Go To Slide {i}">
               <Fa icon={faCircle }/>
             </button>
           {/each}
@@ -159,9 +159,8 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
 
   section {
     --box-li-line-height : 1;
-
     position: relative;
-    height: clamp(300px, calc(78 * var(--vh, 1vh)), 1000px);
+    height: clamp(300px, calc(90 * var(--vh, 1vh)), 1000px);
     /* max-height: calc(78 * var(--vh, 1vh)); */
     display: flex;
     align-items: flex-end;
@@ -209,16 +208,16 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
   .bg {
     @include psuedoish;
     position: fixed;
-    transform: translate3d(0, calc(0% - (5% * var(--scr, 0.5))), 0);
-
+    //noinspection CssInvalidFunction
+    transform: translate3d(0,calc(0% - 5% * var(--scr, 0.5)), 0);
     z-index: 0;
-    height: calc(83 * var(--vh, 1vh));
+    height: 110%;
     width: 100%;
-    left: 0%;
-    top: 0%;
+    left: 0;
+    top: 0;
     &::after {
       @include psuedo;
-      background: linear-gradient( to bottom,rgba(0,0,0,0.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) calc(60% - 200px),  rgba(0,20,30,0.3));
+      background: linear-gradient( to bottom,rgba(0,0,0,0.4), rgba(0,0,0,0) 28%, rgba(0,0,0,0) calc(60% - 200px),  rgba(0,20,30,0.3));
       z-index: 1;
     }
     &::before {
@@ -300,10 +299,8 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
     position: relative;
     z-index: 2;
 
-    display: flex;
     flex-wrap:wrap;
     text-align: left;
-    align-items: flex-end;
     justify-content: space-between;
 
     /// Grid
@@ -316,7 +313,7 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
 
     @include media-query($medium-up) {
       grid-template-columns: 1fr auto;
-      grid-template: auto auto;
+      grid-template: auto / auto;
       grid-template-areas: "title content" "nav content";
     }
   }

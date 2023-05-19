@@ -5,16 +5,16 @@ export default [
     name: 'seoTitle',
     title: 'Seo Title',
     type: 'string',
-    defaultValue: ({parent, value}) => parent?.title,
+    defaultValue: ({parent}) => parent?.title,
     group: 'seo'
   },
   {
     name: 'slug',
     title: 'Slug',
     type: 'slug',
-    defaultValue: ({parent, value}) => parent?.seoTitle && slugify(parent.seoTitle),
+    defaultValue: ({parent}) => parent?.seoTitle && slugify(parent.seoTitle),
     validate: R=>R.required(),
-    group: ['seo', 'main'],
+    group: ['seo'],
     options: {
       derivedFrom: 'seoTitle'
     }
@@ -24,7 +24,7 @@ export default [
     title: 'SEO Image',
     type: 'image',
     group: 'seo',
-    defaultValue: ({parent, value}) => parent?.image
+    defaultValue: ({parent}) => parent?.image
   },
   {
     name: 'seoDescription',

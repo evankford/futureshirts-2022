@@ -23,6 +23,16 @@ export interface CodeSnippetSettings {
   headerCode?: CodeSnippet[],
   footerCode?: CodeSnippet[]
 }
+export interface TeamMember{
+  title: string,
+  image: SanityImageObject,
+  questions?: TeamMemberQuestion[]
+}
+
+export interface TeamMemberQuestion {
+  question: string,
+  answer?: string
+}
 
 export interface ContactLink {
   title: string,
@@ -78,10 +88,16 @@ export interface SiteSettings {
   footer: FooterSettings | null,
   contact: ContactSettings | null,
   codes: CodeSnippetSettings | null,
-  socials: SocialMediaSettings | null,
+  socials: SocialMediaSettings | null
   jobs: JobSettings | null
   support: SimpleSupportSettings | null
   sections?: SectionShape[]
+}
+
+export interface TeamPageData {
+  title: string
+  subtitle?: string
+  teamMembers: TeamMember[]
 }
 
 

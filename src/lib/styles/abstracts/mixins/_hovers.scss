@@ -1,6 +1,6 @@
 @use "./psuedo" as *;
 
-@mixin hoverBox($display: inline-block) {
+@mixin hoverBox($display: inline-block, $showUnderline:false) {
   display: $display;
   opacity: 1;
   transition: transform 300ms ease, opacity 300ms ease, color 300ms ease;
@@ -20,6 +20,12 @@
     z-index: -1;
     background-color: rgb(var(--color-accent, var(--color-base-accent)));
     transition: transform 300ms ease;
-    transform: translateY(calc(100% + 1px));
+    @if ($showUnderline){
+
+      transform: translateY(calc(100% - 2px));
+    }@else{
+
+      transform: translateY(calc(100% + 1px));
+    }
   }
 }

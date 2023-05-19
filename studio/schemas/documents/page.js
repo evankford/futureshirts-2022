@@ -48,7 +48,7 @@ export default {
 			group: ['main'],
 			validation: (Rule) =>
 				Rule.custom((email, context) => {
-					if (typeof email == undefined || context.parent.slug !='support') {
+					if (typeof email === 'undefined' || context.parent.slug !== 'support') {
 						return true;
 					}
 					const regex =
@@ -60,7 +60,7 @@ export default {
 					}
 				}),
 
-			hidden: ({ parent }) => parent.slug.current != 'support'
+			hidden: ({ parent }) => parent.slug.current !== 'support'
 		},
 		{
 			name: 'counters',
@@ -71,7 +71,7 @@ export default {
 				}
 			],
 			group: 'main',
-			hidden: ({ parent }) => parent.slug.current != 'support'
+			hidden: ({ parent }) => parent.slug.current !== 'support'
 		},
 		...seoSettings
 	]

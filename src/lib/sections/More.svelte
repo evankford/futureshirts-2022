@@ -20,7 +20,7 @@ import Image from "$lib/components/Image.svelte";
       </div>
     </div>
     <div class="bottom ">
-      {#if moreVideo.is == 'video'}
+      {#if moreVideo.is === 'video'}
         <Video video={moreVideo} />
       {:else}
        <Image width={1200} image={moreVideo.image}/>
@@ -71,7 +71,6 @@ import Image from "$lib/components/Image.svelte";
 }
 .bottom {
   background: rgb(var(--color-base-accent));
-  transform: translate3d(-50%, 0, -150px);
   --vbg-bg:rgb(var(--color-base-accent));
 
   position: absolute;
@@ -95,6 +94,7 @@ import Image from "$lib/components/Image.svelte";
   --box-bg-color: var(--color-background);
 }
 .left {
+  max-width: 450px;
   @include media-query($tiny) {
     text-align: center;
   }

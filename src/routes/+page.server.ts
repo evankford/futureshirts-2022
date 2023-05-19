@@ -3,10 +3,10 @@ import { getSections } from "$lib/draftCheck";
 /** @type {import('./$types').PageServerLoad} */
 
 import type { PageServerLoad } from "./$types";
+import type {SiteSettings} from "$lib/types/sanity";
 
 const load:PageServerLoad= async()=>{
   const query = `{"sections": ${getSections()} { ${Object.values(sectionGroqs)} }}`;
-  const res = await sanityGet<SiteSettings>(query)
-  return res;
+  return await sanityGet<SiteSettings>(query)
 }
 export {load};

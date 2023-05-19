@@ -1,6 +1,6 @@
 <script lang="ts">
   import { faFacebookF, faTwitter, faInstagram, faTiktok, faYoutube, faSpotify} from "@fortawesome/free-brands-svg-icons"
-  import Fa from "svelte-fa";
+  import Fa from 'svelte-fa/src/fa.svelte';
 import { socials, navOpen } from "$lib/stores";
 export let inNav = false;
 </script>
@@ -10,17 +10,17 @@ export let inNav = false;
   {#each $socials as social}
   <li>
     <a target="_blank" rel="nofollow noopener noreferrer" href="{social.url}" aria-label="Follow on {social.type}" tabindex={inNav && !$navOpen ? -1 : 0}>
-      {#if social.type == 'facebook' }
+      {#if social.type === 'facebook' }
       <Fa icon={faFacebookF} />
-      {:else if social.type == 'tiktok'}
+      {:else if social.type === 'tiktok'}
       <Fa icon={faTiktok} />
-      {:else if social.type == 'youtube'}
+      {:else if social.type === 'youtube'}
       <Fa icon={faYoutube} />
-      {:else if social.type == 'twitter'}
+      {:else if social.type === 'twitter'}
       <Fa icon={faTwitter} />
-      {:else if social.type == 'instagram'}
+      {:else if social.type === 'instagram'}
       <Fa icon={faInstagram} />
-      {:else if social.type == 'spotify'}
+      {:else if social.type === 'spotify'}
       <Fa icon={faSpotify} />
 
       {/if}

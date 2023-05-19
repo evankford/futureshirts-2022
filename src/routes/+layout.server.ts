@@ -1,4 +1,4 @@
-import { error ,json} from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import { sanityGet } from "$lib/sanity";
 import { getSingleDocument, getSingleDocumentFromSlug } from "$lib/draftCheck";
 const menuHelper = `[]{title, linkUrl{type, url, openInNewTab, anchor, ref->{'slug' : slug.current }}}`;
@@ -17,6 +17,7 @@ const query = `
 
 
 import type { PageServerLoad } from  "./$types";
+import type {SiteSettings} from "$lib/types/sanity";
 const load:PageServerLoad = async() => {
     try {
     return sanityGet<SiteSettings>(query);
@@ -26,4 +27,4 @@ const load:PageServerLoad = async() => {
   }
 }
 export {load};
-export const prerender = process.env.NODE_ENV ? process.env.NODE_ENV != 'staging' : true;
+export const prerender = process.env.NODE_ENV ? process.env.NODE_ENV != 'development' : true;

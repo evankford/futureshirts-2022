@@ -7,14 +7,15 @@
   import { slide } from "svelte/transition";
   import LiNormal from "$lib/components/portableText/LiNormal.svelte";
   import {PortableText} from "@portabletext/svelte";
+  import type {ContactSettings} from "$lib/types/sanity";
 
   let onScreen = false;
   export let data: ContactSettings;
 </script>
 <section use:isOnScreen on:onscreen={(e)=> {onScreen = true; stopWatching(e.target);}} class="page-content hero-image image-hero">
   {#if onScreen && data.contactVideo}
-  <div transition:slide class="bg">
-    {#if data.contactVideo.is=='image'}
+  <div transition:slide|local class="bg">
+    {#if data.contactVideo.is === 'image'}
     <Image width={1200} image={data.contactVideo.image}/>
     {:else}
     <Video video={data.contactVideo} />

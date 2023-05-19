@@ -8,6 +8,7 @@
   import SubmitButton from "$lib/components/fields/SubmitButton.svelte";
   import SvelteMarkdown from "svelte-markdown";
   import type {EmailOptionShape, ContactOption} from "$lib/types/sanity";
+  import type {ContactData, Fields, SubmitFunction} from "../../global";
   let emailOverride: EmailOptionShape[] | false = false;
 
   function collectEmails(){
