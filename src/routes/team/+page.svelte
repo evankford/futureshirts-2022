@@ -33,6 +33,24 @@
     $: currentPersonData = data && currentPerson ? data.teamMembers[currentPerson] : undefined;
     $: currentPersonValidQuestions = currentPersonData ? currentPersonData.questions.filter((q) => q.answer && q.answer !== '') : [];
 
+    function shuffle(array) {
+      let currentIndex = array.length,  randomIndex;
+
+      // While there remain elements to shuffle.
+      while (currentIndex != 0) {
+
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex], array[currentIndex]];
+      }
+
+      return array;
+    }
+
     export const prerender = import.meta.env.NODE_ENV ? import.meta.env.NODE_ENV != 'development' : true;
     export let data:TeamPageData;
 </script>
@@ -46,7 +64,7 @@
         </PageHero>
 
         <ul class="team-members">
-            {#each data.teamMembers as teamMember, index}
+            {#each shuffle(data.teamMembers) as teamMember, index}
                 <li class="team-member">
                     <button on:click={()=>{openMember(teamMember, index)}} >
                         <span class="image-wrap" data-flip-id="{currentPerson === index ? 'personModal' : false}">
