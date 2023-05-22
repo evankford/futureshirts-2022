@@ -18,7 +18,16 @@ export const client = sanityClient({
 
 const builder = imageUrlBuilder(client);
 export const urlFor = (source:SanityImageSource) => {
-  return builder.image(source);
+    //@ts-ignore
+  if (source.asset) {
+    return builder.image(source);
+  }
+    //@ts-ignore
+  if (source.previewImage) {
+    //@ts-ignore
+    return source.previewImage;
+  }
+
 }
 
 export const sanityFetch = async (query:string, fetcher:typeof fetch| undefined = undefined) => {
