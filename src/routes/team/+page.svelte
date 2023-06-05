@@ -9,8 +9,9 @@
     import {faTimesCircle} from "@fortawesome/free-solid-svg-icons";
     import {browser} from "$app/environment";
 
-    let currentPerson:number|false = false;
     let modalOpen = false;
+
+    let currentPersonData: TeamMember | null = null;
 
     function openMember(teamMember:TeamMember){
         if (browser){
@@ -20,7 +21,7 @@
             document.body.style.paddingInlineEnd = Math.max(scrollBarWidth, 18) + 'px';
         }
         if ('teamMembers' in data){
-            currentPerson = data.teamMembers.findIndex((m) => m._id === teamMember._id);
+            currentPersonData = teamMember
             modalOpen = true;
         }
     }
@@ -31,13 +32,12 @@
             document.body.style.removeProperty('padding-inline-end');
 
         }
-        currentPerson = false;
+        currentPersonData = null;
         modalOpen = false;
     }
 
     const noAnswers = ['No answer yet!', "We'll get back to you", "Check back soon!", "Getting our answers ready...", "Still a mystery!","Not quite sure yet." , "Still processing..."].sort(() => (Math.random() > .5) ? 1 : -1);
 
-    $: currentPersonData = data && currentPerson ? data.teamMembers[currentPerson] : undefined;
     $: currentPersonValidQuestions = currentPersonData ? currentPersonData.questions.filter((q) => q.answer && q.answer !== '') : [];
 
     function shuffle(array) {
@@ -75,7 +75,7 @@
                 {#if teamMember.image}
                 <li class="team-member">
                     <button on:click={()=>{openMember(teamMember)}} >
-                        <span class="image-wrap" data-flip-id="{currentPerson === index ? 'personModal' : false}">
+                        <span class="image-wrap" >
                             <Image image={teamMember.image} alt="{teamMember.title}" width={700}/>
                         </span>
                         <span class="hover-content">
@@ -89,7 +89,7 @@
         </ul>
     </div>
 </div>
-{#if modalOpen && currentPerson !== false && currentPersonData}
+{#if modalOpen && currentPersonData}
 <div class="personModal" >
     <button class="personModal-close" transition:fade={{duration: 300, delay: 50}} aria-label="Close Popup" on:click={closeMember}><Fa icon={faTimesCircle}/></button>
     <div class="personModal-content" >
