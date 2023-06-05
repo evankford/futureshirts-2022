@@ -24,6 +24,7 @@ export interface CodeSnippetSettings {
   footerCode?: CodeSnippet[]
 }
 export interface TeamMember{
+  _id: number,
   title: string,
   image: SanityImageObject,
   questions?: TeamMemberQuestion[]

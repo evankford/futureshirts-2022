@@ -15,9 +15,11 @@
 <ul>
     {#each teamMembersSorted as teamMember}
 <!--    Create 6 cards to work with-->
+        {#if teamMember.image}
         <li>
             <Image image={teamMember.image} width={200} bg/>
         </li>
+        {/if}
     {/each}
 </ul>
 {/if}

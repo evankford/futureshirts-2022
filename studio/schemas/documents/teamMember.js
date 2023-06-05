@@ -86,9 +86,9 @@ export default {
 			type: 'string',
 		},
 		{
-			name: 'quote',
+			name: 'blurb',
 			description: 'Used in client-facing documents.',
-			title: 'Quote',
+			title: 'Blurb',
 			group: 'internal',
 			type: 'string',
 		}

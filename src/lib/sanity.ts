@@ -17,14 +17,14 @@ export const client = sanityClient({
 })
 
 const builder = imageUrlBuilder(client);
-export const urlFor = (source:SanityImageSource) => {
-    //@ts-ignore
-  if (source.asset) {
+export const urlFor = (source: SanityImageSource) => {
+  if (typeof source === 'string' || !source) {
+    return source
+  }
+  if ('asset' in source) {
     return builder.image(source);
   }
-    //@ts-ignore
-  if (source.previewImage) {
-    //@ts-ignore
+  if ('previewImage' in source) {
     return source.previewImage;
   }
 

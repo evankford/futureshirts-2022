@@ -4,7 +4,6 @@
   import Button from "$lib/components/Button.svelte";
   import {hasJobs} from "$lib/stores";
   import type {TeamMember} from "$lib/types/sanity";
-  import TeamSectionGallery from "$lib/components/TeamSectionGallery.svelte";
   import TeamSectionBackground from "$lib/components/TeamSectionBackground.svelte";
   export let title:string | null, subtitle: string| null, intro: string|null,   anchor: string, layout: string, teamMembers: TeamMember[];
 </script>
