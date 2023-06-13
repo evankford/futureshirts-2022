@@ -60,7 +60,7 @@
           </div>
           <div class="buttons">
             <Button small link="#apply">Apply</Button>
-            <Button underline small on:click={()=>openJob = i}>More Info</Button>
+            <Button underline small onClick={()=>openJob = i}>More Info</Button>
           </div>
         </li>
         {/each}

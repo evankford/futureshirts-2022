@@ -13,7 +13,6 @@ export default {
 		{
 			name: 'footerCode',
 			title: 'Footer Code',
-			type: 'code',
 			description: 'Inserted before the end of the </body> tag.',
 			type: 'array',
 			of: [{ type: 'codeSnippet' }]
