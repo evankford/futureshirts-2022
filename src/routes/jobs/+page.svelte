@@ -9,8 +9,15 @@
   import JobDetails from "$lib/components/JobDetails.svelte";
 
   import type {JobSettings} from "$lib/types/sanity";
+  import {browser} from "$app/environment";
 
   let openJob:number|false = false;
+
+  $: if (typeof openJob === 'number' && browser) {
+    document.body.style.setProperty('overflow', 'hidden')
+  } else {
+    document.body.style.removeProperty('overflow')
+  }
   export let data:JobSettings;
 
 </script>
