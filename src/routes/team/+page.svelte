@@ -58,7 +58,6 @@
       return array;
     }
 
-    export const prerender = import.meta.env.NODE_ENV ? import.meta.env.NODE_ENV != 'development' : true;
     export let data:TeamPageData;
 </script>
 <div class="page">

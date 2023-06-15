@@ -13,10 +13,15 @@
 
   let openJob:number|false = false;
 
-  $: if (typeof openJob === 'number' && browser) {
-    document.body.style.setProperty('overflow', 'hidden')
-  } else {
-    document.body.style.removeProperty('overflow')
+  $: openJob, ()=> {
+    if (!browser) {
+      return
+    }
+    if (typeof openJob === 'number') {
+      document.body.style.setProperty('overflow', 'hidden')
+    } else {
+      document.body.style.removeProperty('overflow')
+    }
   }
   export let data:JobSettings;
 
