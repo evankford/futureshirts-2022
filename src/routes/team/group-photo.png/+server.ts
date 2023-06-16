@@ -13,14 +13,14 @@ import { error } from '@sveltejs/kit'
 import TeamSectionBackgroundRenderer from "../../../lib/components/TeamSectionBackgroundRenderer.svelte";
 
 export const GET: RequestHandler = (async ({}) => {
+    const data = await getTeamImages();
+    if (!data?.teamMembers) {
+        throw error(500, 'No team members gotten.')
+    }
     try {
-        const data = await getTeamImages();
-        if (!data?.teamMembers) {
-            throw error(500, 'No team members gotten.')
 
-        }
         const options: RenderOptions = {
-            width: 3000,
+            width: 3200,
             height: 1800,
             props: {
                 teamMembers:data.teamMembers

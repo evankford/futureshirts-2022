@@ -1,8 +1,6 @@
 <script lang="ts">
 
     import type {TeamMember} from "$lib/types/sanity";
-    import Image from "$lib/components/Image.svelte";
-    import { onMount} from "svelte";
     import {urlFor} from "$lib/sanity.js";
 
     export let teamMembers: TeamMember[];
@@ -27,7 +25,8 @@
   @use "sass:math";
 
   #list {
-    width: 100%;
+    width: 3400px;
+    margin: -100px;
     display:flex;
     flex-wrap: wrap;
     align-items: center;
@@ -37,8 +36,8 @@
   }
 
   img {
-    flex: 0 1 7.5%;
-    height:300px;
+    flex: 0 1 9%;
+    height:350px;
     margin: 8px;
     object-fit: cover;
     list-style: none;
@@ -49,7 +48,7 @@
   }
 
     #container {
-      width: 3000px;
+      width: 3200px;
       height: 1800px;
       overflow: hidden;
       position: relative;
