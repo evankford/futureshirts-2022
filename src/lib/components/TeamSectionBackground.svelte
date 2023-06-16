@@ -4,9 +4,10 @@
     import { onMount} from "svelte";
     export let teamMembers:TeamMember[];
 
-    let teamMembersSorted:TeamMember[] = [];
+    let teamMembersSorted:TeamMember[] = teamMembers;
     onMount(()=>{
         teamMembersSorted = teamMembers.sort(() => (Math.random() > .5) ? 1 : -1);
+        console.log(teamMembersSorted);
     })
 
 </script>
@@ -14,10 +15,11 @@
 {#if teamMembersSorted.length > 0 }
 <ul>
     {#each teamMembersSorted as teamMember}
-<!--    Create 6 cards to work with-->
+        {#if teamMember.image}
         <li>
             <Image image={teamMember.image} width={200} bg/>
         </li>
+        {/if}
     {/each}
 </ul>
 {/if}

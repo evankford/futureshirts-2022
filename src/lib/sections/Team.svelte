@@ -115,9 +115,10 @@ text-align: center;
     margin: auto auto auto -5px;
     text-align: left;
 
-    max-width: 500px;
+    max-width: 600px;
 
   }
+
   --font-size-mega: clamp(60px, calc(50px + 2.5vw), 100px);
   &:first-child {
     margin: auto;

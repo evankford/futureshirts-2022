@@ -42,7 +42,7 @@ export const sanityGet = async<T>(query:string, fetcher: typeof fetch | undefine
       const data = await resp.json();
       if (!data?.result)  {
         // noinspection ExceptionCaughtLocallyJS
-        throw error(400, "No Data returned from CMS");
+        throw error(400, "No Data returned from CMS for query: " + query);
       }
       return data.result
     } catch(e:unknown) {

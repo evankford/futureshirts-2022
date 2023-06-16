@@ -23,7 +23,7 @@ export interface CodeSnippetSettings {
   headerCode?: CodeSnippet[],
   footerCode?: CodeSnippet[]
 }
-export interface TeamMember{
+export interface TeamMember {
   title: string,
   image: SanityImageObject,
   questions?: TeamMemberQuestion[]
