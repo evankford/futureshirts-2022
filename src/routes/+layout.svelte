@@ -63,7 +63,6 @@
         }
       });
     }
-
   });
   onDestroy(()=>{
     if (browser && window) {

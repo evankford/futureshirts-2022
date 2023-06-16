@@ -3,37 +3,61 @@
     import PageHero from "$lib/sections/PageHero.svelte";
     import Button from "$lib/components/Button.svelte";
     import Image from "$lib/components/Image.svelte";
-    import {fade} from "svelte/transition";
+    import {fly, fade} from "svelte/transition";
 
     import Fa from 'svelte-fa/src/fa.svelte'
     import {faTimesCircle} from "@fortawesome/free-solid-svg-icons";
     import {browser} from "$app/environment";
 
-    let currentPerson:number|false = false;
     let modalOpen = false;
 
-    function openMember(teamMember:TeamMember, i: number){
+    let currentPersonData: TeamMember | null = null;
+
+    function openMember(teamMember:TeamMember){
         if (browser){
+            const scrollBarWidth = document.body.offsetWidth - document.body.clientWidth;
+
             document.body.style.overflow = 'hidden';
+            document.body.style.paddingInlineEnd = Math.max(scrollBarWidth, 18) + 'px';
         }
-        currentPerson = i;
-        modalOpen = true;
+        if ('teamMembers' in data){
+            currentPersonData = teamMember
+            modalOpen = true;
+        }
     }
 
     function closeMember(){
         if (browser){
             document.body.style.removeProperty('overflow');
+            document.body.style.removeProperty('padding-inline-end');
+
         }
-        currentPerson = false;
+        currentPersonData = null;
         modalOpen = false;
     }
 
     const noAnswers = ['No answer yet!', "We'll get back to you", "Check back soon!", "Getting our answers ready...", "Still a mystery!","Not quite sure yet." , "Still processing..."].sort(() => (Math.random() > .5) ? 1 : -1);
 
-    $: currentPersonData = data && currentPerson ? data.teamMembers[currentPerson] : undefined;
     $: currentPersonValidQuestions = currentPersonData ? currentPersonData.questions.filter((q) => q.answer && q.answer !== '') : [];
 
-    export const prerender = import.meta.env.NODE_ENV ? import.meta.env.NODE_ENV != 'development' : true;
+    function shuffle(array) {
+      let currentIndex = array.length,  randomIndex;
+
+      // While there remain elements to shuffle.
+      while (currentIndex != 0) {
+
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex], array[currentIndex]];
+      }
+
+      return array;
+    }
+
     export let data:TeamPageData;
 </script>
 <div class="page">
@@ -46,10 +70,11 @@
         </PageHero>
 
         <ul class="team-members">
-            {#each data.teamMembers as teamMember, index}
+            {#each shuffle(data.teamMembers) as teamMember, index}
+                {#if teamMember.image}
                 <li class="team-member">
-                    <button on:click={()=>{openMember(teamMember, index)}} >
-                        <span class="image-wrap" data-flip-id="{currentPerson === index ? 'personModal' : false}">
+                    <button on:click={()=>{openMember(teamMember)}} >
+                        <span class="image-wrap" >
                             <Image image={teamMember.image} alt="{teamMember.title}" width={700}/>
                         </span>
                         <span class="hover-content">
@@ -58,19 +83,20 @@
                         </span>
                     </button>
                 </li>
+                {/if}
             {/each}
         </ul>
     </div>
 </div>
-{#if modalOpen && currentPerson !== false && currentPersonData}
-<div class="personModal" transition:fade>
-    <button class="personModal-close" aria-label="Close Popup" on:click={closeMember}><Fa icon={faTimesCircle}/></button>
-    <div class="personModal-content">
-        <button class="personModal-background" on:click={closeMember}></button>
-        <div class="personModal-image image-wrap" data-flip-id="personModal">
+{#if modalOpen && currentPersonData}
+<div class="personModal" >
+    <button class="personModal-close" transition:fade={{duration: 300, delay: 50}} aria-label="Close Popup" on:click={closeMember}><Fa icon={faTimesCircle}/></button>
+    <div class="personModal-content" >
+        <button class="personModal-background" transition:fade={{duration: 400}} on:click={closeMember}></button>
+        <div class="personModal-image image-wrap" data-flip-id="personModal" transition:fly={{y: 20, duration: 300}}>
             <Image bg image={currentPersonData.image} alt="{currentPersonData.title}" width={700}/>
         </div>
-        <div class="personModal-text">
+        <div class="personModal-text"  transition:fly={{y: 20, duration: 300, delay: 50}}>
             <h3 class="personModal-name">{currentPersonData.title}</h3>
             {#if currentPersonValidQuestions.length > 0}
             <ul class="questions">
@@ -225,13 +251,14 @@
   }
   .personModal-background{
     @include psuedo;
+    position: fixed;
     background-color:rgba(var(--color-base-accent-darkest), 0.75);
   }
 
   .personModal-text,.personModal-image{pointer-events: all}
 
   .personModal-image{
-    flex: 2 1 500px;
+    flex: 2 1 250px;
     position: relative;
     margin: 0 auto -20px;
     max-width: 75vw;
@@ -245,7 +272,7 @@
     }
   }
   .personModal-text {
-    flex: 1 1 450px;
+    flex: 1 1 350px;
     z-index: 3;
     position: relative;
     max-width: 500px;
@@ -273,13 +300,13 @@
     line-height: 1.5;
     margin: 0.3em 0;
     @include media-query($large-up){
-        font-size:16px;
+        font-size:15px;
     }
   }
   .answer {
     font-weight: 400;
-    font-size: 22px;
-    line-height: 1.3;
+    font-size: 20px;
+    line-height: 1.4;
     letter-spacing: -0.02em;
     @include media-query($large-up){
       font-size:24px;

@@ -37,7 +37,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 12px;
+    padding: 50px 12px;
     overflow-y: auto;
     min-height: 100vh;
     display: flex;
@@ -49,6 +49,7 @@
   }
   .job-bg{
     @include psuedo;
+    position: fixed;
     background: rgba(black, 0.8);
   }
 
