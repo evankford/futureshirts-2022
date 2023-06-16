@@ -4,17 +4,17 @@ import type { TeamPageData} from "$lib/types/sanity";
 import type { RequestHandler } from './$types'
 import {image_from_component, type RenderOptions} from 'svelte-component-to-image'
 
-async function getTeamImages(fetcher) {
+async function getTeamImages() {
     const query = `${getSingleDocumentFromSlug('team')}{ 'teamMembers': ${getTeamMembers()}{image, _id, title}}`;
-    return await sanityGet<TeamPageData>(query, fetcher);
+    return await sanityGet<TeamPageData>(query);
 }
 
 import { error } from '@sveltejs/kit'
 import TeamSectionBackgroundRenderer from "../../../lib/components/TeamSectionBackgroundRenderer.svelte";
 
-export const GET: RequestHandler = (async ({fetch}) => {
+export const GET: RequestHandler = (async ({}) => {
     try {
-        const data = await getTeamImages(fetch);
+        const data = await getTeamImages();
         if (!data?.teamMembers) {
             throw error(500, 'No team members gotten.')
 
@@ -40,4 +40,5 @@ export const GET: RequestHandler = (async ({fetch}) => {
     }
 }) satisfies RequestHandler;
 
+export const prerender = true;
 
