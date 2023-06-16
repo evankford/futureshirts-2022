@@ -36,8 +36,8 @@
   }
 
   img {
-    flex: 0 1 9%;
-    height:350px;
+    flex: 0 1 11%;
+    height:400px;
     margin: 8px;
     object-fit: cover;
     list-style: none;
@@ -49,7 +49,7 @@
 
     #container {
       width: 3200px;
-      height: 1800px;
+      height: 2577px;
       overflow: hidden;
       position: relative;
       display: flex;

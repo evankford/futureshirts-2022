@@ -20,8 +20,9 @@ export const GET: RequestHandler = (async ({}) => {
     try {
 
         const options: RenderOptions = {
+            //TODO: Set the aspect ratio to be responsive
             width: 3200,
-            height: 1800,
+            height: 2577,
             props: {
                 teamMembers:data.teamMembers
             },
