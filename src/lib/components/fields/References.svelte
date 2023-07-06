@@ -109,21 +109,21 @@
         </div>
         <div class="fields">
           <label class="name">
-            <input autocomplete="none" type="text" required max={50} bind:value={reference.name}>
+            <input autocomplete="off" type="text" required max={50} bind:value={reference.name}>
             <span class="label-below">Name:</span>
           </label>
           <label class="relation">
-            <input autocomplete="none" type="text" required max={60} bind:value={reference.relation}>
+            <input autocomplete="off" type="text" required max={60} bind:value={reference.relation}>
             <span class="label-below">Relation:</span>
 
           </label>
           <label class="email">
-            <input autocomplete="none" type="email" required bind:value={reference.email}>
+            <input autocomplete="off" type="email" required bind:value={reference.email}>
             <span class="label-below">Email:</span>
 
           </label>
           <label class="phone">
-            <input autocomplete="none" type="tel" required bind:value={reference.phone}>
+            <input autocomplete="off" type="tel" required bind:value={reference.phone}>
             <span class="label-below">Phone:</span>
           </label>
         </div>

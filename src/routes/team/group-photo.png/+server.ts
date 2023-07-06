@@ -42,4 +42,3 @@ export const GET: RequestHandler = (async ({}) => {
 }) satisfies RequestHandler;
 
 export const prerender = true;
-
