@@ -52,11 +52,12 @@
     <Select
      isClearable={false} showChevron
      --chevron-box-shadow="none"
-    --input-color="var(--field-color)" --icons-color="var(--field-color-semi, var(--field-color))" --icons-color-focused="var(--field-color)"
-    --border-radius="var(--field-border-radius)" --background="transparent" --color="var(--field-color)" --height="calc(var(--field-line-height) + (2 * var(--field-padding-y)) + var(--field-padding-top-bump) + 2px)"
-    --input-padding="calc(var(--field-padding-top-bump) + 2px + var(--field-padding-y, var(--field-padding))) var(--field-padding-x, var(--field-padding)) calc(var(--field-padding-y, var(--field-padding)) + 2px)"
-    --selected-item-padding="calc(var(--field-padding-top-bump) + 2px +  var(--field-padding-y, var(--field-padding))) 0  var(--field-padding-y, var(--field-padding))"
-    --border-focus-color="var(--field-color)"
+     --input-color="var(--field-color, white)"  --selected-item-color="var(--field-color, white)"  --icons-color="var(--field-color-semi, var(--field-color))" --icons-color-focused="var(--field-color)"
+     --border-radius="var(--field-border-radius)" --background="transparent" --color="var(--field-color)" --height="calc(var(--field-line-height) + (2 * var(--field-padding-y)) + var(--field-padding-top-bump) + 2px)"
+     --input-padding="calc(var(--field-padding-top-bump) + 2px + var(--field-padding-y, var(--field-padding))) var(--field-padding-x, var(--field-padding)) calc(var(--field-padding-y, var(--field-padding)) + 2px)"
+     --selected-item-padding="calc(var(--field-padding-top-bump) + 2px +  var(--field-padding-y, var(--field-padding))) 0  var(--field-padding-y, var(--field-padding))"
+     --border-focus-color="var(--field-focused-color)"
+     --item-color="#3f3f3f" --item-hover-color="#3f3f3f"
     placeholder=""
     items={options} {id} on:change={handleChange} bind:listOpen bind:value bind:filterText />
   </div>
