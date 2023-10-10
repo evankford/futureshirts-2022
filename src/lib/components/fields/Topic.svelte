@@ -46,7 +46,7 @@
   export let topics: ContactOption[] = [], emailTo:EmailOptionShape[] | false = false, id = "topic", required = true;
 </script>
 <FieldWrap {id}>
-<label class:filled={value && value != '' || filterText.length > 0} class:active={listOpen} for={id}>
+<label class:filled={value && value != '' || filterText.length > 0} class:active={listOpen} for={id} style={{'z-index': listOpen ? 1000 : 1}}>
   <span class="label">Contacting About<RequiredIndicator {required} /></span>
   <div class="select">
     <Select
