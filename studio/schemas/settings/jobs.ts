@@ -1,6 +1,6 @@
 export default {
 	name: 'jobs',
-	title: 'Jobs',
+	title: 'Job Openings',
 	type: 'document',
 	initialValue: {
 		email: 'info@futureshirts.com',

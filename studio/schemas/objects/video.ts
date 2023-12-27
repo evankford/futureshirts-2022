@@ -31,7 +31,7 @@ export default {
 			name: 'url',
 			title: 'Url',
 			type: 'url',
-			hidden: ({ parent, value }) => !value && parent.type == 'local'
+			hidden: ({ current, value }) => !value && current.type == 'local'
 			// validation: (R) => R.required()
 		},
 		{
@@ -42,7 +42,7 @@ export default {
 				hotspot: true,
 				accept: 'image/jpeg'
 			},
-			hidden: ({ parent, value }) => !value && parent.type == 'local'
+			hidden: ({ current, value }) => !value && current.type == 'local'
 			// validation: (R) => R.required()
 		},
     videoFile

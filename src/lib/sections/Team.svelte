@@ -9,7 +9,7 @@
 </script>
 
 <section use:isOnScreen class="{layout}" id="{anchor}">
-      <TeamSectionBackground {teamMembers}/>
+  <TeamSectionBackground {teamMembers}/>
   <div class="content">
     <!--<div class="left  ">
       <TeamSectionGallery {teamMembers} />

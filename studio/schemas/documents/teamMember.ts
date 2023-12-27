@@ -72,25 +72,34 @@ export default {
 			initialValue: true
 		},
 		{
+			name: 'blurb',
+			description: 'Used in client-facing documents.',
+			title: 'Blurb',
+			group: 'internal',
+			type: 'string',
+		},
+		{
 			name: 'position',
 			description: 'Used in client-facing documents.',
 			title: 'Position',
 			group: 'internal',
 			type: 'string',
 		},
-		{
-			name: 'team',
-			description: 'Used in client-facing documents.',
-			title: 'Team',
-			group: 'internal',
-			type: 'string',
-		},
-		{
-			name: 'blurb',
-			description: 'Used in client-facing documents.',
-			title: 'Blurb',
-			group: 'internal',
-			type: 'string',
-		}
+		// {
+		// 	name: 'team_refs',
+		// 	description: 'Used in client-facing documents.',
+		// 	title: 'Team',
+		// 	group: 'internal',
+		// 	type: 'reference',
+		// 	to: [{type: 'team'}],
+		// },
+		// {
+		// 	name: 'position_ref',
+		// 	description: 'Used in client-facing documents.',
+		// 	title: 'Position',
+		// 	group: 'internal',
+		// 	type: 'reference',
+		// 	to: [{type: 'position'}],
+		// },
 	]
 };

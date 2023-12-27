@@ -1,6 +1,7 @@
 
 import Image from '../lib/image';
 import seoSettings, {seoGroup} from "../lib/seoSettings";
+import {defineField} from "sanity";
 
 export default {
 	name: 'page',
@@ -12,17 +13,16 @@ export default {
 			title: 'Main',
 			default: true
 		},
-
 		seoGroup
 	],
 	fields: [
-		{
+		defineField({
 			name: 'title',
 			title: 'Title',
 			type: 'string',
 			group: ['main'],
 			validate: (R) => R.required()
-		},
+		}),
 		{
 			name: 'subtitle',
 			title: 'Subtitle',
@@ -47,8 +47,8 @@ export default {
 			type: 'string',
 			group: ['main'],
 			validation: (Rule) =>
-				Rule.custom((email, context) => {
-					if (typeof email === 'undefined' || context.parent.slug !== 'support') {
+				Rule.custom((email:string|undefined, context: {parent: { slug?: {current: string} } }) => {
+					if (typeof email === 'undefined' || context.parent?.slug?.current !== 'support') {
 						return true;
 					}
 					const regex =
@@ -60,7 +60,7 @@ export default {
 					}
 				}),
 
-			hidden: ({ parent }) => parent.slug.current !== 'support'
+			hidden: ({ document }) =>  document.slug?.current !== 'support'
 		},
 		{
 			name: 'counters',
@@ -71,7 +71,7 @@ export default {
 				}
 			],
 			group: 'main',
-			hidden: ({ parent }) => parent.slug.current !== 'support'
+			hidden: ({ document }) => document.slug?.current !== 'support'
 		},
 		...seoSettings
 	]
