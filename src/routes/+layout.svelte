@@ -98,6 +98,15 @@
     {/each}
   {/if}
 
+  <script type="application/ld+json">
+    {
+      "url":"https://futureshirts.co",
+      "name":"Futureshirts",
+      "description":"{ data.seo.description }",
+      "@context":"http://schema.org",
+      "@type":"WebSite"
+    }
+  </script>
 
 </svelte:head>
 
@@ -118,11 +127,3 @@
     {/if}
   {/each}
 {/if}
-<script type="application/ld+json">
-  {"url":"https://futureshirts.co",
-          "name":"Futureshirts",
-          "description":{ data.seo.description }",
-          "@context":"http://schema.org",
-          "@type":"WebSite"
-  }
-</script>
