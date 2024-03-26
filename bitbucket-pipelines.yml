@@ -1,16 +1,16 @@
 definitions:
   caches:
-    pnpm: $BITBUCKET_CLONE_DIR/.pnpm-store
+    pnpm: .pnpm-store
 
 pipelines:
   branches:
     staging:
       - step:
           name: Build and test
-          image: node:18.12.1
+          image: node:21.4.0
           deployment: staging
           script:
-            - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
+            - npm install -g pnpm
             - pnpm install
             - pnpm run build
             - pnpx wrangler pages publish .svelte-kit/cloudflare --project-name=fs-site-2022-staging --branch staging
@@ -19,9 +19,9 @@ pipelines:
     production:
       - step:
           name: Build and test
-          image: node:18.12.1
+          image: node:21.4.0
           script:
-            - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
+            - npm install -g pnpm
             - pnpm install
             - pnpm run build
             - pnpx svelte-sitemap --domain https://futureshirts.co --out-dir=.svelte-kit/cloudflare
@@ -35,18 +35,18 @@ pipelines:
             - step:
                 name: Build and test staging
                 branch: staging
-                image: node:18.12.1
+                image: node:20.4.0
                 script:
-                  - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
+                  - npm install -g pnpm
                   - pnpm install
                   - pnpm run build
                   - pnpx wrangler pages publish .svelte-kit/cloudflare --project-name=fs-site-2022-staging --branch=staging
             - step:
                 name: Build and test
                 branch: production
-                image: node:18.12.1
+                image: node:20.4.0
                 script:
-                  - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
+                  - npm install -g pnpm
                   - pnpm install
                   - pnpm run build
                   - pnpx svelte-sitemap --domain https://futureshirts.co --out-dir=.svelte-kit/cloudflare
