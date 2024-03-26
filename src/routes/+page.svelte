@@ -72,7 +72,6 @@
   {:else if section.layout === 'team'}
   <Team {...section } />
   {:else if section.layout === 'connect'}
-  <!-- no. -->
   <Connect {...section}/>
   {/if}
 {/each}

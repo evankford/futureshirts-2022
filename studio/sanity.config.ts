@@ -2,7 +2,7 @@ import {defineConfig} from 'sanity'
 import {visionTool} from "@sanity/vision";
 import {codeInput} from "@sanity/code-input";
 import { markdownSchema } from "sanity-plugin-markdown";
-import { structure } from "./schemas/deskStructure";
+import structure from "./schemas/deskStructure";
 import { noteField } from 'sanity-plugin-note-field'
 import {
     dashboardTool,

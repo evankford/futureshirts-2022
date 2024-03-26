@@ -152,7 +152,8 @@ export interface VideoOrImageVideo extends VideoObject {
     email: EmailOptionShape[],
     description: Block[],
     fullDescription: Block[],
-    active: boolean
+    active: boolean,
+    url?: string
   }
 
   export interface EmailOptionShape {

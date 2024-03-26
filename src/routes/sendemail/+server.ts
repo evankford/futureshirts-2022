@@ -7,7 +7,7 @@ import { Buffer } from 'buffer';
 
 import { AwsClient } from 'aws4fetch'
 
-
+import type {ContactData, JobData, ResponseError, SupportData} from "../../global";
 
 function generateHTML(data: ContactData | JobData | SupportData):string  {
   if (!('formName' in data)) {

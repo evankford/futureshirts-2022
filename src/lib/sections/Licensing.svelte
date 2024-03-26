@@ -13,35 +13,37 @@ import isOnScreen from "$lib/isOnScreen";
 </script>
 <section use:isOnScreen class="{layout}" id="{anchor}">
   <div class="rotate">
-
     <div class="content">
       <div class="title">
         <SectionHeading {title} {subtitle} {intro}/>
       </div>
-    <div class="images">
+      <div class="images">
 
-      {#if image}
-      <div class="img1"><Image {image} alt="{image.alt ? image.alt : 'Licensing of Futureshirts Merchandise on a store rack'}" width={1500}/></div>
-      {/if}
-      <div class="box-wrap">
-          <SectionBox {box} />
+        {#if image}
+        <div class="img1"><Image {image} alt="{'Licensing of Futureshirts Merchandise on a store rack'}" width={1500}/></div>
+        {/if}
+        {#if box && box.length > 8}
+        <div class="box-wrap">
+            <SectionBox {box} />
+        </div>
+          {/if}
+        {#if image2}
+          <div class="img2"><Image image={image2} alt="{'Retail shot of  Futureshirts Merchandise'}" width={1500}/></div>
+        {/if}
       </div>
-      {#if image2}
-        <div class="img2"><Image image={image2} alt="{image2 ? image2.alt : 'Retail shot of  Futureshirts Merchandise'}" width={1500}/></div>
-      {/if}
     </div>
-    </div>
-    {#if logoGallery.length > 0}
-    <div class="logos">
-      <ul style="width: {logoGallery.length * 104}px; --width: {logoGallery.length * 104}px">
-        {#each logoGallery as logo}
-        <li>
-          <img loading="lazy" src="{urlFor(logo).width(70).format('webp').url()}" srcset="{urlFor(logo).width(160).format('webp').url()} 2x, {urlFor(logo).width(70).format('webp').url()}" alt="{logo.alt}" width="70" height="35" />
-        </li>
-        {/each}
-      </ul>
 
-    </div>
+    {#if logoGallery?.length}
+      <div class="logos">
+        <ul style="width: {logoGallery.length * 104}px; --width: {logoGallery.length * 104}px">
+          {#each logoGallery as logo}
+            <li>
+              <img loading="lazy" src="{urlFor(logo).width(70).format('webp').url()}" srcset="{urlFor(logo).width(160).format('webp').url()} 2x, {urlFor(logo).width(70).format('webp').url()}" alt="{logo.alt}" width="70" height="35" />
+            </li>
+          {/each}
+        </ul>
+
+      </div>
     {/if}
   </div>
 </section>

@@ -20,7 +20,7 @@
         </header>
           <PortableText value={job.fullDescription} components={{listItem: {normal: LiNormal}}} />
           <div class="buttons">
-            <a class="button" on:click={()=>{openJob=false}} href="#apply">Apply</a>
+            <a class="button" on:click={()=>{openJob=false}} href={job.url ?? '#apply' } target={job.url ? "_blank" : undefined}>Apply</a>
           </div>
           <button on:click={()=>{openJob= false}} aria-label="Close Job description"><Fa icon={faXmark}/></button>
       </article>
@@ -69,10 +69,10 @@ max-width: 900px;
    button {
     @include b.resetButton;
     position: absolute;
-    top: 0;
+    top: 5px;
     padding: 10px;
     font-size: 20px;
-    right: 0;
+    right: 5px;
     color: black;
     opacity: 0.5;
     transition: opacity 300ms ease;

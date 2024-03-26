@@ -1,4 +1,5 @@
 import { type Writable, type Readable, writable, derived} from "svelte/store";
+import type {ContactSettings, SimpleSupportSettings, SiteSEO, SocialLink} from "$lib/types/sanity";
 
 //Possible stores here
 export const hasJobs:Writable<boolean> = writable(false);

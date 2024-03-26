@@ -1,18 +1,22 @@
+
+
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 
 import { FaAddressCard , FaSearchengin, FaEnvelope, FaLink, FaArrowDown,  FaArrowUp, FaCode } from 'react-icons/fa';
-import {TbSection, TbSettings, TbUsers } from 'react-icons/tb';
+import {TbSection, TbSettings, TbUsers, TbUsersGroup, TbIdBadge2 } from 'react-icons/tb';
+import type {StructureBuilder, StructureResolverContext} from "sanity/lib/exports/desk";
 
 
-export const structure = (S, context) =>
+export default (S: StructureBuilder, context: StructureResolverContext) =>
 	S.list()
-		.title('Base')
+		.title('Futureshirts')
 
 		.items([
 			...S.documentTypeListItems()
 				.filter(
-				(listItem) =>
-					!['section', 'teamMember'].includes(listItem.getSchemaType().name) &&
+				(listItem) => {
+					const sT = listItem.getSchemaType()
+					return !['section', 'teamMember', 'tools', 'team', 'position'].includes((typeof sT === 'string' ?  sT : sT.name)) &&
 					![
 						'siteSEO',
 						'contactSettings',
@@ -24,17 +28,58 @@ export const structure = (S, context) =>
 						'jobs',
 						'support'
 					].includes(listItem.getId())
+				}
+
 			),
 			orderableDocumentListDeskItem({
+				S,
+				context,
 				type: 'section',
+				// @ts-ignore
 				icon: TbSection,
 				title: 'Front page Sections'
 			}),
-			orderableDocumentListDeskItem({
-				type: 'teamMember',
-				icon: TbUsers,
-				title: 'Team'
-			}),
+			S.listItem()
+				.icon(TbUsers)
+				.title('FS Team')
+
+				.child(
+					S.list()
+						.title('Team & Org')
+						.items([
+							orderableDocumentListDeskItem({
+								S,
+								context,
+								type: 'teamMember',
+								// @ts-ignore
+								icon: TbUsers,
+								title: 'Team Members'
+							}),
+							orderableDocumentListDeskItem({
+								S,
+								context,
+								type: 'team',
+								// @ts-ignore
+								icon: TbUsersGroup,
+								title: 'Teams'
+							}),
+							orderableDocumentListDeskItem({
+								S,
+								context,
+								type: 'position',
+								// @ts-ignore
+								icon: TbIdBadge2,
+								title: 'Positions'
+							}),
+
+						])
+
+				),
+			S.divider(),
+			S.listItem()
+				.title('Job Openings')
+				.icon(FaAddressCard)
+				.child(S.document().schemaType('jobs').id('jobs').title('Jobs').documentId('jobs')),
 
 			S.divider(),
 			S.listItem()
@@ -117,8 +162,4 @@ export const structure = (S, context) =>
 							// 	)
 						])
 				),
-			S.listItem()
-				.title('Jobs')
-				.icon(FaAddressCard)
-				.child(S.document().schemaType('jobs').id('jobs').title('Jobs').documentId('jobs'))
 		]);

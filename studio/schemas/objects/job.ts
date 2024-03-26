@@ -1,3 +1,16 @@
+import {EmailOption} from "./emailOption";
+import {BlockSchemaType} from "@sanity/types";
+import {JobPreview} from "./job/JobPreview";
+
+export type Job = {
+	_key: string
+	title: string
+	subtitle: string,
+	email: EmailOption[],
+	description: BlockSchemaType[],
+	fullDescription: BlockSchemaType[],
+	active: boolean,
+}
 export default {
 	name: 'job',
 	title: 'Job',
@@ -16,9 +29,8 @@ export default {
 		},
 		{
 			name: 'url',
-			title: 'Posting URL',
-			type: 'url',
-			description: 'Preferred! Should be the job posting url from Paylocity.'
+			title: 'URL',
+			type: 'url'
 		},
 		{
 			name: 'email',
@@ -55,5 +67,18 @@ export default {
 			type: 'boolean',
 			initialValue: true,
 		}
-	]
+	],
+	preview: {
+		select: {
+			title: 'title',
+			subtitle: 'subtitle',
+			email: 'email'
+		},
+		prepare: ({title, subtitle, email, url}) => ({
+			title,
+			subtitle: url ? 'Linked to: ' +  url : email.length ? 'Sending to ' + email?.map(o=>o.name).join(' + ') : '' + subtitle ? '. ' + subtitle + '. ' : '',
+		}),
+	},
+	components: {item: JobPreview},
+
 };

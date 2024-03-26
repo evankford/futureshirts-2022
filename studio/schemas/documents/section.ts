@@ -1,5 +1,6 @@
 import ecommerce from './sectionFields/ecommerce';
 import { orderRankField } from '@sanity/orderable-document-list';
+
 export default {
 	name: 'section',
 	title: 'Front Page Section',
@@ -14,10 +15,6 @@ export default {
 			name: 'settings',
 			title: 'Settings'
 		},
-		{
-			name: 'content',
-			title: 'Content'
-		}
 	],
 	fields: [
 		{
@@ -75,7 +72,7 @@ export default {
 			title: 'Intro',
 			type: 'string',
 			group: ['content'],
-			hidden: ({ parent }) => parent.layout !== 'team' && parent.layout !== 'more'
+			hidden: ({ document }) => document.layout !== 'team' && document.layout !== 'more'
 		},
 		{
 			name: 'title',
@@ -89,7 +86,7 @@ export default {
 			title: 'Subtitle',
 			type: 'string',
 			group: ['content'],
-			hidden: ({ parent }) => parent.layout !== 'licensing'
+			hidden: ({ document }) => document.layout !== 'licensing'
 		},
 		{
 			name: 'image',
@@ -98,8 +95,8 @@ export default {
 			group: ['content'],
 			fields: [{ name: 'alt', type: 'string', title: 'Alternative Text' }],
 			options: { hotspot: true },
-			hidden: ({ parent }) =>
-				!parent.layout || ['connect', 'ecommerce', 'tour', 'more', 'hero'].includes(parent.layout)
+			hidden: ({ document }) =>
+				!document.layout || ['connect', 'ecommerce', 'tour', 'more', 'hero'].includes(document.layout)
 		},
 		{
 			name: 'image2',
@@ -108,7 +105,7 @@ export default {
 			group: ['content'],
 			fields: [{ name: 'alt', type: 'string', title: 'Alternative Text' }],
 			options: { hotspot: true },
-			hidden: ({ parent }) => !parent.layout || parent.layout !== 'licensing'
+			hidden: ({ document }) => !document.layout || document.layout !== 'licensing'
 		},
 		{
 			name: 'imageSmall',
@@ -117,7 +114,7 @@ export default {
 			group: ['content'],
 			fields: [{ name: 'alt', type: 'string', title: 'Alternative Text' }],
 			options: { hotspot: true },
-			hidden: ({ parent }) => !parent.layout || parent.layout != 'product'
+			hidden: ({ document }) => !document.layout || document.layout != 'product'
 		},
 		{
 			name: 'box',
@@ -125,7 +122,7 @@ export default {
 			type: 'array',
 			of: [{ type: 'block' }],
 			group: ['content'],
-			hidden: ({ parent }) => !parent.layout || ['connect', 'team'].includes(parent.layout)
+			hidden: ({ document }) => !document.layout || ['connect', 'team'].includes(document.layout)
 		},
 		{
 			name: 'quoteGallery',
@@ -133,7 +130,7 @@ export default {
 			type: 'array',
 			of: [{ type: 'quote' }],
 			group: ['content'],
-			hidden: ({ parent }) => !parent.layout || parent.layout !== 'tour'
+			hidden: ({ document }) => !document.layout || document.layout !== 'tour'
 		},
 		{
 			name: 'logoGallery',
@@ -150,8 +147,8 @@ export default {
 			options: {
 				layout: 'grid'
 			},
-			hidden: ({ parent }) =>
-				!parent.layout || ['team', 'licensing'].includes(parent.layout) == false
+			hidden: ({ document }) =>
+				!document.layout || ['team', 'licensing'].includes(document.layout) == false
 		},
 		{
 			name: 'heroGallery',
@@ -159,7 +156,7 @@ export default {
 			type: 'array',
 			of: [{ type: 'heroImage' }],
 			group: ['content'],
-			hidden: ({ parent }) => !parent.layout || parent.layout !== 'hero'
+			hidden: ({ document }) => !document.layout || document.layout !== 'hero'
 		},
 		{
 			name: 'moreVideo',
@@ -167,14 +164,14 @@ export default {
 			description: 'An .mp4 video about 3MB or smaller. 720 x 720px preferred',
 			type: 'videoOrImage',
 			group: ['content'],
-			hidden: ({ parent }) => !parent.layout || parent.layout !== 'more'
+			hidden: ({ document }) => !document.layout || document.layout !== 'more'
 		},
 		{
 			name: 'instagramWidget',
 			title: 'Instagram Widget',
 			type: 'code',
 			group: ['content'],
-			hidden: ({ parent }) => !parent.layout || parent.layout !== 'connect'
+			hidden: ({ document }) => !document.layout || document.layout !== 'connect'
 		},
 
 		{
@@ -183,7 +180,7 @@ export default {
 			type: 'boolean',
 			initialValue: true,
 			group: ['content'],
-			hidden: ({ parent }) => !parent.layout || parent.layout !== 'connect'
+			hidden: ({ document }) => !document.layout || document.layout !== 'connect'
 		},
 		...ecommerce
 	]

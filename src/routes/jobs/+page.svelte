@@ -71,7 +71,7 @@
             <PortableText value={opening.description} components={{listItem: {normal: LiNormal}}} />
           </div>
           <div class="buttons">
-            <Button small link="#apply">Apply</Button>
+            <Button small link={ opening.url ? {url: opening.url, type: 'external', openInNewTab: true }:  '#apply'}>Apply</Button>
             <Button underline small onClick={()=>openJob = i}>More Info</Button>
           </div>
         </li>
@@ -209,8 +209,9 @@ header {
     justify-content: space-between;
     flex-direction: column;
     flex: 1 1 250px;
+     max-width: 500px;
     @include media-query($medium-up) {
-      max-width: 50%;
+      max-width: 650px;
     }
     h4 {
       @include mono;

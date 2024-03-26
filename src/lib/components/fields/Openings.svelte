@@ -6,6 +6,7 @@
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
   import Select from "svelte-select";
   import type {Opening} from "$lib/types/sanity";
+  import type {Fields, FieldStore, SelectOption} from "../../../global";
 
   const context:FieldStore = getContext('fields');
 
@@ -22,6 +23,13 @@
   });
 
   function handleChange(e: CustomEvent<{ detail:SelectOption , [x: string | number | symbol]: unknown }>) {
+    console.log(openings.find(o=>o.title=== e.detail.value))
+
+    const rel = openings.find(o=>o.title=== e.detail.value)
+    if (rel.url) {
+      window.open(rel.url, '_blank').focus();
+      return
+    }
     if (e.detail) {
       context.update((val:Fields) => {
         if (val[id]) {
@@ -43,18 +51,19 @@
     <span class="label">Applying For<RequiredIndicator {required} /></span>
     <div class="select">
       <Select
-              open
       on:focus={()=>listOpen = true}
-      isClearable={false} showChevron
+      on:blur={()=>listOpen = false}
+       showChevron
       --chevron-box-shadow="none"
       --input-color="var(--field-color, white)"  --selected-item-color="var(--field-color, white)"  --icons-color="var(--field-color-semi, var(--field-color))" --icons-color-focused="var(--field-color)"
       --border-radius="var(--field-border-radius)" --background="transparent" --color="var(--field-color)" --height="calc(var(--field-line-height) + (2 * var(--field-padding-y)) + var(--field-padding-top-bump) + 2px)"
       --input-padding="calc(var(--field-padding-top-bump) + 2px + var(--field-padding-y, var(--field-padding))) var(--field-padding-x, var(--field-padding)) calc(var(--field-padding-y, var(--field-padding)) + 2px)"
       --selected-item-padding="calc(var(--field-padding-top-bump) + 2px +  var(--field-padding-y, var(--field-padding))) 0  var(--field-padding-y, var(--field-padding))"
       --border-focus-color="var(--field-focused-color)"
+      --internal-padding="0"
               --item-color="#3f3f3f" --item-hover-color="#3f3f3f"
       placeholder=""
-      items={options} {id} on:change={handleChange} listOpen={true} bind:value bind:filterText />
+      items={options} {id} on:change={handleChange} bind:value bind:filterText />
     </div>
 
   </label>
@@ -62,9 +71,8 @@
 <style lang="scss">
 
     @use "../../styles/elements/_fields.scss" as fields;
-
-
     :global(.svelte-select.focused ) {
+      padding-left: 0 !important;
       background:var(--field-focused-background-color);
       --background:var(--field-focused-background-color);
       outline: 1px solid var(--field-focused-border-color);

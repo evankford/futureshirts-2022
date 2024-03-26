@@ -1,3 +1,7 @@
+export type EmailOption = {
+	name: string,
+	email: string,
+}
 const email = {
 	name: 'emailOption',
 	type: 'object',
