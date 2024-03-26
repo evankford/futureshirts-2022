@@ -13,7 +13,7 @@ pipelines:
             - npm install -g pnpm
             - pnpm install
             - pnpm run build
-            - pnpx wrangler pages publish .svelte-kit/cloudflare --project-name=fs-site-2022-staging --branch staging
+            - pnpx wrangler pages deploy .svelte-kit/cloudflare --project-name=fs-site-2022-staging --branch staging
           caches:
             - pnpm
     production:
@@ -25,7 +25,7 @@ pipelines:
             - pnpm install
             - pnpm run build
             - pnpx svelte-sitemap --domain https://futureshirts.co --out-dir=.svelte-kit/cloudflare
-            - pnpx wrangler pages publish .svelte-kit/cloudflare --project-name=fs-site --branch=production
+            - pnpx wrangler pages deploy .svelte-kit/cloudflare --project-name=fs-site --branch=production
           caches:
             - pnpm
   custom:
@@ -40,7 +40,7 @@ pipelines:
                   - npm install -g pnpm
                   - pnpm install
                   - pnpm run build
-                  - pnpx wrangler pages publish .svelte-kit/cloudflare --project-name=fs-site-2022-staging --branch=staging
+                  - pnpx wrangler pages deploy .svelte-kit/cloudflare --project-name=fs-site-2022-staging --branch=staging
             - step:
                 name: Build and test
                 branch: production
@@ -50,6 +50,6 @@ pipelines:
                   - pnpm install
                   - pnpm run build
                   - pnpx svelte-sitemap --domain https://futureshirts.co --out-dir=.svelte-kit/cloudflare
-                  - pnpx wrangler pages publish .svelte-kit/cloudflare --project-name=fs-site --branch=production
+                  - pnpx wrangler pages deploy .svelte-kit/cloudflare --project-name=fs-site --branch=production
                 caches:
                   - pnpm

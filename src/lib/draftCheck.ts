@@ -5,9 +5,6 @@ function isPreview(){
   return (['staging', 'development', 'dev', 'DEVELOPMENT', 'STAGING'].includes(import.meta.env.mode) || ['staging', 'development', 'dev', 'DEVELOPMENT', 'STAGING'].includes(process.env.NODE_ENV) || import.meta.env.VITE_IS_PREVIEW === 'true');
 }
 
-console.log('isPreview', isPreview())
-
-
 export function getId(id: string):string {
   if (isPreview()){
     return `_id == '${id}'`;
