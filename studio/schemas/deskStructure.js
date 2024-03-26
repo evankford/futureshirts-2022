@@ -1,13 +1,10 @@
-
-
-import S from '@sanity/desk-tool/structure-builder';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 
 import { FaAddressCard , FaSearchengin, FaEnvelope, FaLink, FaArrowDown,  FaArrowUp, FaCode } from 'react-icons/fa';
 import {TbSection, TbSettings, TbUsers } from 'react-icons/tb';
 
 
-export default () =>
+export const structure = (S, context) =>
 	S.list()
 		.title('Base')
 

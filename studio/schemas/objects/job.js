@@ -15,13 +15,19 @@ export default {
 			type: 'string'
 		},
 		{
+			name: 'url',
+			title: 'Posting URL',
+			type: 'url',
+			description: 'Preferred! Should be the job posting url from Paylocity.'
+		},
+		{
 			name: 'email',
 			type: 'array',
 			of: [
 				{type: 'emailOption'}
 			],
 			title: 'Specific Email Contact(s)',
-			description: 'Forwards to an email if this option is selected.',
+			description: '(DEPRECATED) Forwards to an email if this option is selected.',
 		},
 		{
 			name: 'description',
