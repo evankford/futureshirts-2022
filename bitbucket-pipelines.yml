@@ -35,7 +35,7 @@ pipelines:
             - step:
                 name: Build and test staging
                 branch: staging
-                image: node:20.4.0
+                image: node:21.4.0
                 script:
                   - npm install -g pnpm
                   - pnpm install
@@ -44,7 +44,7 @@ pipelines:
             - step:
                 name: Build and test
                 branch: production
-                image: node:20.4.0
+                image: node:21.4.0
                 script:
                   - npm install -g pnpm
                   - pnpm install
