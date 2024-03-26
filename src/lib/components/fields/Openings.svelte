@@ -47,7 +47,7 @@
   export let id  = "opening", openings: Opening[] = [], required = true;
 </script>
 <FieldWrap {id}>
-  <label class:filled={value && value != '' || filterText.length > 0} class:active={listOpen} for={id}>
+  <label class:filled={value && value !== '' || filterText.length > 0} class:active={listOpen} for={id}>
     <span class="label">Applying For<RequiredIndicator {required} /></span>
     <div class="select">
       <Select
@@ -96,6 +96,7 @@
    .label {
     @include fields.label;
     @include fields.moving-label;
+     pointer-events: none;
    }
    input {
      padding-left: 0;
