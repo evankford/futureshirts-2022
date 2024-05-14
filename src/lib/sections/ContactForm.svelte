@@ -73,7 +73,7 @@
 
   export let
     email: EmailOptionShape[],
-    contactOptions: ContactOption[],
+    contactOptions: ContactOption[]|undefined = undefined,
     successMessage: string,
     successTitle: string,
     errorMessage ="",
@@ -86,7 +86,7 @@
 
   <Name required/>
   <Email required/>
-  {#if !widget}
+  {#if !widget && contactOptions}
   <Topic topics={contactOptions} bind:emailTo={emailOverride}/>
   {/if}
   <Message />

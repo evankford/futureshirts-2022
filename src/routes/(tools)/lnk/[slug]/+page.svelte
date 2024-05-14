@@ -7,7 +7,7 @@
   import {onMount} from "svelte";
   import PdfLoader from "$lib/components/PdfLoader.svelte";
   import ContactForm from "$lib/sections/ContactForm.svelte";
-
+import type {EmailOptionShape} from "$lib/types/sanity";
 
   function changeTab(key: string) {
       activeTab = key
@@ -92,11 +92,16 @@
                 {:else if embedItem._type === 'lnkContact' }
                     <div class="contact-wrap">
                         <h1>Get in touch</h1>
-                        <ContactForm widget={true} emailTo={embedItem.email}/>
+                        <h2>Had a great time chatting with you! As always, feel free to reach out with any questions. What happened in Vegas doesn't have to stay in Vegas!</h2>
+                        <ContactForm widget={true}
+                                     email={[]}
+                                     emailTo={embedItem.email.map((e) => e.email)}
+                                     successTitle="Thanks for getting in touch!"
+                                     successMessage="We'll follow up with you as soon as we can"
+                                     errorTitle="Something went wrong!"
+                                     errorMessage="Please reload the page and try again."
+                        />
                     </div>
-
-                {:else}
-                    {JSON.stringify(embedItem)}
                 {/if}
 
             {/if}
