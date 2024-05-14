@@ -78,7 +78,7 @@
 
 
 <style lang="scss">
-  @use "../lib/styles/abstracts/mixins/type-elements" as t;
+  @use "../../lib/styles/abstracts/mixins/type-elements" as t;
   .scroll-helper {
     position: fixed;
     z-index: 100;

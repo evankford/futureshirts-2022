@@ -38,8 +38,8 @@
 </section>
 
 <style lang="scss">
-  @use "../../lib/styles/abstracts" as *;
-  @use "../../lib/styles/core/_backgrounds" as bg;
+  @use "../../../lib/styles/abstracts" as *;
+  @use "../../../lib/styles/core/_backgrounds" as bg;
   .bg {
     z-index: 0;
     pointer-events: none;

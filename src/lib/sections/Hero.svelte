@@ -12,7 +12,6 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
   import  throttle  from "$lib/throttle";
   import type {Block, HeroImage} from "$lib/types/sections";
 
-
   let currentSlide = 0;
   let slideInterval: ReturnType<typeof setInterval>;
   function startSlideInterval() {

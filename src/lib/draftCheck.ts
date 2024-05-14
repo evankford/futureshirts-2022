@@ -35,13 +35,23 @@ export function getActiveJobs(id:string) : string {
     return `*[_id == '${id}'][0]`;
 }
 
-export function getSingleDocumentFromSlug(slug:string) : string {
+export function getSingleDocumentFromSlug(slug:string, type: null|string = null) : string {
     if (isPreview()){
-    return  `coalesce(
-      *[slug.current == '${slug}' && (_id in path('drafts.**'))][0],
-      *[slug.current == '${slug}'][0]
-    )`;
+        if (type) {
+            return  `coalesce(
+          *[_type == '${type}' && slug.current == '${slug}' && (_id in path('drafts.**'))][0],
+          *[_type == '${type}' && slug.current == '${slug}'][0]
+        )`;
+        }
+        return  `coalesce(
+          *[slug.current == '${slug}' && (_id in path('drafts.**'))][0],
+          *[slug.current == '${slug}'][0]
+        )`;
   }
+    if (type) {
+        return `*[_type =='${type}' && slug.current =='${slug}'][0]`
+    }
+
   return `*[slug.current == '${slug}'][0]`;
 }
 

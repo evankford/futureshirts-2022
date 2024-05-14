@@ -10,11 +10,14 @@
 		// "skipLibCheck": true,
 		"allowSyntheticDefaultImports": true,
 		// "sourceMap": true,
+		"types" : [
+			"vidstack/svelte"
+		]
 	},
 	"exclude": [
 		"./studio"
 	],
 	"include" : [
 		"src/**/*"
-	]
+	],
 }

@@ -4,6 +4,7 @@ import { error } from '@sveltejs/kit';
 import imageUrlBuilder from '@sanity/image-url'
 import type { SanityImageSource} from "@sanity/image-url/lib/types/types"
 import {getTeamMembers} from "$lib/draftCheck";
+import {getFileAsset, type SanityFileAsset, type SanityFileSource} from "@sanity/asset-utils";
 const apiVersion = '2021-10-21';
 const projectId = import.meta.env.SANITY_PROJECT_ID;
 const dataset = import.meta.env.SANITY_DATASET
@@ -27,7 +28,6 @@ export const urlFor = (source: SanityImageSource) => {
   if ('previewImage' in source) {
     return source.previewImage;
   }
-
 }
 
 export const sanityFetch = async (query:string, fetcher:typeof fetch| undefined = undefined) => {

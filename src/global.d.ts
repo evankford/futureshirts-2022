@@ -15,6 +15,7 @@ interface ImportMetaEnv {
   VITE_SHEETS_PASSWORD: string
   VITE_SHEETS_USERNAME_JOBS: string
   VITE_SHEETS_PASSWORD_JOBS: string
+  ADOBE_EMBED_KEY: string
 }
 
  interface FormField {

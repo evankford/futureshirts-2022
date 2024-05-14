@@ -27,7 +27,7 @@ export default {
         hotspot: true,
         accept: 'image/jpeg'
       },
-      hidden:({parent})=>parent.is !='image'
+      hidden:({parent})=>parent?.is !='image'
       // validation: (R) => R.required()
     },
     {
@@ -36,7 +36,7 @@ export default {
       type: 'string',
       initialValue: 'local',
       default: 'local',
-      hidden: ({parent})=> parent.is !== 'video',
+      hidden: ({parent})=> parent?.is !== 'video',
       options: {
         layout: 'select',
         list: [
@@ -57,17 +57,17 @@ export default {
       title: 'Is background?',
       initialValue: true,
       description: 'Mutes and autoplays the video rather than showing controls.',
-      hidden: ({parent})=> parent.is != 'video',
+      hidden: ({parent})=> parent?.is != 'video',
     },
     {
       name: 'url',
       title: 'Url',
       type: 'url',
 
-      hidden: ({parent}) =>  parent.is !== 'video' || parent.type == 'local',
+      hidden: ({parent}) =>  parent?.is !== 'video' || parent.type == 'local',
       // validation: (R) => R.required()
     },
-    Object.assign(videoFile, { hidden: ({parent}) => parent.is !== 'video' || parent.type !== 'local' }),
+    Object.assign(videoFile, { hidden: ({parent}) => parent?.is !== 'video' || parent.type !== 'local' }),
 
   ]
 }

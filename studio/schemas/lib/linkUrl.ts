@@ -31,7 +31,7 @@ export default {
             : "Shouldn't include the '#' at the beginning of the anchor."
         })
       },
-      hidden: ({parent, value}) => !value && !['anchor'].includes(parent.type)
+      hidden: ({parent, value}) => !value && !['anchor'].includes(parent?.type)
     },
     {
       name: 'ref',
@@ -41,19 +41,19 @@ export default {
         {type: 'page'}
         // {type: 'news'}
       ],
-      hidden: ({parent, value}) => !value && parent.type !== 'internal',
+      hidden: ({parent, value}) => !value && parent?.type !== 'internal',
     },
     {
       name: 'url',
       title: 'Url',
       type: 'url',
-      hidden: ({parent, value}) => !value && parent.type !== 'external',
+      hidden: ({parent, value}) => !value && parent?.type !== 'external',
     },
     {
       name: 'openInNewTab',
       title: 'Open in new tab',
       type: 'boolean',
-      hidden: ({parent, value}) => !value && parent.type !== 'external',
+      hidden: ({parent, value}) => !value && parent?.type !== 'external',
     },
   ]
 }

@@ -33,7 +33,7 @@
       topic: f.topic.value,
       message: f.message.value,
       formName: 'Contact Form',
-      emailTo: collectEmails()
+      emailTo: emailTo ?? collectEmails()
     }
     try {
       const resp =  await fetch('/sendemail', {
@@ -77,13 +77,18 @@
     successMessage: string,
     successTitle: string,
     errorMessage ="",
-    errorTitle: string;
+    errorTitle: string,
+    widget = false,
+    emailTo: string[] | undefined = undefined
+  ;
 </script>
 <FormWrap id="contact" {onSubmit}>
 
   <Name required/>
   <Email required/>
+  {#if !widget}
   <Topic topics={contactOptions} bind:emailTo={emailOverride}/>
+  {/if}
   <Message />
   <SubmitButton>Send It<span slot="processing">Sending</span></SubmitButton>
   <div slot="success">

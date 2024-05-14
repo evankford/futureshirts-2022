@@ -10,6 +10,9 @@ const config = {
 	},
 	resolve: {
 		// mainFields: ['main', 'module', 'browser']
+		alias: {
+			'@/styles' : 'src/lib/styles'
+		}
 	},
 	ssr: {
 		noExternal: [
@@ -17,7 +20,7 @@ const config = {
 			'@fortawesome/free-solid-svg-icons',
 		]
 	},
-	envPrefix: ['VITE_', 'AWS_', 'SANITY_']
+	envPrefix: ['VITE_', 'AWS_', 'SANITY_', 'ADOBE_']
 };
 
 

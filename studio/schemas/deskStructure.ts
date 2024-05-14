@@ -2,10 +2,10 @@
 
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 
-import { FaAddressCard , FaSearchengin, FaEnvelope, FaLink, FaArrowDown,  FaArrowUp, FaCode } from 'react-icons/fa';
+import { FaAddressCard ,FaExternalLinkAlt, FaSearchengin, FaEnvelope, FaLink, FaArrowDown,  FaArrowUp, FaCode } from 'react-icons/fa';
 import {TbSection, TbSettings, TbUsers, TbUsersGroup, TbIdBadge2 } from 'react-icons/tb';
 import type {StructureBuilder, StructureResolverContext} from "sanity/lib/exports/desk";
-
+import {structureTool} from 'sanity/structure'
 
 export default (S: StructureBuilder, context: StructureResolverContext) =>
 	S.list()
@@ -16,7 +16,7 @@ export default (S: StructureBuilder, context: StructureResolverContext) =>
 				.filter(
 				(listItem) => {
 					const sT = listItem.getSchemaType()
-					return !['section', 'teamMember', 'tools', 'team', 'position'].includes((typeof sT === 'string' ?  sT : sT.name)) &&
+					return !['section', 'teamMember', 'tools', 'team', 'position', 'media.tag', 'linker'].includes((typeof sT === 'string' ?  sT : sT.name)) &&
 					![
 						'siteSEO',
 						'contactSettings',
@@ -35,7 +35,6 @@ export default (S: StructureBuilder, context: StructureResolverContext) =>
 				S,
 				context,
 				type: 'section',
-				// @ts-ignore
 				icon: TbSection,
 				title: 'Front page Sections'
 			}),
@@ -51,7 +50,6 @@ export default (S: StructureBuilder, context: StructureResolverContext) =>
 								S,
 								context,
 								type: 'teamMember',
-								// @ts-ignore
 								icon: TbUsers,
 								title: 'Team Members'
 							}),
@@ -59,7 +57,6 @@ export default (S: StructureBuilder, context: StructureResolverContext) =>
 								S,
 								context,
 								type: 'team',
-								// @ts-ignore
 								icon: TbUsersGroup,
 								title: 'Teams'
 							}),
@@ -67,7 +64,6 @@ export default (S: StructureBuilder, context: StructureResolverContext) =>
 								S,
 								context,
 								type: 'position',
-								// @ts-ignore
 								icon: TbIdBadge2,
 								title: 'Positions'
 							}),
@@ -80,7 +76,12 @@ export default (S: StructureBuilder, context: StructureResolverContext) =>
 				.title('Job Openings')
 				.icon(FaAddressCard)
 				.child(S.document().schemaType('jobs').id('jobs').title('Jobs').documentId('jobs')),
-
+			S.divider(),
+			S.listItem()
+				.title('Link Pages')
+				.icon(FaExternalLinkAlt)
+				.child(
+					S.documentTypeList('linker')),
 			S.divider(),
 			S.listItem()
 				.title('Settings')

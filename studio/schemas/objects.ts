@@ -14,6 +14,9 @@ import emailOption from "./objects/emailOption";
 import contactOption from "./objects/contactOption";
 import redirect from "./objects/redirect";
 import teamQuestion from "./objects/teamQuestion";
+import lnkPdf from "./objects/lnkPdf";
+import lnkVideo from "./objects/lnkVideo";
+import lnkContact from "./objects/lnkContact";
 
-export { emailOption, codeSnippet, redirect, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage, teamQuestion }
-export default [emailOption, codeSnippet, redirect, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage, teamQuestion ]
+export { emailOption, codeSnippet, redirect, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage, teamQuestion, lnkContact, lnkPdf, lnkVideo }
+export default [emailOption, codeSnippet, redirect, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage, teamQuestion, lnkContact, lnkPdf, lnkVideo ]

@@ -51,7 +51,7 @@
 </div>
 
 <style lang="scss">
-  @use "../../lib/styles/abstracts" as *;
+  @use "../../../lib/styles/abstracts" as *;
 
   .page-content {
     @include content-wrap;

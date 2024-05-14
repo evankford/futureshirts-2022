@@ -94,9 +94,9 @@
 </div>
 
 <style lang="scss">
-  @use "../../lib/styles/abstracts" as *;
-  @use "../../lib/styles/abstracts/mixins/type-elements" as type;
-  @use "../../lib/styles/core/_backgrounds" as bg;
+  @use "../../../lib/styles/abstracts" as *;
+  @use "../../../lib/styles/abstracts/mixins/type-elements" as type;
+  @use "../../../lib/styles/core/_backgrounds" as bg;
 header {
   text-align: center;
   max-width: var(--text-width);

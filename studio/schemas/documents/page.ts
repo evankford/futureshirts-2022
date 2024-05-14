@@ -16,13 +16,13 @@ export default {
 		seoGroup
 	],
 	fields: [
-		defineField({
+		{
 			name: 'title',
 			title: 'Title',
 			type: 'string',
 			group: ['main'],
 			validate: (R) => R.required()
-		}),
+		},
 		{
 			name: 'subtitle',
 			title: 'Subtitle',

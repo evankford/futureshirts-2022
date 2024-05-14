@@ -120,7 +120,7 @@
 {/if}
 
 <style lang="scss">
-  @use "../../lib/styles/abstracts" as *;
+  @use "../../../lib/styles/abstracts" as *;
     :global(div > header.site-header.stuck){
       color: rgb(var(--color-base-background));
     }

@@ -1,0 +1,110 @@
+diff --git a/.idea/a757adb2a0cbba43c34531f5a3bf6e61.iml b/.idea/a757adb2a0cbba43c34531f5a3bf6e61.iml
+new file mode 100644
+index 0000000000000000000000000000000000000000..c956989b29ad0767edc6cf3a202545927c3d1e76
+--- /dev/null
++++ b/.idea/a757adb2a0cbba43c34531f5a3bf6e61.iml
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="WEB_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+diff --git a/.idea/inspectionProfiles/Project_Default.xml b/.idea/inspectionProfiles/Project_Default.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..03d9549ea8e4ada36fb3ecbc30fef08175b7d728
+--- /dev/null
++++ b/.idea/inspectionProfiles/Project_Default.xml
+@@ -0,0 +1,6 @@
++<component name="InspectionProjectProfileManager">
++  <profile version="1.0">
++    <option name="myName" value="Project Default" />
++    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
++  </profile>
++</component>
+\ No newline at end of file
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..44202d4d34150d964a9d3499f2b3cf174edfbfde
+--- /dev/null
++++ b/.idea/modules.xml
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/a757adb2a0cbba43c34531f5a3bf6e61.iml" filepath="$PROJECT_DIR$/.idea/a757adb2a0cbba43c34531f5a3bf6e61.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/.idea/php.xml b/.idea/php.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..f324872a8ba94b4ec07a8aad82965487b3b15d57
+--- /dev/null
++++ b/.idea/php.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="MessDetectorOptionsConfiguration">
++    <option name="transferred" value="true" />
++  </component>
++  <component name="PHPCSFixerOptionsConfiguration">
++    <option name="transferred" value="true" />
++  </component>
++  <component name="PHPCodeSnifferOptionsConfiguration">
++    <option name="highlightLevel" value="WARNING" />
++    <option name="transferred" value="true" />
++  </component>
++  <component name="PhpStanOptionsConfiguration">
++    <option name="transferred" value="true" />
++  </component>
++  <component name="PsalmOptionsConfiguration">
++    <option name="transferred" value="true" />
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/PdfViewer.svelte b/PdfViewer.svelte
+index f9cf6d359364d73a70a5808ad27125bad1e5c221..b262b3e5b65ecb8233a1558d7cb3ccc36c2e7cb3 100644
+--- a/PdfViewer.svelte
++++ b/PdfViewer.svelte
+@@ -22,8 +22,7 @@
+   export let showBorder = true; //boolean
+   export let totalPage = 0;
+   export let downloadFileName = '';
+-
+-  pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.js', import.meta.url);
++  pdfjs.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.js";
+ 
+   let canvas;
+   let page_num = 0;
+@@ -636,7 +635,7 @@
+     background-color: #000;
+     color: #fff;
+   }
+-  /* 
++  /*
+   ##Device = Tablets, Ipads (portrait)
+   ##Screen = B/w 768px to 1024px
+   */
+@@ -676,7 +675,7 @@
+       height: 100%;
+     }
+   }
+-  /* 
++  /*
+   ##Device = Low Resolution Tablets, Mobiles (Landscape)
+   ##Screen = B/w 481px to 767px
+   */
+@@ -717,7 +716,7 @@
+     }
+   }
+ 
+-  /* 
++  /*
+   ##Device = Most of the Smartphones Mobiles (Portrait)
+   ##Screen = B/w 320px to 479px
+   */

@@ -4,6 +4,8 @@ import {codeInput} from "@sanity/code-input";
 import { markdownSchema } from "sanity-plugin-markdown";
 import structure from "./schemas/deskStructure";
 import { noteField } from 'sanity-plugin-note-field'
+import {media} from 'sanity-plugin-media'
+
 import {
     dashboardTool,
     sanityTutorialsWidget,
@@ -19,7 +21,7 @@ export default defineConfig({
     "name": "futureshirts-site",
     projectId: '13ahf4jn',
     "dataset": "production",
-    "plugins": [
+    plugins: [
         structureTool({
             structure,
         }),
@@ -31,7 +33,8 @@ export default defineConfig({
                 projectInfoWidget(),
                 projectUsersWidget(),
             ]}),
-        markdownSchema()
+        markdownSchema(),
+        media()
     ],
     schema: {
         types: [

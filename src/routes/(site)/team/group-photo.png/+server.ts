@@ -10,7 +10,7 @@ async function getTeamImages() {
 }
 
 import { error } from '@sveltejs/kit'
-import TeamSectionBackgroundRenderer from "../../../lib/components/TeamSectionBackgroundRenderer.svelte";
+import TeamSectionBackgroundRenderer from "../../../../lib/components/TeamSectionBackgroundRenderer.svelte";
 
 export const GET: RequestHandler = (async ({}) => {
     const data = await getTeamImages();
