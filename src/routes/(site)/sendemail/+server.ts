@@ -35,8 +35,7 @@ export const POST:RequestHandler = async ({ request }) => {
 
   const emailData = {
     Recipients: {
-      To: ['evan.ford@futureshirts.com'],
-      // To: sentFormData.emailTo,
+      To: sentFormData.emailTo,
     },
     Content: {
       Body: [
