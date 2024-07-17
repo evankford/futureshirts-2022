@@ -77,5 +77,10 @@
 		"vidstack": "^1.11.21",
 		"vite": "^4.3.9",
 		"webfontloader": "^1.6.28"
+	},
+	"pnpm": {
+		"patchedDependencies": {
+			"@elasticemail/elasticemail-client@4.0.24": "patches/@elasticemail__elasticemail-client@4.0.24.patch"
+		}
 	}
 }

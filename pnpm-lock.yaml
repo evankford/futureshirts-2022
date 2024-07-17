@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@elasticemail/elasticemail-client@4.0.24':
+    hash: hqycn47jk4upwjr47eahjnwrsq
+    path: patches/@elasticemail__elasticemail-client@4.0.24.patch
+
 dependencies:
   '@aws-sdk/abort-controller':
     specifier: ^3.342.0
@@ -22,7 +27,7 @@ dependencies:
     version: 3.345.0(@aws-sdk/abort-controller@3.342.0)(@aws-sdk/client-s3@3.345.0)
   '@elasticemail/elasticemail-client':
     specifier: github:elasticemail/elasticemail-js
-    version: github.com/elasticemail/elasticemail-js/b9ef56454339e88f8b55ce2d3acb49d2361f80c2(@babel/core@7.24.9)
+    version: github.com/elasticemail/elasticemail-js/b9ef56454339e88f8b55ce2d3acb49d2361f80c2(patch_hash=hqycn47jk4upwjr47eahjnwrsq)(@babel/core@7.24.9)
   '@evankford/video-background':
     specifier: ^0.9.13
     version: 0.9.13
@@ -6110,7 +6115,7 @@ packages:
       - supports-color
     dev: false
 
-  github.com/elasticemail/elasticemail-js/b9ef56454339e88f8b55ce2d3acb49d2361f80c2(@babel/core@7.24.9):
+  github.com/elasticemail/elasticemail-js/b9ef56454339e88f8b55ce2d3acb49d2361f80c2(patch_hash=hqycn47jk4upwjr47eahjnwrsq)(@babel/core@7.24.9):
     resolution: {tarball: https://codeload.github.com/elasticemail/elasticemail-js/tar.gz/b9ef56454339e88f8b55ce2d3acb49d2361f80c2}
     id: github.com/elasticemail/elasticemail-js/b9ef56454339e88f8b55ce2d3acb49d2361f80c2
     name: '@elasticemail/elasticemail-client'
@@ -6123,3 +6128,4 @@ packages:
       - '@babel/core'
       - supports-color
     dev: false
+    patched: true
