@@ -55,7 +55,6 @@
 		"@aws-sdk/client-ses": "^3.345.0",
 		"@aws-sdk/credential-provider-node": "^3.345.0",
 		"@aws-sdk/lib-storage": "^3.345.0",
-		"@elasticemail/elasticemail-client": "github:elasticemail/elasticemail-js",
 		"@evankford/video-background": "^0.9.13",
 		"@fortawesome/fontawesome-common-types": "^6.4.0",
 		"@fortawesome/free-brands-svg-icons": "^6.4.0",
@@ -77,10 +76,5 @@
 		"vidstack": "^1.11.21",
 		"vite": "^4.3.9",
 		"webfontloader": "^1.6.28"
-	},
-	"pnpm": {
-		"patchedDependencies": {
-			"@elasticemail/elasticemail-client@4.0.24": "patches/@elasticemail__elasticemail-client@4.0.24.patch"
-		}
 	}
 }
