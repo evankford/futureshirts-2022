@@ -30,11 +30,11 @@
                                 <Image bg image={partner.featuredImage} alt="{partner.title}" width={700}/>
                             </span>
                             <span class="hover-content">
-                                {#if partner.logo}
-                                  <img loading="lazy" src="{urlFor(partner.logo).width(70).format('webp').url()}" srcset="{urlFor(partner.logo).width(160).format('webp').url()} 2x, {urlFor(partner.logo).width(70).format('webp').url()}" alt="{partner.title}" width="70" height="35" />
-                                {:else}
+                                <!--{#if partner.logo}-->
+                                <!--  <img loading="lazy" src="{urlFor(partner.logo).width(70).format('webp').url()}" srcset="{urlFor(partner.logo).width(160).format('webp').url()} 2x, {urlFor(partner.logo).width(70).format('webp').url()}" alt="{partner.title}" width="70" height="35" />-->
+                                <!--{:else}-->
                                     <span class="h4 mono">{partner.title}</span>
-                                {/if}
+                                <!--{/if}-->
                                 {#if partner.storeUrl || partner.websiteUrl}
                                     <div class="buttons">
                                         {#if partner.storeUrl}
@@ -55,21 +55,21 @@
             </ul>
         </section>
 
-        {#if getUnfeaturedPartners().length}
-            <section class="unfeatured">
-                <ul class="partners-logos">
-                    {#each getUnfeaturedPartners() as partner}
-                        <li class="partner-logo">
-                            {#if partner.logo}
-                                <img loading="lazy" src="{urlFor(partner.logo).width(70).format('webp').url()}" srcset="{urlFor(partner.logo).width(160).format('webp').url()} 2x, {urlFor(partner.logo).width(70).format('webp').url()}" alt="{partner.title}" width="70" height="35" />
-                            {:else}
-                                <span class="h4 mono">{partner.title}</span>
-                            {/if}
-                        </li>
-                    {/each}
-                </ul>
-            </section>
-        {/if}
+<!--        {#if getUnfeaturedPartners().length}-->
+<!--            <section class="unfeatured">-->
+<!--                <ul class="partners-logos">-->
+<!--                    {#each getUnfeaturedPartners() as partner}-->
+<!--                        <li class="partner-logo">-->
+<!--                            {#if partner.logo}-->
+<!--                                <img loading="lazy" src="{urlFor(partner.logo).width(70).format('webp').url()}" srcset="{urlFor(partner.logo).width(160).format('webp').url()} 2x, {urlFor(partner.logo).width(70).format('webp').url()}" alt="{partner.title}" width="70" height="35" />-->
+<!--                            {:else}-->
+<!--                                <span class="h4 mono">{partner.title}</span>-->
+<!--                            {/if}-->
+<!--                        </li>-->
+<!--                    {/each}-->
+<!--                </ul>-->
+<!--            </section>-->
+<!--        {/if}-->
         {#if data.includeContact}
             <section class="contact">
                 <h1>{data.contactTitle ?? 'Get In Touch'}</h1>
