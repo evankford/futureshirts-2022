@@ -58,7 +58,6 @@
 
   async function uploadFile(file:File, name:string):Promise<string|false>{
     try{
-      console.log('Uploading file');
       const response = await fetch(`/upload/${name}`, {
         method: 'PUT',
         body: file,

@@ -11,7 +11,6 @@
 
   function changeTab(key: string) {
       activeTab = key
-      console.log(key)
   }
 
   let pdfReady = false;
@@ -92,7 +91,7 @@
                 {:else if embedItem._type === 'lnkContact' }
                     <div class="contact-wrap">
                         <h1>Get in touch</h1>
-                        <ContactForm widget={true} emailTo={embedItem.email}/>
+                        <ContactForm widget={true} emailTo={embedItem.email.map(e=>e.email)}/>
                     </div>
 
                 {:else}

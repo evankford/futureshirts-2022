@@ -1,22 +1,22 @@
 <script lang="ts">
-    import type {TeamMember} from "$lib/types/sanity";
+    import type {Partner} from "$lib/types/sanity";
     import Image from "$lib/components/Image.svelte";
     import { onMount } from "svelte";
-    export let teamMembers:TeamMember[];
+    export let partners:Partner[];
 
-    let teamMembersSorted:TeamMember[] = teamMembers;
+    let partnersSorted:Partner[] = partners;
     onMount(()=>{
-        teamMembersSorted = teamMembers.sort(() => (Math.random() > .5) ? 1 : -1);
+        partnersSorted = partners.slice(0, 12).sort(() => (Math.random() > .5) ? 1 : -1);
     })
 
 </script>
 
-{#if teamMembersSorted.length > 0 }
+{#if partnersSorted.length > 0 }
 <ul>
-    {#each teamMembersSorted as teamMember}
-        {#if teamMember.image}
+    {#each partnersSorted as partner}
+        {#if partner.featuredImage}
         <li>
-            <Image image={teamMember.image} width={200} bg/>
+            <Image image={partner.featuredImage} width={800} bg/>
         </li>
         {/if}
     {/each}
@@ -29,7 +29,7 @@
     @use "sass:math";
 
   li{
-    flex: 0 0 calc(100% / 6 - 6px);
+    flex: 0 0 calc(100% / 3 - 6px);
     list-style: none;
     position: relative;
     z-index: 2;
@@ -50,13 +50,11 @@
 
 
     @include media-query($marge) {
-      flex: 0 0 calc(12.5% - 8px);
+      flex: 0 0 calc(100% / 4 - 8px);
     }
     @include media-query($widescreen) {
-      flex: 0 0 calc(100% / 12 - 8px);
+      flex: 0 0 calc(100% / 6 - 8px);
     }
-
-
   }
     ul {
       width: 100%;

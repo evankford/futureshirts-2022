@@ -32,7 +32,6 @@ function watchOnScreen(node:HTMLElement) {
   if (!browser || !node) {
     return {
       destroy(){
-        console.log('Destroyed');
       }
     }
   }

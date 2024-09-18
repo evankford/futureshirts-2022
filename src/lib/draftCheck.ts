@@ -68,3 +68,17 @@ export function getTeamMembers() : string {
   }
   return `*[_type == 'teamMember' && active && !(_id in path("drafts.**"))]`;
 }
+
+export function getPartners() : string {
+  if (isPreview()){
+   return `*[ _type == 'partner' && active && !defined(*[_id == "drafts." + ^._id][0])]`;
+  }
+  return `*[_type == 'partner' && active && !(_id in path("drafts.**"))]`;
+}
+
+export function getFeaturedPartners() : string {
+  if (isPreview()){
+   return `*[ _type == 'partner' && active && featured && !defined(*[_id == "drafts." + ^._id][0])]`;
+  }
+  return `*[_type == 'partner' && active && featured && !(_id in path("drafts.**"))]`;
+}

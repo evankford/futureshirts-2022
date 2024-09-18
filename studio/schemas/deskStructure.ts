@@ -2,9 +2,10 @@
 
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 
-import { FaAddressCard ,FaExternalLinkAlt, FaSearchengin, FaEnvelope, FaLink, FaArrowDown,  FaArrowUp, FaCode } from 'react-icons/fa';
+import { FaAddressCard,FaRegHandshake ,FaExternalLinkAlt, FaSearchengin, FaEnvelope, FaLink, FaArrowDown,  FaArrowUp, FaCode } from 'react-icons/fa';
 import {TbSection, TbSettings, TbUsers, TbUsersGroup, TbIdBadge2 } from 'react-icons/tb';
 import type {StructureBuilder, StructureResolverContext} from "sanity/lib/exports/desk";
+
 import {structureTool} from 'sanity/structure'
 
 export default (S: StructureBuilder, context: StructureResolverContext) =>
@@ -16,7 +17,8 @@ export default (S: StructureBuilder, context: StructureResolverContext) =>
 				.filter(
 				(listItem) => {
 					const sT = listItem.getSchemaType()
-					return !['section', 'teamMember', 'tools', 'team', 'position', 'media.tag', 'linker'].includes((typeof sT === 'string' ?  sT : sT.name)) &&
+					//Filter out stuff that's represented elsewhere
+					return !['section', 'teamMember', 'tools', 'team','partner', 'position', 'media.tag', 'linker'].includes((typeof sT === 'string' ?  sT : sT.name)) &&
 					![
 						'siteSEO',
 						'contactSettings',
@@ -37,6 +39,13 @@ export default (S: StructureBuilder, context: StructureResolverContext) =>
 				type: 'section',
 				icon: TbSection,
 				title: 'Front page Sections'
+			}),
+			orderableDocumentListDeskItem({
+				S,
+				context,
+				type: 'partner',
+				icon: FaRegHandshake,
+				title: 'Partners'
 			}),
 			S.listItem()
 				.icon(TbUsers)

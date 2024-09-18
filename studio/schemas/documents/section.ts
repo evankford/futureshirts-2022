@@ -53,6 +53,10 @@ export default {
 						value: 'team'
 					},
 					{
+						title: 'Partners',
+						value: 'partners'
+					},
+					{
 						title: 'Connect + Contact',
 						value: 'connect'
 					}
@@ -72,7 +76,7 @@ export default {
 			title: 'Intro',
 			type: 'string',
 			group: ['content'],
-			hidden: ({ document }) => document.layout !== 'team' && document.layout !== 'more'
+			hidden: ({ document }) => !['more', 'team', 'partners'].includes(document.layout)
 		},
 		{
 			name: 'title',
@@ -96,7 +100,7 @@ export default {
 			fields: [{ name: 'alt', type: 'string', title: 'Alternative Text' }],
 			options: { hotspot: true },
 			hidden: ({ document }) =>
-				!document.layout || ['connect', 'ecommerce', 'tour', 'more', 'hero'].includes(document.layout)
+				!document.layout || ['connect', 'ecommerce', 'tour', 'more', 'hero', 'partners'].includes(document.layout)
 		},
 		{
 			name: 'image2',
@@ -122,7 +126,7 @@ export default {
 			type: 'array',
 			of: [{ type: 'block' }],
 			group: ['content'],
-			hidden: ({ document }) => !document.layout || ['connect', 'team'].includes(document.layout)
+			hidden: ({ document }) => !document.layout || ['connect', 'team', 'partners'].includes(document.layout)
 		},
 		{
 			name: 'quoteGallery',

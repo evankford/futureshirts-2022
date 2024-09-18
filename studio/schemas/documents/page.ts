@@ -2,6 +2,7 @@
 import Image from '../lib/image';
 import seoSettings, {seoGroup} from "../lib/seoSettings";
 import {defineField} from "sanity";
+import partnerSettings from "../lib/partnerSettings";
 
 export default {
 	name: 'page',
@@ -73,6 +74,7 @@ export default {
 			group: 'main',
 			hidden: ({ document }) => document.slug?.current !== 'support'
 		},
+		...partnerSettings,
 		...seoSettings
 	]
 };

@@ -2,25 +2,18 @@
   import SectionHeading from "$lib/components/SectionHeading.svelte";
   import isOnScreen from "$lib/isOnScreen";
   import Button from "$lib/components/Button.svelte";
-  import {hasJobs} from "$lib/stores";
-  import type {TeamMember} from "$lib/types/sanity";
-  import TeamSectionBackground from "$lib/components/TeamSectionBackground.svelte";
-  export let title:string | null, subtitle: string| null, intro: string|null, anchor: string, layout: string, teamMembers: TeamMember[];
+  import type {Partner} from "$lib/types/sanity";
+  import PartnerSectionBackground from "$lib/components/PartnerSectionBackground.svelte";
+  export let title:string | null, subtitle: string| null, intro: string|null,   anchor: string, layout: string, partners: Partner[];
 </script>
 
 <section use:isOnScreen class="{layout}" id="{anchor}">
-      <TeamSectionBackground {teamMembers}/>
+      <PartnerSectionBackground {partners}/>
   <div class="content">
-    <!--<div class="left  ">
-      <TeamSectionGallery {teamMembers} />
-    </div>-->
     <div class="right ">
       <SectionHeading {title} {subtitle} {intro}/>
       <div class="buttons">
-        <Button link="/team">meet the team</Button>
-        {#if hasJobs }
-          <Button link="/jobs">jobs at futureshirts</Button>
-        {/if}
+        <Button link="/partners">meet our partners</Button>
       </div>
 
     </div>
@@ -37,21 +30,18 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: rgb(var(--color-base-accent-darkest));
-    padding: 6px;
-
+    background-color: rgb(var(--color-base-text-darker));
+  padding: 6px;
     color: rgb(var(--color-base-background));
-    --color-background: rgb(var(--color-base-background-accent));
-    --color-foreground: rgb(var(--color-base-text));
+    --color-background: rgb(var(--color-base-text-darker));
+    --color-foreground: rgb(var(--color-base-background));
   }
   .content {
     display: flex;
     align-items: center;
     justify-content: center;
-    //position: relative;
     flex-wrap: wrap;
     z-index: 2;
-    //width:100%;
     @include media-query($large-up) {
       flex-wrap: nowrap;
     }

@@ -23,8 +23,6 @@
   });
 
   function handleChange(e: CustomEvent<{ detail:SelectOption , [x: string | number | symbol]: unknown }>) {
-    console.log(openings.find(o=>o.title=== e.detail.value))
-
     const rel = openings.find(o=>o.title=== e.detail.value)
     if (rel.url) {
       window.open(rel.url, '_blank').focus();

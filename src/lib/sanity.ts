@@ -3,7 +3,7 @@ import { error } from '@sveltejs/kit';
 
 import imageUrlBuilder from '@sanity/image-url'
 import type { SanityImageSource} from "@sanity/image-url/lib/types/types"
-import {getTeamMembers} from "$lib/draftCheck";
+import {getFeaturedPartners, getPartners, getTeamMembers} from "$lib/draftCheck";
 import {getFileAsset, type SanityFileAsset, type SanityFileSource} from "@sanity/asset-utils";
 const apiVersion = '2021-10-21';
 const projectId = import.meta.env.SANITY_PROJECT_ID;
@@ -50,7 +50,7 @@ export const sanityGet = async<T>(query:string, fetcher: typeof fetch | undefine
       const resp = await sanityFetch(query, fetcher );
       const data = await resp.json();
       if (!data?.result)  {
-        console.log(data)
+        console.error(data)
         // noinspection ExceptionCaughtLocallyJS
         throw error(400, "No Data returned from CMS for query: " + query);
       }
@@ -80,6 +80,7 @@ export const sectionGroqs = {
   ecommerce: `layout == 'ecommerce' => { ${standardStuff}, box, counters, 'computer' : ${videoFields('computer')}, 'computer2' : ${videoFields('computer2')}, 'phone' : ${videoFields('phone')}, 'phone2' : ${videoFields('phone2')}, 'tablet' : ${videoFields('tablet')}}`,
   licensing: `layout == 'licensing' => { ${standardStuff},image, box, image2, logoGallery}`,
   team: `layout == 'team' => {${standardStuff}, "teamMembers": ${getTeamMembers()}{ title, image }}`,
+  partners: `layout == 'partners' => {${standardStuff}, "partners": ${getFeaturedPartners()}{ title, featuredImage }}`,
   connect: `layout == 'connect' => {${standardStuff}, instagramWidget,showSocials}`
 }
 

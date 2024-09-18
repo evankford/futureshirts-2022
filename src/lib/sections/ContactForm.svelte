@@ -13,11 +13,13 @@
 
   function collectEmails(){
     const emailToArray:string[] = [];
-      email.forEach( a => {
-        emailToArray.push(a.email);
+      if (email) {
+        email.forEach( a => {
+          emailToArray.push(a.email);
 
+        }
+        )
       }
-      )
       if (emailOverride) {
         emailOverride.forEach(e=> {
           emailToArray.push(e.email)
@@ -72,12 +74,12 @@
   }
 
   export let
-    email: EmailOptionShape[],
-    contactOptions: ContactOption[],
-    successMessage: string,
-    successTitle: string,
-    errorMessage ="",
-    errorTitle: string,
+    email: undefined|EmailOptionShape[] = undefined,
+    contactOptions: ContactOption[] | undefined = undefined,
+    successMessage = "Thanks for your message. We'll be in touch.",
+    successTitle = "Got it!",
+    errorMessage = "Something went wrong with sending your message. Please refresh the page and try again.",
+    errorTitle = "Whoops!",
     widget = false,
     emailTo: string[] | undefined = undefined
   ;
@@ -86,7 +88,7 @@
 
   <Name required/>
   <Email required/>
-  {#if !widget}
+  {#if !widget || !contactOptions}
   <Topic topics={contactOptions} bind:emailTo={emailOverride}/>
   {/if}
   <Message />

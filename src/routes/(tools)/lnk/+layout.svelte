@@ -56,7 +56,6 @@
       return
     }
     document.addEventListener("adobe_dc_view_sdk.ready", function() {
-      console.log('Hello?')
       pdfLoaded.set(true);
     });
   })

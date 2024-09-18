@@ -8,6 +8,7 @@
   import Connect from "$lib/sections/Connect.svelte";
   import Ecommerce from "$lib/sections/Ecommerce.svelte";
   import Licensing from "$lib/sections/Licensing.svelte";
+  import Partners from "$lib/sections/Partners.svelte";
 
   import { onMount } from "svelte";
   import {fade} from "svelte/transition";
@@ -71,6 +72,8 @@
   <Licensing {...section} />
   {:else if section.layout === 'team'}
   <Team {...section } />
+  {:else if section.layout === 'partners'}
+  <Partners {...section } />
   {:else if section.layout === 'connect'}
   <Connect {...section}/>
   {/if}

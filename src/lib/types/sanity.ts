@@ -23,11 +23,23 @@ export interface CodeSnippetSettings {
   headerCode?: CodeSnippet[],
   footerCode?: CodeSnippet[]
 }
+
+export interface Partner {
+  title: string
+  active: boolean
+  featured: boolean
+  logo?: SanityImageObject
+  featuredImage?: SanityImageObject
+  websiteUrl?: string
+  storeUrl?: string
+}
+
 export interface TeamMember {
   title: string,
   image: SanityImageObject,
   questions?: TeamMemberQuestion[]
 }
+
 
 export interface TeamMemberQuestion {
   question: string,
@@ -100,6 +112,15 @@ export interface TeamPageData {
   teamMembers: TeamMember[]
 }
 
+export interface PartnerPageData {
+  title: string
+  subtitle?: string
+  partners: Partner[]
+  unfeaturedTitle?: string
+  includeContact: boolean
+  contactTitle?: string
+}
+
 
 export interface CodeShape {
   _type: 'code',
@@ -144,7 +165,6 @@ export interface VideoOrImageVideo extends VideoObject {
   is: 'video'
   image: SanityImageObject
 }
-
 
  export interface Opening {
     title: string,

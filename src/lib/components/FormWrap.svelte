@@ -25,7 +25,7 @@
   let handleSubmit = () => {
     processing.set(true);
     submittedFields.set($fields);
-    console.log("Handle submit function not initialized.")
+    console.warn("Handle submit function not initialized.")
   }
 
   onMount(()=> {

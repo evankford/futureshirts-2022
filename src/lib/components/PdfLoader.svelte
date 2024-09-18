@@ -9,7 +9,6 @@
     }
     onMount(()=>{
         unsub = pdfLoaded.subscribe(v=>{
-            console.log('updated?')
             if (v) {
                 loadMe();
             }
