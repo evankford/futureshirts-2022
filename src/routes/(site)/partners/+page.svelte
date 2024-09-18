@@ -1,7 +1,6 @@
 <script lang="ts">
-    import type {Partner, PartnerPageData, TeamMember, TeamPageData} from "$lib/types/sanity";
+    import type {Partner, PartnerPageData} from "$lib/types/sanity";
     import PageHero from "$lib/sections/PageHero.svelte";
-    import Button from "$lib/components/Button.svelte";
     import Image from "$lib/components/Image.svelte";
     import {urlFor} from "$lib/sanity";
     import ContactForm from "$lib/sections/ContactForm.svelte";
@@ -94,7 +93,8 @@
       --color-background: var(--color-base-text-darker);
       --color-foreground: var(--color-base-background);
     }
-  .section:not(.partners) {
+
+  section:not(.partners) {
     @include content-wrap;
   }
 
@@ -118,24 +118,7 @@
     transform: translateY(50px);
     transition: transform 300ms ease, opacity 300ms ease;
   }
-  .partner > button {
-    position: relative;
-    display: block;
-    transition: transform 300ms ease;
-    @include resetButton;
-    width: 100%;
 
-    &:hover, &:focus-visible{
-      transform: scale(1.04);
-      .image-wrap {
-        opacity: 0.3;
-      }
-      .hover-content {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  }
   .h4 {
     @include mono;
     font-size: var(--font-mono-large-size);
@@ -214,8 +197,8 @@
   }
 
 
-  .contact {
-    max-width: 800px;
+  section.contact {
+    max-width: 840px;
     margin: 80px auto;
     h1 {
       text-align: center;
