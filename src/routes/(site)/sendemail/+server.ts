@@ -2,12 +2,6 @@
 import {  json } from '@sveltejs/kit';
 import {contact, job, support} from '$lib/emailTemplate';
 import type { RequestHandler } from "./$types";
-// import { Buffer } from 'buffer';
-
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { AwsClient } from 'aws4fetch'
 
 import type {ContactData, JobData, ResponseError, SupportData} from "../../../global";
 
@@ -26,78 +20,6 @@ function generateHTML(data: ContactData | JobData | SupportData):string  {
   }
   throw new Error("Should have a form name.");
 }
-
-//
-// async function tryToAddToSheets(d:JobData|ContactData):Promise<boolean> {
-//   try{
-//
-//     let url=`https://sheetdb.io/api/v1/g8v9yhih3d96b`;
-//     let  headers = {
-//         'Authorization': 'Basic ' + Buffer.from(import.meta.env.VITE_SHEETS_USERNAME_JOBS + ":" + import.meta.env.VITE_SHEETS_PASSWORD_JOBS).toString('base64'),
-//         'Content-Type':'application/json'
-//       }
-//
-//     if (d.formName=='Contact Form'){
-//       url='https://sheetdb.io/api/v1/7xgvdjl1g7j0h';
-//       headers = {
-//         'Authorization': 'Basic ' + Buffer.from(import.meta.env.VITE_SHEETS_USERNAME + ":" + import.meta.env.VITE_SHEETS_PASSWORD).toString('base64'),
-//         'Content-Type':'application/json'
-//       }
-//     }
-//     const now = new Date();
-//     const date = ('0' + now.getDate()).slice(-2) + '/'
-//              + ('0' + (now.getMonth()+1)).slice(-2) + '/'
-//              + now.getFullYear()
-//     let toSend:{ [header: string]: string | number | boolean; } = {
-//       "Date Submitted":date,
-//       "Name":d.name,
-//       "Email": d.email
-//     }
-//
-//     if (d.formName == 'Contact Form'){
-//       toSend["Topic"]= d.topic;
-//       toSend["Message"] = d.message;
-//     } else {
-//       let refs:string='';
-//       if (d.references){
-//         d.references.forEach(r=>{
-//           refs+=`${r.name}: ${r.relation} - ${r.email} ${r.phone} \n`
-//         })
-//       }
-//       toSend['Opening'] = d.opening;
-//       toSend['Phone'] = d.phone;
-//       toSend['Resume'] = d.resume;
-//       if ('resume'in d) {
-//         toSend['Cover Letter'] = d.coverLetter;
-//       }
-//       if(refs){
-//         toSend['References'] = refs;
-//       }
-//     }
-//
-//     // const keyResp = await fetch(url + '/keys',{headers});
-//     // const keys = await keyResp.json();
-//     const body = JSON.stringify({data:[toSend]});
-//     const resp = await fetch(url, {
-//       method:"POST",
-//       body,
-//       headers
-//     })
-//
-//     const j = await resp.json();
-//
-//     if ('created' in j && j.created==1){
-//       return true;
-//
-//     }
-//
-//     return true;
-//   } catch(e){
-//     console.error(e);
-//     }
-//
-// }
-
 
 export const POST:RequestHandler = async ({ request }) => {
   const errors: ResponseError[] = [];
