@@ -88,8 +88,8 @@
 
   <Name required/>
   <Email required/>
-  {#if !widget || !contactOptions}
-  <Topic topics={contactOptions} bind:emailTo={emailOverride}/>
+    {#if !widget && contactOptions}
+    <Topic topics={contactOptions} bind:emailTo={emailOverride}/>
   {/if}
   <Message />
   <SubmitButton>Send It<span slot="processing">Sending</span></SubmitButton>

@@ -20,8 +20,7 @@ const config = {
 			'@fortawesome/free-solid-svg-icons',
 		]
 	},
-	envPrefix: ['VITE_', 'AWS_', 'SANITY_', 'ADOBE_']
+	envPrefix: ['VITE_', 'SPACES_', 'ELASTIC_', 'AWS_', 'SANITY_', 'ADOBE_']
 };
-
 
 export default config;

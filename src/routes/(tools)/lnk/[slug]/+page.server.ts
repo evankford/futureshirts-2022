@@ -15,7 +15,9 @@ export interface EmbedBase {
 
 export interface LinkPageContact extends EmbedBase {
   _type: 'lnkContact',
-  email: EmailOptionShape[]
+  email: EmailOptionShape[],
+  prettyTitle: string,
+  subtitle?: string
 }
 
 export interface LinkPageVideo extends EmbedBase {

@@ -118,6 +118,11 @@
 
   main {
     position: relative;
+    padding: 0 0px 60px;
+
+    @media (min-width: 750px) {
+      padding-inline: 30px;
+    }
     --color-base-accent: 77,98,255;
     --color-base-accent-dull: 73,85,177;
     --color-base-accent-lighter: 156, 170,255;
@@ -131,6 +136,7 @@
     --color-base-text-off: 151,170,200;
 
     color: rgb(var(--color-base-text));
+    background-color: rgb(var(--color-base-background));
     min-height: 100%;
     height: auto;
     &::before, &::after {

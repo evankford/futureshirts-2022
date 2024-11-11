@@ -1,4 +1,6 @@
 import { orderRankField } from '@sanity/orderable-document-list';
+import{validate as validateEmail} from 'email-validator';
+
 export default {
 	name: 'teamMember',
 	title: 'Team Member',
@@ -79,11 +81,40 @@ export default {
 			type: 'string',
 		},
 		{
+			name: 'positionRef',
+			description: 'Position',
+			group: 'internal',
+			type: 'reference',
+			to: [
+				{type: 'position'}
+			]
+		},
+		{
 			name: 'position',
 			description: 'Used in client-facing documents.',
-			title: 'Position',
+			title: 'Manual Position',
 			group: 'internal',
 			type: 'string',
+		},
+		{
+			name: 'positionDescription',
+			description: 'Used in client-facing documents.',
+			title: 'Manual Position Description',
+			group: 'internal',
+			type: 'text',
+		},
+		{
+			name: 'email',
+			description: 'Used in client-facing documents. NEVER publicly shown.',
+			title: 'Email Address',
+			group: 'internal',
+			type: 'string',
+			validation: (R) => R.custom((email:string) => {
+				if (!email) {
+					return true
+				}
+				return validateEmail(email)
+			})
 		},
 		// {
 		// 	name: 'team_refs',

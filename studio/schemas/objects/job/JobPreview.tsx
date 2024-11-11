@@ -34,7 +34,7 @@ export function JobPreview(props: ObjectItemProps<Job>) {
 
     return (
         <Flex gap={3} paddingLeft={2} align="center">
-            <Switch checked={value?.active} onClick={handleClick} />
+            <Switch checked={value?.active} onChange={handleClick} />
             <Box flex={1}>{props.renderDefault(props)}</Box>
         </Flex>
     )

@@ -50,7 +50,6 @@
     .wrapper {
         width: 100%;
         background: black;
-        border: 1px solid rgba(var(--color-base-text-off), 0.5);
         text-align: center;
         font-size: 30px;
         align-items: center;

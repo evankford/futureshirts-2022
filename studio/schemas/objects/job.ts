@@ -11,6 +11,13 @@ export type Job = {
 	fullDescription: BlockSchemaType[],
 	active: boolean,
 }
+
+type JobSettings = {
+	title: string
+	subtitle?: string
+	email: Array<{name:string}>
+	url: string
+}
 export default {
 	name: 'job',
 	title: 'Job',
@@ -50,6 +57,7 @@ export default {
 					type: 'block'
 				}
 			]
+
 		},
 		{
 			name: 'fullDescription',
@@ -60,6 +68,7 @@ export default {
 					type: 'block'
 				}
 			]
+
 		},
 		{
 			name: 'active',
@@ -72,12 +81,20 @@ export default {
 		select: {
 			title: 'title',
 			subtitle: 'subtitle',
-			email: 'email'
+			email: 'email',
+			url: 'url'
 		},
-		prepare: ({title, subtitle, email, url}) => ({
-			title,
-			subtitle: url ? 'Linked to: ' +  url : email.length ? 'Sending to ' + email?.map(o=>o.name).join(' + ') : '' + subtitle ? '. ' + subtitle + '. ' : '',
-		}),
+		prepare: (selection: JobSettings) => {
+			console.log(selection)
+			const {title, subtitle, email, url}: JobSettings = selection
+			return ({
+				title,
+				subtitle: (
+					url ? 'Linked to: ' +  url :
+					(email?.length ? 'Sending to ' + email?.map(o=>o.name).join(' + ') : '')
+				) + (subtitle ? '. ' + subtitle + '. ' : ''),
+			})
+		},
 	},
 	components: {item: JobPreview},
 

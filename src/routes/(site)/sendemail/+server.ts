@@ -1,5 +1,4 @@
 
-
 import {  json } from '@sveltejs/kit';
 import {contact, job, support} from '$lib/emailTemplate';
 import type { RequestHandler } from "./$types";
@@ -101,59 +100,50 @@ function generateHTML(data: ContactData | JobData | SupportData):string  {
 
 
 export const POST:RequestHandler = async ({ request }) => {
-
   const errors: ResponseError[] = [];
 
-  try {
-    const sentFormData:JobData|ContactData = await request.json();
+  const sentFormData: JobData|ContactData = await request.json();
 
-    const html = generateHTML(sentFormData);
+  const html = generateHTML(sentFormData);
 
-    const body = {
-      FromEmailAddress: `fs@m.ekfapps.com`,
-      ReplyToAddresses: [sentFormData.email],
-      Destination: {
-        ToAddresses: sentFormData.emailTo,
-      },
-      Content:{
-        Simple: {
-          Subject: {
-            Charset: 'utf-8',
-            Data: `${sentFormData.formName} Submission ${'topic' in sentFormData ? '(' + sentFormData.topic + ')' : ''}`,
-          },
-          Body: {
-            Html: {
-              Charset: 'utf-8',
-              Data: html
-            }
-          },
+  const body = {
+    Recipients: {
+      To: sentFormData.emailTo,
+    },
+    Content: {
+      Body: [
+        {
+          ContentType: 'HTML',
+          Charset: 'utf-8',
+          Content: html
         }
-      },
-    }
-    const sender = new AwsClient ({
-      region: 'us-east-1',
-      accessKeyId:import.meta.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey:import.meta.env.AWS_SECRET_ACCESS_KEY
-    });
-
-
-    const response = await sender.fetch('https://email.us-east-1.amazonaws.com/v2/email/outbound-emails', { method: 'POST' , body:JSON.stringify(body), headers:{'Content-Type' : 'application/json'}});
-    const j = await response.json();
-    if ('MessageId' in j) {
-      return json({
-           message: 'Successfully sent email',
-           errors
-         }, {status: 200});
-    }
-    errors.push({code: 3, message: j.message});
-    return json(errors, {status: 520});
-    // console.log(response);
-  } catch(e) {
-    console.error(e);
-    errors.push({code:4, message:e});
-    return json(errors, {status: 520});
-
+      ],
+      ReplyTo: sentFormData.email,
+      From: "website@futureshirts.com",
+      Subject: `${sentFormData.formName} Submission ${'topic' in sentFormData ? '(' + sentFormData.topic + ')' : ''}`,
+    },
   }
+
+  const headers = {
+    'X-ElasticEmail-ApiKey' : import.meta.env.ELASTIC_EMAIL_APIKEY,
+    'Content-Type': 'application/json'
+  }
+
+  const url = 'https://api.elasticemail.com/v4/emails/transactional'
+
+
+    try {
+      const resp = await fetch(url, {
+        body: JSON.stringify(body),
+        method: 'POST',
+        headers,
+      })
+      return json({message: 'Your email is sent!'}, {status: 200})
+    } catch (error) {
+      console.error(error)
+      errors.push({code: 500, message: 'Could not send message. Check your logs for more info.'})
+      return json(errors, {status: 520});
+    }
 }
 
 export const prerender = false;

@@ -17,6 +17,8 @@ import teamQuestion from "./objects/teamQuestion";
 import lnkPdf from "./objects/lnkPdf";
 import lnkVideo from "./objects/lnkVideo";
 import lnkContact from "./objects/lnkContact";
+import faq from "./objects/faq";
+import basicLink from "./objects/basicLink";
 
-export { emailOption, codeSnippet, redirect, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage, teamQuestion, lnkContact, lnkPdf, lnkVideo }
-export default [emailOption, codeSnippet, redirect, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage, teamQuestion, lnkContact, lnkPdf, lnkVideo ]
+export { emailOption, codeSnippet, redirect, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage, teamQuestion, lnkContact, lnkPdf, lnkVideo, faq, basicLink }
+export default [emailOption, codeSnippet, redirect, contactOption, socialLink, menuItem, category, button, video, videoOrImage, gallery, job, quote, counter, heroImage, teamQuestion, lnkContact, lnkPdf, lnkVideo, faq, basicLink ]

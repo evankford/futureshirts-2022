@@ -8,6 +8,7 @@
   import RequiredIndicator from "$lib/components/fields/RequiredIndicator.svelte";
   import type {Block} from "$lib/types/sections";
   import type {ContactOption, EmailOptionShape} from "$lib/types/sanity";
+  import type {Fields} from "../../../global";
   const context:FieldStore = getContext('fields');
 
   type SelectOption = {value: string, label: string}
@@ -21,8 +22,18 @@
   }
   onMount(()=> {
     options = topics.map((o)=>{return {value: o.title, label: o.title}});
-    value = options.length >=1 ?  options[0].value : false;
     setupField(id, validate, context );
+    if (options.length >= 1) {
+      value = options[0].value;
+      context.update((val: Fields) => {
+        if (val[id]) {
+          val[id].value = value as string;
+          val[id].errorMsg = validate(value);
+        }
+        return val
+      });
+    }
+    value = options.length >=1 ?  options[0].value : false;
   });
 
   function handleChange(e: CustomEvent<{ detail:SelectOption , [x: string | number | symbol]: unknown }>) {
@@ -80,7 +91,9 @@
     }
    }
 
+
    .select {
+     --list-z-index: 99;
     @include fields.font;
    }
 
