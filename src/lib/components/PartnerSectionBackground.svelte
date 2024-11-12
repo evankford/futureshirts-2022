@@ -6,7 +6,7 @@
 
     let partnersSorted:Partner[] = partners;
     onMount(()=>{
-        partnersSorted = partners.slice(0, 12).sort(() => (Math.random() > .5) ? 1 : -1);
+        partnersSorted = partners.slice(0, 12);
     })
 
 </script>

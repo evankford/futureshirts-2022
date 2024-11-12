@@ -98,6 +98,29 @@
     @include content-wrap;
   }
 
+  .partners-logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    li {
+      width: 200px;
+      padding: 8px;
+      height:  60px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 5px;
+    }
+
+    img {
+      height: 100%;
+      object-fit: contain;
+      object-position: 50% 50%;
+      width: 100%;
+
+    }
+  }
+
+
   section.partners {
     padding: 8px;
     @include media-query($medium-up) {
