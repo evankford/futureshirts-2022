@@ -120,7 +120,6 @@
     }
   }
 
-
   section.partners {
     padding: 8px;
     @include media-query($medium-up) {
@@ -187,12 +186,12 @@
   }
   .partner {
     position: relative;
+    overflow: hidden;
     &:hover, &:focus-visible{
       .image-wrap {
-        opacity: 0.3;
+        //opacity: 0.3;
         transform: scale(1.04);
 
-        filter: grayscale(0) contrast(1);
 
       }
       .hover-content {
@@ -207,7 +206,6 @@
     transition: all 300ms ease;
     border-radius: var(--border-radius);
     @include psuedoish();
-    filter: grayscale(0.8) contrast(1.2);
   }
 
 
