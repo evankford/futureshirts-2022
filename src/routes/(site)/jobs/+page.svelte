@@ -35,7 +35,7 @@
     {#if data.subtitle}
       <h2>{data.subtitle}</h2>
       {/if}
-      <Button link="#apply"> Apply</Button>
+<!--      <Button link="#apply"> Apply</Button>-->
   </header>
 </PageHero>
 <div use:isOnScreen class="wrap" class:has-image={data.image}>
@@ -72,7 +72,7 @@
             <PortableText value={opening.description} components={{listItem: {normal: LiNormal}}} />
           </div>
           <div class="buttons">
-            <Button small link={ opening.url ? {url: opening.url, type: 'external', openInNewTab: true }:  '#apply'}>Apply</Button>
+            <Button small link={ {url: opening.url, type: 'external', openInNewTab: true }}>Apply</Button>
             <Button underline small onClick={()=>openJob = i}>More Info</Button>
           </div>
         </li>
