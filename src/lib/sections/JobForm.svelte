@@ -13,6 +13,11 @@
   import type { CompleteMultipartUploadCommandOutput } from '@aws-sdk/client-s3';
 
   import slugify from "slugify";
+  import type {EmailOptionShape, Opening} from "$lib/types/sanity";
+  import {writable} from "svelte/store";
+  import type {Fields, JobData} from "../../global";
+  import type {SubmitFunction} from "$app/forms";
+  import Button from "$lib/components/Button.svelte";
 
 
   let uploadingResume=false,

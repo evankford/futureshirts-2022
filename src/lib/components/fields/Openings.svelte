@@ -25,8 +25,7 @@
   function handleChange(e: CustomEvent<{ detail:SelectOption , [x: string | number | symbol]: unknown }>) {
     const rel = openings.find(o=>o.title=== e.detail.value)
     if (rel.url) {
-      window.open(rel.url, '_blank').focus();
-      return
+      // window.open(rel.url, '_blank').focus();
     }
     if (e.detail) {
       context.update((val:Fields) => {

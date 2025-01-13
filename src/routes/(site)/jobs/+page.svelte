@@ -23,6 +23,7 @@
       document.body.style.removeProperty('overflow')
     }
   }
+
   export let data:JobSettings;
 
 </script>
@@ -30,7 +31,7 @@
   <header>
     {#if data.title}
       <h1>{data.title}</h1>
-      {/if}
+    {/if}
     {#if data.subtitle}
       <h2>{data.subtitle}</h2>
       {/if}
@@ -85,12 +86,12 @@
       <JobDetails bind:openJob job={data.openings[openJob]}/>
     {/if}
 
-  <section class="form page-content" id="apply">
-    <div class="form-inner">
-      <h2>Submit your Application</h2>
-      <JobForm email={data.email} openings={data.openings} errorTitle={data.errorTitle} errorMessage={data.errorMessage} successMessage={data.successMessage} successTitle={data.successTitle} />
-    </div>
-  </section>
+<!--  <section class="form page-content" id="apply">-->
+<!--    <div class="form-inner">-->
+<!--      <h2>Submit your Application</h2>-->
+<!--      <JobForm email={data.email} openings={data.openings} errorTitle={data.errorTitle} errorMessage={data.errorMessage} successMessage={data.successMessage} successTitle={data.successTitle} />-->
+<!--    </div>-->
+<!--  </section>-->
 </div>
 
 <style lang="scss">
@@ -191,7 +192,7 @@ header {
    }
 
    .openings {
-      --gap: 10px;
+      --gap: 15px;
       padding: 0;
       list-style: none;
       display: flex;
@@ -208,8 +209,8 @@ header {
     align-items: flex-start;
     justify-content: space-between;
     flex-direction: column;
-    flex: 1 1 250px;
-     max-width: 500px;
+    flex: 1 1 350px;
+     max-width: 600px;
     @include media-query($medium-up) {
       max-width: 650px;
     }

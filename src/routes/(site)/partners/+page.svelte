@@ -137,9 +137,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: transform 300ms ease, opacity 300ms ease;
+    background: rgb(0, 0, 0, 50%)
+    //opacity: 0;
+    //transform: translateY(50px);
+    //transition: transform 300ms ease, opacity 300ms ease;
   }
 
   .h4 {
@@ -167,16 +168,6 @@
   }
 
 
-  .hover-content {
-    @include psuedoish;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: transform 300ms ease, opacity 300ms ease;
-  }
   .buttons {
     display: flex;
     gap: 4px;
