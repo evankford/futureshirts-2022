@@ -11,7 +11,7 @@
         {#if teamMembers.length > 0 }
     <div id="list">
         {#each  teamMembers.sort(() => (Math.random() > .5) ? 1 : -1) as teamMember}
-                {#if teamMember.image}
+                {#if teamMember.image && urlFor(teamMember.image)}
                 <img alt="nada" src={urlFor(teamMember.image).width(500).format('jpg').url()}/>
             {/if}
         {/each}
