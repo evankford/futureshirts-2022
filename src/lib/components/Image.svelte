@@ -61,26 +61,36 @@ import type {SanityImageObject} from "@sanity/image-url/lib/types/types";
     let maxWidthIndex:false| number = false;
     widths.forEach((width, i)=> {
       let oneWidthUp = widths[i + 1] ? widths[i + 1] : 3000;
+
+      let oneWidthUpUrl = urlFor(image).width(oneWidthUp);
+      if (!oneWidthUpUrl) {
+        return;
+      }
+
       if (!maxWidth || width <= maxWidth ) {
-        const urlWithoutHeight = urlFor(image).width(oneWidthUp).format('webp');
+        const urlWithoutHeight = oneWidthUpUrl?.format('webp');
         if (aspect) {
           srcSet.push(urlWithoutHeight.height(Math.round(oneWidthUp * aspect)).url() + ' ' + width + 'w ' + Math.round(width*aspect) + 'h');
         }
-        srcSet.push(urlFor(image).width(oneWidthUp).format('webp').url() + ' ' + width + 'w');
+        srcSet.push(oneWidthUpUrl.format('webp').url() + ' ' + width + 'w');
       } else if (!maxWidthIndex) {
           maxWidthIndex = i;
       }
     })
+
     if (maxWidthIndex) {
       let maxW = widths[maxWidthIndex];
       if (!maxW) {
         maxW = widths[widths.length - 1]
       }
+      if (urlFor(image).width(maxW)) {
 
        if (aspect) {
           srcSet.push(urlFor(image).width(maxW).format('webp').height(Math.round(maxW * aspect)).url() + ' ' + maxW + 'w');
         }
         srcSet.push(urlFor(image).width(maxW).format('webp').url() + ' ' + maxW + 'w');
+      }
+
     }
     return srcSet.join(',');
   }
