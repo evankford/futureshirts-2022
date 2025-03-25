@@ -62,7 +62,7 @@ import type {SanityImageObject} from "@sanity/image-url/lib/types/types";
     widths.forEach((width, i)=> {
       let oneWidthUp = widths[i + 1] ? widths[i + 1] : 3000;
 
-      let oneWidthUpUrl = urlFor(image).width(oneWidthUp);
+      let oneWidthUpUrl = urlFor(image)?.width(oneWidthUp);
       if (!oneWidthUpUrl) {
         return;
       }
@@ -83,8 +83,8 @@ import type {SanityImageObject} from "@sanity/image-url/lib/types/types";
       if (!maxW) {
         maxW = widths[widths.length - 1]
       }
-      if (urlFor(image).width(maxW)) {
 
+      if (urlFor(image)?.width(maxW)) {
        if (aspect) {
           srcSet.push(urlFor(image).width(maxW).format('webp').height(Math.round(maxW * aspect)).url() + ' ' + maxW + 'w');
         }
