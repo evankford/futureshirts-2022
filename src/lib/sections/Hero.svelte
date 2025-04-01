@@ -106,7 +106,7 @@ import isOnScreen, {stopWatching} from "$lib/isOnScreen";
       <div class="bg">
         {#each heroGallery as galleryImage,i}
         <div class="slide" class:visible={i === currentSlide}>
-          <Image aspect={9/16} lazy={false} isInSlide isCurrentSlide={i===currentSlide} image={galleryImage.image} bg />
+          <Image fullWidth aspect={9/16} lazy={false} isInSlide isCurrentSlide={i===currentSlide} image={galleryImage.image} bg />
         </div>
         {/each}
         <div class="bottom">

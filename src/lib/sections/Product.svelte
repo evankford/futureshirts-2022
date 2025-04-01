@@ -118,7 +118,7 @@
     position: fixed;
     height: calc(100 * var(--vh, 1vh));
     width: 100%;
-    max-width: 1600px;
+    //max-width: 1600px;
     top: 0%;
     left: 50%;
     transform: translate3d(-50%, calc(0% - (10% * var(--scr, 0.5))), 0);
