@@ -29,14 +29,12 @@ import Image from "$lib/components/Image.svelte";
 </section>
 <style lang="scss">
   @use "../styles/abstracts" as *;
-
   section {
     overflow: hidden;
     position: relative;
     display: flex;
     align-items: flex-start;
     @include media-query($large-up) {
-
       align-items: center;
     }
     justify-content: center;
@@ -48,11 +46,9 @@ import Image from "$lib/components/Image.svelte";
     color: rgb(var(--color-base-text));
     --color-background: rgb(var(--color-base-background-accent));
     --color-foreground: rgb(var(--color-base-text));
-
     padding: clamp(60px, calc(10px + 9vh), 160px) 0;
   }
   .content {
-
     @include content-wrap;
     display: flex;
     position: relative;

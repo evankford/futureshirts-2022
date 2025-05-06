@@ -59,7 +59,7 @@
       const WebFont = WebfontModule.default;
       WebFont.load({
         typekit: {
-          id: 'qie7wdg',
+          id: 'fqx6xtc',
         }
       });
     }

@@ -1,5 +1,6 @@
 import ecommerce from './sectionFields/ecommerce';
 import { orderRankField } from '@sanity/orderable-document-list';
+import heroSimple from "./sectionFields/heroSimple";
 
 export default {
 	name: 'section',
@@ -27,6 +28,10 @@ export default {
 					{
 						title: 'Hero Slider',
 						value: 'hero'
+					},
+					{
+						title: 'Simple Hero',
+						value: 'heroSimple'
 					},
 					{
 						title: 'More Than Shirts',
@@ -90,7 +95,7 @@ export default {
 			title: 'Subtitle',
 			type: 'string',
 			group: ['content'],
-			hidden: ({ document }) => document.layout !== 'licensing'
+			hidden: ({ document }) => !['licensing'].includes(document.layout)
 		},
 		{
 			name: 'image',
@@ -100,7 +105,7 @@ export default {
 			fields: [{ name: 'alt', type: 'string', title: 'Alternative Text' }],
 			options: { hotspot: true },
 			hidden: ({ document }) =>
-				!document.layout || ['connect', 'ecommerce', 'tour', 'more', 'hero', 'partners'].includes(document.layout)
+				!document.layout || ['connect', 'ecommerce', 'tour', 'more', 'hero', 'partners', 'heroSimple'].includes(document.layout)
 		},
 		{
 			name: 'image2',
@@ -126,7 +131,7 @@ export default {
 			type: 'array',
 			of: [{ type: 'block' }],
 			group: ['content'],
-			hidden: ({ document }) => !document.layout || ['connect', 'team', 'partners'].includes(document.layout)
+			hidden: ({ document }) => !document.layout || ['connect', 'team', 'partners', 'heroSimple'].includes(document.layout)
 		},
 		{
 			name: 'quoteGallery',
@@ -152,7 +157,7 @@ export default {
 				layout: 'grid'
 			},
 			hidden: ({ document }) =>
-				!document.layout || ['team', 'licensing'].includes(document.layout) == false
+				!document.layout || !['team', 'licensing'].includes(document.layout)
 		},
 		{
 			name: 'heroGallery',
@@ -186,6 +191,7 @@ export default {
 			group: ['content'],
 			hidden: ({ document }) => !document.layout || document.layout !== 'connect'
 		},
-		...ecommerce
+		...ecommerce,
+		...heroSimple
 	]
 };

@@ -1,6 +1,7 @@
 <script lang="ts">
 
   import Hero from "$lib/sections/Hero.svelte";
+  import HeroSimple from "$lib/sections/HeroSimple.svelte";
   import More from "$lib/sections/More.svelte";
   import Product from "$lib/sections/Product.svelte";
   import Tour from "$lib/sections/Tour.svelte";
@@ -59,7 +60,9 @@
   {/if}
 {#each data.sections as section}
   {#if section.layout === 'hero'}
-  <Hero {...section} />
+<!--  <Hero {...section} />-->
+  {:else if section.layout === 'heroSimple'}
+  <HeroSimple {...section} />
   {:else if section.layout === 'more'}
   <More {...section} />
   {:else if section.layout === 'product'}

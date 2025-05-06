@@ -74,6 +74,7 @@ function videoFields(str = 'video') {
 
 export const sectionGroqs = {
   hero: `layout == 'hero' => { ${standardStuff}, box, heroGallery}`,
+  heroSimple: `layout == 'heroSimple' => { layout, title, anchor, subtitleLine1, subtitleLine2}`,
   more: `layout == 'more' => { ${standardStuff}, box, 'moreVideo' : ${videoFields('moreVideo')}}`,
   product: `layout == 'product' => { ${standardStuff}, image, imageSmall, box}`,
   tour: `layout == 'tour' => { ${standardStuff},box, quoteGallery}`,

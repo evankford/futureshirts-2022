@@ -1,6 +1,6 @@
 import type {VideoOrImage, CodeShape, TeamMember, Partner} from "./sanity";
 
-export type SectionLayout = 'hero' | 'more' | 'product' | 'tour' | 'ecommerce' | 'licensing' | 'team' | 'partners' | 'connect'
+export type SectionLayout = 'hero' | 'heroSimple' | 'more' | 'product' | 'tour' | 'ecommerce' | 'licensing' | 'team' | 'partners' | 'connect'
 
 export interface Block {
   _type: string,
@@ -98,4 +98,11 @@ export interface PartnerSection extends SectionBase {
   partners: Partner[]
 }
 
-export type SectionShape = HeroSection | MoreSection | ProductSection | TourSection | ECommerceSection | LicensingSection | TeamSection | PartnerSection | ConnectSection;
+export interface HeroSimpleSection extends SectionBase {
+  layout: 'heroSimple',
+  anchor: string|null,
+  subtitleLine1: string|null,
+  subtitleLine2: string|null,
+}
+
+export type SectionShape = HeroSection | HeroSimpleSection | MoreSection | ProductSection | TourSection | ECommerceSection | LicensingSection | TeamSection | PartnerSection | ConnectSection;

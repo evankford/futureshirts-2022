@@ -7,7 +7,6 @@
   import {onMount} from "svelte";
   import PdfLoader from "$lib/components/PdfLoader.svelte";
   import ContactForm from "$lib/sections/ContactForm.svelte";
-import type {EmailOptionShape} from "$lib/types/sanity";
 
   function changeTab(key: string) {
       activeTab = key

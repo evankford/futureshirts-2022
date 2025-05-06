@@ -84,7 +84,7 @@
     top: 0;
     z-index: 100;
     transition: color 700ms ease, transform 300ms ease;
-    color: rgb(var(--color-base-text));
+    color: #e6dfd1;
     transform: translateY(-101%);
     &.home, &.navOpen {
       color: rgb(var(--color-base-background));
@@ -103,7 +103,7 @@
       transform: none;
     }
     &.scrolled.stuck:not(.navOpen) {
-      color: white;
+      color: #e6dfd1;
       .header-content {
         //noinspection CssInvalidFunction
         transform: translateY(calc(-0.5 * var(--pad, 12px)));

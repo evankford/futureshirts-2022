@@ -31,7 +31,7 @@
     justify-content: center;
     flex-wrap: wrap;
     background-color: rgb(var(--color-base-text-darker));
-  padding: 6px;
+  padding: 50px;
     color: rgb(var(--color-base-background));
     --color-background: rgb(var(--color-base-text-darker));
     --color-foreground: rgb(var(--color-base-background));
