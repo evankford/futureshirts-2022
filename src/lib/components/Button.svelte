@@ -1,29 +1,34 @@
 <script lang="ts">
 import getRefUrl from "$lib/ref";
 import isOnScreen, { stopWatching} from "$lib/isOnScreen";
+import type {LinkURL} from "$lib/types/sanity";
 
-let invisible: boolean = true;
-export let noMargin = false, small = false, simple = false, underline = false, link:LinkURL | string | null = null;
+let invisible = true;
+export let noMargin = false, small = false, simple = false, underline = false, link:LinkURL | string | null = null, onClick: ()=>void|null = null, noAction = false;
 </script>
 
 
 <div class="button-wrap" use:isOnScreen on:onscreen={(e)=>{invisible = false; stopWatching(e.target)} } class:invisible>
-  {#if link == null}
-    <button on:click class="button" class:noMargin class:simple class:small class:underline ><span><slot>Button Title</slot></span></button>
+  {#if noAction}
+    <div class="button" class:noMargin class:simple class:small class:underline ><span><slot>Button Title</slot></span></div>
+  {:else}
+    {#if link == null}
+    <button on:click={onClick} class="button" class:noMargin class:simple class:small class:underline ><span><slot>Button Title</slot></span></button>
   {:else if typeof link == 'string'}
     <a class="button" class:noMargin class:simple class:small class:underline href="{link}"><span><slot>Button Title</slot></span></a>
   {:else}
-    {#if link.type == 'internal' && link.ref}
+    {#if link.type === 'internal' && link.ref}
       <a class="button" class:noMargin class:simple class:small class:underline href="{getRefUrl(link.ref)}"><span><slot>Button Title</slot></span></a>
-    {:else if link.type == 'external'}
+    {:else if link.type === 'external'}
       {#if link.openInNewTab}
         <a class="button" class:noMargin class:simple class:small class:underline target="_blank" href={link.url} rel="nofollow noopener noreferrer"><span><slot>Button Title</slot></span></a>
         {:else}
         <a class="button" class:noMargin class:simple class:small class:underline href={link.url}><span><slot>Button Title</slot></span></a>
       {/if}
-    {:else if link.type == 'anchor' }
+    {:else if link.type === 'anchor' }
       <a class="button" class:noMargin class:simple class:small class:underline data-anchor href="{link.anchor}"><span><slot>Button Title</slot></span></a>
     {/if}
+  {/if}
   {/if}
 </div>
 
@@ -37,7 +42,7 @@ export let noMargin = false, small = false, simple = false, underline = false, l
   .button-wrap  {
     transition: transform 800ms ease, opacity 800ms ease;
   }
-  a.button, button.button {
+  a.button, button.button, div.button {
     @include resetButton();
     @include buttonStyles();
     background: rgb(var(--color-accent));
@@ -51,7 +56,6 @@ export let noMargin = false, small = false, simple = false, underline = false, l
     position: relative;
     z-index: 0;
     overflow: visible;
-    position: relative;
     transition: transform 200ms 50ms ease;
     &::after, &::before {
       @include psuedo;

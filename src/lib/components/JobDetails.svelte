@@ -2,24 +2,25 @@
 
   import { PortableText} from "@portabletext/svelte";
   import LiNormal from "$lib/components/portableText/LiNormal.svelte";
-  import Fa from "svelte-fa";
-  import { faXmark} from "@fortawesome/pro-regular-svg-icons";
+  import { faXmark} from "@fortawesome/free-solid-svg-icons";
   import { fade, fly } from 'svelte/transition';
+  import type { Opening } from "$lib/types/sanity";
+  import Fa from 'svelte-fa/src/fa.svelte'
   export let job:Opening, openJob:false|number = false;
 </script>
 <div class="job-wrap" >
-      <div class="job-bg" in:fade={{duration: 200, delay: 0}} out:fade={{ duration: 200, delay: 200}} on:click={()=> openJob = false}></div>
+      <button class="job-bg" in:fade|local={{duration: 200, delay: 0}} out:fade|local={{ duration: 200, delay: 200}} on:click={()=> openJob = false}></button>
       <article class="job-content page-content" in:fly={{ duration: 200, delay: 200, y: 50}} out:fly={{ duration: 200, delay: 0, y: 50}}>
-        <heading>
+        <header>
 
           <h2>{ job.title }</h2>
           {#if job.subtitle}
              <h4>{job.subtitle}</h4>
            {/if}
-        </heading>
+        </header>
           <PortableText value={job.fullDescription} components={{listItem: {normal: LiNormal}}} />
           <div class="buttons">
-            <a class="button" on:click={()=>{openJob=false}} href="#apply">Apply</a>
+            <a class="button" href={job.url} target={ "_blank"}>Apply</a>
           </div>
           <button on:click={()=>{openJob= false}} aria-label="Close Job description"><Fa icon={faXmark}/></button>
       </article>
@@ -36,18 +37,19 @@
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 12px;
+    padding: 50px 12px;
     overflow-y: auto;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  heading {
+  header {
     margin: 0 0 20px;
   }
   .job-bg{
     @include psuedo;
+    position: fixed;
     background: rgba(black, 0.8);
   }
 
@@ -67,10 +69,10 @@ max-width: 900px;
    button {
     @include b.resetButton;
     position: absolute;
-    top: 0;
+    top: 5px;
     padding: 10px;
     font-size: 20px;
-    right: 0;
+    right: 5px;
     color: black;
     opacity: 0.5;
     transition: opacity 300ms ease;

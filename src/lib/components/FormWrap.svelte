@@ -2,9 +2,7 @@
   import { onMount, setContext } from "svelte";
   import { slide, fade } from "svelte/transition";
   import { writable, type Writable, derived, type Readable} from "svelte/store";
-
-
-
+  import type {Fields, FieldStore, SubmitResponse, SubmitFunction} from "../../global";
 
   function handleFailure(msg: string | undefined = undefined) {
     processing.set(false);
@@ -27,7 +25,7 @@
   let handleSubmit = () => {
     processing.set(true);
     submittedFields.set($fields);
-    console.log("Handle submit function not initialized.")
+    console.warn("Handle submit function not initialized.")
   }
 
   onMount(()=> {
@@ -87,14 +85,14 @@
 </script>
 <form {id} class:successful={$formSuccess}  class:errorfull={$formError} on:submit={(e)=>{e.preventDefault(); handleSubmit(); return false;}} class:ready={$ready} class:valid={$valid}>
   {#if $$slots.success && $formSuccess }
-  <div transition:fade class="success"><slot name="success"/></div>
+  <div transition:fade|local class="success"><slot name="success"/></div>
   {/if }
-  <div transition:slide class="main">
+  <div transition:slide|local class="main">
     <slot></slot>
   </div>
 
   {#if $$slots.error && $formError }
-    <div transition:slide class="error">
+    <div transition:slide|local class="error">
       <slot name="error" />
       {#if typeof $formError == 'string'}
         {@html $formError}

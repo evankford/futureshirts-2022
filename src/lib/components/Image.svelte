@@ -1,6 +1,7 @@
 <script lang="ts">
   import { urlFor } from "$lib/sanity";
   import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import type {SanityImageObject} from "@sanity/image-url/lib/types/types";
 
   const widths = [150, 300, 600, 900, 1200, 1500, 1800, 2100, 2500, 3000];
 
@@ -60,26 +61,36 @@
     let maxWidthIndex:false| number = false;
     widths.forEach((width, i)=> {
       let oneWidthUp = widths[i + 1] ? widths[i + 1] : 3000;
+
+      let oneWidthUpUrl = urlFor(image)?.width(oneWidthUp);
+      if (!oneWidthUpUrl) {
+        return;
+      }
+
       if (!maxWidth || width <= maxWidth ) {
-        const urlWithoutHeight = urlFor(image).width(oneWidthUp).format('webp');
+        const urlWithoutHeight = oneWidthUpUrl?.format('webp');
         if (aspect) {
           srcSet.push(urlWithoutHeight.height(Math.round(oneWidthUp * aspect)).url() + ' ' + width + 'w ' + Math.round(width*aspect) + 'h');
         }
-        srcSet.push(urlFor(image).width(oneWidthUp).format('webp').url() + ' ' + width + 'w');
+        srcSet.push(oneWidthUpUrl.format('webp').url() + ' ' + width + 'w');
       } else if (!maxWidthIndex) {
           maxWidthIndex = i;
       }
     })
+
     if (maxWidthIndex) {
       let maxW = widths[maxWidthIndex];
       if (!maxW) {
         maxW = widths[widths.length - 1]
       }
 
+      if (urlFor(image)?.width(maxW)) {
        if (aspect) {
           srcSet.push(urlFor(image).width(maxW).format('webp').height(Math.round(maxW * aspect)).url() + ' ' + maxW + 'w');
         }
         srcSet.push(urlFor(image).width(maxW).format('webp').url() + ' ' + maxW + 'w');
+      }
+
     }
     return srcSet.join(',');
   }
@@ -98,29 +109,29 @@
   image:SanityImageObject,
   fixedHeight:number|false = false,
   fixedWidth: number|false = false,
-  blurUp: boolean =true,
+  blurUp =true,
   alt: string|null = null,
-  bg:boolean = false,
+  bg = false,
   width: number | null | false = false,
   aspect: number | false = false,
-  transparency: boolean =  false,
-  lazy: boolean= true,
-  isInSlide: boolean=false,
-  isCurrentSlide: boolean=false,
-  fullWidth: boolean =  false;
+  transparency =  false,
+  lazy= true,
+  isInSlide=false,
+  isCurrentSlide=false,
+  fullWidth =  false;
 </script>
 {#if width && width <= 150}
-<picture class:bg data-src="{urlFor(image).format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
-  <img loading={lazy ? 'lazy' : 'eager'} class="respimg-img" alt={alt} src={urlFor(image).format('webp').width(width).url()} />
+<picture class:bg data-src="{urlFor(image)?.format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
+  <img loading={lazy ? 'lazy' : 'eager'} class="respimg-img" alt={alt} src={urlFor(image)?.format('webp').width(width).url()} />
 </picture>
 {:else }
 {#if isInSlide && !isCurrentSlide && !loaded}
-<picture class:bg data-src="{urlFor(image).format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
-  <img style="{!loaded && blurUp ? `background-image: url('${urlFor(image).format('webp').blur(30).width(100).url()}');` : 'background-image: none;'}" loading={lazy ? 'lazy' : 'eager'} class="respimg-img"  alt={alt} src={urlFor(image).format('webp').width(200).url()} />
+<picture class:bg data-src="{urlFor(image)?.format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
+  <img style="{!loaded && blurUp ? `background-image: url('${urlFor(image)?.format('webp').blur(30).width(100).url()}');` : 'background-image: none;'}" loading={lazy ? 'lazy' : 'eager'} class="respimg-img"  alt={alt} src={urlFor(image)?.format('webp').width(200).url()} />
 </picture>
 {:else}
-<picture class:bg data-src="{urlFor(image).format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
-  <img style="{!loaded && blurUp ? `background-image: url('${urlFor(image).format('webp').blur(30).width(100).url()}');` : 'background-image: none;'}" loading={lazy ? 'lazy' : 'eager'} class="respimg-img" on:load={()=>{ setTimeout(()=>{loaded = true}, 50 )}}  alt={alt} src={urlFor(image).format('webp').width(200).url()} srcset={buildSrcSet(image, width ? width : trySize(image).width, aspect ? aspect : trySize(image).aspect, !transparency)}/>
+<picture class:bg data-src="{urlFor(image)?.format('webp').url()}" data-lg-size="{`${trySize(image).width}-${trySize(image).height}`}"  class:fixed={fixedHeight || fixedWidth}  class="respimg" style="--mw:{fullWidth? '100%' : width ? width + 'px' : trySize(image).width? trySize(image).width + 'px' : '100%' }; --ar:{aspect ? aspect : trySize(image).aspect}; --obj-pos:{tryToGetCenter(image)}; {getFixedStyles(fixedWidth, fixedHeight)}">
+  <img style="{!loaded && blurUp ? `background-image: url('${urlFor(image)?.format('webp').blur(30).width(100).url()}');` : 'background-image: none;'}" loading={lazy ? 'lazy' : 'eager'} class="respimg-img" on:load={()=>{ setTimeout(()=>{loaded = true}, 50 )}}  alt={alt} src={urlFor(image)?.format('webp').width(200).url()} srcset={buildSrcSet(image, width ? width : trySize(image).width, aspect ? aspect : trySize(image).aspect, !transparency)}/>
 </picture>
 {/if}
 {/if}
@@ -169,7 +180,7 @@
     background-size:var(--image-fill, cover);
     background-repeat: no-repeat;
     object-fit: var(--image-fill, cover);
-    object-position: var(--obj-pos, 50%, 50%);
+    object-position: var(--obj-pos, 50% 50%);
     z-index: 1;
   }
 

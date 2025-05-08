@@ -42,6 +42,7 @@ function genOrderDetails(orderDate:string | undefined = undefined, orderNumber: 
   return str;
 }
 
+import type {ContactData, JobData, SupportData, JobReference} from "../global";
 
 export function contact(data:ContactData) {
   return `

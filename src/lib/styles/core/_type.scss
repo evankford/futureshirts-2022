@@ -2,7 +2,7 @@
 
 h1,h2,h3,h4,h5,h6 ,.h1,.h2,.h3,.h4,.h5,.h6 {
   font-size:calc(var(--font-body-size)* var(--modifier) * var(--font-heading-ratio));
-  margin-top: calc(3.5 * var(--vertical-rhythm));
+  margin-top: calc(1.5 * var(--vertical-rhythm));
   margin-bottom:  var(--vertical-rhythm);
   &:first-child {
     margin-top: 0;
@@ -58,6 +58,10 @@ h1, .h1 {
   &.small {
     --modifier: 1.7;
   }
+  & + h3, & + .h3{
+    margin-top: 0.5em;
+    font-weight: 300;
+  }
 }
 
 .title + .subtitle {
@@ -94,10 +98,6 @@ h2, .h2 {
 @include media-query($small) {
   //bring it up on small screens;
   --modifier: 1.4;
-}
-@include media-query($tiny) {
-  //bring it up on small screens;
-  // --modifier: 1.3;
 }
 
 }

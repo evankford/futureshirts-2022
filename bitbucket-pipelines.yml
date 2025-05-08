@@ -1,0 +1,61 @@
+definitions:
+  caches:
+    pnpm: $BITBUCKET_CLONE_DIR/.pnpm-store
+
+pipelines:
+  branches:
+    staging:
+      - step:
+          name: Build and test
+          image: node:21.4.0
+          deployment: staging
+          script:
+            - corepack enable
+            - corepack prepare pnpm@latest-9 --activate
+            - pnpm install
+            - pnpm run build
+            - pnpx wrangler pages deploy .svelte-kit/cloudflare --project-name=fs-site-2022-staging --branch=staging
+          caches:
+            - pnpm
+    production:
+      - step:
+          name: Build and test
+          image: node:21.4.0
+          script:
+            - corepack enable
+            - corepack prepare pnpm@latest-9 --activate
+            - pnpm install
+            - pnpm run build
+            - pnpx svelte-sitemap --domain https://futureshirts.co --out-dir=.svelte-kit/cloudflare
+            - pnpx wrangler pages deploy .svelte-kit/cloudflare --project-name=fs-site --branch=production
+          caches:
+            - pnpm
+  custom:
+    sanity:
+      - parallel:
+          steps:
+            - step:
+                name: Build and test staging
+                branch: staging
+                image: node:21.4.0
+                script:
+                  - corepack enable
+                  - corepack prepare pnpm@latest-9 --activate
+                  - pnpm install
+                  - pnpm run build
+                  - pnpx wrangler pages deploy .svelte-kit/cloudflare --project-name=fs-site-2022-staging --branch=staging
+                caches:
+                  - pnpm
+            - step:
+                name: Build and test
+                branch: production
+                image: node:21.4.0
+                script:
+                  - corepack enable
+                  - corepack prepare pnpm@latest-9 --activate
+                  - pnpm install
+                  - pnpm run build
+                  - pnpx svelte-sitemap --domain https://futureshirts.co --out-dir=.svelte-kit/cloudflare
+                  - pnpx wrangler pages deploy .svelte-kit/cloudflare --project-name=fs-site --branch=production
+                caches:
+                  - pnpm

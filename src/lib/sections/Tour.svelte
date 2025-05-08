@@ -4,12 +4,14 @@
   import SectionBox from "$lib/components/SectionBox.svelte";
   import Image from "$lib/components/Image.svelte";
   import Quote from "$lib/components/Quote.svelte";
-  import Fa from "svelte-fa";
+  import Fa from 'svelte-fa/src/fa.svelte';
   import {fly} from "svelte/transition";
-  import {faChevronLeft, faChevronRight} from "@fortawesome/pro-regular-svg-icons"
+  import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons"
   import {onMount, onDestroy} from "svelte";
   import {browser} from "$app/environment"
   import throttle from "$lib/throttle";
+  import type {Block, QuoteShape} from "$lib/types/sections";
+
   let currentSlide = 0;
   let slideInterval: ReturnType<typeof setInterval>;
   function startSlideInterval() {
@@ -36,15 +38,6 @@
     startSlideInterval();
     throttleHeightChange();  }
 
-  function slideTo(num:number) {
-    clearInterval(slideInterval);
-    currentSlide = num;
-    // startSlideInterval();
-    throttleHeightChange();
-  }
-
-
-
 
   function changeQuoteHeight(){
     const oldHeight = quoteWrapperHeight;
@@ -56,7 +49,7 @@
     const duration = 1000 * .2;
     const start = +new Date();
 
-    if (diff == 0) {
+    if (diff === 0) {
       return;
     }
 
@@ -110,20 +103,23 @@
   </div>
  <div class="wrap">
    <div class="gallery">
-     <ul class="slides">
-       <button aria-label="Previous Quote" on:click={prevSlide}><Fa icon={faChevronLeft}/></button>
-       {#each quoteGallery as q, i}
-        <li class="slide-image" class:after={currentSlide < i} class:before={currentSlide > i} aria-current={currentSlide == i}>
-          <Image isInSlide isCurrentSlide={currentSlide === i} width={950} bg image={q.image} alt="{q.title} Merchandise"/>
-        </li>
-       {/each}
-       <button aria-label="Next Quote" on:click={nextSlide}><Fa icon={faChevronRight}/></button>
-     </ul>
+       <div class="slides">
+           <button aria-label="Previous Quote" on:click={prevSlide}><Fa icon={faChevronLeft}/></button>
+           <ul>
+               {#each quoteGallery as q, i}
+                   <li class="slide-image" class:after={currentSlide < i} class:before={currentSlide > i}
+                       aria-current={currentSlide === i}>
+                       <Image aspect="1" isInSlide isCurrentSlide={currentSlide === i} width={950} bg image={q.image} alt="{q.title} Merchandise"/>
+                   </li>
+               {/each}
+           </ul>
+           <button aria-label="Next Quote" on:click={nextSlide}><Fa icon={faChevronRight}/></button>
+       </div>
      <div class="bottom">
        <ul class="quotes" style="height: {quoteWrapperHeight}px;">
          {#each quoteGallery as q, i}
-         {#if currentSlide == i}
-           <li bind:this={domSlides[i]} out:fly={{duration: 200, x: browser ? window.innerWidth : 500}} in:fly={{delay: 100, x: browser ? window.innerWidth : 500 }} class="slide-quote" aria-current={currentSlide == i} aria-hidden={currentSlide != i}>
+         {#if currentSlide === i}
+           <li bind:this={domSlides[i]} out:fly|local={{duration: 200, x: browser ? window.innerWidth : 500}} in:fly|local={{delay: 100, x: browser ? window.innerWidth : 500 }} class="slide-quote" aria-current={currentSlide === i} aria-hidden={currentSlide !== i}>
               <Quote logo={q.logo} quoteTitle={q.quoteTitle} subtitle={q.subtitle} quote={q.quote} />
             </li>
             {/if}
@@ -133,7 +129,7 @@
      <!-- <ul class="logos">
        {#each quoteGallery as q, i}
         <li class="slide-logo" >
-          <button on:click={()=>slideTo(i)} aria-current={currentSlide == i}>
+          <button on:click={()=>slideTo(i)} aria-current={currentSlide === i}>
             <Image image={q.logo} width={150} alt="{q.title} logo"/>
           </button>
         </li>
@@ -144,7 +140,7 @@
       <div class="hide--small">
         <SectionHeading {title} {subtitle} {intro}/>
       </div>
-        <SectionBox {box} style="boxed" />
+        <SectionBox {box} boxStyle="boxed" />
     </div>
 </div>
 
@@ -157,10 +153,9 @@
     @include content-wrap;
     --color-foreground: var(--color-base-text);
     --color-background: var(--color-base-background-off);
-    background: rgb(var(--color-background));
     color: rgb(var(--color-foreground));
     position: relative;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDcuMS1jMDAwIDc5LjljY2M0ZGU5MywgMjAyMi8wMy8xNC0xNDowNzoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIzLjMgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTlEMDdFMzBENUZFMTFFQ0IyMjdDQjY1NTc2QjhEMDAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTlEMDdFMzFENUZFMTFFQ0IyMjdDQjY1NTc2QjhEMDAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5OUQwN0UyRUQ1RkUxMUVDQjIyN0NCNjU1NzZCOEQwMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5OUQwN0UyRkQ1RkUxMUVDQjIyN0NCNjU1NzZCOEQwMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PkcnqcsAAAAJUExURREREQAAAAAAAElgGT0AAAADdFJOU///ANfKDUEAAAAYSURBVHjaYmDCBRhGZUZlqC/DiEsGIMAANbUE4s8EppcAAAAASUVORK5CYII=);
+    //noInspection
     background-size: 24px;
     max-width: 100%;
     @include media-query($medium-up) {
@@ -170,7 +165,7 @@
       padding-top: 50px;
       padding-bottom: 50px;
     }
-    background-repeat: repeat;
+    background: rgb(var(--color-background)) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDcuMS1jMDAwIDc5LjljY2M0ZGU5MywgMjAyMi8wMy8xNC0xNDowNzoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIzLjMgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTlEMDdFMzBENUZFMTFFQ0IyMjdDQjY1NTc2QjhEMDAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTlEMDdFMzFENUZFMTFFQ0IyMjdDQjY1NTc2QjhEMDAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5OUQwN0UyRUQ1RkUxMUVDQjIyN0NCNjU1NzZCOEQwMCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5OUQwN0UyRkQ1RkUxMUVDQjIyN0NCNjU1NzZCOEQwMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PkcnqcsAAAAJUExURREREQAAAAAAAElgGT0AAAADdFJOU///ANfKDUEAAAAYSURBVHjaYmDCBRhGZUZlqC/DiEsGIMAANbUE4s8EppcAAAAASUVORK5CYII=) repeat;
     overflow: hidden;
     --titleLineHeight: 0.8;
   }
@@ -207,6 +202,9 @@ text-align: center;
     position: relative;
     z-index: 2;
     max-width: 500px;
+    @include media-query($widescreen){
+      margin-top: 100px;
+    }
   }
   ul {
     list-style: none;
@@ -248,6 +246,13 @@ text-align: center;
   .slides {
     @include psuedo;
     position: relative;
+    @include media-query($medium-up) {
+        margin: -5vw 0 0 -2vw;
+    }
+    @include media-query($widescreen) {
+        margin: 0 0 0 auto;
+      max-width: 900px;
+    }
     &::after {
       @include psuedo;
       left: -9px;
@@ -264,7 +269,7 @@ text-align: center;
      &::before {
         content:'';
         display: block;
-        padding-bottom: 55%;
+        padding-bottom: 100%;
       }
 
     button {
@@ -301,7 +306,6 @@ text-align: center;
   }
 
   .slide-image {
-
     position: absolute;
     top: 0;
     z-index: 20;

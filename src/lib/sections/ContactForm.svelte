@@ -7,15 +7,19 @@
   import Message from "$lib/components/fields/Message.svelte";
   import SubmitButton from "$lib/components/fields/SubmitButton.svelte";
   import SvelteMarkdown from "svelte-markdown";
+  import type {EmailOptionShape, ContactOption} from "$lib/types/sanity";
+  import type {ContactData, Fields, SubmitFunction} from "../../global";
   let emailOverride: EmailOptionShape[] | false = false;
 
   function collectEmails(){
     const emailToArray:string[] = [];
-      email.forEach( a => {
-        emailToArray.push(a.email);
+      if (email) {
+        email.forEach( a => {
+          emailToArray.push(a.email);
 
+        }
+        )
       }
-      )
       if (emailOverride) {
         emailOverride.forEach(e=> {
           emailToArray.push(e.email)
@@ -31,7 +35,7 @@
       topic: f.topic.value,
       message: f.message.value,
       formName: 'Contact Form',
-      emailTo: collectEmails()
+      emailTo: emailTo ?? collectEmails()
     }
     try {
       const resp =  await fetch('/sendemail', {
@@ -70,18 +74,23 @@
   }
 
   export let
-    email: EmailOptionShape[],
-    contactOptions: ContactOption[],
-    successMessage: string,
-    successTitle: string,
-    errorMessage: string ="",
-    errorTitle: string;
+    email: undefined|EmailOptionShape[] = undefined,
+    contactOptions: ContactOption[] | undefined = undefined,
+    successMessage = "Thanks for your message. We'll be in touch.",
+    successTitle = "Got it!",
+    errorMessage = "Something went wrong with sending your message. Please refresh the page and try again.",
+    errorTitle = "Whoops!",
+    widget = false,
+    emailTo: string[] | undefined = undefined
+  ;
 </script>
 <FormWrap id="contact" {onSubmit}>
 
   <Name required/>
   <Email required/>
-  <Topic topics={contactOptions} bind:emailTo={emailOverride}/>
+    {#if !widget && contactOptions}
+    <Topic topics={contactOptions} bind:emailTo={emailOverride}/>
+  {/if}
   <Message />
   <SubmitButton>Send It<span slot="processing">Sending</span></SubmitButton>
   <div slot="success">

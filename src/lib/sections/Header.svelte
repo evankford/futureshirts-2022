@@ -1,12 +1,13 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import Nav from "./Nav.svelte";
-  import { onDestroy, onMount, tick, } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import {navOpen} from "$lib/stores"
   import HeaderLogo from "$lib/components/HeaderLogo.svelte";
   import { browser } from "$app/environment";
   import { afterNavigate } from "$app/navigation";
   import throttle from "$lib/throttle";
+  import type {ContactLink, MenuItemShape} from "$lib/types/sanity";
   let hasHeroImage = false;
 
   afterNavigate(()=> {
@@ -15,8 +16,8 @@
     }, 500);
   })
 
-  let stuck:boolean = true;
-  let scrolled:boolean = false
+  let stuck = true;
+  let scrolled = false
 
   let lastScrollTop:number = browser ? window.scrollY : 0;
 
@@ -29,11 +30,7 @@
   function onWindowScroll() {
     if (!browser) return;
     const diff = window.scrollY - lastScrollTop
-    if( window.scrollY > 200) {
-      scrolled = true;
-    } else {
-      scrolled = false;
-    }
+    scrolled = window.scrollY > 200;
     if (diff > 60) {
       stuck = false;
       lastScrollTop = window.scrollY;
@@ -64,19 +61,16 @@
 </script>
 <header class:stuck class:scrolled class:navOpen={$navOpen} class="site-header" class:home={(hasHeroImage && !$page.error)}>
   <div class="header-content">
-    <div class="hide--small left">
+    <div class="left">
+      <HeaderLogo/>
+    </div>
+
+    <div class="right">
       {#if contactLink && contactLink.title}
         <a href="{contactLink.slug}">{contactLink.title}</a>
       {/if}
-    </div>
-      <div class="middle">
-        <HeaderLogo/>
-      </div>
-    {#if menuItems && menuItems.length > 0}
-    <div class="right">
       <Nav {menuItems} {smallMenuItems}/>
     </div>
-    {/if}
   </div>
 </header>
 
@@ -90,7 +84,7 @@
     top: 0;
     z-index: 100;
     transition: color 700ms ease, transform 300ms ease;
-    color: rgb(var(--color-base-text));
+    color: #e6dfd1;
     transform: translateY(-101%);
     &.home, &.navOpen {
       color: rgb(var(--color-base-background));
@@ -109,9 +103,10 @@
       transform: none;
     }
     &.scrolled.stuck:not(.navOpen) {
-      color: white;
+      color: #e6dfd1;
       .header-content {
-        transform: translateY(calc(-0.5 * var(--pad)));
+        //noinspection CssInvalidFunction
+        transform: translateY(calc(-0.5 * var(--pad, 12px)));
       }
       &::before {
         transform: translateY(0)
@@ -126,47 +121,50 @@
 
   .right {
     z-index: 1;
-    justify-self: start;
+    justify-self: end;
+    align-items: center;
+    display: flex;
     @include media-query($small) {
       margin-right: 10px;
     }
   }
 
-  .left {
-    display: inline-block;
-    width: auto;
-    justify-self: end;
-    margin: auto 6px;
-  }
 
   a {
     z-index: 2;
     color: currentColor;
     @include mono;
+    font-size: 17px;
     letter-spacing: 0;
     text-decoration: none;
     text-transform: lowercase;
-    display: inline-block;
+    display: none;
     position: relative;
-    padding: 0.2em 0.8em;
-    @include media-query($medium) {
-      font-size: 16px;
-      padding: 0
+    margin: var(--pad);
+    padding: 0.3em;
+    @include media-query($medium-up) {
+      display: inline-block;
     }
-  @include hoverBox;
+  @include hoverBox(none, true);
+    --color-accent: var(--color-base-accent-lighter);
+    --color-accent-inverse: var(--color-base-accent-darker);
 
   }
 
 
-  .middle {
+  .left {
 
     flex: 1 1 200px;
     width: 100%;
-    max-width: 350px;
+    max-width: 230px;
     padding: var(--pad);
+    @include media-query($medium-up){
+      max-width: 300px;
+      padding: var(--pad) var(--pad) var(--pad) 0;
+    }
     display: block;
     z-index: 1;
-    margin: auto;
+    margin: auto auto auto 0;
     position: relative;
     .navOpen & {
       z-index:4;
@@ -191,7 +189,7 @@
 
     @include media-query($medium-up) {
         display: grid;
-        grid-template-columns: 1fr 400px 1fr;
+        grid-template-columns: 300px 1fr;
         width: 100%;
       }
   }

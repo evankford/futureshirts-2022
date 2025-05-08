@@ -10,16 +10,17 @@ const config = {
 	},
 	resolve: {
 		// mainFields: ['main', 'module', 'browser']
+		alias: {
+			'@/styles' : 'src/lib/styles'
+		}
 	},
 	ssr: {
 		noExternal: [
 			'@fortawesome/free-brands-svg-icons',
-			'@fortawesome/pro-regular-svg-icons',
-			'@fortawesome/pro-solid-svg-icons'
+			'@fortawesome/free-solid-svg-icons',
 		]
 	},
-	envPrefix: ['VITE_', 'AWS_']
+	envPrefix: ['VITE_', 'SPACES_', 'ELASTIC_', 'AWS_', 'SANITY_', 'ADOBE_']
 };
-
 
 export default config;

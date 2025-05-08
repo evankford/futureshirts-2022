@@ -1,17 +1,17 @@
 <script lang="ts">
   import isOnScreen ,{stopWatching} from "$lib/isOnScreen"
-  import {CountUp} from "countup.js";
+  import {CountUp} from "countup.js/dist/countUp.umd";
   let counter:HTMLSpanElement;
   let wrap:HTMLElement;
-  let invisible: boolean = true;
+  let invisible = true;
 
   function start() {
     invisible = false;
     let demo = new CountUp(counter, number);
     if (!demo.error) {
-      demo.start();
+    demo.start();
     } else {
-      console.error(demo.error);
+      console.error(demo.error);
     }
     stopWatching(wrap);
   }

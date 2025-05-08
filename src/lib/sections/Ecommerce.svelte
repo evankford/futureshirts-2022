@@ -9,6 +9,8 @@ import Phone from "$lib/components/Phone.svelte";
 import Galaxy from "$lib/components/Galaxy.svelte";
 import Tablet from "$lib/components/Tablet.svelte";
 import Laptop from "$lib/components/Laptop.svelte";
+  import type {Block, CounterModel} from "$lib/types/sections";
+  import type {VideoOrImage} from "$lib/types/sanity";
   export let title:string | null, layout: string, subtitle: string| null, box: Block[], intro: string|null, counters: CounterModel[], computer: VideoOrImage, computer2: VideoOrImage, phone:VideoOrImage, phone2:VideoOrImage, tablet:VideoOrImage, anchor: string;
 
 </script>
@@ -29,11 +31,11 @@ import Laptop from "$lib/components/Laptop.svelte";
   <div class="wrap">
 
       <div class="devices">
-        <div class="comp comp1"><Laptop>{#if computer2.is == 'video'}<Video video={computer2}/>{:else if computer2.is =='image'}<Image width={1600} image={computer2.image} alt={computer2.title} />{/if}</Laptop></div>
-        <div class="tablet"><Tablet>{#if tablet.is == 'video'}<Video video={tablet}/>{:else if tablet.is =='image'}<Image width={1200} image={tablet.image} alt={tablet.title} />{/if}</Tablet></div>
-        <div class="phone phone1"><Phone>{#if phone.is == 'video'}<Video video={phone}/>{:else if phone.is =='image'}<Image width={800}  image={phone.image} alt={phone.title} />{/if}</Phone></div>
-        <div class="phone phone2"><Galaxy >{#if phone2.is == 'video'}<Video video={phone2}/>{:else if phone2.is =='image'}<Image width={800} image={phone2.image} alt={phone2.title} />{/if}</Galaxy></div>
-        <div class="comp comp2"><Laptop>{#if computer.is == 'video'}<Video video={computer}/>{:else if computer.is =='image'}<Image width={1600} image={computer.image} alt={computer.title} />{/if}</Laptop></div>
+        <div class="comp comp1"><Laptop>{#if computer2.is === 'video'}<Video video={computer2}/>{:else if computer2.is === 'image'}<Image width={1600} image={computer2.image} alt={computer2.title} />{/if}</Laptop></div>
+        <div class="tablet"><Tablet>{#if tablet.is === 'video'}<Video video={tablet}/>{:else if tablet.is === 'image'}<Image width={1200} image={tablet.image} alt={tablet.title} />{/if}</Tablet></div>
+        <div class="phone phone1"><Phone>{#if phone.is === 'video'}<Video video={phone}/>{:else if phone.is === 'image'}<Image width={800}  image={phone.image} alt={phone.title} />{/if}</Phone></div>
+        <div class="phone phone2"><Galaxy >{#if phone2.is === 'video'}<Video video={phone2}/>{:else if phone2.is === 'image'}<Image width={800} image={phone2.image} alt={phone2.title} />{/if}</Galaxy></div>
+        <div class="comp comp2"><Laptop>{#if computer.is === 'video'}<Video video={computer}/>{:else if computer.is === 'image'}<Image width={1600} image={computer.image} alt={computer.title} />{/if}</Laptop></div>
       </div>
   </div>
 
@@ -45,10 +47,8 @@ import Laptop from "$lib/components/Laptop.svelte";
     position: relative;
     min-height: 2500px;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0 100%);
-    background-color: #1F2229;
-    background: linear-gradient(80deg, #363e4e 0%, #1F2229 100% );
+    background: #1F2229 linear-gradient(80deg, #363e4e 0%, #1F2229 100%);
     color: rgb(var(--color-base-background));
-    position: relative;
     padding: clamp(40px, 8vh, 100px) 0;
     --color-background: 31, 34, 41;
     --color-foreground: var(--color-background);
@@ -75,12 +75,9 @@ import Laptop from "$lib/components/Laptop.svelte";
     top:0;
     width: 100%;
     overflow: unset;
-    z-index: 2;
-    @include media-query($small) {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
 
     z-index: 200;
 
@@ -98,7 +95,7 @@ import Laptop from "$lib/components/Laptop.svelte";
     text-align: center;
     width: 100%;
     text-shadow: 0 0 40px rgba(0,0,0,0.5);
-    margin: 0 auto clamp(20px, 10vh, 100px);
+    margin: 0 auto clamp(50px, 10vh, 120px);
     z-index: 100;
     @include media-query($small) {
       margin-bottom: 0;
@@ -107,7 +104,7 @@ import Laptop from "$lib/components/Laptop.svelte";
   .devices {
     width: 1480px;
     position: absolute;
-    top: 0%;
+    top: 0;
     left: 50%;
     transform-origin: 50% 50% -500px;
     display: flex;
@@ -151,6 +148,7 @@ import Laptop from "$lib/components/Laptop.svelte";
   .wrap {
     @include psuedoish;
     overflow: hidden;
+    opacity: 0.6;
   }
   .phone {
     flex: 0 0 320px;
@@ -177,13 +175,12 @@ import Laptop from "$lib/components/Laptop.svelte";
   .right {
     --box-bg-color: rgba(var(--color-background), 0.7);
     --color-foreground: 255,255,255;
-    flex: 1 1 200px;
-    margin: 50px 0 20px auto;
+    flex: 0 0 auto;
+    margin: auto 0 20px auto;
     max-width: 340px;
 
     @include media-query($small) {
       margin: auto ;
-      flex: 0 0 auto;
     }
 
   }

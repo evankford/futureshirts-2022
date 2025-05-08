@@ -3,6 +3,7 @@
   import Socials from "$lib/components/Socials.svelte";
   import Button from "$lib/components/Button.svelte";
   import {hasJobs, support } from "$lib/stores";
+  import type {MenuItemShape} from "$lib/types/sanity";
   export let menuItems:MenuItemShape[] | null, copyrightText:string, address:string|false=false ;
 </script>
 
@@ -44,7 +45,7 @@
   <ul>
     {#each menuItems as item, i}
     <MenuItem {item}/>
-    {#if i == 0 && $hasJobs}
+    {#if i === 0 && $hasJobs}
       <MenuItem item={{title: 'Careers', linkUrl: {openInNewTab: false,type:'internal' , url: '/jobs', } }} />
     {/if}
     {/each}
@@ -111,13 +112,13 @@
 
   .buttons {
     display: flex;
-    flex-wrap: auto;
+    flex-wrap: wrap;
     align-items: flex-start;
     justify-content: flex-start;
   }
 
   .socials {
-    margin: 12px auto;
+    margin: 12px auto 12px -0.35rem;
   }
   .copyright, .left, ul {
         flex: 1 1 200px;

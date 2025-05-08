@@ -3,11 +3,12 @@
   import MenuItem from "$lib/components/MenuItem.svelte";
   import {navOpen} from "$lib/stores"
   import {browser} from "$app/environment"
-  import Fa from "svelte-fa";
-  import {faBarsSort, faXmark} from "@fortawesome/pro-regular-svg-icons";
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
   import { fly } from "svelte/transition";
   import {hasJobs} from "$lib/stores";
   import { onDestroy } from "svelte";
+  import type {MenuItemShape} from "$lib/types/sanity";
 
 const unsubNav = navOpen.subscribe(val=> {
   if (browser) {
@@ -29,12 +30,12 @@ const unsubNav = navOpen.subscribe(val=> {
 
 <button class="nav-toggle" class:navOpen={$navOpen} on:click={()=>{$navOpen = !$navOpen}}>
   {#if $navOpen}
-    <span transition:fly={{x: 60}}><Fa icon={faXmark} /></span>
+    <span transition:fly|local={{x: 60}}><Fa icon={faXmark} /></span>
   {:else}
-    <span transition:fly={{x: 60}}><Fa icon={faBarsSort} /></span>
+    <span transition:fly|local={{x: 60}}><Fa icon={faBars} /></span>
   {/if}
 </button>
-<nav class:navOpen={$navOpen} aria-hidden={!$navOpen}>
+<nav class:navOpen={$navOpen}>
   <ul class="main">
     {#each menuItems as item }
       <MenuItem inNav {item}/>
@@ -67,9 +68,13 @@ const unsubNav = navOpen.subscribe(val=> {
     right: 0;
     top: 0;
     width: var(--buttonSize);
-    transition: color 600ms ease;
     height: var(--buttonSize);
     text-align: center;
+    overflow: hidden;
+    z-index: 2;
+    display: inline-block;
+    transition: color 200ms ease;
+
     @include media-query($small) {
       --buttonSize: 36px;
     }
@@ -82,10 +87,7 @@ const unsubNav = navOpen.subscribe(val=> {
       left: 50%;
       margin: calc(-0.25 * var(--buttonSize)) calc(-0.25 * var(--buttonSize) + 2px);
     }
-    overflow: hidden;
-    z-index: 2;
-    display: inline-block;
-    transition: color 200ms ease;
+
     &:hover, &:focus-visible {
       color: white;
       &:after {
@@ -159,7 +161,7 @@ const unsubNav = navOpen.subscribe(val=> {
         margin: 1em 0;
         opacity: 0.8;
     @include media-query($large-up) {
-      font-size: 18px;
+      font-size: 17px;
     }
     }
   }
@@ -168,7 +170,7 @@ const unsubNav = navOpen.subscribe(val=> {
     transition: transform 300ms ease, opacity 300ms ease;
     transform: translateY(10px);
     font-size: 18px;
-    margin: 0;
+    margin: 0 0 0 -1.4em;
     padding: 0.4em;
     .navOpen &  {
       opacity: 1;

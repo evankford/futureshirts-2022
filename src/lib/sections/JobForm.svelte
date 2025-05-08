@@ -2,7 +2,7 @@
   import FormWrap from "$lib/components/FormWrap.svelte";
   import Name from "$lib/components/fields/Name.svelte";
   import Email from "$lib/components/fields/Email.svelte";
-  import Phone from "$lib/components/fields/Phone.svelte";
+  import Phone from "../components/fields/PhoneField.svelte";
   import Upload from "$lib/components/fields/Upload.svelte";
   import Openings from "$lib/components/fields/Openings.svelte";
   import References from "$lib/components/fields/References.svelte";
@@ -13,6 +13,11 @@
   import type { CompleteMultipartUploadCommandOutput } from '@aws-sdk/client-s3';
 
   import slugify from "slugify";
+  import type {EmailOptionShape, Opening} from "$lib/types/sanity";
+  import {writable} from "svelte/store";
+  import type {Fields, JobData} from "../../global";
+  import type {SubmitFunction} from "$app/forms";
+  import Button from "$lib/components/Button.svelte";
 
 
   let uploadingResume=false,
@@ -58,7 +63,6 @@
 
   async function uploadFile(file:File, name:string):Promise<string|false>{
     try{
-      console.log('Uploading file');
       const response = await fetch(`/upload/${name}`, {
         method: 'PUT',
         body: file,

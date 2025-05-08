@@ -23,7 +23,7 @@
     }, 300);
   }
 
-  function submit(doIt:boolean = true) {
+  function submit(doIt = true) {
     submitted.update(()=>{ return true});
     if (doIt) {
       handleSubmit();
@@ -35,7 +35,7 @@
   onDestroy(()=> {
     unsubSubmitStore();
   })
-  export let centered: boolean = false;
+  export let centered = false;
 </script>
 <div class="button-wrap" class:centered >
 

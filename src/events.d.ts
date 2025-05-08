@@ -6,3 +6,4 @@ declare namespace svelte.JSX {
     onswiperight?: (e)=>void
   }
 }
+export {};

@@ -2,19 +2,16 @@
   import setupField from "$lib/setupField";
   import { slide }from "svelte/transition"
   import { getContext, onMount } from "svelte";
-  import RequiredIndicator from "$lib/components/fields/RequiredIndicator.svelte";
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
-  import { faCirclePlus, faCircleMinus } from "@fortawesome/pro-regular-svg-icons"
+  import { faCirclePlus, faCircleMinus } from "@fortawesome/free-solid-svg-icons"
     import{validate as validateEmail} from 'email-validator';
-  import {phone, type PhoneResult} from 'phone';
-
-  import Fa from "svelte-fa";
-
-
+  import { default as phone, type PhoneResult} from 'phone';
+  import type {FieldStore, JobReference, Fields} from "../../../global";
+  import Fa from 'svelte-fa/src/fa.svelte';
   const context:FieldStore = getContext('fields');
 
   function validateReference (r:JobReference, i: number) {
-    let resp:string  = '';
+    let resp  = '';
     if (r.name == '') {
       resp += `Please enter a name for reference ${i + 1}.<br/>`
     }
@@ -31,7 +28,7 @@
     if (r.phone == '') {
       resp += `Please enter a phone number for reference ${i + 1}.<br/>`
     } else {
-      const validatedPhone = phone(r.phone);
+      const validatedPhone:PhoneResult = phone(r.phone);
       if (!validatedPhone.isValid) {
         resp += `Please enter a valid phone number for reference ${i + 1}.<br/>`
       }
@@ -39,7 +36,7 @@
     return resp;
   }
 
-  function validate(v:any) {
+  function validate(v:unknown) {
     if ( !(Array.isArray(v))) {
      if (required) {
       return `Please add valid ${label}.`;
@@ -49,7 +46,7 @@
 
     let errorString = '';
 
-    v.forEach((r:any, i:number)=> {
+    v.forEach((r:JobReference, i:number)=> {
       const error = validateReference(r, i);
       if (error && error != '') {
         errorString+= error;
@@ -94,16 +91,15 @@
       return val;
     })
   }
-  export let required = false, id="references", label="References", max:number = 4;
+  export let required = false, id="references", label="References", max = 4;
 </script>
 
 <FieldWrap {id}>
-  <div class="wrap" for={id}>
-     {#if references.length == 0}
-    <div class="just-button" transition:slide>
-      <button type="button" on:click={()=>{addReference();}} aria-label="Add Reference"><Fa icon={faCirclePlus}/></button>
-    </div>
-
+  <div class="wrap">
+   {#if references.length === 0}
+      <div class="just-button" transition:slide>
+        <button type="button" on:click={()=>{addReference();}} aria-label="Add Reference"><Fa icon={faCirclePlus}/></button>
+      </div>
     {/if}
     <ul class="references">
       {#each references as reference, i}
@@ -113,21 +109,21 @@
         </div>
         <div class="fields">
           <label class="name">
-            <input autocomplete="none" type="text" required max={50} bind:value={reference.name}>
+            <input autocomplete="off" type="text" required max={50} bind:value={reference.name}>
             <span class="label-below">Name:</span>
           </label>
           <label class="relation">
-            <input autocomplete="none" type="text" required max={60} bind:value={reference.relation}>
+            <input autocomplete="off" type="text" required max={60} bind:value={reference.relation}>
             <span class="label-below">Relation:</span>
 
           </label>
           <label class="email">
-            <input autocomplete="none" type="email" required bind:value={reference.email}>
+            <input autocomplete="off" type="email" required bind:value={reference.email}>
             <span class="label-below">Email:</span>
 
           </label>
           <label class="phone">
-            <input autocomplete="none" type="tel" required bind:value={reference.phone}>
+            <input autocomplete="off" type="tel" required bind:value={reference.phone}>
             <span class="label-below">Phone:</span>
           </label>
         </div>
@@ -162,10 +158,9 @@
     --number-size: 32px;
     padding: 0;
     list-style: none;
-    margin: 0;
-    width: calc(100% + var(--number-size));
-    margin-left: calc(-1 * var(--number-size));
-    @include media-query($small) {
+     width: calc(100% + var(--number-size));
+     margin: 0 0 0 calc(-1 * var(--number-size));
+     @include media-query($small) {
       --number-size: 16px;
     }
    }

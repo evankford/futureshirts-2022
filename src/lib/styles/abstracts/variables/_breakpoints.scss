@@ -12,6 +12,7 @@ $small: 'small';
 $medium: 'medium';
 $medium-down: 'medium-down';
 $medium-up: 'medium-up';
+$marge: 'marge';
 $large: 'large';
 $large-down: 'large-down';
 $large-up: 'large-up';
@@ -23,6 +24,7 @@ $breakpoints: (
   $medium '(min-width: #{$grid-medium}) and (max-width: #{$grid-large - 1})',
   $medium-down '(max-width: #{$grid-large - 1})',
   $medium-up '(min-width: #{$grid-medium})',
+  $marge '(min-width: #{$grid-medium}) and (max-width: #{$grid-widescreen - 1})',
   $large '(min-width: #{$grid-large}) and (max-width: #{$grid-widescreen - 1})',
   $large-down '(max-width: #{$grid-widescreen - 1})',
   $large-up '(min-width: #{$grid-large})',

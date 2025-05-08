@@ -1,30 +1,40 @@
 import sanityClient from '@sanity/client'
-import { error, json } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 
 import imageUrlBuilder from '@sanity/image-url'
 import type { SanityImageSource} from "@sanity/image-url/lib/types/types"
+import {getFeaturedPartners, getPartners, getTeamMembers} from "$lib/draftCheck";
+import {getFileAsset, type SanityFileAsset, type SanityFileSource} from "@sanity/asset-utils";
 const apiVersion = '2021-10-21';
-const projectId = import.meta.env.VITE_PROJECT_ID;
-const dataset = import.meta.env.VITE_DATASET
+const projectId = import.meta.env.SANITY_PROJECT_ID;
+const dataset = import.meta.env.SANITY_DATASET
 
 export const client = sanityClient({
   projectId,
   dataset,
   apiVersion,
   useCdn: true,
-  token: import.meta.env.VITE_SANITY_TOKEN
+  token: import.meta.env.SANITY_TOKEN
 })
 
 const builder = imageUrlBuilder(client);
-export const urlFor = (source:SanityImageSource) => {
-  return builder.image(source);
+export const urlFor = (source: SanityImageSource) => {
+  if (typeof source === 'string' || !source) {
+    return source
+  }
+  if ('asset' in source) {
+    return builder.image(source);
+  }
+  if ('previewImage' in source) {
+    return source.previewImage;
+  }
 }
 
 export const sanityFetch = async (query:string, fetcher:typeof fetch| undefined = undefined) => {
   const url = `https://${projectId}.api.sanity.io/v${apiVersion}/data/query/${dataset}?query=${encodeURIComponent(query)}`;
   const headers = {
     'Content-Type': 'application/json',
-    'Authorization' : `Bearer ${import.meta.env.VITE_SANITY_TOKEN}`
+    'Authorization' : `Bearer ${import.meta.env.SANITY_TOKEN}`
   }
   if (fetcher){
 
@@ -40,19 +50,23 @@ export const sanityGet = async<T>(query:string, fetcher: typeof fetch | undefine
       const resp = await sanityFetch(query, fetcher );
       const data = await resp.json();
       if (!data?.result)  {
-        throw error(400, "No Data returned from CMS");
+        console.error(data)
+        // noinspection ExceptionCaughtLocallyJS
+        throw error(400, "No Data returned from CMS for query: " + query);
       }
       return data.result
-    } catch(e:any) {
+    } catch(e:unknown) {
       console.error(e);
-      throw error(500, e);
+      if (e instanceof Error){
+        throw error(500, e.message);
+      }
 
     }
   }
 
 
 
-const combineButtons = `"buttons" : buttons[]{title, "linkUrl" : linkUrl{..., ref->{slug, _type}}}`
+// const combineButtons = `"buttons" : buttons[]{title, "linkUrl" : linkUrl{..., ref->{slug, _type}}}`
 const standardStuff = `layout, title, intro , subtitle, anchor`
 function videoFields(str = 'video') {
   return `{'is': ${str}.is, 'image': ${str}.image , 'type' : ${str}.type, 'title': ${str}.title, 'background' : ${str}.background, 'url' : ${str}.url, 'fallbackImage' :  ${str}.fallbackImage, 'local': ${str}.video.asset->url, 'smallVideo' : ${str}.video.smallVersion.asset->url, 'localImage': ${str}.video.image }`
@@ -60,12 +74,14 @@ function videoFields(str = 'video') {
 
 export const sectionGroqs = {
   hero: `layout == 'hero' => { ${standardStuff}, box, heroGallery}`,
+  heroSimple: `layout == 'heroSimple' => { layout, title, anchor, subtitleLine1, subtitleLine2}`,
   more: `layout == 'more' => { ${standardStuff}, box, 'moreVideo' : ${videoFields('moreVideo')}}`,
   product: `layout == 'product' => { ${standardStuff}, image, imageSmall, box}`,
   tour: `layout == 'tour' => { ${standardStuff},box, quoteGallery}`,
   ecommerce: `layout == 'ecommerce' => { ${standardStuff}, box, counters, 'computer' : ${videoFields('computer')}, 'computer2' : ${videoFields('computer2')}, 'phone' : ${videoFields('phone')}, 'phone2' : ${videoFields('phone2')}, 'tablet' : ${videoFields('tablet')}}`,
   licensing: `layout == 'licensing' => { ${standardStuff},image, box, image2, logoGallery}`,
-  team: `layout == 'team' => {${standardStuff}, image, logoGallery}`,
+  team: `layout == 'team' => {${standardStuff}, "teamMembers": ${getTeamMembers()}{ title, image }}`,
+  partners: `layout == 'partners' => {${standardStuff}, "partners": ${getFeaturedPartners()}{ title, featuredImage }}`,
   connect: `layout == 'connect' => {${standardStuff}, instagramWidget,showSocials}`
 }
 

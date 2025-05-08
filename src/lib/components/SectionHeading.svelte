@@ -1,6 +1,6 @@
 <script lang="ts">
   import isOnScreen, { stopWatching } from "$lib/isOnScreen";
-  let visible:boolean = false;
+  let visible = false;
   let el:HTMLElement;
 
   export let title:string | null, intro: string | null, subtitle: string | null;

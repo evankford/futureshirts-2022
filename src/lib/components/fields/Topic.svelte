@@ -3,11 +3,12 @@
   import { onMount, getContext } from "svelte";
   import setupField from "$lib/setupField";
   import { PortableText} from "@portabletext/svelte";
-
   import FieldWrap from "$lib/components/fields/FieldWrap.svelte";
   import Select from "svelte-select";
   import RequiredIndicator from "$lib/components/fields/RequiredIndicator.svelte";
-
+  import type {Block} from "$lib/types/sections";
+  import type {ContactOption, EmailOptionShape} from "$lib/types/sanity";
+  import type {Fields} from "../../../global";
   const context:FieldStore = getContext('fields');
 
   type SelectOption = {value: string, label: string}
@@ -21,8 +22,18 @@
   }
   onMount(()=> {
     options = topics.map((o)=>{return {value: o.title, label: o.title}});
-    value = options.length >=1 ?  options[0].value : false;
     setupField(id, validate, context );
+    if (options.length >= 1) {
+      value = options[0].value;
+      context.update((val: Fields) => {
+        if (val[id]) {
+          val[id].value = value as string;
+          val[id].errorMsg = validate(value);
+        }
+        return val
+      });
+    }
+    value = options.length >=1 ?  options[0].value : false;
   });
 
   function handleChange(e: CustomEvent<{ detail:SelectOption , [x: string | number | symbol]: unknown }>) {
@@ -43,20 +54,21 @@
   }
   let listOpen = false, value: string | false , filterText ='';
 
-  export let topics: ContactOption[] = [], emailTo:EmailOptionShape[] | false = false, id: string = "topic", required:boolean = true;
+  export let topics: ContactOption[] = [], emailTo:EmailOptionShape[] | false = false, id = "topic", required = true;
 </script>
 <FieldWrap {id}>
-<label class:filled={value && value != '' || filterText.length > 0} class:active={listOpen} for={id}>
+<label class:filled={value && value != '' || filterText.length > 0} class:active={listOpen} for={id} style={{'z-index': listOpen ? 1000 : 1}}>
   <span class="label">Contacting About<RequiredIndicator {required} /></span>
   <div class="select">
     <Select
      isClearable={false} showChevron
      --chevron-box-shadow="none"
-    --input-color="var(--field-color)" --icons-color="var(--field-color-semi, var(--field-color))" --icons-color-focused="var(--field-color)"
-    --border-radius="var(--field-border-radius)" --background="transparent" --color="var(--field-color)" --height="calc(var(--field-line-height) + (2 * var(--field-padding-y)) + var(--field-padding-top-bump) + 2px)"
-    --input-padding="calc(var(--field-padding-top-bump) + 2px + var(--field-padding-y, var(--field-padding))) var(--field-padding-x, var(--field-padding)) calc(var(--field-padding-y, var(--field-padding)) + 2px)"
-    --selected-item-padding="calc(var(--field-padding-top-bump) + 2px +  var(--field-padding-y, var(--field-padding))) 0  var(--field-padding-y, var(--field-padding))"
-    --border-focus-color="var(--field-color)"
+     --input-color="var(--field-color, white)"  --selected-item-color="var(--field-color, white)"  --icons-color="var(--field-color-semi, var(--field-color))" --icons-color-focused="var(--field-color)"
+     --border-radius="var(--field-border-radius)" --background="transparent" --color="var(--field-color)" --height="calc(var(--field-line-height) + (2 * var(--field-padding-y)) + var(--field-padding-top-bump) + 2px)"
+     --input-padding="calc(var(--field-padding-top-bump) + 2px + var(--field-padding-y, var(--field-padding))) var(--field-padding-x, var(--field-padding)) calc(var(--field-padding-y, var(--field-padding)) + 2px)"
+     --selected-item-padding="calc(var(--field-padding-top-bump) + 2px +  var(--field-padding-y, var(--field-padding))) 0  var(--field-padding-y, var(--field-padding))"
+     --border-focus-color="var(--field-focused-color)"
+     --item-color="#3f3f3f" --item-hover-color="#3f3f3f"
     placeholder=""
     items={options} {id} on:change={handleChange} bind:listOpen bind:value bind:filterText />
   </div>
@@ -79,7 +91,9 @@
     }
    }
 
+
    .select {
+     --list-z-index: 99;
     @include fields.font;
    }
 

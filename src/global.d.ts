@@ -1,19 +1,21 @@
 /// <reference types="@portabletext/svelte"/>
 /// <reference types="svelte" />
-/// <reference types="svelte/store" />
+
+import type {Writable} from "svelte/store";
 
 interface ImportMetaEnv {
-  VITE_PROJECT_ID: string;
-  VITE_DATASET: string;
+  SANITY_PROJECT_ID: string;
+  SANITY_DATASET: string;
+  SANITY_TOKEN: string
   VITE_CANONICAL_URL: string
-  VITE_SANITY_TOKEN: string
   VITE_IS_PREVIEW: string
-  VITE_AWS_ACCESS_KEY_ID: string
-  VITE_AWS_SECRET_ACCESS_KEY: string
+  AWS_ACCESS_KEY_ID: string
+  AWS_SECRET_ACCESS_KEY: string
   VITE_SHEETS_USERNAME: string
   VITE_SHEETS_PASSWORD: string
   VITE_SHEETS_USERNAME_JOBS: string
   VITE_SHEETS_PASSWORD_JOBS: string
+  ADOBE_EMBED_KEY: string
 }
 
  interface FormField {
@@ -45,6 +47,7 @@ interface FileField {
 }
 
 type FieldStore = Writable<Fields>
+
 interface JobReference {
   name:string,
   relation: string,
